@@ -8,6 +8,9 @@
     margin: auto;
     text-decoration: none;
     height: 80px;
+    @media only screen and (max-width: 768px) {
+      height: 50px;
+    }
     padding: 0 10px;
     align-items: center;
     justify-content: space-between;
@@ -22,6 +25,9 @@
   font-size: 14px;
   button {
     color: #2963A8
+  }
+  @media only screen and (max-width: 768px) {
+    font-size: 10px;
   }
 }
 

@@ -1,14 +1,11 @@
 import React from 'react'
-import {
-  compose,
-  onlyUpdateForKeys,
-  withHandlers
-} from 'recompose'
-import './AssetsPageHeader.scss'
+import { compose, onlyUpdateForKeys, withHandlers } from 'recompose'
 import { Button } from 'utils'
+
 import createAssetSvg from './create-asset.icon.svg'
 import exportReportSvg from './export-report.icon.svg'
 import importAssetsSvg from './import-assets.icon.svg'
+import './AssetsPageHeader.scss'
 
 const Icon = ({ svg, className }) => <span {...{ className }} dangerouslySetInnerHTML={{ __html: svg }}/>
 
@@ -33,9 +30,8 @@ const AssetsPageHeader = ({ alertTodo }) => <div styleName="assets-header-width-
 </div>
 
 export default compose(
-  // TODO: note that this wont be updated
   onlyUpdateForKeys([]),
   withHandlers({
-    alertTodo: () => text => window.alert(`//TODO(vlad): ${  text}`)
+    alertTodo: () => text => window.alert(`//TODO(vlad): ${ text }`)
   })
 )(AssetsPageHeader)

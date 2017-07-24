@@ -1,10 +1,5 @@
 import React from 'react'
-import {
-  MenuItem,
-  RaisedButton,
-  SelectField,
-  TextField
-} from 'material-ui'
+import { MenuItem, RaisedButton, SelectField, TextField } from 'material-ui'
 import './utils.scss'
 
 export const DropDown = ({ value, onChange, values, placeholder = '' }) => {
@@ -41,6 +36,6 @@ export const TextInput = ({ hintText, rows, onChange, value, errorText, multiLin
 
 export const encodeQueryData = data => {
   let ret = []
-  for (let d in data) {ret.push(`${encodeURIComponent(d)}=${  encodeURIComponent(data[d])}`)}
+  for (let d in data) {ret.push(`${encodeURIComponent(d)}=${ encodeURIComponent(data[d]) }`)}
   return ret.join('&')
 }

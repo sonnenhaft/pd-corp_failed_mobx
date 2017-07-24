@@ -28,7 +28,7 @@ axios.interceptors.response.use(
     let message = ''
 
     if ( typeof a === 'string' && typeof b === 'string' ) {
-      message = `${arguments[0]  }...`
+      message = `${ arguments[0] }...`
       args = Array.from(arguments).slice(1)
     }
     console.log('ajax call to ', message)
