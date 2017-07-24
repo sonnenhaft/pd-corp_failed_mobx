@@ -22,12 +22,13 @@ export const DropDown = ({ value, onChange, values, placeholder = '' }) => {
 }
 
 export const Button = ({ children, onClick, disabled }) => {
-  return <RaisedButton
-    fullWidth={true}
-    className="global-button"
-    {...{ onClick, disabled }}>
-    {children}
-  </RaisedButton>
+  return <div className="global-button">
+    <RaisedButton
+      fullWidth={true}
+      {...{ onClick, disabled }}>
+      {children}
+    </RaisedButton>
+  </div>
 }
 
 export const TextInput = ({ hintText, rows, onChange, value, errorText, multiLine }) => {
