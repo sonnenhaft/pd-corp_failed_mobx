@@ -1,0 +1,44 @@
+body {
+  font-family: sans-serif;
+}
+
+.header-wrapper {
+  display: flex;
+  background: #0077c5;
+  color: white;
+  text-decoration: none;
+  height: 80px;
+  padding-left: 10px;
+  align-items: center;
+}
+
+.header {
+  width: 100%;
+  display: flex;
+  justify-content: space-around;
+
+  a {
+    color: inherit;
+    text-decoration: inherit;
+    &.active, &:hover {
+      font-weight: bold;
+    }
+    &.active {
+      cursor: default;
+    }
+    &::after {
+      display: block;
+      content: attr(title);
+      font-weight: bold;
+      height: 1px;
+      color: transparent;
+      overflow: hidden;
+      visibility: hidden;
+      margin-bottom: -1px;
+    }
+    &:hover {
+      text-decoration: underline;
+      cursor: pointer;
+    }
+  }
+}
