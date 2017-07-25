@@ -1,19 +1,24 @@
 import React from 'react'
 import { MenuItem, RaisedButton, SelectField, TextField } from 'material-ui'
 import './utils.scss'
+import generateDemoTable from './generateDemoTable'
 
-export const DropDown = ({ value, onChange, values, placeholder = '' }) => {
-  return <SelectField
-    floatingLabelText={placeholder}
-    value={value}
-    autoWidth={true}
-    fullWidth={true}
-    onChange={(ignored, index, value) => onChange({ target: { value } })}
-  >
-    {values.map(({ key, value: val }, idx) => {
-      return <MenuItem key={idx} value={key} primaryText={val}/>
-    })}
-  </SelectField>
+export { generateDemoTable }
+
+export const DropDown = ({ value, onChange, values = [], placeholder = '' }) => {
+  return <div>
+    <SelectField
+      floatingLabelText={placeholder}
+      value={value}
+      autoWidth={true}
+      fullWidth={true}
+      onChange={(ignored, index, value) => onChange({ target: { value } })}
+    >
+      {values.map(({ key, value: val }, idx) => {
+        return <MenuItem key={idx} value={key} primaryText={val}/>
+      })}
+    </SelectField>
+  </div>
 }
 
 export const Button = ({ children, onClick, disabled }) => {
