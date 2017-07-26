@@ -2,6 +2,7 @@ import React from 'react'
 import ReactPaginate from 'react-paginate'
 
 import CustomTable from './CustomTable'
+import DeleteDialog from './DeleteDialog'
 import FilterColumnsButton from './FilterColumnsButton'
 import styles from './PaginatableTable.scss'
 import { compose, onlyUpdateForKeys, withHandlers, withProps, withState } from 'recompose'
@@ -12,7 +13,7 @@ const PaginatableTable = props => {
   return <div>
     <div styleName="filter-button">
       <div>ASSETS FOUND ({data.length})</div>
-      {!!selectedIndexes.length && <button>Delete</button>}
+      {!!selectedIndexes.length && <DeleteDialog/>}
       <FilterColumnsButton {...{ labels, changeInactiveState, inactiveLabelsMap }} />
     </div>
 

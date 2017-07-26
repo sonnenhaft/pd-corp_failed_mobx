@@ -1,6 +1,6 @@
 import React from 'react'
 import './FilterColumnsButton.scss'
-import PopoverButton from './PopoverButton'
+import PopoverButton from 'common/PopoverButton'
 import Checkbox from 'material-ui/Checkbox'
 
 const FilterColumnsButton = ({ labels, changeInactiveState, inactiveLabelsMap }) => <div>
