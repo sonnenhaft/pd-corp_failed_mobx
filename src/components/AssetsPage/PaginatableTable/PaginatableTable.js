@@ -4,18 +4,19 @@ import ReactPaginate from 'react-paginate'
 import CustomTable from './CustomTable'
 import FilterColumnsButton from './FilterColumnsButton'
 import styles from './PaginatableTable.scss'
-import { compose, withHandlers, withState } from 'recompose'
+import { compose, onlyUpdateForKeys, withHandlers, withProps, withState } from 'recompose'
 
-const PaginatableTable = ({ labels, data, changeInactiveState, inactiveLabelsMap }) => {
-  const tableLabels = labels.filter(({ key }) => !inactiveLabelsMap[key])
+const PaginatableTable = props => {
+  const { labels, data, changeInactiveState, inactiveLabelsMap, selectedIndexes, setSelectedIndexes, tableLabels } = props
 
   return <div>
     <div styleName="filter-button">
       <div>ASSETS FOUND ({data.length})</div>
+      {!!selectedIndexes.length && <button>Delete</button>}
       <FilterColumnsButton {...{ labels, changeInactiveState, inactiveLabelsMap }} />
     </div>
 
-    <CustomTable {...{ labels: tableLabels, data }}/>
+    <CustomTable {...{ labels: tableLabels, data, setSelectedIndexes }}/>
     <div>
       <ReactPaginate previousLabel={''}
                      nextLabel={'>'}
@@ -33,8 +34,21 @@ const PaginatableTable = ({ labels, data, changeInactiveState, inactiveLabelsMap
 }
 
 export default compose(
+  onlyUpdateForKeys(['labels', 'data']),
   withState('inactiveLabelsMap', 'setInactiveLabelsMap', {}),
+  withProps(({ labels, inactiveLabelsMap }) => ({
+    tableLabels: labels.filter(({ key }) => !inactiveLabelsMap[key])
+  })),
+  withState('selectedIndexes', 'setIndexes', []),
   withHandlers({
+    setSelectedIndexes: ({ setIndexes, data }) => indexes => {
+      if ( indexes === 'all' ) {
+        indexes = data.map((item, index) => index)
+      } else if ( indexes === 'none' ) {
+        indexes = []
+      }
+      setIndexes(indexes)
+    },
     changeInactiveState: ({ setInactiveLabelsMap, inactiveLabelsMap }) => (isInactive, key) => {
       if ( isInactive ) {
         inactiveLabelsMap[key] = true

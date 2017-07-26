@@ -1,12 +1,13 @@
 import React from 'react'
 import { Table, TableBody, TableHeader, TableHeaderColumn, TableRow, TableRowColumn } from 'material-ui/Table'
 
-const CustomTable = ({ labels, data, isSelectable = true, children }) => {
+const CustomTable = ({ labels, data, isSelectable = true, children, setSelectedIndexes }) => {
 
  return <Table
    fixedHeader={false}
    fixedFooter={false}
    selectable={isSelectable}
+   onRowSelection={setSelectedIndexes}
    multiSelectable={isSelectable}>
    <TableHeader
      displaySelectAll={isSelectable}
@@ -23,6 +24,7 @@ const CustomTable = ({ labels, data, isSelectable = true, children }) => {
    <TableBody stripedRows={true}
               displayRowCheckbox={isSelectable}
               preScanRows={false}
+              deselectOnClickaway={false}
               showRowHover={true}>
      {data.map((row, index) => (
        <TableRow key={index}>

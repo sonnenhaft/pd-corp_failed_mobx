@@ -1,15 +1,3 @@
-.actions-table {
-  width: 25px;
-  td {
-    padding-left: 8px !important;
-    padding-right: 8px !important;
-    position: relative;
-  }
-  tr {
-    border: 1px solid black !important;
-  }
-}
-
 .scrollable-table {
   width: calc(100% - 25px);
   table {
@@ -36,14 +24,32 @@
   overflow: hidden;
 }
 
-.action {
-  //position: relative;
+.actions-table {
+  width: 25px;
+  td {
+    padding-left: 8px !important;
+    padding-right: 8px !important;
+  }
+  tr {
+    border: 1px solid black !important;
+  }
+  position: relative;
+
+  .action:hover .action-menu {
+    visibility: visible;
+  }
   .action-menu {
+    visibility: hidden;
     position: absolute;
-    right: 0;
-    width: 109px;
-    z-index: 1;
-    //top:0;
+    right: 1px;
+    margin-top: -30px;
+    padding-top: 12px;
+    padding-left: 10px;
+    padding-right: 10px;
+    height: 35px;
+    background: white;
   }
 }
+
+
 
