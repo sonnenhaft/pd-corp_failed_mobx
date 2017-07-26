@@ -10,10 +10,10 @@ const ACTIONS_LABEL = [
   { label: '', key: 'action' }
 ]
 
-const CustomTable = ({ labels, data, setSelectedIndexes, location }) => {
+const CustomTable = ({ labels, data, setSelectedIndexes, location, sort, setSort }) => {
   return <div styleName="tables-wrapper">
     <div styleName="scrollable-table">
-      <Table {...{ labels, data, setSelectedIndexes }}/>
+      <Table {...{ labels, data, setSelectedIndexes, sort, setSort }}/>
     </div>
     <div styleName="actions-table">
       <Table labels={ACTIONS_LABEL} data={data} isSelectable={false}>

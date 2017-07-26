@@ -8,7 +8,7 @@ import styles from './PaginatableTable.scss'
 import { compose, onlyUpdateForKeys, withHandlers, withProps, withState } from 'recompose'
 
 const PaginatableTable = props => {
-  const { labels, data, changeInactiveState, inactiveLabelsMap, selectedIndexes, setSelectedIndexes, tableLabels } = props
+  const { labels, data, changeInactiveState, inactiveLabelsMap, selectedIndexes, setSelectedIndexes, tableLabels, sort, setSort } = props
 
   return <div>
     <div styleName="filter-button">
@@ -17,7 +17,7 @@ const PaginatableTable = props => {
       <FilterColumnsButton {...{ labels, changeInactiveState, inactiveLabelsMap }} />
     </div>
 
-    <CustomTable {...{ labels: tableLabels, data, setSelectedIndexes }}/>
+    <CustomTable {...{ labels: tableLabels, data, setSelectedIndexes, sort, setSort }}/>
     <div>
       <ReactPaginate previousLabel={''}
                      nextLabel={'>'}
@@ -37,11 +37,20 @@ const PaginatableTable = props => {
 export default compose(
   onlyUpdateForKeys(['labels', 'data']),
   withState('inactiveLabelsMap', 'setInactiveLabelsMap', {}),
+  withState('sort', '_setSort', {}),
   withProps(({ labels, inactiveLabelsMap }) => ({
     tableLabels: labels.filter(({ key }) => !inactiveLabelsMap[key])
   })),
   withState('selectedIndexes', 'setIndexes', []),
   withHandlers({
+    setSort: ({ _setSort, sort }) => key => {
+      if ( sort.key === key ) {
+        sort.asc = !sort.asc
+      } else {
+        sort = { key, asc: true }
+      }
+      _setSort(sort)
+    },
     setSelectedIndexes: ({ setIndexes, data }) => indexes => {
       if ( indexes === 'all' ) {
         indexes = data.map((item, index) => index)
