@@ -1,14 +1,14 @@
 import React from 'react'
 import { connect } from 'react-redux'
 import { compose } from 'recompose'
-import { Button, generateDemoTable } from 'utils'
+import { generateDemoTable } from 'utils'
 import { Card, CardText } from 'material-ui/Card'
 
 import AssetsPageHeader from './AssetsPageHeader'
-import Table from './Table'
 import SearchInputs from './SearchInputs'
-import styles from './AssetsPage.scss'
-import ReactPaginate from 'react-paginate'
+import PaginatableTable from './PaginatableTable'
+
+import './AssetsPage.scss'
 
 const labels = [
   { label: 'Asset Number', key: 'asset_number' },
@@ -16,14 +16,18 @@ const labels = [
   { label: 'Key Location ID', key: 'key_location_id' },
   { label: 'Key Location Name', key: 'key_location_name' },
   { label: 'Asset Type', key: 'asset_type' },
-  { label: 'Model Name', key: 'model_name' }
-  // { label: 'Model Name', key: 'model_name1' },
-  // { label: 'Model Name', key: 'model_name2' },
-  // { label: 'Model Name', key: 'model_name3' },
-  // { label: 'Model Name', key: 'model_name4' }
+  { label: 'Model Name', key: 'model_name' },
+  { label: 'Model Name', key: 'model_name1' },
+  { label: 'Model Name', key: 'model_name2' },
+  { label: 'Model Name', key: 'model_name3' },
+  { label: 'Model Name', key: 'model_name4' },
+  { label: 'Model Name', key: 'model_name5' },
+  { label: 'Model Name', key: 'model_name6' },
+  { label: 'Model Name', key: 'model_name7' },
+  { label: 'Model Name', key: 'model_name8' }
 ]
 
-const tableData = generateDemoTable(labels)
+const data = generateDemoTable(labels)
 
 const AssetsPage = () => {
   return <div>
@@ -32,28 +36,7 @@ const AssetsPage = () => {
       <SearchInputs/>
       <Card >
         <CardText>
-
-          <div styleName="filter-button">
-            <div>ASSETS FOUND ({tableData.length})</div>
-            <Button>Filter columns (gear icon)</Button>
-          </div>
-          <div styleName="scrollable-table">
-            <Table labels={labels} data={tableData}/>
-          </div>
-
-          <div>
-            <ReactPaginate previousLabel={''}
-                           nextLabel={'>'}
-                           breakLabel={<a href="">...</a>}
-                           breakClassName={'break-me'}
-                           pageCount={120}
-                           marginPagesDisplayed={2}
-                           pageRangeDisplayed={5}
-                           onPageChange={this.handlePageClick}
-                           containerClassName={styles['pagination']}
-                           subContainerClassName={'pages pagination'}
-                           activeClassName={'active'}/>
-          </div>
+          <PaginatableTable {...{ labels, data }}/>
         </CardText>
       </Card>
     </div>

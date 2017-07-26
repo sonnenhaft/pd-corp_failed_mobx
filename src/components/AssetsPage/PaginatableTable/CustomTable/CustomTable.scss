@@ -1,0 +1,49 @@
+.actions-table {
+  width: 25px;
+  td {
+    padding-left: 8px !important;
+    padding-right: 8px !important;
+    position: relative;
+  }
+  tr {
+    border: 1px solid black !important;
+  }
+}
+
+.scrollable-table {
+  width: calc(100% - 25px);
+  table {
+    table-layout: auto !important;
+    th:first-of-type, td:first-of-type {
+      border: 1px solid black !important;
+      padding-left: 14px !important;
+      padding-right: 0 !important;
+    }
+    th {
+      border: 1px solid black !important;
+    }
+    th:last-of-type {
+      border-right: none!important;
+    }
+  }
+  & > div > div {
+    overflow-x: auto !important;
+  }
+}
+
+.tables-wrapper {
+  display: flex;
+  overflow: hidden;
+}
+
+.action {
+  //position: relative;
+  .action-menu {
+    position: absolute;
+    right: 0;
+    width: 109px;
+    z-index: 1;
+    //top:0;
+  }
+}
+

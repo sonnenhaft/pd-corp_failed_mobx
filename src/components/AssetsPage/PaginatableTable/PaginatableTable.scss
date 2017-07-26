@@ -1,0 +1,13 @@
+.filter-button {
+  display: flex;
+  justify-content: space-between;
+}
+
+.pagination {
+  display: flex;
+  list-style-type: none;
+  li {
+    cursor: pointer;
+    margin-right: 8px;
+  }
+}
