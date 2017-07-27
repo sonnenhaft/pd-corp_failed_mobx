@@ -18,7 +18,9 @@ const Header = ({ user: { name: username } }) => <div
   styleName="header-width-wrapper">
   <hr/>
   <div styleName="header-wrapper">
-    <img src={logoIcon} styleName="logo"/>
+    <div styleName="logo">
+      <img src={logoIcon}/>
+    </div>
     <div styleName="header">
       {stableLinks.map(({ link, value }) => <NavLink
         key={value} title={value} activeClassName={styles['active']}

@@ -11,7 +11,7 @@ const Icon = ({ svg, className }) => <span {...{ className }} dangerouslySetInne
 
 const AssetsPageHeader = ({ alertTodo }) => <div styleName="assets-header-width-wrapper">
   <div styleName="assets-header-wrapper">
-    <div>ASSETS</div>
+    <div styleName="header-text">ASSETS</div>
     <div styleName="buttons">
       <Button onClick={() => alertTodo('define create asset action')}>
         <Icon svg={createAssetSvg} styleName="icon"/>
