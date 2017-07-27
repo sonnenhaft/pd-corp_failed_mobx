@@ -1,6 +1,6 @@
 import React from 'react'
 import { connect } from 'react-redux'
-import { HashRouter, Route, Switch } from 'react-router-dom'
+import { HashRouter as Router, Route, Switch } from 'react-router-dom'
 
 import Header from './components/Header'
 import AssetsPage from './components/AssetsPage'
@@ -8,8 +8,8 @@ import './App.scss'
 
 const App = ({ user }) => {
   if ( user ) {
-    return <HashRouter>
-      <div>
+    return <Router>
+      <div styleName="app">
         <Header/>
         <Switch>
           <Route exact path="/assets" component={AssetsPage}/>
@@ -21,7 +21,7 @@ const App = ({ user }) => {
           PD Corp v{process.env.VERSION}
         </div>
       </div>
-    </HashRouter>
+    </Router>
   } else {
     return <div>Login page</div>
   }

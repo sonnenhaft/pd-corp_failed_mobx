@@ -62,6 +62,13 @@ const common = {
       },
       { test: /\.mp3$/, loader: 'file-loader' },
       { test: /\.svg$/, use: [{ loader: 'raw-loader' }] },
+      // { test: /\.eot$/, use: [{ loader: 'raw-loader' }] },
+      {
+        test: /\.(ttf|otf|eot|woff|woff2?)(\?[a-z0-9]+)?$/,
+        use: [{ loader: 'file-loader?name=fonts/[name].[ext]' }],
+        // use: [{ loader: 'raw-loader' }]
+      },
+
       { test: /\.(png|gif)(\?.*)?$/, loader: 'url-loader?limit=100000' }
     ]
   },
