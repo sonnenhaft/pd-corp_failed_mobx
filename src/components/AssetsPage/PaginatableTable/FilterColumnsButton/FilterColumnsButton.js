@@ -1,18 +1,21 @@
 import React from 'react'
-import './FilterColumnsButton.scss'
 import PopoverButton from 'common/PopoverButton'
-import Checkbox from 'material-ui/Checkbox'
+import { Checkbox } from 'utils'
+import './FilterColumnsButton.scss'
 
 const FilterColumnsButton = ({ labels, changeInactiveState, inactiveLabelsMap }) => <div>
   <PopoverButton label={() => {
-    return <div>Filter columns (gear icon) {labels.length}</div>
+    return <div>Filter Columns (gear icon) {labels.length}</div>
   }}>
-    <div>
-      {labels.map(({ key, label }) => <Checkbox
-        key={key}
-        label={label}
-        checked={!inactiveLabelsMap[key]}
-        onCheck={(ignored, bool) => changeInactiveState(!bool, key)}/>)}
+    <div styleName="checkbox-wrapper">
+      {labels.map(({ key, label }) => {
+        const checked = !inactiveLabelsMap[key]
+        return <Checkbox
+          key={key}
+          {...{ label, checked }}
+          styleName={`checkbox ${checked ? '' : 'inactive-checkbox'}`}
+          onCheck={(ignored, bool) => changeInactiveState(!bool, key)}/>
+      })}
     </div>
   </PopoverButton>
 </div>

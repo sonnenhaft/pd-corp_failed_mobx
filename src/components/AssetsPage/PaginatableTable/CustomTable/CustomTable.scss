@@ -1,17 +1,21 @@
 .scrollable-table {
   width: calc(100% - 25px);
+  td {
+    color: #52555b;
+  }
+
   table {
     table-layout: auto !important;
     th:first-of-type, td:first-of-type {
-      border: 1px solid black !important;
+      border: 1px solid #D6D6D6 !important;
       padding-left: 14px !important;
       padding-right: 0 !important;
     }
-    th {
-      border: 1px solid black !important;
+    th, tr {
+      border: 1px solid #D6D6D6 !important;
     }
     th:last-of-type {
-      border-right: none!important;
+      border-right: none !important;
     }
   }
   & > div > div {
@@ -31,7 +35,7 @@
     padding-right: 8px !important;
   }
   tr {
-    border: 1px solid black !important;
+    border: 1px solid #D6D6D6 !important;
   }
   position: relative;
 
@@ -39,17 +43,25 @@
     visibility: visible;
   }
   .action-menu {
+    display: flex;
     visibility: hidden;
     position: absolute;
     right: 1px;
-    margin-top: -30px;
-    padding-top: 12px;
-    padding-left: 10px;
-    padding-right: 10px;
-    height: 35px;
+    transition: none;
     background: white;
+    margin-top: -31px;
+    padding-top: 7px;
+    padding-bottom: 8px;
+    padding-right: 10px;
+    padding-left: 16px;
+    & > a {
+      margin-right: 8px;
+    }
   }
 }
 
-
-
+.scrollable-table, .actions-table {
+  tr td, th {
+    font-size: 13px !important;
+  }
+}

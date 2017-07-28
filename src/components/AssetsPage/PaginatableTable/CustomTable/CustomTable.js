@@ -5,6 +5,7 @@ import { compose, onlyUpdateForKeys } from 'recompose'
 import { NavLink, withRouter } from 'react-router-dom'
 import Table from './Table'
 import DeleteDialog from '../DeleteDialog'
+import { Button } from 'utils'
 
 const ACTIONS_LABEL = [
   { label: '', key: 'action' }
@@ -22,7 +23,7 @@ const CustomTable = ({ labels, data, setSelectedIndexes, location, sort, setSort
             ---
             <div styleName="action-menu">
               <NavLink to={`${location.pathname}/edit/${index}`} replace exact>
-                <button>update icon</button>
+                <Button>Update (icon in here)</Button>
               </NavLink>
               <DeleteDialog/>
             </div>

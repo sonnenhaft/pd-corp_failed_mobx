@@ -11,9 +11,9 @@ const Dialog = ({ isOpened, setIsOpened, label, content }) => {
   ]
 
   return <div>
-    <button onClick={() => setIsOpened(!isOpened)}>
+    <div onClick={() => setIsOpened(!isOpened)}>
       {label()}
-    </button>
+    </div>
 
     <UiDialog
       title="Dialog With Actions"

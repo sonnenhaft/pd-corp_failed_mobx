@@ -1,13 +1,38 @@
 .filter-button {
   display: flex;
   justify-content: space-between;
+  align-items: center;
+  margin-bottom: 16px;
+  .header {
+    color: #014990;
+    font-size: 16px;
+  }
+  .flex-buttons {
+    display: flex;
+    .some-right-wrapper {
+      margin-right: 16px;
+    }
+  }
+}
+
+.paginatable-table {
+  padding: 16px
 }
 
 .pagination {
   display: flex;
   list-style-type: none;
+  padding: 0;
+  margin-left: -8px;
+
   li {
     cursor: pointer;
-    margin-right: 8px;
+    padding: 3px 6px;
+    font-family: "HelveticaNeue", sans-serif;
+    &.active-page-link, &:hover {
+      background-color: #0077c8;
+      border-radius: 3px;
+      color: white
+    }
   }
 }

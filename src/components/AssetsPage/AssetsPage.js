@@ -2,7 +2,7 @@ import React from 'react'
 import { connect } from 'react-redux'
 import { compose } from 'recompose'
 import { generateDemoTable } from 'utils'
-import { Card, CardText } from 'material-ui/Card'
+import Paper from 'material-ui/Paper'
 
 import AssetsPageHeader from './AssetsPageHeader'
 import SearchInputs from './SearchInputs'
@@ -17,14 +17,17 @@ const labels = [
   { label: 'Key Location Name', key: 'key_location_name' },
   { label: 'Asset Type', key: 'asset_type' },
   { label: 'Model Name', key: 'model_name' },
-  { label: 'Model Name', key: 'model_name1' },
-  { label: 'Model Name', key: 'model_name2' },
-  { label: 'Model Name', key: 'model_name3' },
-  { label: 'Model Name', key: 'model_name4' },
-  { label: 'Model Name', key: 'model_name5' },
-  { label: 'Model Name', key: 'model_name6' },
-  { label: 'Model Name', key: 'model_name7' },
-  { label: 'Model Name', key: 'model_name8' }
+  { label: 'RFID #', key: 'rfid' },
+  { label: 'Bar Code #', key: 'barCode' },
+  { label: 'Serial Number', key: 'serialNumber' },
+  { label: 'Asset/Equipment Number', key: 'assetNumber' },
+  { label: 'Owner/Department', key: 'owner' },
+  { label: 'Manufacturer', key: 'manufacturer' },
+  { label: 'Model', key: 'model' },
+  { label: 'Description', key: 'description' },
+  { label: 'Location', key: 'location' },
+  { label: 'Notes', key: 'notes' },
+  { label: 'Status', key: 'status' }
 ]
 
 const data = generateDemoTable(labels)
@@ -34,11 +37,9 @@ const AssetsPage = () => {
     <AssetsPageHeader/>
     <div styleName="page-wrapper">
       <SearchInputs/>
-      <Card >
-        <CardText>
-          <PaginatableTable {...{ labels, data }}/>
-        </CardText>
-      </Card>
+      <Paper>
+        <PaginatableTable {...{ labels, data }}/>
+      </Paper>
     </div>
   </div>
 }

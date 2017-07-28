@@ -12,12 +12,14 @@ const Icon = ({ svg, className }) => <span {...{ className }} dangerouslySetInne
 const AssetsPageHeader = ({ alertTodo }) => <div styleName="assets-header-width-wrapper">
   <div styleName="assets-header-wrapper">
     <div styleName="header-text">ASSETS</div>
-    <div styleName="buttons">
+    <div>
       <Button onClick={() => alertTodo('define create asset action')}>
         <Icon svg={createAssetSvg} styleName="icon"/>
         Create Asset
       </Button>
-      <Button onClick={() => alertTodo('define import assets action')}>
+
+      <Button onClick={() => alertTodo('define import assets action')}
+              disabled={true} styleName="middle-button">
         <Icon svg={importAssetsSvg} styleName="icon"/>
         Import Assets
       </Button>

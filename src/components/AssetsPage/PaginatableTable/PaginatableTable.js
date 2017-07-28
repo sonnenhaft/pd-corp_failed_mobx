@@ -10,18 +10,23 @@ import { compose, onlyUpdateForKeys, withHandlers, withProps, withState } from '
 const PaginatableTable = props => {
   const { labels, data, changeInactiveState, inactiveLabelsMap, selectedIndexes, setSelectedIndexes, tableLabels, sort, setSort } = props
 
-  return <div>
+  return <div styleName="paginatable-table">
     <div styleName="filter-button">
-      <div>ASSETS FOUND ({data.length})</div>
-      {!!selectedIndexes.length && <DeleteDialog/>}
-      <FilterColumnsButton {...{ labels, changeInactiveState, inactiveLabelsMap }} />
+      <div styleName="header">ASSETS FOUND ({data.length})</div>
+      <div styleName="flex-buttons">
+        <div styleName="some-right-wrapper">
+          {!!selectedIndexes.length && <DeleteDialog/>}
+        </div>
+
+        <FilterColumnsButton {...{ labels, changeInactiveState, inactiveLabelsMap }} />
+      </div>
     </div>
 
     <CustomTable {...{ labels: tableLabels, data, setSelectedIndexes, sort, setSort }}/>
     <div>
       <ReactPaginate previousLabel={''}
                      nextLabel={'>'}
-                     breakLabel={<a href="">...</a>}
+                     breakLabel={<span>...</span>}
                      breakClassName={'break-me'}
                      pageCount={120}
                      marginPagesDisplayed={2}
@@ -29,7 +34,7 @@ const PaginatableTable = props => {
                      onPageChange={this.handlePageClick}
                      containerClassName={styles['pagination']}
                      subContainerClassName={'pages pagination'}
-                     activeClassName={'active'}/>
+                     activeClassName={styles['active-page-link']}/>
     </div>
   </div>
 }

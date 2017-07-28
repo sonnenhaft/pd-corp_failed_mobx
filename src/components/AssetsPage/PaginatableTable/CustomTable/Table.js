@@ -1,8 +1,8 @@
 import React from 'react'
 import { Table, TableBody, TableHeader, TableHeaderColumn, TableRow, TableRowColumn } from 'material-ui/Table'
+import './Table.scss'
 
 const CustomTable = ({ labels, data, isSelectable = true, children, setSelectedIndexes, sort, setSort }) => {
-
   return <Table
     fixedHeader={false}
     fixedFooter={false}
@@ -15,13 +15,13 @@ const CustomTable = ({ labels, data, isSelectable = true, children, setSelectedI
       enableSelectAll={isSelectable}>
       <TableRow>
         {labels.map(({ label, key }) => {
+          const sortByThisKey = sort && sort.key === key
           return <TableHeaderColumn key={key}>
-            {setSort && <div onClick={() => setSort(key)}>
-              {label}
-              <span>
-                &nbsp;
-                {sort && sort.key === key && (sort.asc ? 'asc' : 'desc')}
-              </span>
+            {setSort && <div onClick={() => setSort(key)} styleName="clickable">
+              {sortByThisKey && <span styleName="current-th">
+                {label}&nbsp;{sort.asc ? 'asc' : 'desc'}
+              </span> }
+              {!sortByThisKey && label }
             </div>}
             {!setSort && label}
           </TableHeaderColumn>

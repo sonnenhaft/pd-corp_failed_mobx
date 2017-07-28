@@ -27,7 +27,7 @@ const SearchInputs = () => <Card styleName="search-inputs-card">
       </div>
     </div>
     <div styleName="search-button-wrapper">
-      <Button>SEARCH</Button>
+      <Button primary={true}>SEARCH</Button>
     </div>
   </CardText>
 </Card>
