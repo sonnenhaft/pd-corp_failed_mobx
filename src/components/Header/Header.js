@@ -36,5 +36,5 @@ const Header = ({ user: { name: username } }) => <div
 export default compose(
   withRouter,
   connect(({ user }) => ({ user })),
-  onlyUpdateForKeys(['user'])
+  onlyUpdateForKeys(['user', 'location'])
 )(Header)
