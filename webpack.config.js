@@ -12,10 +12,9 @@ const devServerPort = process.env.DEV_SERVER_PORT
 
 const pkg = require('./package.json')
 process.env.VERSION = pkg.version
-const vendorPackages = Object.keys(pkg.dependencies)
-  .filter(k => k !== 'babel-plugin-react-css-modules')
 
-function copyEnvVars(...vars) {
+function copyEnvVars() {
+  const vars = Array.prototype.slice.call(arguments)
   return vars.reduce((e, v) => {
     e[`process.env.${v}`] = JSON.stringify(process.env[v])
     return e
@@ -152,10 +151,16 @@ const production = {
   ]
 }
 
-const dev = process.env.BUILD_DEV === 'true' ? production : development
-const prod = process.env.NO_BUILD === 'true' ? development : production
+const getEnv = () => {
+  const isDevelopment = process.env.NODE_ENV === 'development'
+  const buildDev = process.env.BUILD_DEV === 'true'
+  const noBuild = process.env.NO_BUILD === 'true'
 
-module.exports = merge(common, {
-  production: prod,
-  development: dev
-}[process.env.NODE_ENV])
+  if ( (isDevelopment && !buildDev) || noBuild ) {
+    return development
+  } else {
+    return production
+  }
+}
+
+module.exports = merge(common, getEnv())
