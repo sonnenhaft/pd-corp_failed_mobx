@@ -1,31 +1,27 @@
 import React from 'react'
 import { connect } from 'react-redux'
-import {
-HashRouter,
-Route,
-Switch
-} from 'react-router-dom'
+import { HashRouter as Router, Route, Switch } from 'react-router-dom'
 
-import Header from './components/header/Header'
+import Header from './components/Header'
+import AssetsPage from './components/AssetsPage'
 import './App.scss'
 
 const App = ({ user }) => {
   if ( user ) {
-    return <HashRouter>
-      <div>
+    return <Router>
+      <div styleName="app">
         <Header/>
         <Switch>
-          <Route path="/route1" render={() => <div>I'm route 1</div>}/>
-          <Route path="/route2" render={() => <div>I'm route 2</div>}/>
-          <Route path="/route3" render={() => <div>I'm route 3</div>}/>
-          <Route path="/" render={() => <div>I'm root</div>}/>
+          <Route exact path="/assets" component={AssetsPage}/>
+          <Route exact path="/" component={AssetsPage}/>
+          <Route component={() => <div>404 or page does not exist yet</div>}/>
         </Switch>
 
         <div styleName="package-version">
-          PD Corp {process.env.VERSION}
+          PD Corp v{process.env.VERSION}
         </div>
       </div>
-    </HashRouter>
+    </Router>
   } else {
     return <div>Login page</div>
   }

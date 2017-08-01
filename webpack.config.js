@@ -1,4 +1,4 @@
-require('dotenv').config({ path: `.env.${[process.env.NODE_ENV]}` })
+require('dotenv').config({ path: `.env.${ [process.env.NODE_ENV] }` })
 
 const path = require('path')
 const merge = require('webpack-merge')
@@ -16,7 +16,7 @@ process.env.VERSION = pkg.version
 function copyEnvVars() {
   const vars = Array.prototype.slice.call(arguments)
   return vars.reduce((e, v) => {
-    e[`process.env.${v}`] = JSON.stringify(process.env[v])
+    e[`process.env.${ v }`] = JSON.stringify(process.env[v])
     return e
   }, {})
 }
@@ -62,6 +62,13 @@ const common = {
       },
       { test: /\.mp3$/, loader: 'file-loader' },
       { test: /\.svg$/, use: [{ loader: 'raw-loader' }] },
+      // { test: /\.eot$/, use: [{ loader: 'raw-loader' }] },
+      {
+        test: /\.(ttf|otf|eot|woff|woff2?)(\?[a-z0-9]+)?$/,
+        use: [{ loader: 'file-loader?name=fonts/[name].[ext]' }],
+        // use: [{ loader: 'raw-loader' }]
+      },
+
       { test: /\.(png|gif)(\?.*)?$/, loader: 'url-loader?limit=100000' }
     ]
   },
@@ -84,7 +91,7 @@ const common = {
 const development = {
   entry: [
     'react-hot-loader/patch',
-    `webpack-dev-server/client?http://localhost:${devServerPort}`,
+    `webpack-dev-server/client?http://localhost:${ devServerPort }`,
     'webpack/hot/only-dev-server',
     paths.src
   ],

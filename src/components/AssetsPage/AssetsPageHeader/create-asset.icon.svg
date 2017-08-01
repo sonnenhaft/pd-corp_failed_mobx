@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="19px" height="19px" viewBox="0 0 19 19" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 45.2 (43514) - http://www.bohemiancoding.com/sketch -->
+    <title>Create_asset_container</title>
+    <desc>Created with Sketch.</desc>
+    <defs></defs>
+    <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="Create_asset_container">
+            <g id="Group">
+                <polygon id="Shape" points="0 0 19 0 19 19 0 19"></polygon>
+                <path d="M9.5,1.58333333 C5.13,1.58333333 1.58333333,5.13 1.58333333,9.5 C1.58333333,13.87 5.13,17.4166667 9.5,17.4166667 C13.87,17.4166667 17.4166667,13.87 17.4166667,9.5 C17.4166667,5.13 13.87,1.58333333 9.5,1.58333333 L9.5,1.58333333 Z M13.4583333,10.2916667 L10.2916667,10.2916667 L10.2916667,13.4583333 L8.70833333,13.4583333 L8.70833333,10.2916667 L5.54166667,10.2916667 L5.54166667,8.70833333 L8.70833333,8.70833333 L8.70833333,5.54166667 L10.2916667,5.54166667 L10.2916667,8.70833333 L13.4583333,8.70833333 L13.4583333,10.2916667 L13.4583333,10.2916667 Z" id="Shape" fill="#014990"></path>
+            </g>
+        </g>
+    </g>
+</svg>

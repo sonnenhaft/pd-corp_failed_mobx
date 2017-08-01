@@ -3,7 +3,7 @@ import {
   SET_CURRENT_USER
 } from './../constants'
 
-const initialState = {name: 'Minime'}
+const initialState = {name: 'John Smith'}
 
 export const user = (state = initialState, action) => {
   switch (action.type) {
