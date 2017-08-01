@@ -7,6 +7,11 @@ import FilterColumnsButton from './FilterColumnsButton'
 import styles from './PaginatableTable.scss'
 import { compose, onlyUpdateForKeys, withHandlers, withProps, withState } from 'recompose'
 
+import { Icon } from 'common/Icon'
+import bulkDeleteIcon from './bulk-delete-icon.svg'
+import { Button } from 'utils'
+import FontIcon from 'react-toolbox/lib/font_icon'
+
 const PaginatableTable = props => {
   const { labels, data, changeInactiveState, inactiveLabelsMap, selectedIndexes, setSelectedIndexes, tableLabels, sort, setSort } = props
 
@@ -15,20 +20,26 @@ const PaginatableTable = props => {
       <div styleName="header">ASSETS FOUND ({data.length})</div>
       <div styleName="flex-buttons">
         <div styleName="some-right-wrapper">
-          {!!selectedIndexes.length && <DeleteDialog/>}
+          {!!selectedIndexes.length && <DeleteDialog>
+            <Button>
+              Delete
+              &nbsp;&nbsp;
+              <Icon svg={bulkDeleteIcon}/>
+            </Button>
+          </DeleteDialog>}
         </div>
 
         <FilterColumnsButton {...{ labels, changeInactiveState, inactiveLabelsMap }} />
       </div>
     </div>
 
-    <CustomTable {...{ labels: tableLabels, data, setSelectedIndexes, sort, setSort }}/>
+    <CustomTable {...{ labels: tableLabels, data, setSelectedIndexes, sort, setSort, selectedIndexes }}/>
     <div>
       <ReactPaginate previousLabel={''}
-                     nextLabel={'>'}
+                     nextLabel={<FontIcon value="keyboard_arrow_right"/>}
                      breakLabel={<span>...</span>}
                      breakClassName={'break-me'}
-                     pageCount={120}
+                     pageCount={12}
                      marginPagesDisplayed={2}
                      pageRangeDisplayed={5}
                      onPageChange={this.handlePageClick}
@@ -43,9 +54,15 @@ export default compose(
   onlyUpdateForKeys(['labels', 'data']),
   withState('inactiveLabelsMap', 'setInactiveLabelsMap', {}),
   withState('sort', '_setSort', {}),
-  withProps(({ labels, inactiveLabelsMap }) => ({
-    tableLabels: labels.filter(({ key }) => !inactiveLabelsMap[key])
-  })),
+  withProps(({ labels, inactiveLabelsMap, sort }) => {
+    if ( !sort.key ) {
+      sort.key = labels[0].key
+    }
+    return {
+      tableLabels: labels.filter(({ key }) => !inactiveLabelsMap[key]),
+      sort
+    }
+  }),
   withState('selectedIndexes', 'setIndexes', []),
   withHandlers({
     setSort: ({ _setSort, sort }) => key => {

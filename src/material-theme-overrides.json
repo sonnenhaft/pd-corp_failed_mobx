@@ -1,0 +1,15 @@
+{
+  "fontFamily": "'HelveticaNeue', sans-serif ",
+  "palette": {
+    "textColor": "#4a4a4a",
+    "primary1Color": "#0077c8"
+  },
+  "table": {
+    "backgroundColor": "#faf9f9"
+  },
+  "tableRow": {
+    "stripeColor": "#ffffff",
+    "hoverColor": "#c6ddf2",
+    "selectedColor": "#c6ddf2"
+  }
+}

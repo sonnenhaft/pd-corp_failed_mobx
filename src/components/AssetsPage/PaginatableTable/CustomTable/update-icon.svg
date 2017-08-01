@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="17px" height="17px" viewBox="0 0 17 17" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 45.2 (43514) - http://www.bohemiancoding.com/sketch -->
+    <title>Shape</title>
+    <desc>Created with Sketch.</desc>
+    <defs></defs>
+    <g id="Designs" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="00_04_Icons" transform="translate(-283.000000, -227.000000)" fill="#0A427B">
+            <g id="ic_update" transform="translate(281.000000, 225.000000)">
+                <g id="Icon-24px">
+                    <path d="M18.375,8.855 L12.4425,8.855 L14.84,6.3875 C12.45125,4.025 8.58375,3.9375 6.195,6.3 C3.80625,8.67125 3.80625,12.495 6.195,14.86625 C8.58375,17.2375 12.45125,17.2375 14.84,14.86625 C16.03,13.69375 16.625,12.32 16.625,10.5875 L18.375,10.5875 C18.375,12.32 17.605,14.56875 16.065,16.09125 C12.99375,19.13625 8.00625,19.13625 4.935,16.09125 C1.8725,13.055 1.84625,8.12 4.9175,5.08375 C7.98875,2.0475 12.915,2.0475 15.98625,5.08375 L18.375,2.625 L18.375,8.855 L18.375,8.855 Z M10.9375,7 L10.9375,10.71875 L14,12.53875 L13.37,13.5975 L9.625,11.375 L9.625,7 L10.9375,7 L10.9375,7 Z" id="Shape"></path>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>

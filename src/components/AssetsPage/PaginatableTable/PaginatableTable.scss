@@ -24,15 +24,20 @@
   list-style-type: none;
   padding: 0;
   margin-left: -8px;
+  user-select: none;
 
   li {
     cursor: pointer;
     padding: 3px 6px;
+    padding-bottom: 0;
     font-family: "HelveticaNeue", sans-serif;
     &.active-page-link, &:hover {
       background-color: #0077c8;
       border-radius: 3px;
       color: white
+    }
+    a {
+      line-height: 24px;
     }
   }
 }

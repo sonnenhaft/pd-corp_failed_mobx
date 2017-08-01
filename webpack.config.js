@@ -35,12 +35,25 @@ const coreCssRules = [
       importLoaders: 1,
       modules: true,
       sourceMap: true,
-      localIdentName: '[path]___[name]__[local]___[hash:base64:5]'
+      localIdentName: '[local]___[hash:base64:5]'
     }
   },
   {
+    loader: 'postcss-loader', options: {
+    config: {
+      path: './postcss.config.js'
+    }
+  }
+  }
+]
+
+const coreScssRules = [
+  ...[coreCssRules[0]],
+  {
     loader: 'sass-loader',
-    options: { sourceMap: true }
+    options: {
+      sourceMap: true
+    }
   }
 ]
 
@@ -75,6 +88,7 @@ const common = {
   plugins: [
     new HtmlWebpackPlugin({ template: paths.html }),
     require('copy-webpack-plugin')([
+      { from: 'node_modules/material-design-icons-iconfont/dist/fonts', to: 'fonts/' },
       { from: 'node_modules/font-awesome/fonts', to: 'fonts/' },
       { from: 'node_modules/font-awesome/css', to: 'css/' },
       { from: 'node_modules/normalize.css/normalize.css', to: 'css/normalize.css' }
@@ -108,8 +122,13 @@ const development = {
     rules: [
       {
         test: /\.scss$/,
-        use: ['style-loader', ...coreCssRules],
+        use: ['style-loader', ...coreScssRules],
         include: paths.src
+      },
+      {
+        test: /\.css$/,
+        use: ['style-loader', ...coreCssRules],
+        include: [paths.src, paths.node_modules]
       }
     ]
   },
@@ -136,8 +155,13 @@ const production = {
     rules: [
       {
         test: /\.scss$/,
-        use: ExtractTextPlugin.extract({ loader: [...coreCssRules] }),
+        use: ExtractTextPlugin.extract({ loader: [...coreScssRules] }),
         include: paths.src
+      },
+      {
+        test: /\.css$/,
+        use: ExtractTextPlugin.extract({ loader: [...coreCssRules] }),
+        include: [paths.src, paths.node_modules]
       }
     ]
   },

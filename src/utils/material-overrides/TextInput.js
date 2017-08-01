@@ -1,10 +1,14 @@
 import React from 'react'
-import { TextField } from 'material-ui'
+import Input from 'react-toolbox/lib/input'
 
-export const TextInput = ({ hintText, rows, onChange, value, errorText, multiLine }) => {
-  return <span>
-    <TextField fullWidth={true}
-               {...{ hintText, rows, onChange, value, errorText, multiLine }}/>
+export const TextInput = ({ hintText, onChange, value, errorText }) => {
+  return <section>
+    <Input
+      type="text"
+      label={hintText}
+      name={hintText}
+      value={value}
+      onChange={onChange}/>
     {errorText && <div><br/><br/></div>}
-  </span>
+  </section>
 }

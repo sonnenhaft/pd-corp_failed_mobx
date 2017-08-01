@@ -1,7 +1,9 @@
 .current-th {
   color: #0a427b;
   cursor: pointer;
+  user-select: none;
 }
+
 .clickable {
  cursor: pointer;
 }

@@ -26,6 +26,7 @@ const Header = ({ user: { name: username } }) => <div
         key={value} title={value} activeClassName={styles['active']}
         to={link} replace exact>{value}</NavLink>)}
     </div>
+
     <DropDownMenu value={username} styleName="username">
       <MenuItem value={username} primaryText={username}/>
       <MenuItem value={username} primaryText={username}/>

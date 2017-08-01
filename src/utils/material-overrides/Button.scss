@@ -1,8 +1,19 @@
-:global {
-  .global-button {
-    [disabled] {
-      cursor: not-allowed !important;
-    }
+.global-button {
+  cursor: pointer;
+  text-transform: none !important;
+  border-radius: 4px;
+  font-size: 13px;
+  &:not(.primary):not(:hover) {
+    color:  #004890!important;
+  }
+
+  &.primary {
+    font-weight: bold;
+  }
+
+  [disabled] {
+    cursor: not-allowed !important;
   }
 }
+
 

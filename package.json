@@ -1,6 +1,6 @@
 {
   "name": "pd-corp-frontend",
-  "version": "0.1.11",
+  "version": "0.1.21",
   "scripts": {
     "dev": "cross-env NODE_ENV=development cross-env webpack-dev-server --open",
     "dev:production": "cross-env NODE_ENV=production cross-env NO_BUILD=true webpack-dev-server --open",
@@ -12,9 +12,9 @@
   },
   "dependencies": {
     "axios": "^0.16.1",
-    "babel-plugin-react-css-modules": "^2.2.0",
     "babel-polyfill": "^6.23.0",
     "lodash": "^4.17.4",
+    "material-design-icons-iconfont": "^3.0.3",
     "material-ui": "^0.18.6",
     "moment": "^2.18.1",
     "moment-timezone": "^0.5.13",
@@ -26,11 +26,17 @@
     "react-router-dom": "^4.1.1",
     "react-slick": "^0.14.11",
     "react-tap-event-plugin": "^2.0.1",
+    "react-toolbox": "^2.0.0-beta.12",
     "recompose": "^0.23.4",
     "redux": "^3.6.0",
     "redux-persist": "^4.8.2"
   },
   "devDependencies": {
+    "babel-plugin-react-css-modules": "^2.2.0",
+    "postcss": "^6.0.8",
+    "postcss-cssnext": "^3.0.2",
+    "postcss-import": "^10.0.0",
+    "postcss-loader": "^2.0.6",
     "autoprefixer": "^6.7.5",
     "babel-core": "^6.23.1",
     "babel-eslint": "^7.1.1",

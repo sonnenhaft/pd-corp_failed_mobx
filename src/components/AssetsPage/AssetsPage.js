@@ -2,7 +2,7 @@ import React from 'react'
 import { connect } from 'react-redux'
 import { compose } from 'recompose'
 import { generateDemoTable } from 'utils'
-import Paper from 'material-ui/Paper'
+import { Card } from 'react-toolbox'
 
 import AssetsPageHeader from './AssetsPageHeader'
 import SearchInputs from './SearchInputs'
@@ -37,9 +37,9 @@ const AssetsPage = () => {
     <AssetsPageHeader/>
     <div styleName="page-wrapper">
       <SearchInputs/>
-      <Paper>
+      <Card>
         <PaginatableTable {...{ labels, data }}/>
-      </Paper>
+      </Card>
     </div>
   </div>
 }

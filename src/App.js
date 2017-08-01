@@ -4,7 +4,11 @@ import { HashRouter as Router, Route, Switch } from 'react-router-dom'
 
 import Header from './components/Header'
 import AssetsPage from './components/AssetsPage'
+import EditAssetPage from './components/EditAssetPage'
 import './App.scss'
+import { MuiThemeProvider } from 'material-ui/styles'
+import getMuiTheme from 'material-ui/styles/getMuiTheme'
+import theme from './material-theme-overrides.json'
 
 const App = ({ user }) => {
   if ( user ) {
@@ -12,6 +16,7 @@ const App = ({ user }) => {
       <div styleName="app">
         <Header/>
         <Switch>
+          <Route exact path="/assets/edit/:assetId" component={EditAssetPage}/>
           <Route exact path="/assets" component={AssetsPage}/>
           <Route exact path="/" component={AssetsPage}/>
           <Route component={() => <div>404 or page does not exist yet</div>}/>
@@ -27,6 +32,14 @@ const App = ({ user }) => {
   }
 }
 
+const muiTheme = getMuiTheme(theme)
+
+const StyledApp = props => (
+  <MuiThemeProvider {...{ muiTheme }}>
+    <App {...props}/>
+  </MuiThemeProvider>
+)
+
 export default connect(
   ({ user }) => ({ user })
-)(App)
+)(StyledApp)

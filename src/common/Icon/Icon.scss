@@ -1,0 +1,13 @@
+.icon {
+  display: inline-block;
+  vertical-align: middle;
+  margin-right: 4px;
+}
+
+.icon-button {
+  padding: 4px;
+  border-radius: 15px;
+  &:hover {
+    background: #ededed;
+  }
+}

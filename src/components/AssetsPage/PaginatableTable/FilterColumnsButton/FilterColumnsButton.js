@@ -3,9 +3,12 @@ import PopoverButton from 'common/PopoverButton'
 import { Checkbox } from 'utils'
 import './FilterColumnsButton.scss'
 
+import { Icon } from 'common/Icon'
+import configGearIcon from './config-gear-icon.svg'
+
 const FilterColumnsButton = ({ labels, changeInactiveState, inactiveLabelsMap }) => <div>
   <PopoverButton label={() => {
-    return <div>Filter Columns (gear icon) {labels.length}</div>
+    return <div>Filter Columns &nbsp;&nbsp;<Icon svg={configGearIcon}/></div>
   }}>
     <div styleName="checkbox-wrapper">
       {labels.map(({ key, label }) => {
@@ -14,7 +17,7 @@ const FilterColumnsButton = ({ labels, changeInactiveState, inactiveLabelsMap })
           key={key}
           {...{ label, checked }}
           styleName={`checkbox ${checked ? '' : 'inactive-checkbox'}`}
-          onCheck={(ignored, bool) => changeInactiveState(!bool, key)}/>
+          onCheck={bool => changeInactiveState(!bool, key)}/>
       })}
     </div>
   </PopoverButton>

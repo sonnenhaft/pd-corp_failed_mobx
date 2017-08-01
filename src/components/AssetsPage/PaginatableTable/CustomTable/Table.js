@@ -2,7 +2,11 @@ import React from 'react'
 import { Table, TableBody, TableHeader, TableHeaderColumn, TableRow, TableRowColumn } from 'material-ui/Table'
 import './Table.scss'
 
-const CustomTable = ({ labels, data, isSelectable = true, children, setSelectedIndexes, sort, setSort }) => {
+import { Icon } from 'common/Icon'
+import arrowAsc from './arrow-asc.svg'
+import arrowDesc from './arrow-desc.svg'
+
+const CustomTable = ({ labels, data, isSelectable = true, children, setSelectedIndexes, sort, setSort, selectedIndexes }) => {
   return <Table
     fixedHeader={false}
     fixedFooter={false}
@@ -19,7 +23,7 @@ const CustomTable = ({ labels, data, isSelectable = true, children, setSelectedI
           return <TableHeaderColumn key={key}>
             {setSort && <div onClick={() => setSort(key)} styleName="clickable">
               {sortByThisKey && <span styleName="current-th">
-                {label}&nbsp;{sort.asc ? 'asc' : 'desc'}
+                {label}&nbsp;<Icon svg={sort.asc ? arrowAsc : arrowDesc}/>
               </span> }
               {!sortByThisKey && label }
             </div>}
@@ -33,15 +37,16 @@ const CustomTable = ({ labels, data, isSelectable = true, children, setSelectedI
                preScanRows={false}
                deselectOnClickaway={false}
                showRowHover={true}>
-      {data.map((row, index) => (
-        <TableRow key={index}>
+      {data.map((row, index) => {
+        const selected = selectedIndexes.includes(index)
+        return <TableRow key={index} selected={selected}>
           {labels.map(({ key }) => {
             return <TableRowColumn key={key}>
-              {children ? children({ index, row, key }) : row[key]}
+              {children ? children({ index, row, key, selected }) : row[key]}
             </TableRowColumn>
           })}
         </TableRow>
-      ))}
+      })}
     </TableBody>
   </Table>
 

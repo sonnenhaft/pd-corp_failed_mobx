@@ -4,15 +4,17 @@
   justify-content: space-between;
   align-content: flex-end;
   & > div {
-    width: 30%;
+    width: 32%;
   }
   .date-inputs {
-    margin-top: 24px;
     display: flex;
     flex-wrap: wrap;
     justify-content: space-between;
+    label {
+      white-space: nowrap;
+    }
     & > div {
-      width: 45%;
+      width: 47%;
       overflow: hidden;
     }
   }
@@ -22,15 +24,57 @@
   display: flex;
   justify-content: flex-end;
   margin-top: 16px;
-  & > div {
-    button {
-      //color: white;
-    }
+  button {
     width: 50%;
     max-width: 300px;
+    &:not([disabled]) {
+      background-color: #0077c8 !important;
+    }
   }
 }
 
+.header {
+  font-size: 16px;
+  color: #014990;
+}
+
 .search-inputs-card {
-  background: #FBF9F9!important;
+  background: #FBF9F9;
+  padding: 16px
+}
+
+.input-with-icon {
+  width: 100%;
+  position: relative;
+  input, label {
+    padding-left: 24px
+  }
+  .input-wrapper {
+    width: 100%;
+  }
+  .icon {
+    left: 0;
+    bottom: 27px;
+    position: absolute;
+  }
+}
+
+.blue-text-buttons {
+  display: flex;
+  justify-content: space-between;
+  font-size: 14px;
+  color: #0077c8;
+  cursor: pointer;
+  & > div {
+    vertical-align: middle;
+    &:hover {
+      color: #014990;
+    }
+  }
+  .icon {
+    margin-left: 4px;
+    font-size: 19px;
+    display: inline-block;
+    vertical-align: middle;
+  }
 }

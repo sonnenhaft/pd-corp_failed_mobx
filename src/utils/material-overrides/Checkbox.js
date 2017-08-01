@@ -1,8 +1,6 @@
 import React from 'react'
-import UiCheckbox from 'material-ui/Checkbox'
+import RtCheckbox from 'react-toolbox/lib/checkbox'
 
 export const Checkbox = ({ label, checked, onCheck, className }) => {
-  return <UiCheckbox {...{ label, checked, onCheck, className }}
-                     iconStyle={{ width: '19px', marginRight: '6px' }}
-  />
+  return <RtCheckbox {...{label, checked, onChange: onCheck, className}}/>
 }

@@ -1,6 +1,6 @@
 import React from 'react'
 import { Button } from 'utils'
-import Popover from 'material-ui/Popover'
+import { Popover } from 'material-ui/Popover'
 import { compose, withState } from 'recompose'
 
 const PopoverButton = ({ refButton, isOpened, setIsOpened, setRefButton, label, children }) => <div>

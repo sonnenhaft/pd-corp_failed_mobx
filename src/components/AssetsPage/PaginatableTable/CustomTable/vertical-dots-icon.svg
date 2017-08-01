@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="4px" height="18px" viewBox="0 0 4 18" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 45.2 (43514) - http://www.bohemiancoding.com/sketch -->
+    <title>Shape</title>
+    <desc>Created with Sketch.</desc>
+    <defs></defs>
+    <g id="Designs" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd" opacity="0.699999988">
+        <g id="00_03_UI-kit" transform="translate(-971.000000, -2507.000000)" fill="#52555B">
+            <g id="table/data-copy-2" transform="translate(35.000000, 2492.000000)">
+                <g id="ic_more_vert" transform="translate(926.000000, 11.478261)">
+                    <g id="Icon-24px">
+                        <path d="M12,8.34782609 C13.1,8.34782609 14,7.40869565 14,6.26086957 C14,5.11304348 13.1,4.17391304 12,4.17391304 C10.9,4.17391304 10,5.11304348 10,6.26086957 C10,7.40869565 10.9,8.34782609 12,8.34782609 L12,8.34782609 Z M12,10.4347826 C10.9,10.4347826 10,11.373913 10,12.5217391 C10,13.6695652 10.9,14.6086957 12,14.6086957 C13.1,14.6086957 14,13.6695652 14,12.5217391 C14,11.373913 13.1,10.4347826 12,10.4347826 L12,10.4347826 Z M12,16.6956522 C10.9,16.6956522 10,17.6347826 10,18.7826087 C10,19.9304348 10.9,20.8695652 12,20.8695652 C13.1,20.8695652 14,19.9304348 14,18.7826087 C14,17.6347826 13.1,16.6956522 12,16.6956522 L12,16.6956522 Z" id="Shape"></path>
+                    </g>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>

@@ -1,5 +1,5 @@
 .scrollable-table {
-  width: calc(100% - 25px);
+  width: calc(100% - 32px);
   td {
     color: #52555b;
   }
@@ -26,34 +26,63 @@
 .tables-wrapper {
   display: flex;
   overflow: hidden;
+  //border-right: 1px solid #d4d4d4;
 }
 
 .actions-table {
-  width: 25px;
+  width: 32px;
+  box-shadow: 0 2px 2px 0 rgba(0, 0, 0, .14), 0 3px 1px -2px rgba(0, 0, 0, .2), 0 1px 5px 0 rgba(0, 0, 0, .12);
   td {
-    padding-left: 8px !important;
-    padding-right: 8px !important;
+    padding-left: 12px !important;
+    padding-right: 12px !important;
+  }
+  th:first-of-type, td:first-of-type {
+    display: none;
   }
   tr {
     border: 1px solid #D6D6D6 !important;
   }
   position: relative;
 
-  .action:hover .action-menu {
-    visibility: visible;
+  .action {
+    &:hover, &.selected {
+      .action-menu {
+        visibility: visible;
+      }
+    }
+    &.selected {
+      .action-menu {
+        background: rgb(198, 221, 242);
+      }
+    }
   }
+
   .action-menu {
-    display: flex;
     visibility: hidden;
+    display: flex;
     position: absolute;
-    right: 1px;
-    transition: none;
+    right: 3px;
     background: white;
-    margin-top: -31px;
-    padding-top: 7px;
-    padding-bottom: 8px;
-    padding-right: 10px;
-    padding-left: 16px;
+    margin-top: -32px;
+    height: 47px;
+    overflow: hidden;
+    margin-left: 11px;
+    padding-right: 6px;
+    padding-left: 11px;
+    padding-top: 6px;
+
+    svg path {
+      fill: #858c92
+    }
+
+    & > a, & > div {
+      &:hover {
+        svg path {
+          fill: #014990
+        }
+      }
+    }
+
     & > a {
       margin-right: 8px;
     }

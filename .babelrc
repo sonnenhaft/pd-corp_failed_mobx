@@ -5,7 +5,12 @@
     "react"
   ],
   "plugins": [
-    ["react-css-modules", {"filetypes": {".scss": "postcss-scss"}}],
+    [
+      "react-css-modules", {
+      "filetypes": {".scss": "postcss-scss"},
+      "generateScopedName": "[local]___[hash:base64:5]"
+    }
+    ],
     "transform-function-bind",
     "transform-decorators-legacy",
     "transform-class-properties",

@@ -1,13 +1,11 @@
 import React from 'react'
 import Dialog from 'common/Dialog'
-import { Button } from 'utils'
 
-const DeleteDialog = () => <Dialog
-  label={() => <Button>Delete (icon in here)</Button>}
+const DeleteDialog = ({children}) => <Dialog
   content={() => <div>
     Are you sure you want to remove?
-    // TODO(vlad): add proper message
   </div>}>
+  {children}
 </Dialog>
 
 export default DeleteDialog
