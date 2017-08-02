@@ -7,7 +7,7 @@ import FilterColumnsButton from './FilterColumnsButton'
 import styles from './PaginatableTable.css'
 import { compose, onlyUpdateForKeys, withHandlers, withProps, withState } from 'recompose'
 
-import { Icon } from 'common/Icon'
+import { Icon } from 'common'
 import bulkDeleteIcon from './bulk-delete-icon.svg'
 import Button from 'react-toolbox/lib/button'
 import FontIcon from 'react-toolbox/lib/font_icon'

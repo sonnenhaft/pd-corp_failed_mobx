@@ -1,11 +1,10 @@
 import React from 'react'
 
 import './SearchInputs.css'
-import { Icon } from 'common/Icon'
+import { Icon } from 'common'
 import searchIcon from './search-icon.svg'
-import { TextInput } from 'utils'
-import { Button, Card, Dropdown } from 'react-toolbox'
-import { DatePicker } from 'react-toolbox/lib/date_picker'
+import { TextInput, TextInputWithIcon } from 'common'
+import { Button, Card } from 'react-toolbox'
 import { compose, withHandlers, withState } from 'recompose'
 import FontIcon from 'react-toolbox/lib/font_icon'
 
@@ -17,26 +16,29 @@ const RippleDiv = Ripple({ spread: 1 })(({ theme, ...props }) => {
   </div>
 })
 
-const SearchInputs = ({ isExpaned, setIsExpanded, filter, setFilter, setSearch, search, resetFilters }) => {
-  const setKey = key => value => {
-    if ( value ) {
-      filter[key] = value
-    } else {
-      delete filter[key]
-    }
-    setFilter(filter)
-  }
+const SearchInputs = ({ isExpaned, setIsExpanded, filter, setFilter, setSearch, search, resetFilters, keyChanged }) => {
+  const isNotEmpty = !!Object.values(filter).length
 
-  let isNotEmpty = !!Object.values(filter).length
+  const searchButton = <div styleName="search-button-wrapper">
+    <Button raised primary onClick={() => alert('TODO: add search action')}
+            disabled={!isNotEmpty && !search}
+            className="blue-button">
+      SEARCH
+    </Button>
+  </div>
+
   return <Card styleName="search-inputs-card">
     <div styleName="header">SEARCH</div>
 
-    <div styleName="input-with-icon">
-      <Icon svg={searchIcon} styleName="icon"/>
-      <div styleName="input-wrapper">
-        <TextInput label="Search" value={search} onChange={e => setSearch(e)}/>
-      </div>
+    <div styleName="input-with-button">
+      <TextInputWithIcon
+        icon={searchIcon}
+        label={search ? '' : 'Type here'}
+        value={search}
+        onChange={setSearch}/>
+      {!isExpaned && searchButton}
     </div>
+
 
     <div styleName="blue-text-buttons">
       <RippleDiv onClick={() => setIsExpanded(!isExpaned)}>
@@ -54,31 +56,16 @@ const SearchInputs = ({ isExpaned, setIsExpanded, filter, setFilter, setSearch, 
 
     {isExpaned && <div>
       <div styleName="search-input-buttons">
-        <Dropdown label="Asset Type" source={[]}/>
-        <Dropdown label="Model Name" source={[]}/>
-        <Dropdown label="Key Location Name" source={[]}/>
-        <Dropdown label="Manufacturer" source={[]}/>
-        <Dropdown label="Status" source={[]}/>
-        <div styleName="date-inputs">
-          <div>
-            <DatePicker label="Last Update Date from"
-                        onChange={setKey('dateFrom')}
-                        value={filter.dateFrom}/>
-          </div>
-          <div>
-            <DatePicker label="Last Update Date to"
-                        onChange={setKey('dateTo')}
-                        value={filter.dateTo}/>
-          </div>
-        </div>
+        <TextInput label="Asset Name" onChange={keyChanged('assetName')} value={filter.assetName || ''}/>
+        <TextInput label="RFID" onChange={keyChanged('rfid')} value={filter.rfid || ''}/>
+        <TextInput label="Bar Code" onChange={keyChanged('barCode')} value={filter.barCode || ''}/>
+        <TextInput label="Serial Number" onChange={keyChanged('serialNumber')} value={filter.serialNumber || ''}/>
+        <TextInput label="Asset/Equipment Number" onChange={keyChanged('eq_numer')} value={filter.eq_numer || ''}/>
+        <TextInput label="Model" onChange={keyChanged('model')} value={filter.model || ''}/>
+        <TextInput label="Description" onChange={keyChanged('description')} value={filter.description || ''}/>
+        <TextInput label="Notes" onChange={keyChanged('notes')} value={filter.notes || ''}/>
       </div>
-      <div styleName="search-button-wrapper">
-        <Button raised primary onClick={() => alert('TODO: add search action')}
-                disabled={!isNotEmpty && !search}
-                className="blue-button">
-          SEARCH
-        </Button>
-      </div>
+      {searchButton}
     </div>}
   </Card>
 }
@@ -87,6 +74,14 @@ export default compose(
   withState('filter', 'setFilter', {}),
   withState('search', 'setSearch', ''),
   withHandlers({
-    resetFilters: ({ setFilter }) => () => setFilter({})
+    resetFilters: ({ setFilter }) => () => setFilter({}),
+    keyChanged: ({ filter, setFilter }) => key => value => {
+      if ( value ) {
+        filter[key] = value
+      } else {
+        delete filter[key]
+      }
+      setFilter(filter)
+    }
   })
 )(SearchInputs)

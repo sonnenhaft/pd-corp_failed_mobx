@@ -12,8 +12,10 @@ import getMuiTheme from 'material-ui/styles/getMuiTheme'
 import theme from './theme/material-theme-overrides.json'
 
 import { ThemeProvider } from 'react-css-themr'
-const theme2 = {
-  RTButton: require('./theme/Button.css')
+const rtTheme = {
+  RTButton: require('./theme/Button.css'),
+  RTCheckbox: require('./theme/Checkbox.css'),
+  RTInput: require('./theme/Button.css')
 }
 
 const App = ({ user }) => {
@@ -40,7 +42,7 @@ const App = ({ user }) => {
 
 const StyledApp = props => (
   <MuiThemeProvider {...{ muiTheme: getMuiTheme(theme) }}>
-    <ThemeProvider theme={theme2}>
+    <ThemeProvider theme={rtTheme}>
       <App {...props}/>
     </ThemeProvider>
   </MuiThemeProvider>

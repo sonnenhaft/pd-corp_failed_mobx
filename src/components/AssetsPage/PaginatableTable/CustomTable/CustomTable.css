@@ -1,16 +1,25 @@
 .scrollable-table {
   width: calc(100% - 32px);
+  & th, & td {
+    &:first-of-type {
+      border: 1px solid #D6D6D6 !important;
+      padding-left: 3px !important;
+      padding-right: 0 !important;
+      max-width: 35px!important;
+      & > div {
+        transform: scale(0.8);
+      }
+    }
+  }
   & td {
     color: #52555b;
+    padding-left: 16px!important;
+    padding-right: 16px!important;
+    max-width: 150px;
   }
 
   & table {
     table-layout: auto !important;
-    th:first-of-type, td:first-of-type {
-      border: 1px solid #D6D6D6 !important;
-      padding-left: 14px !important;
-      padding-right: 0 !important;
-    }
     & th, & tr {
       border: 1px solid #D6D6D6 !important;
     }
@@ -89,7 +98,7 @@
 }
 
 .scrollable-table, .actions-table {
-  & tr td, & th {
+  & td, & th {
     font-size: 13px !important;
   }
 }

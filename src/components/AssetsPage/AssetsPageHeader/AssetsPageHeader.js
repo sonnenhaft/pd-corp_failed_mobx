@@ -1,8 +1,8 @@
 import React from 'react'
 import { compose, onlyUpdateForKeys, withHandlers } from 'recompose'
 import Button from 'react-toolbox/lib/button'
-import { PageHeader } from 'common/PageHeader'
-import { Icon } from 'common/Icon'
+import { PageHeader } from 'common'
+import { Icon } from 'common'
 
 import createAssetSvg from './create-asset.icon.svg'
 import exportReportSvg from './export-report.icon.svg'

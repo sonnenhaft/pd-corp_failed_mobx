@@ -5,4 +5,3 @@ export const TextInput = ({ errorText, ...props }) => <section>
   <Input type="text" {...props}/>
   {errorText && <div><br/><br/></div>}
 </section>
-

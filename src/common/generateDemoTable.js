@@ -4,7 +4,7 @@ const chance = new Chance()
 
 const keyFunctions = {
   asset_number: () => chance.integer({ min: 70000, max: 80000 }),
-  asset_name: () => chance.hashtag(),
+  asset_name: () => chance.hashtag()+chance.hashtag()+chance.hashtag()+chance.hashtag(),
   key_location_id: () => `B0209-${chance.integer({ min: 1, max: 100 })}`,
   key_location_name: () => `Room "${ chance.province({ full: true })}"`,
   asset_type: () => chance.domain(),

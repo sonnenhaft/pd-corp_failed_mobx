@@ -40,7 +40,10 @@ const coreCssRules = [
   },
   {
     loader: 'postcss-loader',
-    options: { config: { path: './postcss.config.js' } }
+    options: {
+      sourceMap: true,
+      config: { path: './postcss.config.js' }
+    }
   }
 ]
 
@@ -60,15 +63,11 @@ const common = {
         use: [{ loader: 'babel-loader', options: { cacheDirectory: true } }],
         exclude: paths.node_modules
       },
-      { test: /\.mp3$/, loader: 'file-loader' },
       { test: /\.svg$/, use: [{ loader: 'raw-loader' }] },
-      // { test: /\.eot$/, use: [{ loader: 'raw-loader' }] },
       {
         test: /\.(ttf|otf|eot|woff|woff2?)(\?[a-z0-9]+)?$/,
         use: [{ loader: 'file-loader?name=fonts/[name].[ext]' }]
-        // use: [{ loader: 'raw-loader' }]
       },
-
       { test: /\.(png|gif)(\?.*)?$/, loader: 'url-loader?limit=100000' }
     ]
   },
@@ -76,8 +75,6 @@ const common = {
     new HtmlWebpackPlugin({ template: paths.html }),
     require('copy-webpack-plugin')([
       { from: 'node_modules/material-design-icons-iconfont/dist/fonts', to: 'fonts/' },
-      { from: 'node_modules/font-awesome/fonts', to: 'fonts/' },
-      { from: 'node_modules/font-awesome/css', to: 'css/' },
       { from: 'node_modules/normalize.css/normalize.css', to: 'css/normalize.css' }
     ]),
     new webpack.DefinePlugin(copyEnvVars(

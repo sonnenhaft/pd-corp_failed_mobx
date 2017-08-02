@@ -2,7 +2,7 @@ import React from 'react'
 import { Table, TableBody, TableHeader, TableHeaderColumn, TableRow, TableRowColumn } from 'material-ui/Table'
 import './Table.css'
 
-import { Icon } from 'common/Icon'
+import { Icon } from 'common'
 import arrowAsc from './arrow-asc.svg'
 import arrowDesc from './arrow-desc.svg'
 
@@ -41,7 +41,7 @@ const CustomTable = ({ labels, data, isSelectable = true, children, setSelectedI
         const selected = selectedIndexes.includes(index)
         return <TableRow key={index} selected={selected}>
           {labels.map(({ key }) => {
-            return <TableRowColumn key={key}>
+            return <TableRowColumn key={key} title={row[key]}>
               {children ? children({ index, row, key, selected }) : row[key]}
             </TableRowColumn>
           })}

@@ -1,9 +1,9 @@
 import React from 'react'
-import PopoverButton from 'common/PopoverButton'
+import { PopoverButton } from 'common'
 import Checkbox from 'react-toolbox/lib/checkbox'
 import './FilterColumnsButton.css'
 
-import { Icon } from 'common/Icon'
+import { Icon } from 'common'
 import configGearIcon from './config-gear-icon.svg'
 
 const FilterColumnsButton = ({ labels, changeInactiveState, inactiveLabelsMap }) => <div>

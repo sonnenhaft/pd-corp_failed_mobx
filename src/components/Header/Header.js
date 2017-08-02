@@ -7,11 +7,13 @@ import { DropDownMenu, MenuItem } from 'material-ui'
 import styles from './Header.css'
 import logoIcon from './logo-icon.png'
 
+
 const stableLinks = [
   { link: '/assets', value: 'assets' },
   { link: '/users', value: 'users' },
   { link: '/wands', value: 'wands' },
-  { link: '/key_locations', value: 'key locations' }
+  { link: '/key-locations', value: 'key locations' },
+  { link: '/stationary-readers', value: 'Stationary Readers' }
 ]
 
 const Header = ({ user: { name: username } }) => <div

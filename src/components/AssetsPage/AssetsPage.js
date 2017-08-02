@@ -1,7 +1,7 @@
 import React from 'react'
 import { connect } from 'react-redux'
 import { compose } from 'recompose'
-import { generateDemoTable } from 'utils'
+import { generateDemoTable } from 'common'
 import { Card } from 'react-toolbox'
 
 import AssetsPageHeader from './AssetsPageHeader'
@@ -12,13 +12,9 @@ import './AssetsPage.css'
 
 const labels = [
   { label: 'Asset Number', key: 'asset_number' },
-  { label: 'Asset Name', key: 'asset_name' },
-  { label: 'Key Location ID', key: 'key_location_id' },
-  { label: 'Key Location Name', key: 'key_location_name' },
-  { label: 'Asset Type', key: 'asset_type' },
-  { label: 'Model Name', key: 'model_name' },
-  { label: 'RFID #', key: 'rfid' },
-  { label: 'Bar Code #', key: 'barCode' },
+  { label: 'Asset Type', key: 'asset_name' },
+  { label: 'RFID Number', key: 'rfid' },
+  { label: 'Bar Code Number', key: 'barCode' },
   { label: 'Serial Number', key: 'serialNumber' },
   { label: 'Asset/Equipment Number', key: 'assetNumber' },
   { label: 'Owner/Department', key: 'owner' },

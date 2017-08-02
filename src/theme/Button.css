@@ -3,16 +3,27 @@
   text-transform: none;
   border-radius: 4px;
   font-size: 13px;
-  &:not(.primary):not(:hover) {
+
+  &:not(.primary):not([disabled]) {
     color:  #004890;
+    & path {
+      fill: #004890;
+    }
+    &:hover, &:focus {
+      color:  white;
+      background: #0077c8;
+      & path {
+        fill: white;
+      }
+    }
   }
+
   &.primary {
     font-weight: bold;
   }
+
   &[disabled] {
     cursor: not-allowed;
     pointer-events: all;
   }
 }
-
-

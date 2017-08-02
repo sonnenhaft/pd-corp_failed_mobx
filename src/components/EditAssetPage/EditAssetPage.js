@@ -7,7 +7,6 @@ import AssetsPageHeader from './EditAssetPageHeader'
 
 import './EditAssetPage.css'
 
-
 const EditAssetPage = () => {
   return <div>
     <AssetsPageHeader/>
@@ -18,7 +17,7 @@ const EditAssetPage = () => {
       <Card>
         <div styleName="edit-asset-page-content">
           <div>
-            <img src="http://lorempixel.com/283/365" />
+            <img src="http://lorempixel.com/283/365"/>
           </div>
           <div>
             <div>Header</div>
