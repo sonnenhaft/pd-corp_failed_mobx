@@ -27,9 +27,6 @@
   button {
     width: 50%;
     max-width: 300px;
-    &:not([disabled]) {
-      background-color: #0077c8 !important;
-    }
   }
 }
 

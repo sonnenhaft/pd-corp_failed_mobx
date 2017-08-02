@@ -10,4 +10,4 @@ export const Icon = ({ svg, className }) => <span
 export const IconButton = ({ svg }) => <RtIconButton
   icon={
     <Icon svg={svg} styleName="icon-button"/>
-  } accent ripple/>
+  } primary ripple/>

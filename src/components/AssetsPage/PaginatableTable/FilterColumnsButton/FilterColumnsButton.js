@@ -17,7 +17,7 @@ const FilterColumnsButton = ({ labels, changeInactiveState, inactiveLabelsMap })
           key={key}
           {...{ label, checked }}
           styleName={`checkbox ${checked ? '' : 'inactive-checkbox'}`}
-          onCheck={bool => changeInactiveState(!bool, key)}/>
+          onChange={bool => changeInactiveState(!bool, key)}/>
       })}
     </div>
   </PopoverButton>

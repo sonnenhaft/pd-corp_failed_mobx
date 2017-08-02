@@ -9,6 +9,14 @@ import { Card } from 'react-toolbox'
 import { compose, withHandlers, withState } from 'recompose'
 import FontIcon from 'react-toolbox/lib/font_icon'
 
+import Ripple from 'react-toolbox/lib/ripple'
+// eslint-disable-next-line no-unused-vars
+const RippleDiv = Ripple({ spread: 1 })(({ theme, ...props }) => {
+  return <div {...props} style={{ position: 'relative' }}>
+    {props.children}
+  </div>
+})
+
 const SearchInputs = ({ isExpaned, setIsExpanded, filter, setFilter, setSearch, search, resetFilters }) => {
   const setKey = key => value => {
     if ( value ) {
@@ -26,31 +34,31 @@ const SearchInputs = ({ isExpaned, setIsExpanded, filter, setFilter, setSearch, 
     <div styleName="input-with-icon">
       <Icon svg={searchIcon} styleName="icon"/>
       <div styleName="input-wrapper">
-        <TextInput hintText="Search" value={search} onChange={e => setSearch(e)}/>
+        <TextInput label="Search" value={search} onChange={e => setSearch(e)}/>
       </div>
     </div>
 
     <div styleName="blue-text-buttons">
-      <div onClick={() => setIsExpanded(!isExpaned)}>
+      <RippleDiv onClick={() => setIsExpanded(!isExpaned)}>
         Advanced Search
         <FontIcon value={isExpaned ? 'keyboard_arrow_up' : 'keyboard_arrow_down'}
                   styleName="icon"/>
-      </div>
+      </RippleDiv>
 
-      {isExpaned && isNotEmpty && <div onClick={resetFilters}>
+      {isExpaned && isNotEmpty && <RippleDiv onClick={resetFilters}>
         Reset fields
         <FontIcon value="refresh" styleName="icon"/>
-      </div>}
+      </RippleDiv>}
     </div>
 
 
     {isExpaned && <div>
       <div styleName="search-input-buttons">
-        <DropDown placeholder="Asset Type"/>
-        <DropDown placeholder="Model Name"/>
-        <DropDown placeholder="Key Location Name"/>
-        <DropDown placeholder="Manufacturer"/>
-        <DropDown placeholder="Status"/>
+        <DropDown label="Asset Type"/>
+        <DropDown label="Model Name"/>
+        <DropDown label="Key Location Name"/>
+        <DropDown label="Manufacturer"/>
+        <DropDown label="Status"/>
         <div styleName="date-inputs">
           <div>
             <DatePicker label="Last Update Date from"
@@ -68,7 +76,8 @@ const SearchInputs = ({ isExpaned, setIsExpanded, filter, setFilter, setSearch, 
         <Button
           primary={true}
           disabled={!isNotEmpty && !search}
-          className="blue-button">
+          className="blue-button"
+          onClick={() => alert('TODO: add search action')}>
           SEARCH
         </Button>
       </div>

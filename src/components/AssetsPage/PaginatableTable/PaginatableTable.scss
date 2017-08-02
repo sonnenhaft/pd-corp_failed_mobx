@@ -31,10 +31,13 @@
     padding: 3px 6px;
     padding-bottom: 0;
     font-family: "HelveticaNeue", sans-serif;
-    &.active-page-link, &:hover {
-      background-color: #0077c8;
-      border-radius: 3px;
-      color: white
+    border-radius: 3px;
+    &:hover:not(.active-page-link):not(.break-me) {
+      background: #0077c8;
+      color: white;
+    }
+    &.active-page-link {
+      background: #c5c9cb;
     }
     a {
       line-height: 24px;

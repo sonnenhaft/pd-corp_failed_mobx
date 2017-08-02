@@ -1,3 +1,7 @@
+## Update global design colors
+Find "postcss.config.js" - object in bottom contains all what you want
+
+
 ## Prerequisites
 
 * node >= 6.10.2
@@ -36,3 +40,5 @@ $ npm build
 ```sh
 $ npm build:development
 ```
+
+

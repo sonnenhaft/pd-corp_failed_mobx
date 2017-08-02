@@ -6,6 +6,7 @@ import Header from './components/Header'
 import AssetsPage from './components/AssetsPage'
 import EditAssetPage from './components/EditAssetPage'
 import './App.scss'
+
 import { MuiThemeProvider } from 'material-ui/styles'
 import getMuiTheme from 'material-ui/styles/getMuiTheme'
 import theme from './material-theme-overrides.json'
@@ -32,10 +33,8 @@ const App = ({ user }) => {
   }
 }
 
-const muiTheme = getMuiTheme(theme)
-
 const StyledApp = props => (
-  <MuiThemeProvider {...{ muiTheme }}>
+  <MuiThemeProvider {...{ muiTheme: getMuiTheme(theme) }}>
     <App {...props}/>
   </MuiThemeProvider>
 )

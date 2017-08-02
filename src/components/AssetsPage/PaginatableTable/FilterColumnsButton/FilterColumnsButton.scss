@@ -8,15 +8,11 @@
 }
 
 .checkbox {
-  font-size: 14px;
-  white-space: nowrap;
   padding: 8px 18px;
   margin: 0;
   height: auto;
   cursor: pointer;
-  input + div {
-    transform: scale(0.8, 0.8);
-  }
+
 
   &:first-of-type {
     padding-top: 24px;

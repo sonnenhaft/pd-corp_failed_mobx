@@ -9,12 +9,5 @@ export const Button = ({ children, onClick, disabled, className, primary }) => {
     raised>
     {children}
   </RtButton>
-  //   borderRadius: '4px',
-  //   fontSize: '13px',
-  //   height: '32px',
-  //   lineHeight: '32px',
-  //   fontWeight: primary ? 'bold' : 'normal',
-  //   color: primary ? '#ffffff' : '#004890'
-  // overlayStyle={{padding: '0 16px'}}
 }
 

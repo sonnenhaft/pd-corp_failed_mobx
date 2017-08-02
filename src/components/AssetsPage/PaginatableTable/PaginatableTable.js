@@ -38,7 +38,7 @@ const PaginatableTable = props => {
       <ReactPaginate previousLabel={''}
                      nextLabel={<FontIcon value="keyboard_arrow_right"/>}
                      breakLabel={<span>...</span>}
-                     breakClassName={'break-me'}
+                     breakClassName={styles['break-me']}
                      pageCount={12}
                      marginPagesDisplayed={2}
                      pageRangeDisplayed={5}
