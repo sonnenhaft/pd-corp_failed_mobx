@@ -9,7 +9,7 @@
     & path {
       fill: #004890;
     }
-    &:hover, &:focus {
+    &:hover:not([disabled]), &:focus {
       color:  white;
       background: #0077c8;
       & path {
@@ -19,7 +19,12 @@
   }
 
   &.primary {
+    height: 40px;
+    font-size: 14px;
     font-weight: bold;
+    &:hover:not([disabled]), &:focus {
+      background: #014990;
+    }
   }
 
   &[disabled] {

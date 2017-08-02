@@ -24,6 +24,7 @@
       width: 24px;
       transform: rotate(45deg) scale(0.7);
       cursor: pointer;
+      opacity: 0.7;
       & span:first-of-type {
         display: none;
       }
