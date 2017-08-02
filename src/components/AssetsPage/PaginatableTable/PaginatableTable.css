@@ -3,13 +3,13 @@
   justify-content: space-between;
   align-items: center;
   margin-bottom: 16px;
-  .header {
+  & .header {
     color: #014990;
     font-size: 16px;
   }
-  .flex-buttons {
+  & .flex-buttons {
     display: flex;
-    .some-right-wrapper {
+    & .some-right-wrapper {
       margin-right: 16px;
     }
   }
@@ -26,7 +26,7 @@
   margin-left: -8px;
   user-select: none;
 
-  li {
+  & li {
     cursor: pointer;
     padding: 3px 6px;
     padding-bottom: 0;
@@ -39,7 +39,7 @@
     &.active-page-link {
       background: #c5c9cb;
     }
-    a {
+    & a {
       line-height: 24px;
     }
   }

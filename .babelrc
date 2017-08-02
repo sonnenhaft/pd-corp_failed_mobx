@@ -1,32 +1,12 @@
 {
-  "presets": [
-    ["es2015", {"modules": false}],
-    "stage-0",
-    "react"
-  ],
+  "presets": [["es2015", {"modules": false}], "stage-0", "react"],
   "plugins": [
-    [
-      "react-css-modules", {
-      "filetypes": {".scss": "postcss-scss"},
-      "generateScopedName": "[local]___[hash:base64:5]"
-    }
-    ],
+    ["react-css-modules", {"generateScopedName": "[local]___[hash:base64:5]"}],
     "transform-function-bind",
-    "transform-decorators-legacy",
-    "transform-class-properties",
-    ["lodash", {"id": ["lodash", "recompose", "react-router-dom"]}]
+    "transform-class-properties"
   ],
   "env": {
-    "test": {
-      "plugins": [
-        "transform-es2015-modules-commonjs"
-      ]
-    },
-    "development": {
-      "plugins": [
-        "flow-react-proptypes",
-        "react-hot-loader/babel"
-      ]
-    }
+    "test": {"plugins": ["transform-es2015-modules-commonjs"]},
+    "development": {"plugins": ["react-hot-loader/babel"]}
   }
 }

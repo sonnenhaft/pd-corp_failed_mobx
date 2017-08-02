@@ -4,7 +4,7 @@ import { NavLink, withRouter } from 'react-router-dom'
 import { compose, onlyUpdateForKeys } from 'recompose'
 import { DropDownMenu, MenuItem } from 'material-ui'
 
-import styles from './Header.scss'
+import styles from './Header.css'
 import logoIcon from './logo-icon.png'
 
 const stableLinks = [

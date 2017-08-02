@@ -1,7 +1,7 @@
 import React from 'react'
 import PopoverButton from 'common/PopoverButton'
-import { Checkbox } from 'utils'
-import './FilterColumnsButton.scss'
+import Checkbox from 'react-toolbox/lib/checkbox'
+import './FilterColumnsButton.css'
 
 import { Icon } from 'common/Icon'
 import configGearIcon from './config-gear-icon.svg'

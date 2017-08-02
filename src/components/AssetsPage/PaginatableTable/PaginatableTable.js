@@ -4,12 +4,12 @@ import ReactPaginate from 'react-paginate'
 import CustomTable from './CustomTable'
 import DeleteDialog from './DeleteDialog'
 import FilterColumnsButton from './FilterColumnsButton'
-import styles from './PaginatableTable.scss'
+import styles from './PaginatableTable.css'
 import { compose, onlyUpdateForKeys, withHandlers, withProps, withState } from 'recompose'
 
 import { Icon } from 'common/Icon'
 import bulkDeleteIcon from './bulk-delete-icon.svg'
-import { Button } from 'utils'
+import Button from 'react-toolbox/lib/button'
 import FontIcon from 'react-toolbox/lib/font_icon'
 
 const PaginatableTable = props => {
@@ -21,7 +21,7 @@ const PaginatableTable = props => {
       <div styleName="flex-buttons">
         <div styleName="some-right-wrapper">
           {!!selectedIndexes.length && <DeleteDialog>
-            <Button>
+            <Button raised>
               Delete
               &nbsp;&nbsp;
               <Icon svg={bulkDeleteIcon}/>

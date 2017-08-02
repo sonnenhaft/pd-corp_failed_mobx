@@ -1,6 +1,6 @@
 import React from 'react'
 import { Table, TableBody, TableHeader, TableHeaderColumn, TableRow, TableRowColumn } from 'material-ui/Table'
-import './Table.scss'
+import './Table.css'
 
 import { Icon } from 'common/Icon'
 import arrowAsc from './arrow-asc.svg'

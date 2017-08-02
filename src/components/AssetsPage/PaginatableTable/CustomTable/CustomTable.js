@@ -1,6 +1,6 @@
 import React from 'react'
 
-import './CustomTable.scss'
+import './CustomTable.css'
 import { compose, onlyUpdateForKeys } from 'recompose'
 import { NavLink, withRouter } from 'react-router-dom'
 import Table from './Table'

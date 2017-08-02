@@ -39,21 +39,8 @@ const coreCssRules = [
     }
   },
   {
-    loader: 'postcss-loader', options: {
-    config: {
-      path: './postcss.config.js'
-    }
-  }
-  }
-]
-
-const coreScssRules = [
-  ...[coreCssRules[0]],
-  {
-    loader: 'sass-loader',
-    options: {
-      sourceMap: true
-    }
+    loader: 'postcss-loader',
+    options: { config: { path: './postcss.config.js' } }
   }
 ]
 
@@ -78,7 +65,7 @@ const common = {
       // { test: /\.eot$/, use: [{ loader: 'raw-loader' }] },
       {
         test: /\.(ttf|otf|eot|woff|woff2?)(\?[a-z0-9]+)?$/,
-        use: [{ loader: 'file-loader?name=fonts/[name].[ext]' }],
+        use: [{ loader: 'file-loader?name=fonts/[name].[ext]' }]
         // use: [{ loader: 'raw-loader' }]
       },
 
@@ -121,11 +108,6 @@ const development = {
   module: {
     rules: [
       {
-        test: /\.scss$/,
-        use: ['style-loader', ...coreScssRules],
-        include: paths.src
-      },
-      {
         test: /\.css$/,
         use: ['style-loader', ...coreCssRules],
         include: [paths.src, paths.node_modules]
@@ -153,11 +135,6 @@ const production = {
   },
   module: {
     rules: [
-      {
-        test: /\.scss$/,
-        use: ExtractTextPlugin.extract({ loader: [...coreScssRules] }),
-        include: paths.src
-      },
       {
         test: /\.css$/,
         use: ExtractTextPlugin.extract({ loader: [...coreCssRules] }),

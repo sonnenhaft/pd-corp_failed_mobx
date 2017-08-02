@@ -5,11 +5,16 @@ import { HashRouter as Router, Route, Switch } from 'react-router-dom'
 import Header from './components/Header'
 import AssetsPage from './components/AssetsPage'
 import EditAssetPage from './components/EditAssetPage'
-import './App.scss'
+import './App.css'
 
 import { MuiThemeProvider } from 'material-ui/styles'
 import getMuiTheme from 'material-ui/styles/getMuiTheme'
-import theme from './material-theme-overrides.json'
+import theme from './theme/material-theme-overrides.json'
+
+import { ThemeProvider } from 'react-css-themr'
+const theme2 = {
+  RTButton: require('./theme/Button.css')
+}
 
 const App = ({ user }) => {
   if ( user ) {
@@ -35,7 +40,9 @@ const App = ({ user }) => {
 
 const StyledApp = props => (
   <MuiThemeProvider {...{ muiTheme: getMuiTheme(theme) }}>
-    <App {...props}/>
+    <ThemeProvider theme={theme2}>
+      <App {...props}/>
+    </ThemeProvider>
   </MuiThemeProvider>
 )
 

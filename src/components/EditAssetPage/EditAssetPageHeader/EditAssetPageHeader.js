@@ -1,23 +1,23 @@
 import React from 'react'
 import { compose, onlyUpdateForKeys, withHandlers } from 'recompose'
-import { Button } from 'utils'
+import Button from 'react-toolbox/lib/button'
 import { PageHeader } from 'common/PageHeader'
 import { Icon } from 'common/Icon'
 import exportReportSvg from './export-report.icon.svg'
 import importAssetsSvg from './import-assets.icon.svg'
-import './EditAssetPageHeader.scss'
+import './EditAssetPageHeader.css'
 
 const EditAssetsPageHeader = ({ alertTodo }) => <PageHeader>
   <div styleName="header-text">
     back | asset name in here
   </div>
   <div>
-    <Button onClick={() => alertTodo('define Update Asset action')}
+    <Button raised onClick={() => alertTodo('define Update Asset action')}
             styleName="middle-button">
       <Icon svg={importAssetsSvg}/>
       Update Asset
     </Button>
-    <Button onClick={() => alertTodo('define Delete Asset action')}>
+    <Button raised onClick={() => alertTodo('define Delete Asset action')}>
       <Icon svg={exportReportSvg}/>
       Delete Asset
     </Button>

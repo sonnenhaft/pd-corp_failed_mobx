@@ -2,10 +2,10 @@
   max-width: 1024px;
   min-height: calc(100vh - 16px - 80px - 60px - 16px);
   margin: auto;
-  @media only screen and (max-width: 1024px) {
-    margin: 8px;
-  }
   margin-top: 16px;
+  @media only screen and (max-width: 1024px) {
+    margin: 16px;
+  }
 }
 
 .edit-asset-page-content {

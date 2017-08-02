@@ -1,10 +1,10 @@
 import React from 'react'
-import { Button } from 'utils'
+import Button from 'react-toolbox/lib/button'
 import { Popover } from 'material-ui/Popover'
 import { compose, withState } from 'recompose'
 
 const PopoverButton = ({ refButton, isOpened, setIsOpened, setRefButton, label, children }) => <div>
-  <Button onClick={e => {
+  <Button raised onClick={e => {
     setRefButton(e.currentTarget)
     setIsOpened(!isOpened)
   }}>

@@ -23,7 +23,7 @@ $ npm dev:dashboard
 
 ## Run locally in production mode
 ```sh
-$ npm dev:production
+$ npm dev:prod
 ```
 
 ## Fix eslint issues
@@ -38,7 +38,5 @@ $ npm build
 
 ## Build to use dev env variables
 ```sh
-$ npm build:development
+$ npm build:dev
 ```
-
-

@@ -1,5 +1,2 @@
 export generateDemoTable from './generateDemoTable'
-export { Checkbox } from './material-overrides/Checkbox'
-export { Button } from './material-overrides/Button'
-export { DropDown } from './material-overrides/DropDown'
-export { TextInput } from './material-overrides/TextInput'
+export { TextInput } from './TextInput'

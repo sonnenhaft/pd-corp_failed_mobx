@@ -1,0 +1,18 @@
+.button {
+  cursor: pointer;
+  text-transform: none;
+  border-radius: 4px;
+  font-size: 13px;
+  &:not(.primary):not(:hover) {
+    color:  #004890;
+  }
+  &.primary {
+    font-weight: bold;
+  }
+  &[disabled] {
+    cursor: not-allowed;
+    pointer-events: all;
+  }
+}
+
+

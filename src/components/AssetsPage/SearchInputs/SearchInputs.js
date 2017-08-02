@@ -1,11 +1,11 @@
 import React from 'react'
 
-import './SearchInputs.scss'
+import './SearchInputs.css'
 import { Icon } from 'common/Icon'
 import searchIcon from './search-icon.svg'
-import { Button, DropDown, TextInput } from 'utils'
+import { TextInput } from 'utils'
+import { Button, Card, Dropdown } from 'react-toolbox'
 import { DatePicker } from 'react-toolbox/lib/date_picker'
-import { Card } from 'react-toolbox'
 import { compose, withHandlers, withState } from 'recompose'
 import FontIcon from 'react-toolbox/lib/font_icon'
 
@@ -54,11 +54,11 @@ const SearchInputs = ({ isExpaned, setIsExpanded, filter, setFilter, setSearch, 
 
     {isExpaned && <div>
       <div styleName="search-input-buttons">
-        <DropDown label="Asset Type"/>
-        <DropDown label="Model Name"/>
-        <DropDown label="Key Location Name"/>
-        <DropDown label="Manufacturer"/>
-        <DropDown label="Status"/>
+        <Dropdown label="Asset Type" source={[]}/>
+        <Dropdown label="Model Name" source={[]}/>
+        <Dropdown label="Key Location Name" source={[]}/>
+        <Dropdown label="Manufacturer" source={[]}/>
+        <Dropdown label="Status" source={[]}/>
         <div styleName="date-inputs">
           <div>
             <DatePicker label="Last Update Date from"
@@ -73,11 +73,9 @@ const SearchInputs = ({ isExpaned, setIsExpanded, filter, setFilter, setSearch, 
         </div>
       </div>
       <div styleName="search-button-wrapper">
-        <Button
-          primary={true}
-          disabled={!isNotEmpty && !search}
-          className="blue-button"
-          onClick={() => alert('TODO: add search action')}>
+        <Button raised primary onClick={() => alert('TODO: add search action')}
+                disabled={!isNotEmpty && !search}
+                className="blue-button">
           SEARCH
         </Button>
       </div>

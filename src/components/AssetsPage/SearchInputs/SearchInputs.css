@@ -6,11 +6,11 @@
   & > div {
     width: 32%;
   }
-  .date-inputs {
+  & .date-inputs {
     display: flex;
     flex-wrap: wrap;
     justify-content: space-between;
-    label {
+    & label {
       white-space: nowrap;
     }
     & > div {
@@ -24,7 +24,7 @@
   display: flex;
   justify-content: flex-end;
   margin-top: 16px;
-  button {
+  & button {
     width: 50%;
     max-width: 300px;
   }
@@ -43,13 +43,13 @@
 .input-with-icon {
   width: 100%;
   position: relative;
-  input, label {
+  & input, & label {
     padding-left: 24px
   }
-  .input-wrapper {
+  & .input-wrapper {
     width: 100%;
   }
-  .icon {
+  & .icon {
     left: 0;
     bottom: 27px;
     position: absolute;
@@ -68,7 +68,7 @@
       color: #014990;
     }
   }
-  .icon {
+  & .icon {
     margin-left: 4px;
     font-size: 19px;
     display: inline-block;

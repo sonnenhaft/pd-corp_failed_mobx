@@ -5,7 +5,8 @@ import { Card } from 'react-toolbox'
 
 import AssetsPageHeader from './EditAssetPageHeader'
 
-import './EditAssetPage.scss'
+import './EditAssetPage.css'
+
 
 const EditAssetPage = () => {
   return <div>

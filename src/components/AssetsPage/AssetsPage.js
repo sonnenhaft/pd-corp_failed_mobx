@@ -8,7 +8,7 @@ import AssetsPageHeader from './AssetsPageHeader'
 import SearchInputs from './SearchInputs'
 import PaginatableTable from './PaginatableTable'
 
-import './AssetsPage.scss'
+import './AssetsPage.css'
 
 const labels = [
   { label: 'Asset Number', key: 'asset_number' },
