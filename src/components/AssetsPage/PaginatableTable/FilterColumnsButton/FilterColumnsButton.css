@@ -1,6 +1,9 @@
+@import "react-toolbox/lib/variables";
+
 .checkbox-wrapper {
   max-height: 244px;
   overflow-y: auto;
+  margin-top: -8px;
 }
 
 .inactive-checkbox {
@@ -12,8 +15,6 @@
   margin: 0;
   height: auto;
   cursor: pointer;
-
-
   &:first-of-type {
     padding-top: 24px;
   }
@@ -21,7 +22,7 @@
     padding-bottom: 18px;
   }
   &:hover {
-    background: #efefef;
+    background: var(--palette-blue-grey-50);
   }
 }
 

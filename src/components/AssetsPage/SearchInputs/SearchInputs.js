@@ -1,9 +1,8 @@
 import React from 'react'
 
 import './SearchInputs.css'
-import { Icon } from 'common'
-import searchIcon from './search-icon.svg'
 import { TextInput, TextInputWithIcon } from 'common'
+import searchIcon from './search-icon.svg'
 import { Button, Card } from 'react-toolbox'
 import { compose, withHandlers, withState } from 'recompose'
 import FontIcon from 'react-toolbox/lib/font_icon'
@@ -16,7 +15,7 @@ const RippleDiv = Ripple({ spread: 1 })(({ theme, ...props }) => {
   </div>
 })
 
-const SearchInputs = ({ isExpaned, setIsExpanded, filter, setFilter, setSearch, search, resetFilters, keyChanged }) => {
+const SearchInputs = ({ isExpaned, setIsExpanded, filter, setSearch, search, resetFilters, keyChanged }) => {
   const isNotEmpty = !!Object.values(filter).length
 
   const searchButton = <div styleName="search-button-wrapper">

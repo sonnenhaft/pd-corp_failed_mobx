@@ -2,7 +2,6 @@ import React from 'react'
 import { connect } from 'react-redux'
 import { compose } from 'recompose'
 import { generateDemoTable } from 'common'
-import { Card } from 'react-toolbox'
 
 import AssetsPageHeader from './AssetsPageHeader'
 import SearchInputs from './SearchInputs'
@@ -32,11 +31,9 @@ const data = generateDemoTable(labels)
 const AssetsPage = () => {
   return <div>
     <AssetsPageHeader/>
-    <div styleName="page-wrapper">
+    <div styleName="assets-page-content">
       <SearchInputs/>
-      <Card>
-        <PaginatableTable {...{ labels, data }}/>
-      </Card>
+      <PaginatableTable {...{ labels, data }}/>
     </div>
   </div>
 }

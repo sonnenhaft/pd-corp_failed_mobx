@@ -1,6 +1,10 @@
 const reactToolboxVariables = {
   'color-primary': '#0077c8',
   'color-black': '#4a4a4a',
+  'color-white': '#ffffff',
+  'appbar-color': '#014990',
+  'palette-blue-grey-50': '#f8f9fb',
+  'color-primary-dark': '#004890',
   'button-height': 'calc(3.2 * var(--unit))',
   'preferred-font': '"HelveticaNeue", sans-serif',
   'button-disabled-text-color': '#6c717b',

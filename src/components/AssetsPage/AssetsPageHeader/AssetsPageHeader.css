@@ -1,8 +1,10 @@
-.middle-button {
-  margin: 0 16px;
-}
+@import "react-toolbox/lib/variables";
 
 .header-text {
   font-size: 20px;
-  color: #f8f9fb;
+  color: var(--palette-blue-grey-50);
+}
+
+.middle-button {
+  margin: 0 16px;
 }

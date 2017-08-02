@@ -1,16 +1,7 @@
-.page-wrapper {
-  max-width: calc(1024px - 26px);
-  min-height: calc(100vh - 16px - 80px - 60px - 16px);
+.assets-page-content {
+  max-width: calc(1024px - 16px - 16px);
   margin: auto;
   margin-top: 16px;
-  & .scrollable-table {
-    & table {
-      table-layout: auto !important;
-    }
-    & > div > div {
-      overflow-x: auto!important;
-    }
-  }
   @media only screen and (max-width: 1024px) {
     margin: 16px;
   }

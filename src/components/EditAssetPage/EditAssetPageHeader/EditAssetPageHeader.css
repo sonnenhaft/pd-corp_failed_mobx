@@ -1,3 +1,10 @@
+@import "react-toolbox/lib/variables";
+
+.header-text {
+  font-size: 20px;
+  color: var(--palette-blue-grey-50);
+}
+
 .middle-button {
   margin: 0 8px;
 }
@@ -6,9 +13,4 @@
   display: inline-block;
   vertical-align: middle;
   margin-right: 4px;
-}
-
-.header-text {
-  font-size: 20px;
-  color: #f8f9fb;
 }

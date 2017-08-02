@@ -1,17 +1,20 @@
 import React from 'react'
-import { compose, onlyUpdateForKeys, withHandlers } from 'recompose'
+import { compose, onlyUpdateForKeys, withHandlers, withProps } from 'recompose'
 import Button from 'react-toolbox/lib/button'
-import { PageHeader } from 'common'
-import { Icon } from 'common'
+import { NavLink, withRouter } from 'react-router-dom'
+
+import { Icon, PageHeader } from 'common'
 import exportReportSvg from './export-report.icon.svg'
 import importAssetsSvg from './import-assets.icon.svg'
 import './EditAssetPageHeader.css'
 
-const EditAssetsPageHeader = ({ alertTodo }) => <PageHeader>
+const EditAssetsPageHeader = ({ alertTodo, assetId }) => <PageHeader>
   <div styleName="header-text">
-    back | asset name in here
+    <NavLink to="/assets" replace exact style={{ color: 'white' }}>back</NavLink>
+    {!assetId && <span>CREATE ASSET</span>}
+    {assetId && <span>| asset name in here</span>}
   </div>
-  <div>
+  {assetId && <div>
     <Button raised onClick={() => alertTodo('define Update Asset action')}
             styleName="middle-button">
       <Icon svg={importAssetsSvg}/>
@@ -21,11 +24,13 @@ const EditAssetsPageHeader = ({ alertTodo }) => <PageHeader>
       <Icon svg={exportReportSvg}/>
       Delete Asset
     </Button>
-  </div>
+  </div>}
 </PageHeader>
 
 export default compose(
-  onlyUpdateForKeys([]),
+  withRouter,
+  withProps(({ match: { params: { assetId } } }) => ({ assetId })),
+  onlyUpdateForKeys(['assetId']),
   withHandlers({
     alertTodo: () => text => window.alert(`//TODO(vlad): ${ text }`)
   })

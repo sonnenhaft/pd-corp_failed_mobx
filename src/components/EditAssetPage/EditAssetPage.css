@@ -1,13 +1,26 @@
 .page-wrapper {
-  max-width: 1024px;
-  min-height: calc(100vh - 16px - 80px - 60px - 16px);
+  max-width: calc(1024px - 16px - 16px);
   margin: auto;
   margin-top: 16px;
   @media only screen and (max-width: 1024px) {
     margin: 16px;
+    max-width: calc(100% - 16px - 16px);
   }
-}
 
-.edit-asset-page-content {
-  display: flex;
+  & .edit-asset-page-content {
+    display: flex;
+    padding: 16px;
+    & img {
+      margin-right: 16px;
+    }
+  }
+
+  & .asset-fields {
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    & > section {
+      width: 48%;
+    }
+  }
 }

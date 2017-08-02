@@ -1,21 +1,19 @@
 import React from 'react'
+import { compose, onlyUpdateForKeys, withHandlers, withProps, withState } from 'recompose'
 import ReactPaginate from 'react-paginate'
+import {Button, FontIcon, Card} from 'react-toolbox'
 
-import CustomTable from './CustomTable'
+import { Icon } from 'common'
+import Table from './Table'
 import DeleteDialog from './DeleteDialog'
 import FilterColumnsButton from './FilterColumnsButton'
 import styles from './PaginatableTable.css'
-import { compose, onlyUpdateForKeys, withHandlers, withProps, withState } from 'recompose'
-
-import { Icon } from 'common'
 import bulkDeleteIcon from './bulk-delete-icon.svg'
-import Button from 'react-toolbox/lib/button'
-import FontIcon from 'react-toolbox/lib/font_icon'
 
 const PaginatableTable = props => {
   const { labels, data, changeInactiveState, inactiveLabelsMap, selectedIndexes, setSelectedIndexes, tableLabels, sort, setSort } = props
 
-  return <div styleName="paginatable-table">
+  return <Card styleName="paginatable-table">
     <div styleName="filter-button">
       <div styleName="header">ASSETS FOUND ({data.length})</div>
       <div styleName="flex-buttons">
@@ -33,7 +31,7 @@ const PaginatableTable = props => {
       </div>
     </div>
 
-    <CustomTable {...{ labels: tableLabels, data, setSelectedIndexes, sort, setSort, selectedIndexes }}/>
+    <Table {...{ labels: tableLabels, data, setSelectedIndexes, sort, setSort, selectedIndexes }}/>
     <div>
       <ReactPaginate previousLabel={''}
                      nextLabel={<FontIcon value="keyboard_arrow_right"/>}
@@ -47,7 +45,7 @@ const PaginatableTable = props => {
                      subContainerClassName={'pages pagination'}
                      activeClassName={styles['active-page-link']}/>
     </div>
-  </div>
+  </Card>
 }
 
 export default compose(
