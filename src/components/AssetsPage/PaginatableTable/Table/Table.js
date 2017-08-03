@@ -13,13 +13,13 @@ import bulkDeleteIcon from './bulk-delete-icon.svg'
 import updateIcon from './update-icon.svg'
 import verticalDotsIcon from './vertical-dots-icon.svg'
 
-const Table = ({ labels, data, setSelectedIndexes, sort, setSort, selectedIndexes, location, hoveredIndex, setHoveredIndex }) => {
+const Table = ({ labels, data, setSelectedIndexes, sort, setSort, selectedIndexes, location, hoveredIndex, setHoveredIndex, history }) => {
 
   const someSelected = selectedIndexes.length === data.length
   return <div styleName="custom-table-wrapper">
     <div styleName="actions-row-wrapper" onMouseLeave={() => setHoveredIndex(-1)}>
-      <div styleName="action-td-wrapper" onClick={() => setSelectedIndexes(someSelected ? 'none' : 'all')}>
-        <Checkbox checked={someSelected}/>
+      <div styleName="action-td-wrapper">
+        <Checkbox checked={someSelected} onChange={() => setSelectedIndexes(someSelected ? 'none' : 'all')}/>
       </div>
       {data.map((row, index) => {
         const selected = selectedIndexes.includes(index)
@@ -27,16 +27,16 @@ const Table = ({ labels, data, setSelectedIndexes, sort, setSort, selectedIndexe
         return <div styleName={`action-td-wrapper ${hovered || selected ? 'selected' : ''}`}
                     key={index}
                     onMouseEnter={() => setHoveredIndex(index)}
-                    onClick={() => {
-                      if ( selected ) {
-                        const z = selectedIndexes.slice()
-                        z.splice(z.indexOf(index), 1)
-                        setSelectedIndexes(z)
-                      } else {
-                        setSelectedIndexes([...selectedIndexes, index])
-                      }
-                    }}>
-          <Checkbox checked={selected}/>
+        >
+          <Checkbox checked={selected} onChange={() => {
+            if ( selected ) {
+              const z = selectedIndexes.slice()
+              z.splice(z.indexOf(index), 1)
+              setSelectedIndexes(z)
+            } else {
+              setSelectedIndexes([...selectedIndexes, index])
+            }
+          }}/>
         </div>
       })}
     </div>
@@ -61,8 +61,11 @@ const Table = ({ labels, data, setSelectedIndexes, sort, setSort, selectedIndexe
         {data.map((row, index) => {
           const selected = selectedIndexes.includes(index)
           const hovered = hoveredIndex === index
-          return <tr key={index} styleName={hovered || selected ? 'selected' : ''}
-                     onMouseEnter={() => setHoveredIndex(index)}>
+          return <tr
+            key={index}
+            styleName={hovered || selected ? 'selected' : ''}
+            onMouseEnter={() => setHoveredIndex(index)}
+            onClick={() => { history.push(`${location.pathname}/edit/${index}`) }}>
             {labels.map(({ key }) => <td key={key} title={row[key]}>{row[key]}</td>)}
           </tr>
         })}
