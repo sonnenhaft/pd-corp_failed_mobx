@@ -69,12 +69,15 @@ const Table = ({ labels, data, setSelectedIndexes, sort, setSort, selectedIndexe
         </tbody>
       </table>
     </div>
-    <div styleName="actions-row-wrapper">
+    <div styleName="actions-row-wrapper" onMouseLeave={() => setHoveredIndex(-1)}>
       <div styleName="action-td-wrapper"/>
       {data.map((row, index) => {
         const selected = selectedIndexes.includes(index)
         const hovered = hoveredIndex === index
-        return <div styleName={`action-td-wrapper ${hovered || selected ? 'selected' : ''}`} key={index}>
+        return <div
+          styleName={`action-td-wrapper ${hovered || selected ? 'selected' : ''}`}
+          key={index}
+          onMouseEnter={() => setHoveredIndex(index)}>
           <Icon svg={verticalDotsIcon}/>
           <div styleName="action-menu">
             <NavLink to={`${location.pathname}/edit/${index}`} replace exact>
