@@ -17,6 +17,7 @@ const EditAssetInputRef = ({ proxyClick, onFilesSelected, setInputRef, previewIm
   {previewImage && <div>
     <img src={previewImage}/>
     <div styleName="buttons">
+      <div styleName="background"/>
       <IconButton icon="mode_edit" primary/>
       <IconButton icon="delete" accent onClick={e => {
         setPreviewImage(null)
