@@ -12,7 +12,8 @@ import './AssetsPage.css'
 
 const labels = [
   { label: 'Asset Number', key: 'asset_number' },
-  { label: 'Asset Type', key: 'asset_name' },
+  { label: 'Asset Type', key: 'asset_type' },
+  { label: 'Asset Name', key: 'assets_name' },
   { label: 'RFID Number', key: 'rfid' },
   { label: 'Bar Code Number', key: 'barCode' },
   { label: 'Serial Number', key: 'serialNumber' },
