@@ -1,6 +1,6 @@
 {
   "name": "pd-corp-frontend",
-  "version": "0.1.48",
+  "version": "0.1.50",
   "scripts": {
     "dev": "cross-env NODE_ENV=development cross-env webpack-dev-server --open",
     "dev:prod": "cross-env NODE_ENV=production cross-env NO_BUILD=true webpack-dev-server --open",
