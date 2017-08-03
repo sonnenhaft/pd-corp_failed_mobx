@@ -9,8 +9,7 @@
 
 .app {
   font-family: "HelveticaNeue", sans-serif;
-
-  .package-version {
+  & .package-version {
     position: fixed;
     bottom: 3px;
     right: 5px;

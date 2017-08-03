@@ -1,7 +1,7 @@
 .header-width-wrapper {
   background: #014990;
   position: relative;
-  hr {
+  & hr {
     padding: 0;
     margin: 0;
     height: 3px;
@@ -13,7 +13,7 @@
     bottom: 0
   }
 
-  .header-wrapper {
+  & .header-wrapper {
     position: relative;
     display: flex;
     color: white;
@@ -24,12 +24,12 @@
     align-items: center;
   }
 
-  .header {
+  & .header {
     width: 100%;
     display: flex;
     padding: 0 20px;
   }
-  a {
+  & a {
     opacity: 0.7;
     margin: 0 20px;
     text-decoration: inherit;
@@ -65,13 +65,12 @@
 
 .username {
   margin-top: -10px;
-  font-family: "HelveticaNeue", sans-serif !important;
   font-size: 13px !important;
 
   & > div > div {
     color: white !important;
   }
-  button + div {
+  & button + div {
     border-top: none !important;
   }
 }
@@ -83,7 +82,7 @@
   height: 54px;
   background: white;
 
-  img {
+  & img {
     margin: 8px 26px;
     height: 35px;
   }

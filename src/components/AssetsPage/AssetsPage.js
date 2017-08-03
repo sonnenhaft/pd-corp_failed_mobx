@@ -1,26 +1,43 @@
 import React from 'react'
 import { connect } from 'react-redux'
 import { compose } from 'recompose'
+import { generateDemoTable } from 'common'
+import { Card } from 'react-toolbox'
+
 import AssetsPageHeader from './AssetsPageHeader'
+import SearchInputs from './SearchInputs'
+import PaginatableTable from './PaginatableTable'
 
-import {
-  Card,
-  CardText
-} from 'material-ui/Card'
+import './AssetsPage.css'
 
-import './AssetsPage.scss'
+const labels = [
+  { label: 'Asset Number', key: 'asset_number' },
+  { label: 'Asset Type', key: 'asset_type' },
+  { label: 'Asset Name', key: 'assets_name' },
+  { label: 'RFID Number', key: 'rfid' },
+  { label: 'Bar Code Number', key: 'barCode' },
+  { label: 'Serial Number', key: 'serialNumber' },
+  { label: 'Asset/Equipment Number', key: 'assetNumber' },
+  { label: 'Owner/Department', key: 'owner' },
+  { label: 'Manufacturer', key: 'manufacturer' },
+  { label: 'Model', key: 'model' },
+  { label: 'Description', key: 'description' },
+  { label: 'Location', key: 'location' },
+  { label: 'Notes', key: 'notes' },
+  { label: 'Status', key: 'status' }
+]
+
+const data = generateDemoTable(labels)
 
 const AssetsPage = () => {
   return <div>
     <AssetsPageHeader/>
-    <Card styleName="page-wrapper">
-      <CardText>
-        Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-        Donec mattis pretium massa. Aliquam erat volutpat. Nulla facilisi.
-        Donec vulputate interdum sollicitudin. Nunc lacinia auctor quam sed pellentesque.
-        Aliquam dui mauris, mattis quis lacus id, pellentesque lobortis odio.
-      </CardText>
-    </Card>
+    <div styleName="page-wrapper">
+      <SearchInputs/>
+      <Card>
+        <PaginatableTable {...{ labels, data }}/>
+      </Card>
+    </div>
   </div>
 }
 

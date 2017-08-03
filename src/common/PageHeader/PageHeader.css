@@ -1,0 +1,17 @@
+.page-header {
+  background: #014990;
+  height: 54px;
+  padding-top: 24px;
+}
+
+.page-header-wrapper {
+  display: flex;
+  color: white;
+  margin: auto;
+  text-decoration: none;
+  height: 50px;
+  max-width: 954px;
+  padding: 0 36px;
+  align-items: center;
+  justify-content: space-between;
+}

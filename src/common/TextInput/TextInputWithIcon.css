@@ -1,0 +1,41 @@
+.input-with-icon {
+  width: 100%;
+  position: relative;
+  & input, & label {
+    padding-left: 24px
+  }
+  & input {
+    padding-right: 24px
+  }
+  & input:focus ~ label {
+    padding-left: 0
+  }
+  & .input-wrapper {
+    width: 100%;
+  }
+  & .icon {
+    left: 0;
+    bottom: 27px;
+    position: absolute;
+    &.back-icon {
+      left: auto;
+      right: 0;
+      display: inline-block;
+      width: 24px;
+      transform: rotate(45deg) scale(0.7);
+      cursor: pointer;
+      opacity: 0.7;
+      & span:first-of-type {
+        display: none;
+      }
+      &:hover {
+        & span:first-of-type {
+          display: block;
+        }
+        & span:last-of-type {
+          display: none;
+        }
+      }
+    }
+  }
+}

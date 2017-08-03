@@ -1,0 +1,74 @@
+.search-input-buttons {
+  display: flex;
+  flex-wrap: wrap;
+  align-content: flex-end;
+  & > section {
+    width: 31%;
+    &:nth-of-type(3n -1) {
+      margin: 0 3.5%;
+    }
+  }
+  & .date-inputs {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    & label {
+      white-space: nowrap;
+    }
+    & > div {
+      width: 47%;
+      overflow: hidden;
+    }
+  }
+}
+
+.search-button-wrapper {
+  display: flex;
+  justify-content: flex-end;
+  margin-top: 16px;
+  & button {
+    width: 50%;
+    max-width: 300px;
+  }
+}
+
+.header {
+  font-size: 16px;
+  color: #014990;
+}
+
+.search-inputs-card {
+  background: #FBF9F9;
+  padding: 16px
+}
+
+.blue-text-buttons {
+  display: flex;
+  justify-content: space-between;
+  font-size: 14px;
+  color: #0077c8;
+  cursor: pointer;
+  & > div {
+    vertical-align: middle;
+    &:hover {
+      color: #014990;
+    }
+  }
+  & .icon {
+    margin-left: 4px;
+    font-size: 19px;
+    display: inline-block;
+    vertical-align: middle;
+  }
+}
+
+.input-with-button {
+  display: flex;
+  justify-content: space-between;
+  & .search-button-wrapper {
+    margin-left: 32px;
+    & button {
+      width: 200px
+    }
+  }
+}

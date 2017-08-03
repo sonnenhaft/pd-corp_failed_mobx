@@ -3,28 +3,23 @@ import { compose, onlyUpdateForKeys, withHandlers } from 'recompose'
 import Button from 'react-toolbox/lib/button'
 import { PageHeader } from 'common'
 import { Icon } from 'common'
-
-import createAssetSvg from './create-asset.icon.svg'
 import exportReportSvg from './export-report.icon.svg'
 import importAssetsSvg from './import-assets.icon.svg'
-import './AssetsPageHeader.css'
+import './EditAssetPageHeader.css'
 
-const AssetsPageHeader = ({ alertTodo }) => <PageHeader>
-  <div styleName="header-text">ASSETS</div>
+const EditAssetsPageHeader = ({ alertTodo }) => <PageHeader>
+  <div styleName="header-text">
+    back | asset name in here
+  </div>
   <div>
-    <Button raised onClick={() => alertTodo('define create asset action')}>
-      <Icon svg={createAssetSvg}/>
-      Create Asset
-    </Button>
-
-    <Button raised onClick={() => alertTodo('define import assets action')}
+    <Button raised onClick={() => alertTodo('define Update Asset action')}
             styleName="middle-button">
       <Icon svg={importAssetsSvg}/>
-      Import Assets
+      Update Asset
     </Button>
-    <Button raised onClick={() => alertTodo('define export report action')}>
+    <Button raised onClick={() => alertTodo('define Delete Asset action')}>
       <Icon svg={exportReportSvg}/>
-      Export Report
+      Delete Asset
     </Button>
   </div>
 </PageHeader>
@@ -34,4 +29,4 @@ export default compose(
   withHandlers({
     alertTodo: () => text => window.alert(`//TODO(vlad): ${ text }`)
   })
-)(AssetsPageHeader)
+)(EditAssetsPageHeader)

@@ -1,0 +1,28 @@
+.checkbox-wrapper {
+  max-height: 244px;
+  overflow-y: auto;
+}
+
+.inactive-checkbox {
+  opacity: 0.4;
+}
+
+.checkbox {
+  padding: 8px 18px;
+  margin: 0;
+  height: auto;
+  cursor: pointer;
+
+
+  &:first-of-type {
+    padding-top: 24px;
+  }
+  &:last-of-type {
+    padding-bottom: 18px;
+  }
+  &:hover {
+    background: #efefef;
+  }
+}
+
+

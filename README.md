@@ -1,3 +1,7 @@
+## Update global design colors
+Find "postcss.config.js" - object in bottom contains all what you want
+
+
 ## Prerequisites
 
 * node >= 6.10.2
@@ -19,7 +23,7 @@ $ npm dev:dashboard
 
 ## Run locally in production mode
 ```sh
-$ npm dev:production
+$ npm dev:prod
 ```
 
 ## Fix eslint issues
@@ -34,5 +38,5 @@ $ npm build
 
 ## Build to use dev env variables
 ```sh
-$ npm build:development
+$ npm build:dev
 ```
