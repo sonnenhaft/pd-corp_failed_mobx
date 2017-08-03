@@ -1,5 +1,5 @@
 import React from 'react'
-import { compose, onlyUpdateForKeys, withHandlers } from 'recompose'
+import { compose } from 'recompose'
 import Button from 'react-toolbox/lib/button'
 import { NavLink, withRouter } from 'react-router-dom'
 
@@ -12,7 +12,7 @@ import './AssetsPageHeader.css'
 const AssetsPageHeader = ({ alertTodo, location }) => <PageHeader>
   <div styleName="header-text">ASSETS</div>
   <div>
-    <NavLink to={`${location.pathname}/create`} replace exact>
+    <NavLink to={`${location.pathname}/create`}>
       <Button raised>
         <Icon svg={createAssetSvg}/>
         Create Asset
@@ -33,9 +33,5 @@ const AssetsPageHeader = ({ alertTodo, location }) => <PageHeader>
 </PageHeader>
 
 export default compose(
-  withRouter,
-  onlyUpdateForKeys(['location']),
-  withHandlers({
-    alertTodo: () => text => window.alert(`//TODO(vlad): ${ text }`)
-  })
+  withRouter
 )(AssetsPageHeader)

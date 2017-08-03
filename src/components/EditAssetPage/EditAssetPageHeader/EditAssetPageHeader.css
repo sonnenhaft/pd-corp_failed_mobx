@@ -14,3 +14,26 @@
   vertical-align: middle;
   margin-right: 4px;
 }
+
+.back-link {
+  min-width: 34px;
+  margin-right: 26px;
+  padding: 0;
+  vertical-align: middle;
+}
+
+.cancel-button {
+  color: white !important;
+  width: 111px;
+  border: 1px solid #c5cfda;
+  height: 35px;
+  &:hover {
+    border: 1px solid #0077c8;
+  }
+}
+
+.buttons-block {
+  & button:last-of-type {
+    margin-left: 16px;
+  }
+}

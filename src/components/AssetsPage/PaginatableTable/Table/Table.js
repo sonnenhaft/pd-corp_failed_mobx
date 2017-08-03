@@ -65,7 +65,7 @@ const Table = ({ labels, data, setSelectedIndexes, sort, setSort, selectedIndexe
             key={index}
             styleName={hovered || selected ? 'selected' : ''}
             onMouseEnter={() => setHoveredIndex(index)}
-            onClick={() => { history.push(`${location.pathname}/edit/${index}`) }}>
+            onClick={() => { history.push(`${location.pathname}/view/${index}`) }}>
             {labels.map(({ key }) => <td key={key} title={row[key]}>{row[key]}</td>)}
           </tr>
         })}
@@ -83,7 +83,7 @@ const Table = ({ labels, data, setSelectedIndexes, sort, setSort, selectedIndexe
           onMouseEnter={() => setHoveredIndex(index)}>
           <Icon svg={verticalDotsIcon}/>
           <div styleName="action-menu">
-            <NavLink to={`${location.pathname}/edit/${index}`} replace exact>
+            <NavLink to={`${location.pathname}/edit/${index}`}>
               <IconButton tooltip="Update" svg={updateIcon}/>
             </NavLink>
             <DeleteDialog>

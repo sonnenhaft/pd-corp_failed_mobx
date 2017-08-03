@@ -4,7 +4,7 @@ import { NavLink, withRouter } from 'react-router-dom'
 import { compose, onlyUpdateForKeys } from 'recompose'
 import styles from './Header.css'
 import logoIcon from './logo-icon.png'
-import { MenuItem, FontIcon } from 'react-toolbox'
+import { FontIcon, MenuItem } from 'react-toolbox'
 import { MenuButton } from 'common'
 
 const stableLinks = [
@@ -25,7 +25,7 @@ const Header = ({ user: { name: username } }) => <div
     <div styleName="header">
       {stableLinks.map(({ link, value }) => <NavLink
         key={value} title={value} activeClassName={styles['active']}
-        to={link} replace exact>{value}</NavLink>)}
+        to={link}>{value}</NavLink>)}
     </div>
 
     <MenuButton label={username} styleName="username" primary

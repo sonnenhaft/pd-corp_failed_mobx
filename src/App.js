@@ -15,6 +15,7 @@ const App = ({ user }) => {
         <Header/>
         <Switch>
           <Route exact path="/assets/edit/:assetId" component={EditAssetPage}/>
+          <Route exact path="/assets/view/:assetId" component={() => <EditAssetPage/>}/>
           <Route exact path="/assets/create" component={EditAssetPage}/>
           <Route exact path="/assets" component={AssetsPage}/>
           <Redirect from="/" to="/assets"/>
