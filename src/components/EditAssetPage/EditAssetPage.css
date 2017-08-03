@@ -10,9 +10,6 @@
   & .edit-asset-page-content {
     display: flex;
     padding: 16px;
-    & img {
-      margin-right: 16px;
-    }
   }
 
   & .asset-fields {

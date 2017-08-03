@@ -7,6 +7,8 @@ import { Button, Card, FontIcon } from 'react-toolbox'
 import AssetsPageHeader from './EditAssetPageHeader'
 import { TextInput } from 'common'
 
+import EditAssetInput  from './EditAssetInput'
+
 import './EditAssetPage.css'
 
 const EditAssetPage = ({ keyChanged, asset, assetId }) => <div>
@@ -25,10 +27,8 @@ const EditAssetPage = ({ keyChanged, asset, assetId }) => <div>
       </div>}
     </div>
     <div styleName="edit-asset-page-content">
-      <div>
-        <img src="http://lorempixel.com/283/365"/>
-      </div>
-      <div>
+      <EditAssetInput/>
+      <div style={{paddingLeft: '32px'}}>
         <div styleName="asset-fields">
           <TextInput label="Asset Name" onChange={keyChanged('assetName')} value={asset.assetName || ''}/>
           <TextInput label="Serial Number" onChange={keyChanged('serialNumber')} value={asset.serialNumber || ''}/>
