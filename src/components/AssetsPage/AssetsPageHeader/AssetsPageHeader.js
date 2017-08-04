@@ -9,7 +9,7 @@ import exportReportSvg from './export-report.icon.svg'
 import importAssetsSvg from './import-assets.icon.svg'
 import './AssetsPageHeader.css'
 
-const AssetsPageHeader = ({ alertTodo, location }) => <PageHeader>
+const AssetsPageHeader = ({ location }) => <PageHeader>
   <div styleName="header-text">ASSETS</div>
   <div>
     <NavLink to={`${location.pathname}/create`}>
@@ -19,13 +19,13 @@ const AssetsPageHeader = ({ alertTodo, location }) => <PageHeader>
       </Button>
     </NavLink>
 
-    <Button raised onClick={() => alertTodo('define import assets action')}
+    <Button raised onClick={() => alert('define import assets action')}
             styleName="middle-button">
       <Icon svg={importAssetsSvg}/>
       Import Assets
     </Button>
 
-    <Button raised onClick={() => alertTodo('define export report action')}>
+    <Button raised onClick={() => alert('define export report action')}>
       <Icon svg={exportReportSvg}/>
       Export Report
     </Button>

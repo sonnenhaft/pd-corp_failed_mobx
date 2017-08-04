@@ -1,7 +1,6 @@
 import React from 'react'
 import { connect } from 'react-redux'
 import { compose } from 'recompose'
-import { generateDemoTable } from 'common'
 
 import AssetsPageHeader from './AssetsPageHeader'
 import SearchInputs from './SearchInputs'
@@ -26,18 +25,14 @@ const labels = [
   { label: 'Status', key: 'status' }
 ]
 
-const data = generateDemoTable(labels)
-
-const AssetsPage = () => {
-  return <div>
-    <AssetsPageHeader/>
-    <div styleName="assets-page-content">
-      <SearchInputs/>
-      <PaginatableTable {...{ labels, data }}/>
-    </div>
+const AssetsPage = ({ list }) => <div>
+  <AssetsPageHeader/>
+  <div styleName="assets-page-content">
+    <SearchInputs/>
+    <PaginatableTable {...{ labels, data: list }}/>
   </div>
-}
+</div>
 
 export default compose(
-  connect(({ user }) => ({ user }))
+  connect(({ user, assets: { list } }) => ({ user, list }))
 )(AssetsPage)

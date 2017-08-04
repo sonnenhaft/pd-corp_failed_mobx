@@ -1,6 +1,6 @@
 {
   "name": "pd-corp-frontend",
-  "version": "0.1.56",
+  "version": "0.1.62",
   "scripts": {
     "dev": "cross-env NODE_ENV=development cross-env webpack-dev-server --open",
     "dev:prod": "cross-env NODE_ENV=production cross-env NO_BUILD=true webpack-dev-server --open",
@@ -13,21 +13,26 @@
   "dependencies": {
     "axios": "0.16.2",
     "babel-polyfill": "6.23.0",
+    "chance": "1.0.10",
+    "history": "4.6.3",
     "lodash": "4.17.4",
     "material-design-icons-iconfont": "3.0.3",
+    "normalize.css": "7.0.0",
     "prop-types": "15.5.10",
     "react": "15.4.2",
     "react-dom": "15.4.2",
+    "react-paginate": "4.4.3",
     "react-redux": "5.0.5",
     "react-router-dom": "4.1.2",
+    "react-router-redux": "5.0.0-alpha.6",
     "react-tap-event-plugin": "2.0.1",
     "react-toolbox": "2.0.0-beta.12",
     "recompose": "0.24.0",
     "redux": "3.7.2",
-    "redux-persist": "4.8.3",
-    "chance": "1.0.10",
-    "normalize.css": "7.0.0",
-    "react-paginate": "4.4.3"
+    "redux-devtools": "^3.4.0",
+    "redux-devtools-dock-monitor": "^1.1.2",
+    "redux-devtools-log-monitor": "^1.3.0",
+    "redux-persist": "4.8.3"
   },
   "devDependencies": {
     "babel-plugin-react-css-modules": "2.2.0",
@@ -38,7 +43,7 @@
     "babel-core": "6.25.0",
     "babel-eslint": "7.2.3",
     "babel-loader": "7.1.1",
-    "babel-plugin-transform-class-properties": "^6.23.0",
+    "babel-plugin-transform-class-properties": "6.23.0",
     "babel-plugin-transform-function-bind": "6.22.0",
     "babel-preset-es2015": "6.24.1",
     "babel-preset-react": "6.24.1",

@@ -6,14 +6,19 @@ import { AppContainer } from 'react-hot-loader'
 
 import App from './App'
 import { Provider } from 'react-redux'
-import store from './redux/store'
+// eslint-disable-next-line no-unused-vars
+import store, {DevTools} from './redux/store'
 import injectTapEventPlugin from 'react-tap-event-plugin'
 injectTapEventPlugin()
 
 const render = Component => ReactDom.render(
   <Provider store={store}>
     <AppContainer>
-      <Component />
+      <div>
+        <Component />
+        {/*<DevTools/>*/}
+      </div>
+
     </AppContainer>
   </Provider>,
   document.getElementById('root')

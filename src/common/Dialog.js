@@ -1,31 +1,35 @@
 import React from 'react'
-import { compose, withState } from 'recompose'
+import { compose, withHandlers, withState } from 'recompose'
 
 import RtDialog from 'react-toolbox/lib/dialog'
 
-const Dialog = ({ isOpened, setIsOpened, children, content }) => {
-  const handleClose = () => setIsOpened(false)
-  const actions = [
-    { label: 'Cancel', onClick: handleClose },
-    { label: 'Submit', onClick: handleClose }
-  ]
-
+const Dialog = ({ handleClose, handleOpen, handleSubmit, isOpened, children, content }) => {
   return <div>
-    <div onClick={() => setIsOpened(!isOpened)}>
-      {children}
-    </div>
+    <div onClick={handleOpen}>{children}</div>
     <RtDialog
-      actions={actions}
+      actions={[
+        { label: 'Cancel', onClick: handleClose },
+        { label: 'Submit', onClick: handleSubmit }
+      ]}
       active={isOpened}
       onEscKeyDown={handleClose}
       onOverlayClick={handleClose}
-      title="Dialog With Actions"
-    >
+      title="Dialog With Actions">
       {content()}
     </RtDialog>
   </div>
 }
 
 export default compose(
-  withState('isOpened', 'setIsOpened', false)
+  withState('isOpened', 'setIsOpened', false),
+  withHandlers({
+    handleClose: ({ setIsOpened }) => () => setIsOpened(false),
+    handleOpen: ({ setIsOpened }) => () => setIsOpened(true),
+    handleSubmit: ({ setIsOpened, action }) => () => {
+      setIsOpened(false)
+      if ( action ) {
+        action()
+      }
+    }
+  })
 )(Dialog)

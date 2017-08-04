@@ -33,6 +33,7 @@
 }
 
 .buttons-block {
+  display: flex;
   & button:last-of-type {
     margin-left: 16px;
   }

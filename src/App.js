@@ -1,16 +1,18 @@
 import React from 'react'
 import { connect } from 'react-redux'
-import { HashRouter as Router, Redirect, Route, Switch } from 'react-router-dom'
+import { Redirect, Route, Switch } from 'react-router-dom'
 import { ThemeProvider } from 'react-css-themr'
 
 import Header from './components/Header'
 import AssetsPage from './components/AssetsPage'
 import EditAssetPage from './components/EditAssetPage'
 import './App.css'
+import { history } from './redux/store'
+import { ConnectedRouter as Router } from 'react-router-redux'
 
 const App = ({ user }) => {
   if ( user ) {
-    return <Router>
+    return <Router history={history}>
       <div styleName="app">
         <Header/>
         <Switch>
