@@ -5,7 +5,7 @@ import './EditAssetInput.css'
 
 const EditAssetInputRef = ({ proxyClick, onFilesSelected, setInputRef, previewImage, setPreviewImage }) => <div
   styleName="input-wrapper" onClick={proxyClick}>
-  <input ref={setInputRef} type="file" accept=".png,.gif,.jpg,.jpeg"
+  <input ref={setInputRef} type="file" accept="image/*"
          onChange={onFilesSelected} style={{ display: 'none' }}/>
   {!previewImage && <div>
     <div style={{ textAlign: 'center' }}>

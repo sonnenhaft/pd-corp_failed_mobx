@@ -64,7 +64,7 @@
   & .actions-row-wrapper {
     background-color: rgb(250, 249, 249);
     border-top: 1px solid #D6D6D6;
-    width: 32px;
+    width: 36px;
 
     &:last-of-type {
       border-left: 2px solid #D6D6D6;
@@ -84,7 +84,7 @@
 
     & .action-td-wrapper {
       height: 50px;
-      width: 30px;
+      width: 36px;
       border: 1px solid #D6D6D6;
       justify-content: center;
       display: flex;

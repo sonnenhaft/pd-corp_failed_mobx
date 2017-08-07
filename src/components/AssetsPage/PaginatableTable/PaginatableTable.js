@@ -1,7 +1,7 @@
 import React from 'react'
 import { compose, onlyUpdateForKeys, withHandlers, withProps, withState } from 'recompose'
 import ReactPaginate from 'react-paginate'
-import {Button, FontIcon, Card} from 'react-toolbox'
+import { Button, Card, FontIcon } from 'react-toolbox'
 
 import { Icon } from 'common'
 import Table from './Table'
@@ -9,6 +9,8 @@ import DeleteDialog from './DeleteDialog'
 import FilterColumnsButton from './FilterColumnsButton'
 import styles from './PaginatableTable.css'
 import bulkDeleteIcon from './bulk-delete-icon.svg'
+import assets from 'mobx/Assets.store'
+import { inject, observer } from 'mobx-react'
 
 const PaginatableTable = props => {
   const { labels, data, changeInactiveState, inactiveLabelsMap, selectedIndexes, setSelectedIndexes, tableLabels, sort, setSort } = props
@@ -18,8 +20,13 @@ const PaginatableTable = props => {
       <div styleName="header">ASSETS FOUND ({data.length})</div>
       <div styleName="flex-buttons">
         <div styleName="some-right-wrapper">
-          {!!selectedIndexes.length && <DeleteDialog>
-            <Button raised>
+          {!!selectedIndexes.length && <DeleteDialog action={() => {
+            assets.remove(selectedIndexes.map(idx => data[idx].id)).then(() => {
+              setSelectedIndexes([])
+            })
+
+          }}>
+            <Button raised primary>
               Delete
               &nbsp;&nbsp;
               <Icon svg={bulkDeleteIcon}/>
@@ -51,6 +58,8 @@ const PaginatableTable = props => {
 export default compose(
   onlyUpdateForKeys(['labels', 'data']),
   withState('inactiveLabelsMap', 'setInactiveLabelsMap', {}),
+  inject(() => ({ assets })),
+  observer,
   withState('sort', '_setSort', {}),
   withProps(({ labels, inactiveLabelsMap, sort }) => {
     if ( !sort.key ) {

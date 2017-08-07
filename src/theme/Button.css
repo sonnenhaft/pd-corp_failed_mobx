@@ -24,10 +24,16 @@
     }
   }
 
-  &.primary {
+  &.bold {
     height: 40px;
     font-size: 14px;
     font-weight: bold;
+  }
+
+  &.primary {
+    & path {
+      fill: var(--color-white);
+    }
     &:hover:not([disabled]), &:focus {
       background: var(--color-primary-dark);
     }

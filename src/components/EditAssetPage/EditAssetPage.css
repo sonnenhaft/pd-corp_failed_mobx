@@ -1,5 +1,5 @@
 .page-wrapper {
-  max-width: calc(1024px - 16px - 16px);
+  max-width: 1024px;
   margin: auto;
   margin-top: 16px;
   @media only screen and (max-width: 1024px) {

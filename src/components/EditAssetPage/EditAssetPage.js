@@ -24,14 +24,19 @@ const EditAssetPage = ({ keyChanged, asset = {} }) => <div>
       <EditAssetInput/>
       <div style={{ paddingLeft: '32px' }}>
         <div styleName="asset-fields">
-          <TextInput label="Asset Name" onChange={keyChanged('asset_name')} value={asset.asset_name || ''}/>
-          <TextInput label="Serial Number" onChange={keyChanged('serialNumber')} value={asset.serialNumber || ''}/>
-          <TextInput label="Asset Type" onChange={keyChanged('asset_type')} value={asset.asset_type || ''}/>
-          <TextInput label="Legacy Asset Number" onChange={keyChanged('rfid')} value={asset.rfid || ''}/>
+          <TextInput label="Asset Number" onChange={keyChanged('asset_number')} value={asset.assetNumber || ''}/>
           <TextInput label="Model Name" onChange={keyChanged('model')} value={asset.model || ''}/>
+
+          <TextInput label="Asset Name" onChange={keyChanged('asset_name')} value={asset.asset_name || ''}/>
+          <TextInput label="Key Location" onChange={keyChanged('key_location')} value={asset.key_location || ''}/>
+
+          <TextInput label="Legacy Asset Number" onChange={keyChanged('eq_number')} value={asset.eq_number || ''}/>
+          <TextInput label="Serial Number" onChange={keyChanged('serialNumber')} value={asset.serialNumber || ''}/>
+
+          <TextInput label="Asset Type" onChange={keyChanged('asset_type')} value={asset.asset_type || ''}/>
           <TextInput label="Manufacturer" onChange={keyChanged('manufacturer')} value={asset.manufacturer || ''}/>
         </div>
-        <TextInput label="Notes" onChange={keyChanged('notes')} value={asset.notes || ''}/>
+        <TextInput multiline label="Notes" onChange={keyChanged('notes')} value={asset.notes || ''}/>
       </div>
     </div>
   </Card>

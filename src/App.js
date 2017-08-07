@@ -21,7 +21,6 @@ const App = ({ user = true }) => {
           <Redirect from="/" to="/assets"/>
           <Route component={() => <div>404 or page does not exist yet</div>}/>
         </Switch>
-
         <div styleName="app-version">PD Corp v{process.env.VERSION}</div>
       </div>
     </Router>

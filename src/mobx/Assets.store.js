@@ -1,38 +1,58 @@
 import { observable } from 'mobx'
 import { generateDemoTable } from 'common'
 import { history } from './Routing.store'
+import { create as hydrate, persist } from 'mobx-persist'
+
+const delay = () => new Promise(resolve => setTimeout(resolve, 1000))
 
 class AssetsStore {
   @observable list = []
 
-  @observable activeId = null
-  @observable active = {}
+  @persist @observable activeId = null
+  @persist('object') @observable active = {}
 
   labels = [
-    { label: 'id', key: 'id' },
-    { label: 'Asset Number', key: 'asset_name' },
+    { label: 'id', key: 'id', hidden: true },
+    { label: 'Asset/Equipment Number', key: 'assetNumber' },
     { label: 'Asset Type', key: 'asset_type' },
-    { label: 'RFID Number', key: 'rfid' },
+    { label: 'Asset Name', key: 'asset_name' },
     { label: 'Bar Code Number', key: 'barCode' },
     { label: 'Serial Number', key: 'serialNumber' },
-    { label: 'Asset/Equipment Number', key: 'assetNumber' },
+    { label: 'Asset/Equipment Number', key: 'eq_number' },
     { label: 'Owner/Department', key: 'owner' },
     { label: 'Manufacturer', key: 'manufacturer' },
     { label: 'Model', key: 'model' },
     { label: 'Description', key: 'description' },
-    { label: 'Location', key: 'location' },
     { label: 'Notes', key: 'notes' },
-    { label: 'Status', key: 'status' }
+    { label: 'Key Location', key: 'key_location' }
   ]
 
   activate(activeId) {
     this.activeId = activeId
-    this.active = { ...this.list.find(({ id }) => id === activeId) }
-    // this.active = this.list.find(({ id }) => id === activeId) || {}
+    this.active = this.labels.reduce((item, { key }) => {
+      if ( !item.hasOwnProperty(key) ) {
+        item[key] = null
+      }
+      return item
+    }, {...this.list.find(({ id }) => id === activeId)} || {})
   }
 
-  remove(id) {
-    return this.list.splice(this.list.findIndex(({ id: _id }) => _id === id), 1)
+  async remove(ids) {
+    await delay()
+    ids = Array.isArray(ids) ? ids : [ids]
+    console.log(ids)
+    console.log(this.list.length)
+    this.list = this.list.filter(({ id }) => !ids.includes(id))
+    console.log(this.list.length)
+  }
+
+  async add() {
+    await delay()
+    const newAsset = this.active
+    newAsset.id = Date.now()
+    this.list.push(newAsset)
+    this.active = {}
+    return newAsset
   }
 
   constructor() {
@@ -42,10 +62,15 @@ class AssetsStore {
 
 const assetsStore = new AssetsStore()
 
+hydrate()('assetsStore', assetsStore)
+  .then(() => console.log('assetsStore hydrated'))
+
 history.subscribe(location => {
   const matches = /\/assets\/(edit|view)\/(.*)/.exec(location.pathname)
   if ( matches && matches[2] !== assetsStore.activeId ) {
     assetsStore.activate(matches[2])
+  } else if ( location.pathname === '/assets/create' ) {
+    assetsStore.activate(-1)
   }
 })
 

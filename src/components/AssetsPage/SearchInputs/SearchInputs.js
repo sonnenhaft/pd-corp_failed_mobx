@@ -19,9 +19,8 @@ const SearchInputs = ({ isExpaned, setIsExpanded, filter, setSearch, search, res
   const isNotEmpty = !!Object.values(filter).length
 
   const searchButton = <div styleName="search-button-wrapper">
-    <Button raised primary onClick={() => alert('TODO: add search action')}
-            disabled={!isNotEmpty && !search}
-            className="blue-button">
+    <Button raised primary onClick={() => (isNotEmpty || search) && alert('TODO: add search action')}
+            styleName="blue-button">
       SEARCH
     </Button>
   </div>

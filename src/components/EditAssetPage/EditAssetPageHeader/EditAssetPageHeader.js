@@ -19,9 +19,9 @@ const CancelButton = ({ to }) => <BackBtn to={to} styleName="cancel-button">
   Cancel
 </BackBtn>
 
-const SaveButton = () => <Button
+const SaveButton = ({save}) => <Button
   raised
-  onClick={() => alert('define Save action')}
+  onClick={save}
   styleName="middle-button">
   <FontIcon value="save"/>
   Save Asset
@@ -33,8 +33,13 @@ const EditAssetsPageHeader = ({
                                 history,
                                 activeItem = {},
                                 assets
-                              }) => (
-  <PageHeader>
+                              }) => {
+  const save = () => {
+    assets.add().then(({ id }) => {
+      history.push(`${location.pathname}/view/${id}`)
+    })
+  }
+  return <PageHeader>
     <div styleName="header-text">
       <BackBtn raised styleName="back-link">
         <FontIcon value="chevron_left"/>
@@ -54,8 +59,9 @@ const EditAssetsPageHeader = ({
 
       <Route path="/assets/view/:assetId" component={() => (
         <DeleteDialog action={() => {
-          assets.remove(assetId)
-          history.push(`${location.pathname}/view/${assetId}`)
+          assets.remove(assets.active.id).then(() => {
+            history.push(`${location.pathname}/view/${assetId}`)
+          })
         }} type="asset">
           <Button raised>
             <FontIcon value="delete"/>Delete Asset
@@ -64,15 +70,16 @@ const EditAssetsPageHeader = ({
       )}/>
 
       <Route path="/assets/create" component={CancelButton}/>
-      <Route path="/assets/create" component={SaveButton}/>
+      <Route path="/assets/create" component={() => <SaveButton {...{ save }}/>}/>
 
       <Route path="/assets/edit/:assetId" component={() => {
         return <CancelButton to={`/assets/view/${assetId}`}/>
       }}/>
-      <Route path="/assets/edit/:assetId" component={SaveButton}/>
+      <Route path="/assets/edit/:assetId" component={() => <SaveButton {...{ save }}/>}/>
 
     </div>
-  </PageHeader>)
+  </PageHeader>
+}
 
 export default compose(
   withRouter,
