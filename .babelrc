@@ -2,11 +2,11 @@
   "presets": [["es2015", {"modules": false}], "stage-0", "react"],
   "plugins": [
     ["react-css-modules", {"generateScopedName": "[local]___[hash:base64:5]"}],
+    "transform-decorators-legacy",
     "transform-function-bind",
     "transform-class-properties"
   ],
   "env": {
-    "test": {"plugins": ["transform-es2015-modules-commonjs"]},
     "development": {"plugins": ["react-hot-loader/babel"]}
   }
 }

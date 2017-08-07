@@ -1,16 +1,14 @@
 import React from 'react'
-import { connect } from 'react-redux'
-import { compose, onlyUpdateForKeys, withHandlers, withProps } from 'recompose'
+import { compose, withHandlers } from 'recompose'
 import { NavLink, Route, withRouter } from 'react-router-dom'
 import { Card } from 'react-toolbox'
-
 import AssetsPageHeader from './EditAssetPageHeader'
 import { TextInput } from 'common'
-
 import EditAssetInput from './EditAssetInput'
+import { inject, observer } from 'mobx-react'
+import assets from 'mobx/Assets.store'
 
 import './EditAssetPage.css'
-import { updateAssetSuccess as updateAsset } from 'redux/asset.actions'
 
 const EditAssetPage = ({ keyChanged, asset = {} }) => <div>
   <AssetsPageHeader/>
@@ -41,19 +39,11 @@ const EditAssetPage = ({ keyChanged, asset = {} }) => <div>
 
 export default compose(
   withRouter,
-  withProps(({ match: { params: { assetId } } }) => ({ assetId })),
-  onlyUpdateForKeys(['assetId']),
-  connect(
-    ({ user, assets: { list, activeId } }) => ({ user, list, activeId }),
-    { updateAsset }
-  ),
-  withProps(({ list, activeId }) => {
-    const asset = list.find(({ id }) => id === activeId)
-    return { asset }
-  }),
+  inject(() => ({ asset: assets.active })),
+  observer,
   withHandlers({
-    keyChanged: ({ asset, updateAsset }) => key => value => {
-      updateAsset({ id: asset.id, data: { [key]: value } })
-    }
+    keyChanged: ({ asset }) => key => value => asset[key] = value
   })
 )(EditAssetPage)
+
+

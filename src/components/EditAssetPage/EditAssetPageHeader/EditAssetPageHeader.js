@@ -5,9 +5,9 @@ import { NavLink, Route, withRouter } from 'react-router-dom'
 import { PageHeader } from 'common'
 import './EditAssetPageHeader.css'
 import { Button, FontIcon } from 'react-toolbox'
-import { deleteAssetSuccess } from 'redux/asset.actions'
-import { connect } from 'react-redux'
 import DeleteDialog from '../../AssetsPage/PaginatableTable/DeleteDialog'
+import assets from 'mobx/Assets.store'
+import { inject, observer } from 'mobx-react'
 
 const BackBtn = ({ children, to = '/assets', ...props }) => <NavLink to={to}>
   <Button {...props}>
@@ -30,8 +30,9 @@ const SaveButton = () => <Button
 const EditAssetsPageHeader = ({
                                 hoveredIndex, setHoveredIndex, location,
                                 match: { params: { assetId } },
-                                deleteAsset, history,
-                                activeItem = {}
+                                history,
+                                activeItem = {},
+                                assets
                               }) => (
   <PageHeader>
     <div styleName="header-text">
@@ -53,7 +54,7 @@ const EditAssetsPageHeader = ({
 
       <Route path="/assets/view/:assetId" component={() => (
         <DeleteDialog action={() => {
-          deleteAsset(assetId)
+          assets.remove(assetId)
           history.push(`${location.pathname}/view/${assetId}`)
         }} type="asset">
           <Button raised>
@@ -74,14 +75,9 @@ const EditAssetsPageHeader = ({
   </PageHeader>)
 
 export default compose(
-  withState('hoveredIndex', 'setHoveredIndex', -1),
-  connect(
-    ({ user, assets: { list, activeId } }) => ({ user, list, activeId }),
-    { deleteAsset: deleteAssetSuccess }
-  ),
   withRouter,
-  withProps(({ list, activeId }) => {
-    const activeItem = list.find(({id}) => id === activeId)
-    return { activeItem }
-  })
+  withState('hoveredIndex', 'setHoveredIndex', -1),
+  inject(() => ({ assets })),
+  observer,
+  withProps(({ assets }) => ({ activeItem: assets.active }))
 )(EditAssetsPageHeader)

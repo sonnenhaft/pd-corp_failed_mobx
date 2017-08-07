@@ -12,10 +12,10 @@ import DeleteDialog from '../DeleteDialog'
 import bulkDeleteIcon from './bulk-delete-icon.svg'
 import updateIcon from './update-icon.svg'
 import verticalDotsIcon from './vertical-dots-icon.svg'
-import { deleteAssetSuccess } from 'redux/asset.actions'
-import { connect } from 'react-redux'
+import assets from 'mobx/Assets.store'
+import { inject, observer } from 'mobx-react'
 
-const Table = ({ labels, data, setSelectedIndexes, sort, setSort, selectedIndexes, location, hoveredIndex, setHoveredIndex, history, deleteAsset }) => {
+const Table = ({ labels, data, setSelectedIndexes, sort, setSort, selectedIndexes, location, hoveredIndex, setHoveredIndex, history, assets }) => {
 
   const someSelected = selectedIndexes.length === data.length
   return <div styleName="custom-table-wrapper">
@@ -88,7 +88,7 @@ const Table = ({ labels, data, setSelectedIndexes, sort, setSort, selectedIndexe
             <NavLink to={`${location.pathname}/edit/${row.id}`}>
               <IconButton tooltip="Update" svg={updateIcon}/>
             </NavLink>
-            <DeleteDialog action={() => deleteAsset(row.id)} type="asset">
+            <DeleteDialog action={() => assets.remove(row.id)} type="asset">
               <IconButton tooltip="Delete" svg={bulkDeleteIcon}/>
             </DeleteDialog>
           </div>
@@ -99,11 +99,10 @@ const Table = ({ labels, data, setSelectedIndexes, sort, setSort, selectedIndexe
 }
 
 export default compose(
-  connect(
-    ({ user, assets: { list } }) => ({ user, list }),
-    { deleteAsset: deleteAssetSuccess }
-  ),
+  inject(() => ({ assets })),
+  observer,
   withRouter,
   withState('hoveredIndex', 'setHoveredIndex', -1),
   onlyUpdateForKeys(['labels', 'data', 'selectedIndexes', 'hoveredIndex'])
 )(Table)
+

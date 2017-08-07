@@ -1,5 +1,4 @@
 import React from 'react'
-import { connect } from 'react-redux'
 import { NavLink, withRouter } from 'react-router-dom'
 import { compose, onlyUpdateForKeys } from 'recompose'
 import styles from './Header.css'
@@ -15,7 +14,7 @@ const stableLinks = [
   { link: '/stationary-readers', value: 'Stationary Readers' }
 ]
 
-const Header = ({ user: { name: username } }) => <div
+const Header = ({ username = 'John Doe' }) => <div
   styleName="header-width-wrapper">
   <hr/>
   <div styleName="header-wrapper">
@@ -40,6 +39,5 @@ const Header = ({ user: { name: username } }) => <div
 
 export default compose(
   withRouter,
-  connect(({ user }) => ({ user })),
-  onlyUpdateForKeys(['user', 'location'])
+  onlyUpdateForKeys(['location'])
 )(Header)

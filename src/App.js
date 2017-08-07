@@ -1,16 +1,14 @@
 import React from 'react'
-import { connect } from 'react-redux'
-import { Redirect, Route, Switch } from 'react-router-dom'
+import { HashRouter as Router, Redirect, Route, Switch } from 'react-router-dom'
 import { ThemeProvider } from 'react-css-themr'
 
 import Header from './components/Header'
 import AssetsPage from './components/AssetsPage'
 import EditAssetPage from './components/EditAssetPage'
+import { history } from 'mobx/Routing.store'
 import './App.css'
-import { history } from './redux/store'
-import { ConnectedRouter as Router } from 'react-router-redux'
 
-const App = ({ user }) => {
+const App = ({ user = true }) => {
   if ( user ) {
     return <Router history={history}>
       <div styleName="app">
@@ -38,12 +36,10 @@ const theme = {
   RTInput: require('./theme/Button.css')
 }
 
-const StyledApp = props => (
+
+// eslint-disable-next-line react/display-name
+export default  props => (
   <ThemeProvider {...{ theme }}>
     <App {...props}/>
   </ThemeProvider>
 )
-
-export default connect(
-  ({ user }) => ({ user })
-)(StyledApp)
