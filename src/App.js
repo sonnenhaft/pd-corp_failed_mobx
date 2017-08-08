@@ -1,38 +1,27 @@
 import React from 'react'
-import { connect } from 'react-redux'
-import { HashRouter as Router, Route, Switch } from 'react-router-dom'
+import { HashRouter as Router, Redirect, Route, Switch } from 'react-router-dom'
+import { ThemeProvider } from 'react-css-themr'
 
 import Header from './components/Header'
 import AssetsPage from './components/AssetsPage'
 import EditAssetPage from './components/EditAssetPage'
+import { history } from 'mobx/Routing.store'
 import './App.css'
 
-import { MuiThemeProvider } from 'material-ui/styles'
-import getMuiTheme from 'material-ui/styles/getMuiTheme'
-import theme from './theme/material-theme-overrides.json'
-
-import { ThemeProvider } from 'react-css-themr'
-const rtTheme = {
-  RTButton: require('./theme/Button.css'),
-  RTCheckbox: require('./theme/Checkbox.css'),
-  RTInput: require('./theme/Button.css')
-}
-
-const App = ({ user }) => {
+const App = ({ user = true }) => {
   if ( user ) {
-    return <Router>
+    return <Router history={history}>
       <div styleName="app">
         <Header/>
         <Switch>
           <Route exact path="/assets/edit/:assetId" component={EditAssetPage}/>
+          <Route exact path="/assets/view/:assetId" component={() => <EditAssetPage/>}/>
+          <Route exact path="/assets/create" component={EditAssetPage}/>
           <Route exact path="/assets" component={AssetsPage}/>
-          <Route exact path="/" component={AssetsPage}/>
+          <Redirect from="/" to="/assets"/>
           <Route component={() => <div>404 or page does not exist yet</div>}/>
         </Switch>
-
-        <div styleName="package-version">
-          PD Corp v{process.env.VERSION}
-        </div>
+        <div styleName="app-version">PD Corp v{process.env.VERSION}</div>
       </div>
     </Router>
   } else {
@@ -40,14 +29,16 @@ const App = ({ user }) => {
   }
 }
 
-const StyledApp = props => (
-  <MuiThemeProvider {...{ muiTheme: getMuiTheme(theme) }}>
-    <ThemeProvider theme={rtTheme}>
-      <App {...props}/>
-    </ThemeProvider>
-  </MuiThemeProvider>
-)
+const theme = {
+  RTButton: require('./theme/Button.css'),
+  RTCheckbox: require('./theme/Checkbox.css'),
+  RTInput: require('./theme/Button.css')
+}
 
-export default connect(
-  ({ user }) => ({ user })
-)(StyledApp)
+
+// eslint-disable-next-line react/display-name
+export default  props => (
+  <ThemeProvider {...{ theme }}>
+    <App {...props}/>
+  </ThemeProvider>
+)

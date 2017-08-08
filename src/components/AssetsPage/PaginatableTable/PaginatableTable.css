@@ -1,10 +1,12 @@
+@import "react-toolbox/lib/variables";
+
 .filter-button {
   display: flex;
   justify-content: space-between;
   align-items: center;
   margin-bottom: 16px;
   & .header {
-    color: #014990;
+    color: var(--appbar-color);
     font-size: 16px;
   }
   & .flex-buttons {
@@ -30,14 +32,16 @@
     cursor: pointer;
     padding: 3px 6px;
     padding-bottom: 0;
-    font-family: "HelveticaNeue", sans-serif;
+    font-family: var(--preferred-font);
     border-radius: 3px;
-    &:hover:not(.active-page-link):not(.break-me) {
-      background: #0077c8;
-      color: white;
+
+    &.active-page-link,
+    &:hover:not(.break-me) {
+      background: var(--color-primary);
+      color: var(--color-white);
     }
     &.active-page-link {
-      background: #c5c9cb;
+      cursor: not-allowed;
     }
     & a {
       line-height: 24px;

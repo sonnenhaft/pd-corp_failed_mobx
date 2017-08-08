@@ -1,14 +1,12 @@
 import React from 'react'
-import { PopoverButton } from 'common'
+import { Icon, MenuButton } from 'common'
 import Checkbox from 'react-toolbox/lib/checkbox'
 import './FilterColumnsButton.css'
-
-import { Icon } from 'common'
 import configGearIcon from './config-gear-icon.svg'
 
 const FilterColumnsButton = ({ labels, changeInactiveState, inactiveLabelsMap }) => <div>
-  <PopoverButton label={() => {
-    return <div>Filter Columns &nbsp;&nbsp;<Icon svg={configGearIcon}/></div>
+  <MenuButton label={'Filter Columns'} raised icon={() => {
+    return <span>&nbsp;&nbsp;<Icon svg={configGearIcon}/></span>
   }}>
     <div styleName="checkbox-wrapper">
       {labels.map(({ key, label }) => {
@@ -20,7 +18,7 @@ const FilterColumnsButton = ({ labels, changeInactiveState, inactiveLabelsMap })
           onChange={bool => changeInactiveState(!bool, key)}/>
       })}
     </div>
-  </PopoverButton>
+  </MenuButton>
 </div>
 
 export default FilterColumnsButton

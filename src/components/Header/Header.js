@@ -1,12 +1,10 @@
 import React from 'react'
-import { connect } from 'react-redux'
 import { NavLink, withRouter } from 'react-router-dom'
 import { compose, onlyUpdateForKeys } from 'recompose'
-import { DropDownMenu, MenuItem } from 'material-ui'
-
 import styles from './Header.css'
 import logoIcon from './logo-icon.png'
-
+import { FontIcon, MenuItem } from 'react-toolbox'
+import { MenuButton } from 'common'
 
 const stableLinks = [
   { link: '/assets', value: 'assets' },
@@ -16,7 +14,7 @@ const stableLinks = [
   { link: '/stationary-readers', value: 'Stationary Readers' }
 ]
 
-const Header = ({ user: { name: username } }) => <div
+const Header = ({ username = 'John Doe' }) => <div
   styleName="header-width-wrapper">
   <hr/>
   <div styleName="header-wrapper">
@@ -26,18 +24,20 @@ const Header = ({ user: { name: username } }) => <div
     <div styleName="header">
       {stableLinks.map(({ link, value }) => <NavLink
         key={value} title={value} activeClassName={styles['active']}
-        to={link} replace exact>{value}</NavLink>)}
+        to={link}>{value}</NavLink>)}
     </div>
 
-    <DropDownMenu value={username} styleName="username">
-      <MenuItem value={username} primaryText={username}/>
-      <MenuItem value={username} primaryText={username}/>
-    </DropDownMenu>
+    <MenuButton label={username} styleName="username" primary
+                icon={active => <FontIcon value={active ? 'arrow_drop_up' : 'arrow_drop_down'}/>}>
+      <MenuItem value='download' icon='get_app' caption={username}/>
+      <MenuItem value='help' icon='favorite' caption='Favorite'/>
+      <MenuItem value='settings' icon='open_in_browser' caption='Open in app'/>
+      <MenuItem value='signout' icon='delete' caption='Delete' disabled/>
+    </MenuButton>
   </div>
 </div>
 
 export default compose(
   withRouter,
-  connect(({ user }) => ({ user })),
-  onlyUpdateForKeys(['user', 'location'])
+  onlyUpdateForKeys(['location'])
 )(Header)

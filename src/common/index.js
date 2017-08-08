@@ -1,6 +1,6 @@
 export { default as generateDemoTable } from './generateDemoTable'
 export Dialog  from './Dialog'
-export PopoverButton from './PopoverButton'
+export MenuButton  from './MenuButton'
 export { PageHeader } from './PageHeader'
 export { TextInput, TextInputWithIcon } from './TextInput'
 export { RippleDiv } from './RippleDiv'

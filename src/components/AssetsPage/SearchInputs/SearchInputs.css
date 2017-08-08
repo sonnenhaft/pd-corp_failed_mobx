@@ -1,3 +1,5 @@
+@import "react-toolbox/lib/variables";
+
 .search-input-buttons {
   display: flex;
   flex-wrap: wrap;
@@ -34,11 +36,11 @@
 
 .header {
   font-size: 16px;
-  color: #014990;
+  color: var(--appbar-color);
 }
 
 .search-inputs-card {
-  background: #FBF9F9;
+  background: var(--palette-blue-grey-50);
   padding: 16px
 }
 
@@ -46,12 +48,12 @@
   display: flex;
   justify-content: space-between;
   font-size: 14px;
-  color: #0077c8;
+  color: var(--color-primary);
   cursor: pointer;
   & > div {
     vertical-align: middle;
     &:hover {
-      color: #014990;
+      color: var(--appbar-color);
     }
   }
   & .icon {
@@ -71,4 +73,10 @@
       width: 200px
     }
   }
+}
+
+.blue-button {
+  height: 40px;
+  font-size: 14px;
+  font-weight: bold;
 }

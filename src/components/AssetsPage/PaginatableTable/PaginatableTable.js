@@ -1,27 +1,32 @@
 import React from 'react'
+import { compose, onlyUpdateForKeys, withHandlers, withProps, withState } from 'recompose'
 import ReactPaginate from 'react-paginate'
+import { Button, Card, FontIcon } from 'react-toolbox'
 
-import CustomTable from './CustomTable'
+import { Icon } from 'common'
+import Table from './Table'
 import DeleteDialog from './DeleteDialog'
 import FilterColumnsButton from './FilterColumnsButton'
 import styles from './PaginatableTable.css'
-import { compose, onlyUpdateForKeys, withHandlers, withProps, withState } from 'recompose'
-
-import { Icon } from 'common'
 import bulkDeleteIcon from './bulk-delete-icon.svg'
-import Button from 'react-toolbox/lib/button'
-import FontIcon from 'react-toolbox/lib/font_icon'
+import assets from 'mobx/Assets.store'
+import { inject, observer } from 'mobx-react'
 
 const PaginatableTable = props => {
   const { labels, data, changeInactiveState, inactiveLabelsMap, selectedIndexes, setSelectedIndexes, tableLabels, sort, setSort } = props
 
-  return <div styleName="paginatable-table">
+  return <Card styleName="paginatable-table">
     <div styleName="filter-button">
       <div styleName="header">ASSETS FOUND ({data.length})</div>
       <div styleName="flex-buttons">
         <div styleName="some-right-wrapper">
-          {!!selectedIndexes.length && <DeleteDialog>
-            <Button raised>
+          {!!selectedIndexes.length && <DeleteDialog action={() => {
+            assets.remove(selectedIndexes.map(idx => data[idx].id)).then(() => {
+              setSelectedIndexes([])
+            })
+
+          }}>
+            <Button raised primary>
               Delete
               &nbsp;&nbsp;
               <Icon svg={bulkDeleteIcon}/>
@@ -33,7 +38,7 @@ const PaginatableTable = props => {
       </div>
     </div>
 
-    <CustomTable {...{ labels: tableLabels, data, setSelectedIndexes, sort, setSort, selectedIndexes }}/>
+    <Table {...{ labels: tableLabels, data, setSelectedIndexes, sort, setSort, selectedIndexes }}/>
     <div>
       <ReactPaginate previousLabel={''}
                      nextLabel={<FontIcon value="keyboard_arrow_right"/>}
@@ -47,12 +52,14 @@ const PaginatableTable = props => {
                      subContainerClassName={'pages pagination'}
                      activeClassName={styles['active-page-link']}/>
     </div>
-  </div>
+  </Card>
 }
 
 export default compose(
   onlyUpdateForKeys(['labels', 'data']),
   withState('inactiveLabelsMap', 'setInactiveLabelsMap', {}),
+  inject(() => ({ assets })),
+  observer,
   withState('sort', '_setSort', {}),
   withProps(({ labels, inactiveLabelsMap, sort }) => {
     if ( !sort.key ) {

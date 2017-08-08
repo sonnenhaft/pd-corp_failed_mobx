@@ -1,12 +1,14 @@
+@import "react-toolbox/lib/variables";
+
 .page-header {
-  background: #014990;
+  background: var(--color-primary-dark);
   height: 54px;
   padding-top: 24px;
 }
 
 .page-header-wrapper {
   display: flex;
-  color: white;
+  color: var(--color-white);
   margin: auto;
   text-decoration: none;
   height: 50px;
