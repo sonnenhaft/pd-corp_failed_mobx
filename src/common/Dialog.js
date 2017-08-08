@@ -3,13 +3,15 @@ import { compose, withHandlers, withState } from 'recompose'
 
 import RtDialog from 'react-toolbox/lib/dialog'
 
-const Dialog = ({ handleClose, handleOpen, handleSubmit, isOpened, children, content }) => {
+const Dialog = props => {
+  const { handleClose, handleOpen, handleSubmit, isOpened, children, content } = props
+  const { okLabel = 'Submit', cancelLabel = 'Cancel'} = props
   return <div>
     <div onClick={handleOpen}>{children}</div>
     <RtDialog
       actions={[
-        { label: 'Cancel', onClick: handleClose },
-        { label: 'Submit', onClick: handleSubmit }
+        { label: cancelLabel, onClick: handleClose },
+        { label: okLabel, onClick: handleSubmit }
       ]}
       active={isOpened}
       onEscKeyDown={handleClose}

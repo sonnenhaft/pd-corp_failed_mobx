@@ -2,6 +2,10 @@
   max-width: 1024px;
   margin: auto;
   margin-top: 16px;
+  & hr {
+    border: none;
+    border-bottom: 0.5px solid rgba(74, 74, 74, 0.12);
+  }
   @media only screen and (max-width: 1024px) {
     margin: 16px;
     max-width: calc(100% - 16px - 16px);
@@ -41,4 +45,11 @@
     display: inline-block;
     margin: 5px 8px;
   }
+}
+
+.asset-number-header {
+  font-size: 16px;
+  color: #014990;
+  line-height: 25px;
+  text-transform: uppercase;
 }

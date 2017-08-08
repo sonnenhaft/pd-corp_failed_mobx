@@ -10,6 +10,7 @@ class AssetsStore {
 
   @persist @observable activeId = null
   @persist('object') @observable active = {}
+  @persist('object') @observable activeItem = {}
 
   labels = [
     { label: 'id', key: 'id', hidden: true },
@@ -29,21 +30,20 @@ class AssetsStore {
 
   activate(activeId) {
     this.activeId = activeId
+    const activeItem = { ...this.list.find(({ id }) => id === activeId) }
     this.active = this.labels.reduce((item, { key }) => {
       if ( !item.hasOwnProperty(key) ) {
         item[key] = null
       }
       return item
-    }, {...this.list.find(({ id }) => id === activeId)} || {})
+    }, activeItem || {})
+    this.activeItem = activeItem
   }
 
   async remove(ids) {
     await delay()
     ids = Array.isArray(ids) ? ids : [ids]
-    console.log(ids)
-    console.log(this.list.length)
     this.list = this.list.filter(({ id }) => !ids.includes(id))
-    console.log(this.list.length)
   }
 
   async add() {
@@ -53,6 +53,11 @@ class AssetsStore {
     this.list.push(newAsset)
     this.active = {}
     return newAsset
+  }
+
+  async update() {
+    await delay()
+    return Object.assign(this.activeItem, this.active)
   }
 
   constructor() {
