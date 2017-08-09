@@ -1,10 +1,10 @@
 import React from 'react'
 import { compose, withHandlers, withState } from 'recompose'
 import { FontIcon, IconButton } from 'react-toolbox'
-import './EditAssetInput.css'
+import './EditAssetImageInput.css'
 
-const EditAssetInputRef = ({ proxyClick, onFilesSelected, setInputRef, previewImage, setPreviewImage }) => <div
-  styleName="input-wrapper" onClick={proxyClick}>
+const EditAssetInputRef = ({ proxyClick, onFilesSelected, setInputRef, previewImage, setPreviewImage, isView }) => <div
+  styleName={`input-wrapper ${isView ? 'is-view' :''}`} onClick={proxyClick}>
   <input ref={setInputRef} type="file" accept="image/*"
          onChange={onFilesSelected} style={{ display: 'none' }}/>
   {!previewImage && <div>
@@ -37,7 +37,7 @@ export default compose(
   withState('inputRef', 'setInputRef', null),
   withState('previewImage', 'setPreviewImage', null),
   withHandlers({
-    proxyClick: ({ inputRef }) => () => inputRef.click(),
+    proxyClick: ({ inputRef, isView }) => () => !isView && inputRef.click(),
     onFilesSelected: ({ setPreviewImage }) => ({ target }) => {
       setPreviewImageFromFile(target.files[0], setPreviewImage)
       target.value = null

@@ -1,12 +1,11 @@
 import React from 'react'
 import { compose, withHandlers, withProps } from 'recompose'
-import { NavLink, Route, withRouter } from 'react-router-dom'
+import { NavLink, Route } from 'react-router-dom'
 import { Card } from 'react-toolbox'
 import AssetsPageHeader from './EditAssetPageHeader'
 import { TextInput } from 'common'
-import EditAssetInput from './EditAssetInput'
+import EditAssetInput from './EditAssetImageInput'
 import { inject, observer } from 'mobx-react'
-import assets from 'mobx/Assets.store'
 
 import './EditAssetPage.css'
 
@@ -26,7 +25,9 @@ const EditAssetPage = ({ Text, asset = {}, isView }) => {
 
   return <div>
     {/*without this line component is not updating*/}
-    <div style={{ display: 'none' }}>{Object.values(asset).join(',')}</div>
+    {/*<div style={{ display: 'none' }}>{Object.values(asset).join(',')}</div>*/}
+
+    {/*{Object.values(asset).join(',')}*/}
 
     <AssetsPageHeader/>
     <Card styleName="page-wrapper">
@@ -38,7 +39,7 @@ const EditAssetPage = ({ Text, asset = {}, isView }) => {
         <Route path="/assets/create" component={() => <span>Create Asset</span>}/>
       </div>
       <div styleName="edit-asset-page-content">
-        <EditAssetInput/>
+        <EditAssetInput {...{ isView }}/>
         <div style={{ paddingLeft: '32px' }}>
           {isView && <div styleName="asset-number-header">
             ASSET NUMBER: {asset.assetNumber}
@@ -46,8 +47,6 @@ const EditAssetPage = ({ Text, asset = {}, isView }) => {
           {isView && <hr/>}
           <div styleName="asset-fields">
             {!isView && <Text value="assetNumber"/>}
-
-            <Text value="assetNumber"/>
 
             <Text value="model"/>
             <Text value="asset_name"/>
@@ -65,30 +64,29 @@ const EditAssetPage = ({ Text, asset = {}, isView }) => {
   </div>
 }
 
-const Text = ({ asset, isView, value, multiline }) => {
+const Text = ({ assets, asset, isView, value, multiline }) => {
   return <TextInput
     multiline={multiline}
     disabled={isView}
     label={isView ? `${map[value]}:` : map[value]}
-    onChange={val => asset[value] = val}
+    onChange={val => assets.change(value, val)}
     value={asset[value] || ''}/>
 }
 
 export default compose(
-  withRouter,
-  inject(() => ({ assets })),
-  withProps(({ match: { path }, assets }) => {
-    const isView = path.indexOf('view') !== -1
+  inject('routing', 'assets'),
+  observer,
+  withProps(({ assets, routing }) => {
+    const isView = routing.location.pathname.indexOf('view') !== -1
     return {
       asset: isView ? assets.activeItem : assets.active,
       isView
     }
   }),
-  observer,
   withHandlers({
     // eslint-disable-next-line react/display-name
-    Text: ({ asset, isView }) => ({ value, multiline }) => {
-      return <Text {...{ asset, isView, value, multiline }}/>
+    Text: ({ asset, isView, assets }) => ({ value, multiline }) => {
+      return <Text {...{ asset, assets, isView, value, multiline }}/>
     }
   })
 )(EditAssetPage)

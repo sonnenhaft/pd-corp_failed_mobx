@@ -16,13 +16,14 @@ export const TextInput = ({ errorText, ...props }) => {
   }
 }
 
+const MAX_LEN = 250
 const DisabledTextAreaDummy = ({ setExpanded, expanded, multiline, value = '', disabled, label }) => {
-  const collsapsible = multiline && value.length > 500 && disabled
+  const collsapsible = multiline && value.length > MAX_LEN && disabled
 
   return <section styleName="content">
     <label styleName="label">{label}</label>
     {collsapsible && <div>
-      {expanded ? value : `${value.slice(0, 500)}...`}
+      {expanded ? value : `${value.slice(0, MAX_LEN)}...`}
       <a onClick={() => setExpanded(!expanded)} styleName="expandable-button">
         {expanded ? 'Collapse' : 'Expand'}
       </a>
