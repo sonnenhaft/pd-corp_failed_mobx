@@ -32,7 +32,7 @@ const App = ({ user = true }) => {
 const theme = {
   RTButton: require('./theme/Button.css'),
   RTCheckbox: require('./theme/Checkbox.css'),
-  RTInput: require('./theme/Button.css')
+  RTInput: require('./theme/Input.css')
 }
 
 

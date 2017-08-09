@@ -1,4 +1,4 @@
-import { observable } from 'mobx'
+import { action, observable } from 'mobx'
 import { generateDemoTable } from 'common'
 import { history } from './Routing.store'
 import { create as hydrate, persist } from 'mobx-persist'
@@ -10,6 +10,7 @@ class AssetsStore {
 
   @persist @observable activeId = null
   @persist('object') @observable active = {}
+  @persist('object') @observable activeItem = {}
 
   labels = [
     { label: 'id', key: 'id', hidden: true },
@@ -27,32 +28,45 @@ class AssetsStore {
     { label: 'Key Location', key: 'key_location' }
   ]
 
+  change(value, val) {
+    this.active = { ...this.active, ...{ [value]: val } }
+  }
+
   activate(activeId) {
     this.activeId = activeId
+    if ( activeId === -1 ) {
+      this.active = {}
+      this.activeItem = {}
+      return
+    }
+    const activeItem = { ...this.list.find(({ id }) => id === activeId) }
     this.active = this.labels.reduce((item, { key }) => {
       if ( !item.hasOwnProperty(key) ) {
         item[key] = null
       }
       return item
-    }, {...this.list.find(({ id }) => id === activeId)} || {})
+    }, activeItem || {})
+    this.activeItem = activeItem
   }
 
   async remove(ids) {
     await delay()
     ids = Array.isArray(ids) ? ids : [ids]
-    console.log(ids)
-    console.log(this.list.length)
     this.list = this.list.filter(({ id }) => !ids.includes(id))
-    console.log(this.list.length)
   }
 
   async add() {
     await delay()
     const newAsset = this.active
-    newAsset.id = Date.now()
+    newAsset.id = Date.now() + ''
     this.list.push(newAsset)
     this.active = {}
     return newAsset
+  }
+
+  async update() {
+    await delay()
+    return Object.assign(this.activeItem, this.active)
   }
 
   constructor() {
@@ -67,9 +81,9 @@ hydrate()('assetsStore', assetsStore)
 
 history.subscribe(location => {
   const matches = /\/assets\/(edit|view)\/(.*)/.exec(location.pathname)
-  if ( matches && matches[2] !== assetsStore.activeId ) {
+  if ( matches && (matches[2] !== assetsStore.activeId) ) {
     assetsStore.activate(matches[2])
-  } else if ( location.pathname === '/assets/create' ) {
+  } else if ( !matches ) {
     assetsStore.activate(-1)
   }
 })

@@ -2,7 +2,7 @@ import React from 'react'
 import { compose, withProps, withState } from 'recompose'
 import { NavLink, Route, withRouter } from 'react-router-dom'
 
-import { PageHeader } from 'common'
+import { Dialog, PageHeader } from 'common'
 import './EditAssetPageHeader.css'
 import { Button, FontIcon } from 'react-toolbox'
 import DeleteDialog from '../../AssetsPage/PaginatableTable/DeleteDialog'
@@ -19,13 +19,15 @@ const CancelButton = ({ to }) => <BackBtn to={to} styleName="cancel-button">
   Cancel
 </BackBtn>
 
-const SaveButton = ({save}) => <Button
-  raised
-  onClick={save}
-  styleName="middle-button">
-  <FontIcon value="save"/>
-  Save Asset
-</Button>
+const SaveButton = ({ save }) => <Dialog
+  okLabel="Yes" cancelLabel="No"
+  action={save}
+  content={() => <div>Are you sure you want to update this asset?</div>}>
+  <Button raised styleName="middle-button">
+    <FontIcon value="save"/>
+    Save Asset
+  </Button>
+</Dialog>
 
 const EditAssetsPageHeader = ({
                                 hoveredIndex, setHoveredIndex, location,
@@ -35,8 +37,8 @@ const EditAssetsPageHeader = ({
                                 assets
                               }) => {
   const save = () => {
-    assets.add().then(({ id }) => {
-      history.push(`${location.pathname}/view/${id}`)
+    (assets.active.id ? assets.update() : assets.add()).then(({ id }) => {
+      history.push(`/assets/view/${id}`)
     })
   }
   return <PageHeader>

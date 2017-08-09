@@ -3,4 +3,27 @@
   max-width: 100%;
   overflow: hidden;
   text-overflow: ellipsis;
+  font-size: 13px;
+  color: #6c717b;
+}
+
+.input {
+  //padding: 14px 0;
+}
+
+.inputElement {
+  font-size: 14px;
+  color: #6c717b;
+}
+
+.input.disabled {
+  & .inputElement {
+    border-bottom: none;
+    color: #6c717b;
+    margin-bottom: 1px
+  }
+
+  & .label {
+    font-family: 'HelveticaNeue-Bold';
+  }
 }

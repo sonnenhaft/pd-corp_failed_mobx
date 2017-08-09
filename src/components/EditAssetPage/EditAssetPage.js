@@ -1,54 +1,92 @@
 import React from 'react'
-import { compose, withHandlers } from 'recompose'
-import { NavLink, Route, withRouter } from 'react-router-dom'
+import { compose, withHandlers, withProps } from 'recompose'
+import { NavLink, Route } from 'react-router-dom'
 import { Card } from 'react-toolbox'
 import AssetsPageHeader from './EditAssetPageHeader'
 import { TextInput } from 'common'
-import EditAssetInput from './EditAssetInput'
+import EditAssetInput from './EditAssetImageInput'
 import { inject, observer } from 'mobx-react'
-import assets from 'mobx/Assets.store'
 
 import './EditAssetPage.css'
 
-const EditAssetPage = ({ keyChanged, asset = {} }) => <div>
-  <AssetsPageHeader/>
-  <Card styleName="page-wrapper">
-    <div styleName="header">
-      <NavLink to="/assets">Asset</NavLink>
-      <div styleName="dot"/>
-      <Route path="/assets/edit/:assetId" component={() => <span>Update Asset</span>}/>
-      <Route path="/assets/view/:assetId" component={() => <span>{asset.asset_name}</span>}/>
-      <Route path="/assets/create" component={() => <span>Create Asset</span>}/>
-    </div>
-    <div styleName="edit-asset-page-content">
-      <EditAssetInput/>
-      <div style={{ paddingLeft: '32px' }}>
-        <div styleName="asset-fields">
-          <TextInput label="Asset Number" onChange={keyChanged('asset_number')} value={asset.assetNumber || ''}/>
-          <TextInput label="Model Name" onChange={keyChanged('model')} value={asset.model || ''}/>
+const map = {
+  assetNumber: 'Asset Number',
+  model: 'Model Name',
+  asset_name: 'Asset Name',
+  key_location: 'Key Location',
+  eq_number: 'Legacy Asset Number',
+  serialNumber: 'Serial Number',
+  asset_type: 'Asset Type',
+  manufacturer: 'Manufacturer',
+  notes: 'Notes'
+}
 
-          <TextInput label="Asset Name" onChange={keyChanged('asset_name')} value={asset.asset_name || ''}/>
-          <TextInput label="Key Location" onChange={keyChanged('key_location')} value={asset.key_location || ''}/>
+const EditAssetPage = ({ Text, asset = {}, isView }) => {
 
-          <TextInput label="Legacy Asset Number" onChange={keyChanged('eq_number')} value={asset.eq_number || ''}/>
-          <TextInput label="Serial Number" onChange={keyChanged('serialNumber')} value={asset.serialNumber || ''}/>
+  return <div>
+    {/*without this line component is not updating*/}
+    {/*<div style={{ display: 'none' }}>{Object.values(asset).join(',')}</div>*/}
 
-          <TextInput label="Asset Type" onChange={keyChanged('asset_type')} value={asset.asset_type || ''}/>
-          <TextInput label="Manufacturer" onChange={keyChanged('manufacturer')} value={asset.manufacturer || ''}/>
-        </div>
-        <TextInput multiline label="Notes" onChange={keyChanged('notes')} value={asset.notes || ''}/>
+    {/*{Object.values(asset).join(',')}*/}
+
+    <AssetsPageHeader/>
+    <Card styleName="page-wrapper">
+      <div styleName="header">
+        <NavLink to="/assets">Asset</NavLink>
+        <div styleName="dot"/>
+        <Route path="/assets/edit/:assetId" component={() => <span>Update Asset</span>}/>
+        <Route path="/assets/view/:assetId" component={() => <span>{asset.asset_name}</span>}/>
+        <Route path="/assets/create" component={() => <span>Create Asset</span>}/>
       </div>
-    </div>
-  </Card>
-</div>
+      <div styleName="edit-asset-page-content">
+        <EditAssetInput {...{ isView }}/>
+        <div style={{ paddingLeft: '32px' }}>
+          {isView && <div styleName="asset-number-header">
+            ASSET NUMBER: {asset.assetNumber}
+          </div>}
+          {isView && <hr/>}
+          <div styleName="asset-fields">
+            {!isView && <Text value="assetNumber"/>}
+
+            <Text value="model"/>
+            <Text value="asset_name"/>
+            <Text value="key_location"/>
+            <Text value="eq_number"/>
+            <Text value="serialNumber"/>
+            <Text value="asset_type"/>
+            <Text value="manufacturer"/>
+          </div>
+          {isView && <hr/>}
+          <Text value="notes" multiline/>
+        </div>
+      </div>
+    </Card>
+  </div>
+}
+
+const Text = ({ assets, asset, isView, value, multiline }) => {
+  return <TextInput
+    multiline={multiline}
+    disabled={isView}
+    label={isView ? `${map[value]}:` : map[value]}
+    onChange={val => assets.change(value, val)}
+    value={asset[value] || ''}/>
+}
 
 export default compose(
-  withRouter,
-  inject(() => ({ asset: assets.active })),
+  inject('routing', 'assets'),
   observer,
+  withProps(({ assets, routing }) => {
+    const isView = routing.location.pathname.indexOf('view') !== -1
+    return {
+      asset: isView ? assets.activeItem : assets.active,
+      isView
+    }
+  }),
   withHandlers({
-    keyChanged: ({ asset }) => key => value => asset[key] = value
+    // eslint-disable-next-line react/display-name
+    Text: ({ asset, isView, assets }) => ({ value, multiline }) => {
+      return <Text {...{ asset, assets, isView, value, multiline }}/>
+    }
   })
 )(EditAssetPage)
-
-
