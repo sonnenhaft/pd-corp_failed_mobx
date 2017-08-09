@@ -18,7 +18,8 @@ import { inject, observer } from 'mobx-react'
 const Table = ({ setSelectedIndexes, sort, setSort, selectedIndexes, location, hoveredIndex, setHoveredIndex, history, assets }) => {
 
   const someSelected = selectedIndexes.length === assets.list.length
-  const visibleLabels = assets.labels.filter(({hidden}) => !hidden)
+  const visibleLabels = assets.labels.filter(({ hidden }) => !hidden)
+  const menuHidden = selectedIndexes.length > 1
   return <div styleName="custom-table-wrapper">
     <div styleName="actions-row-wrapper" onMouseLeave={() => setHoveredIndex(-1)}>
       <div styleName="action-td-wrapper">
@@ -81,7 +82,7 @@ const Table = ({ setSelectedIndexes, sort, setSort, selectedIndexes, location, h
         const selected = selectedIndexes.includes(index)
         const hovered = hoveredIndex === index
         return <div
-          styleName={`action-td-wrapper ${hovered || selected ? 'selected' : ''}`}
+          styleName={`action-td-wrapper ${(hovered || selected) && !menuHidden ? 'selected' : ''}`}
           key={index}
           onMouseEnter={() => setHoveredIndex(index)}>
           <Icon svg={verticalDotsIcon}/>
