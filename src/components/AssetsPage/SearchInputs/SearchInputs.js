@@ -51,7 +51,6 @@ const SearchInputs = ({ isExpaned, setIsExpanded, filter, setSearch, search, res
       </RippleDiv>}
     </div>
 
-
     {isExpaned && <div>
       <div styleName="search-input-buttons">
         <TextInput label="Asset Name" onChange={keyChanged('assetName')} value={filter.assetName || ''}/>

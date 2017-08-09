@@ -12,12 +12,19 @@ class AssetsStore {
   @persist('object') @observable active = {}
   @persist('object') @observable activeItem = {}
 
+  getLabelsMap() {
+    return this.labels.reduce(((map, item) => {
+      map[item.key] = item
+      return map
+    }), {})
+  }
+
   labels = [
     { label: 'id', key: 'id', hidden: true },
-    { label: 'Asset/Equipment Number', key: 'assetNumber' },
-    { label: 'Asset Type', key: 'asset_type' },
-    { label: 'Asset Name', key: 'asset_name' },
-    { label: 'Bar Code Number', key: 'barCode' },
+    { label: 'Asset Number', key: 'assetNumber' },
+    { label: 'Asset Type', key: 'assetType', required: true },
+    { label: 'Asset Name', key: 'assetName', required: true },
+    { label: 'Barcode Number', key: 'barcode', required: true },
     { label: 'Serial Number', key: 'serialNumber' },
     { label: 'Asset/Equipment Number', key: 'eq_number' },
     { label: 'Owner/Department', key: 'owner' },
