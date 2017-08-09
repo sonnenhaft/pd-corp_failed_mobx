@@ -10,6 +10,14 @@ const DashboardPlugin = require('webpack-dashboard/plugin')
 
 const devServerPort = process.env.DEV_SERVER_PORT
 
+const isDeveloment = () => {
+  const isDevelopment = process.env.NODE_ENV === 'development'
+  const buildDev = process.env.BUILD_DEV === 'true'
+  const noBuild = process.env.NO_BUILD === 'true'
+
+  return (isDevelopment && !buildDev) || noBuild
+}
+
 const pkg = require('./package.json')
 process.env.VERSION = pkg.version
 
@@ -64,10 +72,6 @@ const common = {
         exclude: paths.node_modules
       },
       { test: /\.svg$/, use: [{ loader: 'raw-loader' }] },
-      {
-        test: /\.(ttf|otf|eot|woff|woff2?)(\?[a-z0-9]+)?$/,
-        use: [{ loader: 'file-loader?name=fonts/[name].[ext]' }]
-      },
       { test: /\.(png|gif)(\?.*)?$/, loader: 'url-loader?limit=100000' }
     ]
   },
@@ -75,7 +79,9 @@ const common = {
     new HtmlWebpackPlugin({ template: paths.html }),
     require('copy-webpack-plugin')([
       { from: 'node_modules/material-design-icons-iconfont/dist/fonts', to: 'fonts/' },
-      { from: 'node_modules/normalize.css/normalize.css', to: 'css/normalize.css' }
+      { from: 'node_modules/normalize.css/normalize.css', to: 'css/normalize.css' },
+      { from: 'node_modules/roboto-fontface/css/roboto/roboto-fontface.css', to: 'css/roboto/roboto.css' },
+      { from: 'node_modules/roboto-fontface/fonts/roboto/', to: 'fonts/roboto/' }
     ]),
     new webpack.DefinePlugin(copyEnvVars(
       'NODE_ENV',
@@ -156,16 +162,4 @@ const production = {
   ]
 }
 
-const getEnv = () => {
-  const isDevelopment = process.env.NODE_ENV === 'development'
-  const buildDev = process.env.BUILD_DEV === 'true'
-  const noBuild = process.env.NO_BUILD === 'true'
-
-  if ( (isDevelopment && !buildDev) || noBuild ) {
-    return development
-  } else {
-    return production
-  }
-}
-
-module.exports = merge(common, getEnv())
+module.exports = merge(common, isDeveloment() ? development : production)

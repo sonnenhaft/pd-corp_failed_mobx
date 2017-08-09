@@ -6,7 +6,7 @@ const reactToolboxVariables = {
   'palette-blue-grey-50': '#f8f9fb',
   'color-primary-dark': '#004890',
   'button-height': 'calc(3.2 * var(--unit))',
-  'preferred-font': '"HelveticaNeue", sans-serif',
+  'preferred-font': '"Roboto", Times',
   'button-disabled-text-color': '#6c717b',
   'button-disabled-background-color': '#c5c9cb'
 }
