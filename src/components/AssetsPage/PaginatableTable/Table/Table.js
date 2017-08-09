@@ -17,13 +17,15 @@ import { inject, observer } from 'mobx-react'
 
 const Table = ({ setSelectedIndexes, sort, setSort, selectedIndexes, location, hoveredIndex, setHoveredIndex, history, assets }) => {
 
-  const someSelected = selectedIndexes.length === assets.list.length
+  const someSelected = selectedIndexes.length > 0
   const visibleLabels = assets.labels.filter(({ hidden }) => !hidden)
   const menuHidden = selectedIndexes.length > 1
   return <div styleName="custom-table-wrapper">
     <div styleName="actions-row-wrapper" onMouseLeave={() => setHoveredIndex(-1)}>
       <div styleName="action-td-wrapper">
-        <Checkbox checked={someSelected} onChange={() => setSelectedIndexes(someSelected ? 'none' : 'all')}/>
+        <Checkbox checked={someSelected}
+                  styleName={someSelected ? 'some-selected' : ''}
+                  onChange={() => setSelectedIndexes(someSelected ? 'none' : 'all')}/>
       </div>
       {assets.list.map((row, index) => {
         const selected = selectedIndexes.includes(index)
