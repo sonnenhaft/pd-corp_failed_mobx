@@ -1,14 +1,7 @@
-@font-face {
-  font-family: 'HelveticaNeue';
-  src: url('./assets/fonts/HelveticaNeue-bold.eot');
-  src: url('./assets/fonts/HelveticaNeue-bold.woff2') format('woff2'),
-  url('./assets/fonts/HelveticaNeue-bold.woff') format('woff'),
-  url('./assets/fonts/HelveticaNeue-bold.ttf') format('truetype'),
-  url('./assets/fonts/HelveticaNeue-bold.eot?#iefix') format('embedded-opentype');
-}
+@import "react-toolbox/lib/variables";
 
 .app {
-  font-family: "HelveticaNeue", sans-serif;
+  font-family: 'Roboto', sans-serif;
 }
 
 .app-version {
@@ -17,6 +10,6 @@
   right: 5px;
   font-size: 12px;
   font-weight: bold;
-  color: grey;
+  color: var(--palette-blue-grey-50);
   text-shadow: 1px 1px 1px white, 0 0 1em black;
 }

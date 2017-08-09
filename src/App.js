@@ -1,3 +1,4 @@
+import './App.css'
 import React from 'react'
 import { HashRouter as Router, Redirect, Route, Switch } from 'react-router-dom'
 import { ThemeProvider } from 'react-css-themr'
@@ -6,7 +7,6 @@ import Header from './components/Header'
 import AssetsPage from './components/AssetsPage'
 import EditAssetPage from './components/EditAssetPage'
 import { history } from 'mobx/Routing.store'
-import './App.css'
 
 const App = ({ user = true }) => {
   if ( user ) {

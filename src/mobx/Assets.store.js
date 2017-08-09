@@ -1,4 +1,4 @@
-import { action, observable } from 'mobx'
+import { observable } from 'mobx'
 import { generateDemoTable } from 'common'
 import { history } from './Routing.store'
 import { create as hydrate, persist } from 'mobx-persist'
@@ -58,7 +58,7 @@ class AssetsStore {
   async add() {
     await delay()
     const newAsset = this.active
-    newAsset.id = Date.now() + ''
+    newAsset.id = `${Date.now()  }`
     this.list.push(newAsset)
     this.active = {}
     return newAsset

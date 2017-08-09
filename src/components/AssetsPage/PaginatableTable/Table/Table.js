@@ -18,6 +18,7 @@ import { inject, observer } from 'mobx-react'
 const Table = ({ setSelectedIndexes, sort, setSort, selectedIndexes, location, hoveredIndex, setHoveredIndex, history, assets }) => {
 
   const someSelected = selectedIndexes.length === assets.list.length
+  const visibleLabels = assets.labels.filter(({hidden}) => !hidden)
   return <div styleName="custom-table-wrapper">
     <div styleName="actions-row-wrapper" onMouseLeave={() => setHoveredIndex(-1)}>
       <div styleName="action-td-wrapper">
@@ -45,7 +46,7 @@ const Table = ({ setSelectedIndexes, sort, setSort, selectedIndexes, location, h
     <div styleName="table-scrollable-wrapper">
       <table styleName="custom-table">
         <thead>
-        <tr>{assets.labels.filter(({hidden}) => !hidden).map(({ label, key }) => {
+        <tr>{visibleLabels.map(({ label, key }) => {
           const sortByThisKey = sort && sort.key === key
           return <th key={key} onClick={() => setSort(key)}>
             {setSort && <div >
@@ -68,7 +69,7 @@ const Table = ({ setSelectedIndexes, sort, setSort, selectedIndexes, location, h
             styleName={hovered || selected ? 'selected' : ''}
             onMouseEnter={() => setHoveredIndex(index)}
             onClick={() => { history.push(`${location.pathname}/view/${row.id}`) }}>
-            {assets.labels.map(({ key }) => <td key={key} title={row[key]}>{row[key]}</td>)}
+            {visibleLabels.map(({ key }) => <td key={key} title={row[key]}>{row[key]}</td>)}
           </tr>
         })}
         </tbody>
@@ -105,4 +106,3 @@ export default compose(
   withState('hoveredIndex', 'setHoveredIndex', -1),
   onlyUpdateForKeys(['assets', 'list', 'selectedIndexes', 'hoveredIndex'])
 )(Table)
-
