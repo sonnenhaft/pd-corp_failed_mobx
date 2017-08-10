@@ -1,3 +1,5 @@
+@import "react-toolbox/lib/button/theme.css";
+
 .page-wrapper {
   max-width: 1024px;
   margin: auto;
@@ -52,4 +54,27 @@
   color: #014990;
   line-height: 25px;
   text-transform: uppercase;
+}
+
+.greyed {
+  font-size: 12px;
+  font-style: italic;
+  color: #6c717b;
+}
+
+.bottom-buttons {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  &.left {
+    justify-content: flex-end;
+  }
+  & a {
+    margin-right: 16px;
+  }
+}
+
+.cancel-button {
+  border: 1px solid #0077c8;
+  width: 100px
 }
