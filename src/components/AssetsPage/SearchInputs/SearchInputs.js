@@ -40,7 +40,7 @@ const SearchInputs = ({ isExpaned, setIsExpanded, filter, setSearch, search, res
 
     <div styleName="blue-text-buttons">
       <RippleDiv onClick={() => setIsExpanded(!isExpaned)}>
-        Advanced Search
+        Filters
         <FontIcon value={isExpaned ? 'keyboard_arrow_up' : 'keyboard_arrow_down'}
                   styleName="icon"/>
       </RippleDiv>

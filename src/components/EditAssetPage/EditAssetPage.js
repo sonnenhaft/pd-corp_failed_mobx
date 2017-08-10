@@ -85,7 +85,7 @@ const Text = ({ assets, asset, isView, value, multiline }) => {
     value={asset[value] || ''}
     {...{ label, required, multiline }}
     onChange={val => assets.change(value, val)}
-    error={(required && asset[value]) ? `"${label}" is required` : null}/>
+    error={(required && !asset[value]) ? `"${label}" is required` : null}/>
 }
 
 export default compose(
