@@ -22,16 +22,6 @@
   vertical-align: middle;
 }
 
-.cancel-button {
-  color: var(--color-white) !important;
-  width: 111px;
-  border: 1px solid var(--button-disabled-background-color);
-  height: 35px;
-  &:hover {
-    border: 1px solid var(--button-neutral-color-hover);
-  }
-}
-
 .buttons-block {
   display: flex;
   & button:last-of-type {

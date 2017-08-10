@@ -2,7 +2,7 @@ import React from 'react'
 import { compose, withProps, withState } from 'recompose'
 import { NavLink, Route, withRouter } from 'react-router-dom'
 
-import { Dialog, PageHeader } from 'common'
+import { Dialog } from 'common'
 import './EditAssetPageHeader.css'
 import { Button, FontIcon } from 'react-toolbox'
 import DeleteDialog from '../../AssetsPage/PaginatableTable/DeleteDialog'
@@ -16,20 +16,6 @@ const BackBtn = ({ children, to = '/assets', ...props }) => <NavLink to={to}>
   </Button>
 </NavLink>
 
-const CancelButton = ({ to }) => <BackBtn to={to} styleName="cancel-button">
-  Cancel
-</BackBtn>
-
-const SaveButton = ({ save }) => <Dialog
-  okLabel="Yes" cancelLabel="No"
-  action={save}
-  content={() => <div>Are you sure you want to update this asset?</div>}>
-  <Button raised styleName="middle-button">
-    <FontIcon value="save"/>
-    Save Asset
-  </Button>
-</Dialog>
-
 const EditAssetsPageHeader = ({
                                 hoveredIndex, setHoveredIndex, location,
                                 match: { params: { assetId } },
@@ -37,18 +23,13 @@ const EditAssetsPageHeader = ({
                                 activeItem = {},
                                 assets
                               }) => {
-  const save = () => {
-    (assets.active.id ? assets.update() : assets.add()).then(({ id }) => {
-      history.push(`/assets/view/${id}`)
-    })
-  }
   return <PageHeader>
     <div styleName="header-text">
       <BackBtn raised styleName="back-link">
         <FontIcon value="chevron_left"/>
       </BackBtn>
       <Route path="/assets/edit/:assetId" component={() => <span>UPDATE ASSET</span>}/>
-      <Route path="/assets/view/:assetId" component={() => <span>{activeItem.asset_name}</span>}/>
+      <Route path="/assets/view/:assetId" component={() => <span>{activeItem.assetName}</span>}/>
       <Route path="/assets/create" component={() => <span>CREATE ASSET</span>}/>
     </div>
     <div styleName="buttons-block">
@@ -71,14 +52,6 @@ const EditAssetsPageHeader = ({
           </Button>
         </DeleteDialog>
       )}/>
-
-      <Route path="/assets/create" component={CancelButton}/>
-      <Route path="/assets/create" component={() => <SaveButton {...{ save }}/>}/>
-
-      <Route path="/assets/edit/:assetId" component={() => {
-        return <CancelButton to={`/assets/view/${assetId}`}/>
-      }}/>
-      <Route path="/assets/edit/:assetId" component={() => <SaveButton {...{ save }}/>}/>
 
     </div>
   </PageHeader>
