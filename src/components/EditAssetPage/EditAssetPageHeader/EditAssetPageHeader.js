@@ -2,7 +2,7 @@ import React from 'react'
 import { compose, withProps, withState } from 'recompose'
 import { NavLink, Route, withRouter } from 'react-router-dom'
 
-import { Dialog } from 'common'
+import { Dialog, PageHeader } from 'common'
 import './EditAssetPageHeader.css'
 import { Button, FontIcon } from 'react-toolbox'
 import DeleteDialog from '../../AssetsPage/PaginatableTable/DeleteDialog'
