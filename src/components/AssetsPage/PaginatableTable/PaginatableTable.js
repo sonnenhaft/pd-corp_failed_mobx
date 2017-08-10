@@ -24,7 +24,6 @@ const PaginatableTable = props => {
             assets.remove(selectedIndexes.map(idx => data[idx].id)).then(() => {
               setSelectedIndexes([])
             })
-
           }}>
             <Button raised primary>
               Delete

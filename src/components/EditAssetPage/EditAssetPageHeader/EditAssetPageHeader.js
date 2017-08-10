@@ -9,6 +9,7 @@ import DeleteDialog from '../../AssetsPage/PaginatableTable/DeleteDialog'
 import assets from 'mobx/Assets.store'
 import { inject, observer } from 'mobx-react'
 
+
 const BackBtn = ({ children, to = '/assets', ...props }) => <NavLink to={to}>
   <Button {...props}>
     {children}
