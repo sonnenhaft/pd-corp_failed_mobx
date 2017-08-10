@@ -138,3 +138,14 @@
     margin-right: 8px;
   }
 }
+
+.all {
+
+}
+
+label.some-selected [data-react-toolbox]::after {
+  border-right-width: 3px;
+  border-bottom-width: 0;
+  left: -2px;
+  transform: rotate(90deg) translate(-1px, 1px);
+}
