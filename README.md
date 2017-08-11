@@ -4,39 +4,44 @@ Find "postcss.config.js" - object in bottom contains all what you want
 
 ## Prerequisites
 
-* node >= 6.10.2
-* [npm](https://npmpkg.com/en/docs/install) installed globally
+* [node](https://nodejs.org/en/download/) >= 6.10.2 - need restart WindowsPC after install
+* npm installed globally
 * port 8089 available on your machine
 
 ## Demo (master branch)
-TODO(vlad): add demo url
+https://demo-pdc-aws.isdev.info
+
+## Execute the following command before first running
+```sh
+$ npm i
+```
 
 ## Run locally
 ```sh
-$ npm dev
+$ npm run dev
 ```
 
 ## Run locally with webpack monitor
 ```sh
-$ npm dev:dashboard
+$ npm run dev:dashboard
 ```
 
 ## Run locally in production mode
 ```sh
-$ npm dev:prod
+$ npm run dev:prod
 ```
 
 ## Fix eslint issues
 ```sh
-$ npm lint:fix
+$ npm run lint:fix
 ```
 
 ## Build to see production
 ```sh
-$ npm build
+$ npm run build
 ```
 
 ## Build to use dev env variables
 ```sh
-$ npm build:dev
+$ npm run build:dev
 ```
