@@ -84,12 +84,14 @@
 
 .logo {
   width: 112px;
-  min-width: 112px;
-  height: 54px;
+  padding: 10px 26px;
+  padding-left: 24px;
+  padding-right: 8px;
   background: var(--color-white);
 
   & img {
-    margin: 8px 26px;
+    display: block;
     height: 35px;
+    max-width: 100%;
   }
 }

@@ -94,6 +94,7 @@ const common = {
 
 const development = {
   entry: [
+    'babel-polyfill',
     'react-hot-loader/patch',
     `webpack-dev-server/client?http://localhost:${ devServerPort }`,
     'webpack/hot/only-dev-server',
