@@ -5,6 +5,7 @@
   "license": "MIT",
   "repository": "https://gitlab.isdev.info/PDCorp/frontend",
   "private": true,
+  "version": "0.2.5",
   "scripts": {
     "dev": "cross-env NODE_ENV=development cross-env webpack-dev-server --open",
     "dev:dashboard": "webpack-dashboard --port 9001 --minimal -- npm run dev",
