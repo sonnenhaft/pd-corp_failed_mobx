@@ -4,8 +4,8 @@ import { FontIcon, IconButton } from 'react-toolbox'
 import './EditAssetImageInput.css'
 
 const EditAssetInputRef = ({ proxyClick, onFilesSelected, setInputRef, previewImage, setPreviewImage, isView }) => <div
-  styleName={`input-wrapper ${isView ? 'is-view' :''}`} onClick={proxyClick}>
-  <input ref={setInputRef} type="file" accept="image/*"
+  styleName={`input-wrapper ${isView ? 'is-view' : ''}`} onClick={proxyClick}>
+  <input ref={setInputRef} type="file"
          onChange={onFilesSelected} style={{ display: 'none' }}/>
   {!previewImage && <div>
     <div style={{ textAlign: 'center' }}>
@@ -39,8 +39,15 @@ export default compose(
   withHandlers({
     proxyClick: ({ inputRef, isView }) => () => !isView && inputRef.click(),
     onFilesSelected: ({ setPreviewImage }) => ({ target }) => {
-      setPreviewImageFromFile(target.files[0], setPreviewImage)
-      target.value = null
+      const reader = new FileReader()
+
+      reader.onload = function (e) {
+        const data = e.target.result
+        console.log(data)
+        const workbook = window.XLS.read(data, { type: 'binary' })
+        console.log(window.XLSX.utils.sheet_to_json(workbook.Sheets.Sheet1))
+      }
+      reader.readAsBinaryString(target.files[0])
     }
   })
 )(EditAssetInputRef)

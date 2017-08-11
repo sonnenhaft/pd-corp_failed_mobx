@@ -77,7 +77,7 @@ const common = {
       { from: 'node_modules/rc-tooltip/assets/bootstrap_white.css', to: 'css/rc-tooltip.css' },
       { from: 'node_modules/roboto-fontface/css/roboto/roboto-fontface.css', to: 'css/roboto/roboto.css' },
       { from: 'node_modules/roboto-fontface/fonts/roboto/', to: 'fonts/roboto/' },
-
+      { from: 'node_modules/xlsx/dist/xlsx.full.min.js', to: 'xlsx.full.min.js' },
     ]),
     new webpack.DefinePlugin(copyEnvVars(
       'NODE_ENV',
