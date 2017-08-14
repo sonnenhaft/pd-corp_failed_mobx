@@ -53,7 +53,7 @@ const SearchInputs = ({ isExpaned, setIsExpanded, filter, setSearch, search, res
 
     {isExpaned && <div>
       <div styleName="search-input-buttons">
-        <TextInput label="Asset Name" onChange={keyChanged('assetName')} value={filter.assetName || ''}/>
+        <TextInput label="Asset Name" onChange={keyChanged('rfidAssigned')} value={filter.rfidAssigned || ''}/>
         <TextInput label="RFID" onChange={keyChanged('rfid')} value={filter.rfid || ''}/>
         <TextInput label="Bar Code" onChange={keyChanged('barCode')} value={filter.barCode || ''}/>
         <TextInput label="Serial Number" onChange={keyChanged('serialNumber')} value={filter.serialNumber || ''}/>

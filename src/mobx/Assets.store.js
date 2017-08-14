@@ -11,6 +11,16 @@ class AssetsStore {
   @persist @observable activeId = null
   @persist('object') @observable active = {}
   @persist('object') @observable activeItem = {}
+  @persist('object') @observable sort = { key: 'id', asc: true }
+  @persist('object') @observable activeColumns = {
+    assetType: true,
+    owner: true,
+    location: true
+  }
+
+  getVisibleLabels() {
+    return this.labels.filter(({ key }) => this.activeColumns[key])
+  }
 
   getLabelsMap() {
     return this.labels.reduce(((map, item) => {
@@ -21,18 +31,19 @@ class AssetsStore {
 
   labels = [
     { label: 'id', key: 'id', hidden: true },
-    { label: 'Asset Number', key: 'assetNumber' },
-    { label: 'Asset Type', key: 'assetType', required: true },
-    { label: 'Asset Name', key: 'assetName', required: true },
-    { label: 'Barcode Number', key: 'barcode', required: true },
-    { label: 'Serial Number', key: 'serialNumber' },
-    { label: 'Asset/Equipment Number', key: 'eq_number' },
-    { label: 'Owner/Department', key: 'owner' },
-    { label: 'Manufacturer', key: 'manufacturer' },
+    { label: 'Asset Type', key: 'assetType', required: true, defaultVisible: true },
+    { label: 'Owner/Department', key: 'owner', defaultVisible: true },
+    { label: 'Location', key: 'location', defaultVisible: true },
     { label: 'Model', key: 'model' },
+    { label: 'Manufacturer', key: 'manufacturer' },
     { label: 'Description', key: 'description' },
-    { label: 'Notes', key: 'notes' },
-    { label: 'Key Location', key: 'key_location' }
+    { label: 'Search Terms', key: 'searchTerms' },
+    { label: 'RFID Assigned', key: 'rfidAssigned', required: true },
+    { label: 'Serial Number', key: 'serialNumber' },
+    { label: 'Barcode Number', key: 'barcode', required: true },
+    { label: 'RFID Number', key: 'rfidNumber' },
+    { label: 'Update Location Date', key: 'locationUpdatedDate' },
+    { label: 'Notes', key: 'notes' }
   ]
 
   change(value, val) {
