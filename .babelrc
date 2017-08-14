@@ -4,7 +4,8 @@
     ["react-css-modules", {"generateScopedName": "[local]___[hash:base64:5]"}],
     "transform-decorators-legacy",
     "transform-function-bind",
-    "transform-class-properties"
+    "transform-class-properties",
+    "jsx-control-statements"
   ],
   "env": {
     "development": {"plugins": ["react-hot-loader/babel"]}

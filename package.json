@@ -1,12 +1,14 @@
 {
   "name": "pd-corp-frontend",
-  "version": "0.2.4",
+  "version": "0.2.5",
+  "author": "Vladimir Shein <vladimir.sonnenhaft@gmail.com>",
+  "license": "MIT",
+  "repository": "https://gitlab.isdev.info/PDCorp/frontend",
+  "private": true,
   "scripts": {
     "dev": "cross-env NODE_ENV=development cross-env webpack-dev-server --open",
-    "dev:prod": "cross-env NODE_ENV=production cross-env NO_BUILD=true webpack-dev-server --open",
     "dev:dashboard": "webpack-dashboard --port 9001 --minimal -- npm run dev",
     "build": "cross-env NODE_ENV=production cross-env BOT_TYPE=publicbot webpack --progress --display-error-details  --bail",
-    "build:dev": "cross-env NODE_ENV=development cross-env BUILD_DEV=true webpack --progress --display-error-details",
     "lint:fix": "eslint --fix src",
     "bump": "npm version patch --no-git-tag-version && git add package.json"
   },
@@ -19,18 +21,18 @@
     "lodash": "4.17.4",
     "material-design-icons-iconfont": "3.0.3",
     "mobx": "3.2.2",
-    "mobx-persist": "^0.3.3",
+    "mobx-persist": "0.3.3",
     "mobx-react": "4.2.2",
-    "mobx-react-router": "^4.0.1",
+    "mobx-react-router": "4.0.1",
     "normalize.css": "7.0.0",
     "prop-types": "15.5.10",
-    "react": "15.4.2",
-    "react-dom": "15.4.2",
+    "react": "15.6.1",
+    "react-dom": "15.6.1",
     "react-paginate": "4.4.3",
     "react-router-dom": "4.1.2",
     "react-toolbox": "2.0.0-beta.12",
     "recompose": "0.24.0",
-    "roboto-fontface": "^0.8.0"
+    "roboto-fontface": "0.8.0"
   },
   "devDependencies": {
     "babel-core": "6.25.0",

@@ -92,7 +92,7 @@ export default compose(
   inject('routing', 'assets'),
   observer,
   withProps(({ assets, routing }) => {
-    const isView = routing.location.pathname.indexOf('view') !== -1
+    const isView = routing.location.pathname.includes('view')
     return {
       asset: isView ? assets.activeItem : assets.active,
       isView

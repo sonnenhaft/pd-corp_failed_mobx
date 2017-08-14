@@ -8,7 +8,7 @@ import AssetsPage from './components/AssetsPage'
 import EditAssetPage from './components/EditAssetPage'
 import { history } from 'mobx/Routing.store'
 
-const App = ({ user = true }) => {
+const App = ({ user = {} }) => {
   if ( user ) {
     return <Router history={history}>
       <div styleName="app">

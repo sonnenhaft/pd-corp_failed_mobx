@@ -28,13 +28,6 @@ You can also run app in custom mode with webpack monitor where you can see some 
 $ npm run dev:dashboard
 ```
 
-## Run locally in production mode
-It is planned that we will have some specific variables related to production. When you need to use them but in dev view (for rapid development) run:
-```sh
-$ npm run dev:prod
-```
-PS: not used at this point.
-
 ## EsLint
 We use eslint with custom eslint config. To see errors and automatically to fix most of them please run:
 ```sh
@@ -46,12 +39,6 @@ Please note that `npm run lint` does not exist in this package.json, so don't tr
 When you need to see build output (single or several minified js files and one index.html) you need to run:
 ```sh
 $ npm run build
-```
-
-## Build to use dev env variables
-Sometimes you need to run build but to use some dev specific variables (for example for API proxing), then you may run:
-```sh
-$ npm run build:dev
 ```
 
 ## Global UI colors
