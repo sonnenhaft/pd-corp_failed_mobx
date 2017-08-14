@@ -38,7 +38,7 @@ class AssetsStore {
     { label: 'Manufacturer', key: 'manufacturer' },
     { label: 'Description', key: 'description' },
     { label: 'Search Terms', key: 'searchTerms' },
-    { label: 'Asset Name', key: 'rfidAssigned', required: true },
+    { label: 'RFID Assigned', key: 'rfidAssigned', required: true },
     { label: 'Serial Number', key: 'serialNumber' },
     { label: 'Barcode Number', key: 'barcode', required: true },
     { label: 'RFID Number', key: 'rfidNumber' },
