@@ -40,17 +40,21 @@ const PaginatableTable = props => {
 
     <Table {...{ labels: assets.getVisibleLabels(), list, setSelectedIndexes, sort, setSort, selectedIndexes }}/>
     <div>
-      <ReactPaginate previousLabel={''}
-                     nextLabel={<FontIcon value="keyboard_arrow_right"/>}
-                     breakLabel={<span>...</span>}
-                     breakClassName={styles['break-me']}
-                     pageCount={12}
-                     marginPagesDisplayed={2}
-                     pageRangeDisplayed={5}
-                     onPageChange={this.handlePageClick}
-                     containerClassName={styles['pagination']}
-                     subContainerClassName={'pages pagination'}
-                     activeClassName={styles['active-page-link']}/>
+      <ReactPaginate
+        nextLabel={<FontIcon value="keyboard_arrow_right"/>}
+        previousLabel={<FontIcon value="keyboard_arrow_left"/>}
+        breakLabel={<span>...</span>}
+        breakClassName={styles['break-me']}
+        pageCount={12}
+        marginPagesDisplayed={2}
+        pageRangeDisplayed={5}
+        onPageChange={this.handlePageClick}
+        containerClassName={styles['pagination']}
+        previousClassName={styles['next']}
+        nextClassName={styles['prev']}
+        disabledClassName={styles['page-disabled']}
+        subContainerClassName={'pages pagination'}
+        activeClassName={styles['active-page-link']}/>
     </div>
   </Card>
 }
