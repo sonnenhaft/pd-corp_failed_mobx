@@ -32,6 +32,8 @@ class AssetsStore {
   labels = [
     { label: 'id', key: 'id', hidden: true },
     { label: 'Asset Type', key: 'assetType', required: true, defaultVisible: true },
+    { label: 'Asset Name', key: 'assetName', hidden: true },
+    { label: 'Asset Number', key: 'assetNumber', hidden: true },
     { label: 'Owner/Department', key: 'owner', defaultVisible: true },
     { label: 'Location', key: 'location', defaultVisible: true },
     { label: 'Model', key: 'model' },

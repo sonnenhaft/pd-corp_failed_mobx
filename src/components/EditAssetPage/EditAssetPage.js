@@ -27,21 +27,25 @@ const EditAssetPage = ({ Text, asset = {}, isView, assets }) => {
         <EditAssetInput {...{ isView }}/>
         <div style={{ paddingLeft: '32px' }}>
           {isView && <div styleName="asset-number-header">
-            ASSET NUMBER: {asset.searchTerms}
+            ASSET NUMBER: {asset.assetNumber}
           </div>}
           {isView && <hr/>}
           <div styleName="asset-fields">
-            {!isView && <Text value="searchTerms"/>}
+            {!isView && <Text value="assetNumber"/>}
 
-            <Text value="owner"/>
             <Text value="assetType"/>
-            <Text value="manufacturer"/>
-            <Text value="rfidAssigned"/>
-            <Text value="model"/>
+            <Text value="assetName"/>
+            <Text value="rfidNumber"/>
             <Text value="barcode"/>
-            <Text value="description"/>
             <Text value="serialNumber"/>
-            <Text value="notes"/>
+            <Text value="owner"/>
+            <Text value="manufacturer"/>
+            <Text value="model"/>
+            <Text value="description"/>
+            <Text value="location"/>
+            <Text value="searchTerms"/>
+            <Text value="locationUpdatedDate"/>
+
           </div>
           {isView && <hr/>}
           <Text value="notes" multiline/>
