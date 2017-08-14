@@ -29,7 +29,7 @@ const EditAssetsPageHeader = ({
         <FontIcon value="chevron_left"/>
       </BackBtn>
       <Route path="/assets/edit/:assetId" component={() => <span>UPDATE ASSET</span>}/>
-      <Route path="/assets/view/:assetId" component={() => <span>{activeItem.assetName}</span>}/>
+      <Route path="/assets/view/:assetId" component={() => <span>{activeItem.rfidAssigned}</span>}/>
       <Route path="/assets/create" component={() => <span>CREATE ASSET</span>}/>
     </div>
     <div styleName="buttons-block">

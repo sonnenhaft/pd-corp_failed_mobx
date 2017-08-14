@@ -15,17 +15,17 @@ import verticalDotsIcon from './vertical-dots-icon.svg'
 import assets from 'mobx/Assets.store'
 import { inject, observer } from 'mobx-react'
 
-const Table = ({ setSelectedIndexes, sort, setSort, selectedIndexes, location, hoveredIndex, setHoveredIndex, history, assets }) => {
+const Table = ({ setSelectedIndexes, sort, setSort, selectedIndexes, location, hoveredIndex, setHoveredIndex, history, assets, labels }) => {
 
   const someSelected = selectedIndexes.length > 0
-  const visibleLabels = assets.labels.filter(({ hidden }) => !hidden)
+  const visibleLabels = labels.filter(({ hidden }) => !hidden)
   const menuHidden = selectedIndexes.length > 1
   return <div styleName="custom-table-wrapper">
     <div styleName="actions-row-wrapper" onMouseLeave={() => setHoveredIndex(-1)}>
       <div styleName="action-td-wrapper">
         <Checkbox checked={someSelected}
                   styleName={someSelected ? 'some-selected' : ''}
-                  onChange={() => setSelectedIndexes(someSelected ? 'none' : 'all')}/>
+                  onChange={() => setSelectedIndexes(someSelected ? [] : 'all')}/>
       </div>
       {assets.list.map((row, index) => {
         const selected = selectedIndexes.includes(index)
@@ -107,5 +107,5 @@ export default compose(
   observer,
   withRouter,
   withState('hoveredIndex', 'setHoveredIndex', -1),
-  onlyUpdateForKeys(['assets', 'list', 'selectedIndexes', 'hoveredIndex'])
+  onlyUpdateForKeys(['assets', 'list', 'selectedIndexes', 'hoveredIndex', 'labels'])
 )(Table)

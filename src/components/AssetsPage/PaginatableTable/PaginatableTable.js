@@ -1,5 +1,5 @@
 import React from 'react'
-import { compose, onlyUpdateForKeys, withHandlers, withProps, withState } from 'recompose'
+import { compose, withHandlers, withState } from 'recompose'
 import ReactPaginate from 'react-paginate'
 import { Button, Card, FontIcon } from 'react-toolbox'
 
@@ -13,15 +13,16 @@ import assets from 'mobx/Assets.store'
 import { inject, observer } from 'mobx-react'
 
 const PaginatableTable = props => {
-  const { labels, data, changeInactiveState, inactiveLabelsMap, selectedIndexes, setSelectedIndexes, tableLabels, sort, setSort } = props
+  const { changeColumnStage, selectedIndexes, setSelectedIndexes, sort, setSort, assets } = props
 
+  const { labels, list } = assets
   return <Card styleName="paginatable-table">
     <div styleName="filter-button">
-      <div styleName="header">ASSETS FOUND ({data.length})</div>
+      <div styleName="header">ASSETS FOUND ({list.length})</div>
       <div styleName="flex-buttons">
         <div styleName="some-right-wrapper">
           {!!selectedIndexes.length && <DeleteDialog action={() => {
-            assets.remove(selectedIndexes.map(idx => data[idx].id)).then(() => {
+            assets.remove(selectedIndexes.map(idx => list[idx].id)).then(() => {
               setSelectedIndexes([])
             })
           }}>
@@ -33,11 +34,11 @@ const PaginatableTable = props => {
           </DeleteDialog>}
         </div>
 
-        <FilterColumnsButton {...{ labels, changeInactiveState, inactiveLabelsMap }} />
+        <FilterColumnsButton {...{ labels, changeColumnStage, activeColumns: assets.activeColumns }} />
       </div>
     </div>
 
-    <Table {...{ labels: tableLabels, data, setSelectedIndexes, sort, setSort, selectedIndexes }}/>
+    <Table {...{ labels: assets.getVisibleLabels(), list, setSelectedIndexes, sort, setSort, selectedIndexes }}/>
     <div>
       <ReactPaginate previousLabel={''}
                      nextLabel={<FontIcon value="keyboard_arrow_right"/>}
@@ -55,45 +56,24 @@ const PaginatableTable = props => {
 }
 
 export default compose(
-  onlyUpdateForKeys(['labels', 'data']),
-  withState('inactiveLabelsMap', 'setInactiveLabelsMap', {}),
-  inject(() => ({ assets })),
-  observer,
-  withState('sort', '_setSort', {}),
-  withProps(({ labels, inactiveLabelsMap, sort }) => {
-    if ( !sort.key ) {
-      sort.key = labels[0].key
-    }
-    return {
-      tableLabels: labels.filter(({ key }) => !inactiveLabelsMap[key]),
-      sort
-    }
+  inject(() => {
+    const { activeColumns, sort } = assets
+    return ({ assets, activeColumns, sort })
   }),
+  observer,
   withState('selectedIndexes', 'setIndexes', []),
   withHandlers({
-    setSort: ({ _setSort, sort }) => key => {
-      if ( sort.key === key ) {
-        sort.asc = !sort.asc
-      } else {
-        sort = { key, asc: true }
-      }
-      _setSort(sort)
+    setSort: ({ assets }) => key => {
+      assets.sort = { key, asc: assets.sort.key === key ? !assets.sort.asc : true }
     },
-    setSelectedIndexes: ({ setIndexes, data }) => indexes => {
+    setSelectedIndexes: ({ setIndexes }) => indexes => {
       if ( indexes === 'all' ) {
-        indexes = data.map((item, index) => index)
-      } else if ( indexes === 'none' ) {
-        indexes = []
+        indexes = assets.list.map((item, index) => index)
       }
       setIndexes(indexes)
     },
-    changeInactiveState: ({ setInactiveLabelsMap, inactiveLabelsMap }) => (isInactive, key) => {
-      if ( isInactive ) {
-        inactiveLabelsMap[key] = true
-      } else {
-        delete inactiveLabelsMap[key]
-      }
-      setInactiveLabelsMap(inactiveLabelsMap)
+    changeColumnStage: ({ assets }) => (active, columnName) => {
+      assets.activeColumns = { ...assets.activeColumns, [columnName]: active }
     }
   })
 )(PaginatableTable)

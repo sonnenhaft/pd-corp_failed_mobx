@@ -20,23 +20,23 @@ const EditAssetPage = ({ Text, asset = {}, isView, assets }) => {
         <NavLink to="/assets">Asset</NavLink>
         <div styleName="dot"/>
         <Route path="/assets/edit/:assetId" component={() => <span>Update Asset</span>}/>
-        <Route path="/assets/view/:assetId" component={() => <span>{asset.assetName}</span>}/>
+        <Route path="/assets/view/:assetId" component={() => <span>{asset.rfidAssigned}</span>}/>
         <Route path="/assets/create" component={() => <span>Create Asset</span>}/>
       </div>
       <div styleName="edit-asset-page-content">
         <EditAssetInput {...{ isView }}/>
         <div style={{ paddingLeft: '32px' }}>
           {isView && <div styleName="asset-number-header">
-            ASSET NUMBER: {asset.assetNumber}
+            ASSET NUMBER: {asset.searchTerms}
           </div>}
           {isView && <hr/>}
           <div styleName="asset-fields">
-            {!isView && <Text value="assetNumber"/>}
+            {!isView && <Text value="searchTerms"/>}
 
             <Text value="owner"/>
             <Text value="assetType"/>
             <Text value="manufacturer"/>
-            <Text value="assetName"/>
+            <Text value="rfidAssigned"/>
             <Text value="model"/>
             <Text value="barcode"/>
             <Text value="description"/>
