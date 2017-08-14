@@ -1,0 +1,21 @@
+:global {
+  .rc-tooltip  .rc-tooltip-placement-top .rc-tooltip-inner {
+    padding: 8px 10px;
+    text-decoration: none;
+    background-color: #ffffff;
+    border-radius: 4px;
+    font-family: 'Roboto';
+    font-size: 13px;
+    color: #52555b;
+    text-align: center;
+    min-height: inherit;
+    box-shadow: 2px 2px 0px #dedede;
+    margin-top: -4px;
+  }
+  .rc-tooltip-placement-top .rc-tooltip-arrow {
+    margin-top: -4px;
+    bottom: -12px;
+    margin-left: -10px;
+    border-width: 10px 10px 0;
+  }
+}
