@@ -24,27 +24,42 @@
 .pagination {
   display: flex;
   list-style-type: none;
-  padding: 0;
-  margin-left: -8px;
   user-select: none;
+  & .prev, & .next {
+    height: 22px;
+    padding: 0;
+    & a {
+      margin-top: -1px;
+      display: block;
+      width: 22px;
+    }
+  }
 
   & li {
     cursor: pointer;
-    padding: 3px 6px;
-    padding-bottom: 0;
-    font-family: var(--preferred-font);
+    padding: 3px 4px;
+    margin: 0 1px;
+    height: 22px;
     border-radius: 3px;
+    font-family: var(--preferred-font);
 
     &.active-page-link,
-    &:hover:not(.break-me) {
+    &:hover:not(.break-me):not(.page-disabled) {
       background: var(--color-primary);
       color: var(--color-white);
     }
-    &.active-page-link {
-      cursor: not-allowed;
+
+    &.page-disabled {
+      opacity: 0.2;
     }
+
+    &.page-disabled,
+    &.active-page-link {
+      cursor: default;
+    }
+
     & a {
-      line-height: 24px;
+      line-height: 18px;
     }
   }
 }
