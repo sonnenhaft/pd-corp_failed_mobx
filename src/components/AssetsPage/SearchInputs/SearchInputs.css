@@ -28,6 +28,7 @@
   display: flex;
   justify-content: flex-end;
   margin-top: 16px;
+  padding-top: 2px;
   & button {
     width: 50%;
     max-width: 300px;
@@ -79,4 +80,24 @@
   height: 40px;
   font-size: 14px;
   font-weight: bold;
+}
+
+.date-inputs {
+  display: flex;
+  flex-wrap: wrap;
+  width: 31%;
+  justify-content: space-between;
+  & > * {
+    width: 45%;
+    overflow: hidden;
+  }
+}
+
+.greyed-helper-text {
+  font-size: 12px;
+  font-style: italic;
+  color: #6c717b;
+  margin-top: -12px;
+  margin-left: 2px;
+  margin-bottom: 16px
 }
