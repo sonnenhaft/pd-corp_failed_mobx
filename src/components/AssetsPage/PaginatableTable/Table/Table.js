@@ -3,7 +3,7 @@ import './Table.css'
 
 import Checkbox from 'react-toolbox/lib/checkbox'
 
-import { Icon, IconButton } from 'common'
+import { Icon, IconButton, Tooltip } from 'common'
 import arrowAsc from './arrow-asc.svg'
 import arrowDesc from './arrow-desc.svg'
 import { compose, onlyUpdateForKeys, withState } from 'recompose'
@@ -14,7 +14,6 @@ import updateIcon from './update-icon.svg'
 import verticalDotsIcon from './vertical-dots-icon.svg'
 import assets from 'mobx/Assets.store'
 import { inject, observer } from 'mobx-react'
-import {Tooltip} from 'common'
 
 const Table = ({ setSelectedIndexes, sort, setSort, selectedIndexes, location, hoveredIndex, setHoveredIndex, history, assets, labels }) => {
 
@@ -22,9 +21,6 @@ const Table = ({ setSelectedIndexes, sort, setSort, selectedIndexes, location, h
   const visibleLabels = labels.filter(({ hidden }) => !hidden)
   const menuHidden = selectedIndexes.length > 1
   return <div>
-    <Tooltip text="ok som what then">
-      <button>ok google</button>
-    </Tooltip>
     <div styleName="custom-table-wrapper">
       <div styleName="actions-row-wrapper" onMouseLeave={() => setHoveredIndex(-1)}>
         <div styleName="action-td-wrapper">
@@ -78,7 +74,14 @@ const Table = ({ setSelectedIndexes, sort, setSort, selectedIndexes, location, h
               styleName={hovered || selected ? 'selected' : ''}
               onMouseEnter={() => setHoveredIndex(index)}
               onClick={() => { history.push(`${location.pathname}/view/${row.id}`) }}>
-              {visibleLabels.map(({ key }) => <td key={key} title={row[key]}>{row[key]}</td>)}
+              {visibleLabels.map(({ key }) => {
+                const val = row[key] || ''
+                return <td key={key}>
+                  {val.length > 21 ? <Tooltip text={val} noArrow={true}>
+                    <div>{val}</div>
+                  </Tooltip> : val}
+                </td>
+              })}
             </tr>
           })}
           </tbody>
@@ -96,10 +99,19 @@ const Table = ({ setSelectedIndexes, sort, setSort, selectedIndexes, location, h
             <Icon svg={verticalDotsIcon}/>
             <div styleName="action-menu">
               <NavLink to={`${location.pathname}/edit/${row.id}`}>
-                <IconButton tooltip="Update" svg={updateIcon}/>
+                <Tooltip text="Edit">
+                  <div>
+                    <IconButton tooltip="Update" svg={updateIcon}/>
+                  </div>
+                </Tooltip>
               </NavLink>
+
               <DeleteDialog action={() => assets.remove(row.id)} type="asset">
-                <IconButton tooltip="Delete" svg={bulkDeleteIcon}/>
+                <Tooltip text="Delete">
+                  <div>
+                    <IconButton tooltip="Delete" svg={bulkDeleteIcon}/>
+                  </div>
+                </Tooltip>
               </DeleteDialog>
             </div>
           </div>

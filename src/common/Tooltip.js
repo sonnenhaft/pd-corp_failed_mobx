@@ -1,9 +1,12 @@
 import React from 'react'
 import RcTooltip from 'rc-tooltip'
-import './Tooltip.css'
+import styles from './Tooltip.css'
 
-export const Tooltip = ({ children, text }) => {
-  return <RcTooltip placement="top" trigger={['click']} overlay={text}>
-    {children}
-  </RcTooltip>
-}
+export const Tooltip = ({ children, text, noArrow }) => <RcTooltip
+  placement={noArrow ? 'bottom' : 'top'}
+  trigger={['hover']}
+  overlay={text}
+  overlayClassName={`${styles['custom-tooltip']} ${noArrow ? styles['no-arrow'] : ''}`}>
+  {children}
+</RcTooltip>
+
