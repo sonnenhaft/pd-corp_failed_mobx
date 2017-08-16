@@ -6,6 +6,7 @@ import { ThemeProvider } from 'react-css-themr'
 import Header from './components/Header'
 import AssetsPage from './components/AssetsPage'
 import EditAssetPage from './components/EditAssetPage'
+import ImportAssetsPage from './components/ImportAssetsPage'
 import { history } from 'mobx/Routing.store'
 
 const App = ({ user = {} }) => {
@@ -17,6 +18,7 @@ const App = ({ user = {} }) => {
           <Route exact path="/assets/edit/:assetId" component={EditAssetPage}/>
           <Route exact path="/assets/view/:assetId" component={() => <EditAssetPage/>}/>
           <Route exact path="/assets/create" component={EditAssetPage}/>
+          <Route exact path="/assets/import" component={ImportAssetsPage}/>
           <Route exact path="/assets" component={AssetsPage}/>
           <Redirect from="/" to="/assets"/>
           <Route component={() => <div>404 or page does not exist yet</div>}/>
