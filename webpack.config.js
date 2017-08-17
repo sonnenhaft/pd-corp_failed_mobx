@@ -74,8 +74,10 @@ const common = {
         ignore: ['*.js', '*.md', 'codepoints', '*.ijmap']
       },
       { from: 'node_modules/normalize.css/normalize.css', to: 'css/normalize.css' },
+      { from: 'node_modules/rc-tooltip/assets/bootstrap_white.css', to: 'css/rc-tooltip.css' },
       { from: 'node_modules/roboto-fontface/css/roboto/roboto-fontface.css', to: 'css/roboto/roboto.css' },
-      { from: 'node_modules/roboto-fontface/fonts/roboto/', to: 'fonts/roboto/' }
+      { from: 'node_modules/roboto-fontface/fonts/roboto/', to: 'fonts/roboto/' },
+
     ]),
     new webpack.DefinePlugin(copyEnvVars(
       'NODE_ENV',

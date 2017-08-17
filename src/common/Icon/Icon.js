@@ -8,6 +8,7 @@ export const Icon = ({ svg, className, ...props }) => <span
   dangerouslySetInnerHTML={{ __html: svg }}/>
 
 export const IconButton = ({ svg }) => <RtIconButton
+  style={{position: 'relative'}}
   icon={
     <Icon svg={svg} styleName="icon-button"/>
   } primary ripple/>

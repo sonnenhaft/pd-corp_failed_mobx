@@ -1,6 +1,6 @@
 {
   "name": "pd-corp-frontend",
-  "version": "0.2.12",
+  "version": "0.2.15",
   "author": "Vladimir Shein <vladimir.sonnenhaft@gmail.com>",
   "license": "MIT",
   "repository": "https://gitlab.isdev.info/PDCorp/frontend",
@@ -26,6 +26,7 @@
     "mobx-react-router": "4.0.1",
     "normalize.css": "7.0.0",
     "prop-types": "15.5.10",
+    "rc-tooltip": "^3.4.8",
     "react": "15.6.1",
     "react-dom": "15.6.1",
     "react-paginate": "4.4.3",
