@@ -5,8 +5,17 @@
   border: 1px dashed #dcdada;
   border-radius: 4px;
   display: flex;
+  background: white;
 
-  &.filledContainer {
+  &.active {
+    background: rgb(157, 198, 254);
+  }
+
+  &.can-drop {
+    background: rgb(225, 236, 255);
+  }
+
+  &.filled {
     border: none;
 
     & .inlined-item {

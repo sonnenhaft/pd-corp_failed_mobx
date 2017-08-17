@@ -1,22 +1,16 @@
 import React from 'react'
 
 import './SearchInputs.css'
-import { TextInput, TextInputWithIcon } from 'common'
+import { TextInput, TextInputWithIcon, RippleDiv } from 'common'
 import searchIcon from './search-icon.svg'
 import { Button, Card } from 'react-toolbox'
 import { compose, withHandlers, withState } from 'recompose'
 import FontIcon from 'react-toolbox/lib/font_icon'
 
-import Ripple from 'react-toolbox/lib/ripple'
 import { DatePicker } from 'react-toolbox/lib/date_picker'
-// eslint-disable-next-line no-unused-vars
-const RippleDiv = Ripple({ spread: 1 })(({ theme, ...props }) => {
-  return <div {...props} style={{ position: 'relative' }}>
-    {props.children}
-  </div>
-})
 
-const SearchInputs = ({ isExpaned, setIsExpanded, filter, setSearch, search, resetFilters, keyChanged }) => {
+const SearchInputs = props => {
+  const { expanded, setExpanded, filter, search, setSearch, resetFilters, keyChanged } = props
   const isNotEmpty = !!Object.values(filter).length
 
   const searchButton = <div styleName="search-button-wrapper">
@@ -35,7 +29,7 @@ const SearchInputs = ({ isExpaned, setIsExpanded, filter, setSearch, search, res
         label={search ? '' : 'Type here'}
         value={search}
         onChange={setSearch}/>
-      {!isExpaned && searchButton}
+      {!expanded && searchButton}
     </div>
 
     <div styleName="greyed-helper-text">
@@ -45,19 +39,19 @@ const SearchInputs = ({ isExpaned, setIsExpanded, filter, setSearch, search, res
 
 
     <div styleName="blue-text-buttons">
-      <RippleDiv onClick={() => setIsExpanded(!isExpaned)}>
+      <RippleDiv onClick={() => setExpanded(!expanded)}>
         Filters
-        <FontIcon value={isExpaned ? 'keyboard_arrow_up' : 'keyboard_arrow_down'}
+        <FontIcon value={expanded ? 'keyboard_arrow_up' : 'keyboard_arrow_down'}
                   styleName="icon"/>
       </RippleDiv>
 
-      {isExpaned && isNotEmpty && <RippleDiv onClick={resetFilters}>
+      {expanded && isNotEmpty && <RippleDiv onClick={resetFilters}>
         Reset fields
         <FontIcon value="refresh" styleName="icon"/>
       </RippleDiv>}
     </div>
 
-    {isExpaned && <div>
+    {expanded && <div>
       <div styleName="search-input-buttons">
         <TextInput label="Asset Name" onChange={keyChanged('rfidAssigned')} value={filter.rfidAssigned || ''}/>
         <TextInput label="RFID" onChange={keyChanged('rfid')} value={filter.rfid || ''}/>
@@ -85,7 +79,7 @@ const SearchInputs = ({ isExpaned, setIsExpanded, filter, setSearch, search, res
   </Card>
 }
 export default compose(
-  withState('isExpaned', 'setIsExpanded', false),
+  withState('expanded', 'setExpanded', false),
   withState('filter', 'setFilter', {}),
   withState('search', 'setSearch', ''),
   withHandlers({

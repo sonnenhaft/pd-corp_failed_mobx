@@ -11,21 +11,14 @@ const DroppableContainer = props => {
   const { isOver, canDrop, connectDropTarget } = props
   const isActive = isOver && canDrop
 
-  let backgroundColor = '#fff'
-  if ( isActive ) {
-    backgroundColor = 'rgb(157, 198, 254)'
-  } else if ( canDrop ) {
-    backgroundColor = 'rgb(225, 236, 255)'
-  }
-
-
+  const filledClass = props.lastDroppedItem ? 'filled' : ''
+  const activeClass = isActive ? 'active' : canDrop ? 'can-drop' : ''
   return connectDropTarget(
     <div>
       <div styleName="field-name">
         { props.label }{props.required ? '*' : ''}
       </div>
-      <div style={{ backgroundColor }}
-           styleName={`droppable-container ${props.lastDroppedItem ? 'filledContainer' : ''}`}>
+      <div styleName={`droppable-container ${filledClass} ${activeClass}`}>
         {props.lastDroppedItem && <DraggableItem
           name={props.lastDroppedItem.name}
           styleName="inlined-item"
@@ -40,10 +33,11 @@ export default compose(
     lastDroppedItem: P.object,
     label: P.string.isRequired,
     fieldKey: P.string.isRequired,
-    onRemove: P.func
+    onRemove: P.func,
+    onDrop: P.func.isRequired
   }),
   DropTarget(() => 'any', {
-    drop: (props, monitor) => props.onDrop(monitor.getItem())
+    drop: ({ onDrop }, monitor) => onDrop(monitor.getItem())
   }, (connect, monitor) => ({
     connectDropTarget: connect.dropTarget(),
     isOver: monitor.isOver(),

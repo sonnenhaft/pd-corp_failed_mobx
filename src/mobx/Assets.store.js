@@ -50,7 +50,6 @@ class AssetsStore {
   ]
 
   getXlsxLabels(){
-    console.log(this.xlsTable[0])
     return Object.keys(this.xlsTable[0]  || {})
   }
 

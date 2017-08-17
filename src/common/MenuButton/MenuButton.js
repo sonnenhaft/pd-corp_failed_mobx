@@ -1,6 +1,8 @@
 import React from 'react'
-import { compose, withState } from 'recompose'
+import P from 'prop-types'
+import { compose, setPropTypes, withState } from 'recompose'
 import { Button, Menu } from 'react-toolbox'
+
 import './MenuButton.css'
 
 const MenuButton = ({ active, setActive, children, icon, ...props }) => <div styleName="menu-button">
@@ -15,5 +17,10 @@ const MenuButton = ({ active, setActive, children, icon, ...props }) => <div sty
 </div>
 
 export default compose(
+  setPropTypes({
+    active: P.bool,
+    setActive: P.func,
+    icon: P.func.isRequired
+  }),
   withState('active', 'setActive', false)
 )(MenuButton)

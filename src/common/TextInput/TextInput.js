@@ -1,7 +1,8 @@
 import React from 'react'
+import P from 'prop-types'
+import { compose, setPropTypes, withState } from 'recompose'
 import Input from 'react-toolbox/lib/input'
 
-import { compose, withState } from 'recompose'
 import './TextInput.css'
 
 export const TextInput = ({ errorText, ...props }) => {
@@ -33,5 +34,11 @@ const DisabledTextAreaDummy = ({ setExpanded, expanded, multiline, value = '', d
 }
 
 const DisabledTextArea = compose(
+  setPropTypes({
+    multiline: P.bool,
+    value: P.string,
+    disabled: P.bool,
+    label: P.string
+  }),
   withState('expanded', 'setExpanded', false)
 )(DisabledTextAreaDummy)
