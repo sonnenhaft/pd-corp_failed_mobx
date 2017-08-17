@@ -34,17 +34,18 @@ const EditAssetPage = ({ Text, asset = {}, isView, assets }) => {
             {!isView && <Text value="assetNumber"/>}
 
             <Text value="assetType"/>
-            <Text value="assetName"/>
-            <Text value="rfidNumber"/>
-            <Text value="barcode"/>
-            <Text value="serialNumber"/>
-            <Text value="owner"/>
-            <Text value="manufacturer"/>
-            <Text value="model"/>
-            <Text value="description"/>
-            <Text value="location"/>
             <Text value="searchTerms"/>
+            <Text value="owner"/>
+            <Text value="assetName"/>
+            <Text value="location"/>
+            <Text value="serialNumber"/>
+            <Text value="model"/>
+            <Text value="barcode"/>
+            <Text value="manufacturer"/>
+            <Text value="rfidNumber"/>
+            <Text value="description"/>
             <Text value="locationUpdatedDate"/>
+            
 
           </div>
           {isView && <hr/>}
