@@ -1,14 +1,14 @@
 import React from 'react'
 import { compose, withHandlers, withState } from 'recompose'
-import { FontIcon, IconButton } from 'react-toolbox'
+import { Button } from 'react-toolbox'
 import './XlsUploadInput.css'
 
-const XlsUploadInput = ({ proxyClick, onFilesSelected, setInputRef, previewImage, setPreviewImage, isView, sheetData }) => <div>
-  <button onClick={proxyClick}>
+const XlsUploadInput = ({ proxyClick, onFilesSelected, setInputRef, sheetData }) => <div>
+  <Button raised onClick={proxyClick}>
     <input ref={setInputRef} type="file"
            onChange={onFilesSelected} style={{ display: 'none' }}/>
     Test XLS/XLSX/CSV file upload
-  </button>
+  </Button>
 
   {sheetData && <div>
     <b>First 300 symbols as Array</b>
@@ -19,14 +19,13 @@ const XlsUploadInput = ({ proxyClick, onFilesSelected, setInputRef, previewImage
 
 export default compose(
   withState('inputRef', 'setInputRef', null),
-  withState('previewImage', 'setPreviewImage', null),
   withState('sheetData', 'setSheetData', null),
   withHandlers({
     proxyClick: ({ inputRef, isView }) => () => !isView && inputRef.click(),
-    onFilesSelected: ({ setPreviewImage, setSheetData }) => ({ target }) => {
+    onFilesSelected: ({ setSheetData }) => ({ target }) => {
       const reader = new FileReader()
 
-      reader.onload = function (e) {
+      reader.onload = function(e) {
         const data = e.target.result
         const workbook = window.XLS.read(data, { type: 'binary' })
         const sheetData = window.XLSX.utils.sheet_to_json(workbook.Sheets[workbook.SheetNames[0]])
