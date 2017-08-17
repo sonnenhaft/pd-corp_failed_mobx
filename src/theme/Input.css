@@ -25,3 +25,12 @@
     font-weight: bold;
   }
 }
+
+.input.withIcon {
+  margin-left: 28px;
+  & input + span {
+    position: absolute;
+    color: #6c717b;
+    left: -43px;
+  }
+}

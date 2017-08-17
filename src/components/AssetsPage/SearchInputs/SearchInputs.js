@@ -8,6 +8,7 @@ import { compose, withHandlers, withState } from 'recompose'
 import FontIcon from 'react-toolbox/lib/font_icon'
 
 import Ripple from 'react-toolbox/lib/ripple'
+import { DatePicker } from 'react-toolbox/lib/date_picker'
 // eslint-disable-next-line no-unused-vars
 const RippleDiv = Ripple({ spread: 1 })(({ theme, ...props }) => {
   return <div {...props} style={{ position: 'relative' }}>
@@ -37,6 +38,11 @@ const SearchInputs = ({ isExpaned, setIsExpanded, filter, setSearch, search, res
       {!isExpaned && searchButton}
     </div>
 
+    <div styleName="greyed-helper-text">
+      Help text on how user can use it . such as comma
+      separated AND operation on search terms.
+    </div>
+
 
     <div styleName="blue-text-buttons">
       <RippleDiv onClick={() => setIsExpanded(!isExpaned)}>
@@ -61,6 +67,18 @@ const SearchInputs = ({ isExpaned, setIsExpanded, filter, setSearch, search, res
         <TextInput label="Model" onChange={keyChanged('model')} value={filter.model || ''}/>
         <TextInput label="Description" onChange={keyChanged('description')} value={filter.description || ''}/>
         <TextInput label="Notes" onChange={keyChanged('notes')} value={filter.notes || ''}/>
+
+        <div styleName="date-inputs">
+          <DatePicker label="Last Update Date from"
+                      onChange={keyChanged('dateFrom')}
+                      icon="event"
+                      value={filter.dateFrom}/>
+          <DatePicker label="Last Update Date to"
+                      onChange={keyChanged('dateTo')}
+                      icon="event"
+                      value={filter.dateTo}/>
+        </div>
+
       </div>
       {searchButton}
     </div>}
