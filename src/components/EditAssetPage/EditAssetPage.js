@@ -36,7 +36,7 @@ const EditAssetPage = ({ Text, asset = {}, isView, assets }) => {
             <Text value="assetType"/>
             <Text value="searchTerms"/>
             <Text value="owner"/>
-            <Text value="assetName"/>
+            <Text value="rfidAssigned"/>
             <Text value="location"/>
             <Text value="serialNumber"/>
             <Text value="model"/>
