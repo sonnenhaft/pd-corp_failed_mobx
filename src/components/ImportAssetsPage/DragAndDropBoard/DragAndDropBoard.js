@@ -10,9 +10,11 @@ import './DragAndDropBoard.css'
 import { Button, FontIcon } from 'react-toolbox'
 import { NavLink } from 'react-router-dom'
 import assets from 'mobx/Assets.store'
+import { inject, observer } from 'mobx-react'
+import XlsUploadInput from '../../XlsUploadInput'
 
 const DragAndDropBoard = props => {
-  const { boardState: { fieldsFromTable, dbFields }, isDropped, handleDrop, handleRemove } = props
+  const { boardState: { dbFields }, isDropped, handleDrop, handleRemove, fieldsFromTable } = props
 
   return (
     <div styleName="main-wrapper">
@@ -47,6 +49,11 @@ const DragAndDropBoard = props => {
         </div>
         <div>
           <br/>
+          <div style={{display: 'inline-block'}}>
+            <XlsUploadInput/>
+          </div>
+          &nbsp;
+          &nbsp;
           <NavLink to="/assets">
             <Button raised>Cancel</Button>
           </NavLink>
@@ -63,13 +70,14 @@ const DragAndDropBoard = props => {
 }
 
 export default compose(
+  inject(() => ({
+    fieldsFromTable: assets.getXlsxLabels().map(name => ({ name }))
+  })),
+  observer,
   DragDropContext(ReactDndHTML5Backend),
   withState('boardState', 'setBoxesState', {
     dbFields: assets.labels.filter(({ key }) => key !== 'id').map(({ label, key, required }) => {
       return { lastDroppedItem: null, label, fieldKey: key, required }
-    }),
-    fieldsFromTable: assets.labels.filter(({ key }) => key !== 'id').map(({ key }) => {
-      return { name: key + Date.now() }
     }),
     droppedBoxNames: []
   }),

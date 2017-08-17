@@ -11,6 +11,7 @@ class AssetsStore {
   @persist @observable activeId = null
   @persist('object') @observable active = {}
   @persist('object') @observable activeItem = {}
+  @persist('list') @observable xlsTable = []
   @persist('object') @observable sort = { key: 'id', asc: true }
   @persist('object') @observable activeColumns = {
     assetType: true,
@@ -47,6 +48,17 @@ class AssetsStore {
     { label: 'Update Location Date', key: 'locationUpdatedDate' },
     { label: 'Notes', key: 'notes' }
   ]
+
+  getXlsxLabels(){
+    console.log(this.xlsTable[0])
+    return Object.keys(this.xlsTable[0]  || {})
+  }
+
+  setSheetToImport(xlsTable){
+    this.xlsTable = xlsTable
+
+
+  }
 
   change(value, val) {
     this.active = { ...this.active, ...{ [value]: val } }
