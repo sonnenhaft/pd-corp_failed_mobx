@@ -1,0 +1,28 @@
+.droppable-container {
+  height: 48px;
+  max-width: 280px;
+  width: 100%;
+  border: 1px dashed #dcdada;
+  border-radius: 4px;
+  display: flex;
+
+  &.filledContainer {
+    border: none;
+
+    & .inlined-item {
+      height: 100%;
+      padding: 0 16px;
+      max-width: calc(280px - 32px);
+      width: 100%;
+      margin: 0;
+    }
+  }
+}
+
+.field-name {
+  font-size: 14px;
+  color: #000000;
+  text-align: left;
+  line-height: 34px;
+  margin-bottom: -4px;
+}

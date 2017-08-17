@@ -8,3 +8,15 @@
 .middle-button {
   margin: 0 16px;
 }
+
+.header{
+  position: relative;
+  z-index: 2;
+}
+
+.back-link {
+  min-width: 34px;
+  margin-right: 26px;
+  padding: 0;
+  vertical-align: middle;
+}
