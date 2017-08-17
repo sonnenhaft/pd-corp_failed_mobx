@@ -10,8 +10,8 @@ import assets from 'mobx/Assets.store'
 import { inject, observer } from 'mobx-react'
 
 
-const BackBtn = ({ children, to = '/assets', ...props }) => <NavLink to={to}>
-  <Button {...props}>
+const BackBtn = ({ children, to = '/assets', ...props }) => <NavLink to={ to }>
+  <Button { ...props }>
     {children}
   </Button>
 </NavLink>
@@ -28,30 +28,30 @@ const EditAssetsPageHeader = ({
       <BackBtn raised styleName="back-link">
         <FontIcon value="chevron_left"/>
       </BackBtn>
-      <Route path="/assets/edit/:assetId" component={() => <span>UPDATE ASSET</span>}/>
-      <Route path="/assets/view/:assetId" component={() => <span>{activeItem.rfidAssigned}</span>}/>
-      <Route path="/assets/create" component={() => <span>CREATE ASSET</span>}/>
+      <Route path="/assets/edit/:assetId" component={ () => <span>UPDATE ASSET</span> }/>
+      <Route path="/assets/view/:assetId" component={ () => <span title={activeItem.rfidAssigned}>{activeItem.rfidAssigned}</span> }/>
+      <Route path="/assets/create" component={ () => <span>CREATE ASSET</span> }/>
     </div>
     <div styleName="buttons-block">
       <Route path="/assets/view/:assetId"
-             component={() => ( <NavLink to={`/assets/edit/${assetId}`} replace onClick={() => setHoveredIndex(hoveredIndex + 1)}>
+             component={ () => ( <NavLink to={ `/assets/edit/${ assetId }` } replace onClick={ () => setHoveredIndex(hoveredIndex + 1) }>
                  <Button raised>
                    <FontIcon value="update"/>Update Asset
                  </Button>
                </NavLink>
-             )}/>
+             ) }/>
 
-      <Route path="/assets/view/:assetId" component={() => (
-        <DeleteDialog action={() => {
+      <Route path="/assets/view/:assetId" component={ () => (
+        <DeleteDialog action={ () => {
           assets.remove(assets.active.id).then(() => {
-            history.push(`${location.pathname}/view/${assetId}`)
+            history.push(`${ location.pathname }/view/${ assetId }`)
           })
-        }} type="asset">
+        } } type="asset">
           <Button raised>
             <FontIcon value="delete"/>Delete Asset
           </Button>
         </DeleteDialog>
-      )}/>
+      ) }/>
 
     </div>
   </PageHeader>

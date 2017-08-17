@@ -5,14 +5,14 @@ import './XlsUploadInput.css'
 import assets from 'mobx/Assets.store'
 
 const XlsUploadInput = ({ proxyClick, onFilesSelected, setInputRef, setTestData }) => <div>
-  <Button raised onClick={proxyClick}>
-    <input ref={setInputRef} type="file"
-           onChange={onFilesSelected} style={{ display: 'none' }}/>
+  <Button raised onClick={ proxyClick }>
+    <input ref={ setInputRef } type="file"
+           onChange={ onFilesSelected } style={ { display: 'none' } }/>
     Test XLS/XLSX/CSV file upload
   </Button>
   &nbsp;
   &nbsp;
-  <Button raised onClick={setTestData}>
+  <Button raised onClick={ setTestData }>
     IE temp test
   </Button>
 </div>

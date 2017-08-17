@@ -19,13 +19,13 @@ const EditAssetPage = ({ Text, asset = {}, isView, assets }) => {
       <div styleName="header">
         <NavLink to="/assets">Asset</NavLink>
         <div styleName="dot"/>
-        <Route path="/assets/edit/:assetId" component={() => <span>Update Asset</span>}/>
-        <Route path="/assets/view/:assetId" component={() => <span>{asset.rfidAssigned}</span>}/>
-        <Route path="/assets/create" component={() => <span>Create Asset</span>}/>
+        <Route path="/assets/edit/:assetId" component={ () => <span>Update Asset</span> }/>
+        <Route path="/assets/view/:assetId" component={ () => <span>{asset.rfidAssigned}</span> }/>
+        <Route path="/assets/create" component={ () => <span>Create Asset</span> }/>
       </div>
       <div styleName="edit-asset-page-content">
-        <EditAssetInput {...{ isView }}/>
-        <div style={{ paddingLeft: '32px' }}>
+        <EditAssetInput { ...{ isView } }/>
+        <div style={ { paddingLeft: '32px' } }>
           {isView && <div styleName="asset-number-header">
             ASSET NUMBER: {asset.assetNumber}
           </div>}
@@ -55,17 +55,17 @@ const EditAssetPage = ({ Text, asset = {}, isView, assets }) => {
             <div styleName="bottom-buttons">
               <div styleName="greyed bottom-buttons">* Indciates required</div>
               <div styleName="bottom-buttons left">
-                <NavLink to={asset.id ? `/assets/view/${asset.id}` : '/assets'}>
+                <NavLink to={ asset.id ? `/assets/view/${ asset.id }` : '/assets' }>
                   <Button raised styleName="cancel-button">Cancel</Button>
                 </NavLink>
                 <Dialog
                   okLabel="Yes" cancelLabel="No"
-                  action={() => {
+                  action={ () => {
                     (asset.id ? assets.update() : assets.add()).then(({ id }) => {
-                      history.push(`/assets/view/${id}`)
+                      history.push(`/assets/view/${ id }`)
                     })
-                  }}
-                  content={() => <div>Are you sure you want to update this asset?</div>}>
+                  } }
+                  content={ () => <div>Are you sure you want to update this asset?</div> }>
                   <Button raised primary>
                     <FontIcon value="save"/>
                     Save Asset
@@ -84,13 +84,13 @@ const labels = assets.getLabelsMap()
 const Text = ({ assets, asset, isView, value, multiline }) => {
   let { required, label } = labels[value] || {}
   required = !isView && required
-  label = isView ? `${label}:` : `${label}`
+  label = isView ? `${ label }:` : `${ label }`
   return <TextInput
-    disabled={isView}
-    value={asset[value] || ''}
-    {...{ label, required, multiline }}
-    onChange={val => assets.change(value, val)}
-    error={(required && !asset[value]) ? `"${label}" is required` : null}/>
+    disabled={ isView }
+    value={ asset[value] || '' }
+    { ...{ label, required, multiline } }
+    onChange={ val => assets.change(value, val) }
+    error={ (required && !asset[value]) ? `"${ label }" is required` : null }/>
 }
 
 export default compose(
@@ -106,7 +106,7 @@ export default compose(
   withHandlers({
     // eslint-disable-next-line react/display-name
     Text: ({ asset, isView, assets }) => ({ value, multiline }) => {
-      return <Text {...{ asset, assets, isView, value, multiline }}/>
+      return <Text { ...{ asset, assets, isView, value, multiline } }/>
     }
   })
 )(EditAssetPage)

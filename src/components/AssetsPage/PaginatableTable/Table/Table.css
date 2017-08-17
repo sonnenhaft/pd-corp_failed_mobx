@@ -1,3 +1,5 @@
+@import "react-toolbox/lib/variables";
+
 .current-th {
   color: #0a427b;
   cursor: pointer;
@@ -101,7 +103,7 @@
       }
 
       &:nth-of-type(2n) {
-        background-color: white;
+        background-color: var(--color-white);
       }
       &.selected {
         background: rgb(198, 221, 242);
@@ -115,7 +117,7 @@
   display: flex;
   position: absolute;
   right: 1px;
-  background: white;
+  background: var(--color-white);
   height: 49px;
   overflow: hidden;
   margin-left: 11px;

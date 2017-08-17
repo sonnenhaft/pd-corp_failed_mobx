@@ -14,7 +14,7 @@ const SearchInputs = props => {
   const isNotEmpty = !!Object.values(filter).length
 
   const searchButton = <div styleName="search-button-wrapper">
-    <Button raised primary onClick={() => (isNotEmpty || search) && alert('TODO: add search action')}
+    <Button raised primary onClick={ () => (isNotEmpty || search) && alert('TODO: add search action') }
             styleName="blue-button">
       SEARCH
     </Button>
@@ -25,10 +25,10 @@ const SearchInputs = props => {
 
     <div styleName="input-with-button">
       <TextInputWithIcon
-        icon={searchIcon}
-        label={search ? '' : 'Type here'}
-        value={search}
-        onChange={setSearch}/>
+        icon={ searchIcon }
+        label={ search ? '' : 'Type here' }
+        value={ search }
+        onChange={ setSearch }/>
       {!expanded && searchButton}
     </div>
 
@@ -39,13 +39,13 @@ const SearchInputs = props => {
 
 
     <div styleName="blue-text-buttons">
-      <RippleDiv onClick={() => setExpanded(!expanded)}>
+      <RippleDiv onClick={ () => setExpanded(!expanded) }>
         Filters
-        <FontIcon value={expanded ? 'keyboard_arrow_up' : 'keyboard_arrow_down'}
+        <FontIcon value={ expanded ? 'keyboard_arrow_up' : 'keyboard_arrow_down' }
                   styleName="icon"/>
       </RippleDiv>
 
-      {expanded && isNotEmpty && <RippleDiv onClick={resetFilters}>
+      {expanded && isNotEmpty && <RippleDiv onClick={ resetFilters }>
         Reset fields
         <FontIcon value="refresh" styleName="icon"/>
       </RippleDiv>}
@@ -53,24 +53,24 @@ const SearchInputs = props => {
 
     {expanded && <div>
       <div styleName="search-input-buttons">
-        <TextInput label="Asset Name" onChange={keyChanged('rfidAssigned')} value={filter.rfidAssigned || ''}/>
-        <TextInput label="RFID" onChange={keyChanged('rfid')} value={filter.rfid || ''}/>
-        <TextInput label="Bar Code" onChange={keyChanged('barCode')} value={filter.barCode || ''}/>
-        <TextInput label="Serial Number" onChange={keyChanged('serialNumber')} value={filter.serialNumber || ''}/>
-        <TextInput label="Asset/Equipment Number" onChange={keyChanged('eq_numer')} value={filter.eq_numer || ''}/>
-        <TextInput label="Model" onChange={keyChanged('model')} value={filter.model || ''}/>
-        <TextInput label="Description" onChange={keyChanged('description')} value={filter.description || ''}/>
-        <TextInput label="Notes" onChange={keyChanged('notes')} value={filter.notes || ''}/>
+        <TextInput label="Asset Name" onChange={ keyChanged('rfidAssigned') } value={ filter.rfidAssigned || '' }/>
+        <TextInput label="RFID" onChange={ keyChanged('rfid') } value={ filter.rfid || '' }/>
+        <TextInput label="Bar Code" onChange={ keyChanged('barCode') } value={ filter.barCode || '' }/>
+        <TextInput label="Serial Number" onChange={ keyChanged('serialNumber') } value={ filter.serialNumber || '' }/>
+        <TextInput label="Asset/Equipment Number" onChange={ keyChanged('eq_numer') } value={ filter.eq_numer || '' }/>
+        <TextInput label="Model" onChange={ keyChanged('model') } value={ filter.model || '' }/>
+        <TextInput label="Description" onChange={ keyChanged('description') } value={ filter.description || '' }/>
+        <TextInput label="Notes" onChange={ keyChanged('notes') } value={ filter.notes || '' }/>
 
         <div styleName="date-inputs">
           <DatePicker label="Last Update Date from"
-                      onChange={keyChanged('dateFrom')}
+                      onChange={ keyChanged('dateFrom') }
                       icon="event"
-                      value={filter.dateFrom}/>
+                      value={ filter.dateFrom }/>
           <DatePicker label="Last Update Date to"
-                      onChange={keyChanged('dateTo')}
+                      onChange={ keyChanged('dateTo') }
                       icon="event"
-                      value={filter.dateTo}/>
+                      value={ filter.dateTo }/>
         </div>
 
       </div>

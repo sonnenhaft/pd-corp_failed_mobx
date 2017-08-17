@@ -49,14 +49,16 @@ class AssetsStore {
     { label: 'Notes', key: 'notes' }
   ]
 
-  getXlsxLabels(){
-    return Object.keys(this.xlsTable[0]  || {})
+  getXlsxLabels() {
+    if ( this.xlsTable.length && this.xlsTable[0] ) {
+      return Object.keys(this.xlsTable[0])
+    } else {
+      return []
+    }
   }
 
-  setSheetToImport(xlsTable){
+  setSheetToImport(xlsTable) {
     this.xlsTable = xlsTable
-
-
   }
 
   change(value, val) {
@@ -89,7 +91,7 @@ class AssetsStore {
   async add() {
     await delay()
     const newAsset = this.active
-    newAsset.id = `${Date.now()  }`
+    newAsset.id = `${ Date.now()  }`
     this.list.push(newAsset)
     this.active = {}
     return newAsset

@@ -4,25 +4,25 @@ import { FontIcon, IconButton } from 'react-toolbox'
 import './EditAssetImageInput.css'
 
 const EditAssetInputRef = ({ proxyClick, onFilesSelected, setInputRef, previewImage, setPreviewImage, isView }) => <div
-  styleName={`input-wrapper ${isView ? 'is-view' :''}`} onClick={proxyClick}>
-  <input ref={setInputRef} type="file" accept="image/*"
-         onChange={onFilesSelected} style={{ display: 'none' }}/>
+  styleName={ `input-wrapper ${ isView ? 'is-view' :'' }` } onClick={ proxyClick }>
+  <input ref={ setInputRef } type="file" accept="image/*"
+         onChange={ onFilesSelected } style={ { display: 'none' } }/>
   {!previewImage && <div>
-    <div style={{ textAlign: 'center' }}>
+    <div style={ { textAlign: 'center' } }>
       <div>Upload photo</div>
       <i>Click to search</i>
       <div><FontIcon value="library_add"/></div>
     </div>
   </div>}
   {previewImage && <div>
-    <img src={previewImage}/>
+    <img src={ previewImage }/>
     <div styleName="buttons">
       <div styleName="background"/>
       <IconButton icon="mode_edit" primary/>
-      <IconButton icon="delete" accent onClick={e => {
+      <IconButton icon="delete" accent onClick={ e => {
         setPreviewImage(null)
         e.stopPropagation()
-      }}/>
+      } }/>
     </div>
   </div>}
 </div>

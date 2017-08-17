@@ -11,7 +11,7 @@ import { Button, FontIcon } from 'react-toolbox'
 import { NavLink } from 'react-router-dom'
 import assets from 'mobx/Assets.store'
 import { inject, observer } from 'mobx-react'
-import XlsUploadInput from '../../XlsUploadInput'
+import XlsUploadInput from '../XlsUploadInput'
 
 const DragAndDropBoard = props => {
   const { boardState: { dbFields }, isDropped, handleDrop, handleRemove, fieldsFromTable } = props
@@ -25,7 +25,7 @@ const DragAndDropBoard = props => {
         </div>
         <div styleName="dragable-items">
           {fieldsFromTable.filter(({ name }) => !isDropped(name)).map(({ name }, index) =>
-            <DraggableItem key={index} name={name}/>
+            <DraggableItem key={ index } name={ name }/>
           )}
         </div>
       </div>
@@ -38,18 +38,18 @@ const DragAndDropBoard = props => {
         <div styleName="dragable-items">
           <div styleName="droppable-wrapper">
             {dbFields.map((data, index) =>
-              <div key={index}>
+              <div key={ index }>
                 <DroppableContainer
-                  {...data}
-                  onDrop={item => handleDrop(index, item)}
-                  onRemove={item => handleRemove(index, item)}/>
+                  { ...data }
+                  onDrop={ item => handleDrop(index, item) }
+                  onRemove={ item => handleRemove(index, item) }/>
               </div>
             )}
           </div>
         </div>
         <div>
           <br/>
-          <div style={{display: 'inline-block'}}>
+          <div style={ {display: 'inline-block'} }>
             <XlsUploadInput/>
           </div>
           &nbsp;

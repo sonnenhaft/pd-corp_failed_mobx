@@ -9,15 +9,15 @@ const Dialog = props => {
   const { handleClose, handleOpen, handleSubmit, isOpened, children, content } = props
   const { okLabel = 'Submit', cancelLabel = 'Cancel'} = props
   return <div>
-    <div onClick={handleOpen}>{children}</div>
+    <div onClick={ handleOpen }>{children}</div>
     <RtDialog
-      actions={[
+      actions={ [
         { label: cancelLabel, onClick: handleClose },
         { label: okLabel, onClick: handleSubmit }
-      ]}
-      active={isOpened}
-      onEscKeyDown={handleClose}
-      onOverlayClick={handleClose}
+      ] }
+      active={ isOpened }
+      onEscKeyDown={ handleClose }
+      onOverlayClick={ handleClose }
       title="Dialog With Actions">
       {content()}
     </RtDialog>

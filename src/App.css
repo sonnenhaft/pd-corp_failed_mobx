@@ -1,7 +1,7 @@
 @import "react-toolbox/lib/variables";
 
 .app {
-  font-family: 'Roboto', sans-serif;
+  font-family: var(--preferred-font)
 }
 
 .app-version {

@@ -7,17 +7,21 @@
   font-size: 13px;
 
   & path {
-    transition: fill 0.2s var(--animation-curve-default),
+    transition: fill 0.2s var(--animation-curve-default);
   }
 
   &:not(.primary):not([disabled]) {
     color: var(--color-primary-dark);
+
     & path {
       fill: var(--color-primary-dark);
     }
-    &:hover:not([disabled]), &:focus {
+
+    &:hover:not([disabled]),
+    &:focus {
       color: var(--color-white);
       background: var(--color-primary);
+
       & path {
         fill: var(--color-white);
       }
@@ -34,7 +38,9 @@
     & path {
       fill: var(--color-white);
     }
-    &:hover:not([disabled]), &:focus {
+
+    &:hover:not([disabled]),
+    &:focus {
       background: var(--color-primary-dark);
     }
   }

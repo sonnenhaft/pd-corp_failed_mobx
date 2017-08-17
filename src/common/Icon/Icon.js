@@ -5,9 +5,9 @@ import { IconButton as RtIconButton } from 'react-toolbox/lib/button'
 import styles from './Icon.css'
 
 export const Icon = ({ svg, className, ...props }) => <span
-  {...{ ...props, className }}
-  className={`${styles['icon']} ${className}`}
-  dangerouslySetInnerHTML={{ __html: svg }}/>
+  { ...{ ...props, className } }
+  className={ `${ styles['icon'] } ${ className }` }
+  dangerouslySetInnerHTML={ { __html: svg } }/>
 
 Icon.propTypes = {
   svg: P.string.isRequired,
@@ -15,9 +15,9 @@ Icon.propTypes = {
 }
 
 export const IconButton = ({ svg }) => <RtIconButton
-  style={{position: 'relative'}}
+  style={ {position: 'relative'} }
   icon={
-    <Icon svg={svg} styleName="icon-button"/>
+    <Icon svg={ svg } styleName="icon-button"/>
   } primary ripple/>
 
 IconButton.propTypes = {

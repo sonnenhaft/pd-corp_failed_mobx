@@ -10,11 +10,11 @@ const DraggableItem = props => {
   const { isDragging, connectDragSource, name, dragging, onRemove, className } = props
 
   return connectDragSource(
-    <div styleName={`draggable-item ${(isDragging ? 'isDragging' : dragging ? 'hoverDragging' : '')}`}
-         className={className}>
+    <div styleName={ `draggable-item ${ (isDragging ? 'isDragging' : dragging ? 'hoverDragging' : '') }` }
+         className={ className }>
       <FontIcon value="menu" styleName="icon"/>
       <span styleName="text">{ name }</span>
-      {onRemove && <FontIcon value="clear" onClick={onRemove}/>}
+      {onRemove && <FontIcon value="clear" onClick={ onRemove }/>}
     </div>
   )
 }

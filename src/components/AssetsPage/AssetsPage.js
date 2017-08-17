@@ -13,7 +13,7 @@ const AssetsPage = ({ assets: { list: data, labels } }) => <div>
   <AssetsPageHeader/>
   <div styleName="assets-page-content">
     <SearchInputs/>
-    <PaginatableTable {...{ labels, data }}/>
+    <PaginatableTable { ...{ labels, data } }/>
   </div>
 </div>
 

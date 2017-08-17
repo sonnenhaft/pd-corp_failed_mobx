@@ -22,21 +22,21 @@ const Table = ({ setSelectedIndexes, sort, setSort, selectedIndexes, location, h
   const menuHidden = selectedIndexes.length > 1
   return <div>
     <div styleName="custom-table-wrapper">
-      <div styleName="actions-row-wrapper" onMouseLeave={() => setHoveredIndex(-1)}>
+      <div styleName="actions-row-wrapper" onMouseLeave={ () => setHoveredIndex(-1) }>
         <div styleName="action-td-wrapper">
 
-          <Checkbox checked={someSelected}
-                    styleName={someSelected ? 'some-selected' : ''}
-                    onChange={() => setSelectedIndexes(someSelected ? [] : 'all')}/>
+          <Checkbox checked={ someSelected }
+                    styleName={ someSelected ? 'some-selected' : '' }
+                    onChange={ () => setSelectedIndexes(someSelected ? [] : 'all') }/>
         </div>
         {assets.list.map((row, index) => {
           const selected = selectedIndexes.includes(index)
           const hovered = hoveredIndex === index
-          return <div styleName={`action-td-wrapper ${hovered || selected ? 'selected' : ''}`}
-                      key={index}
-                      onMouseEnter={() => setHoveredIndex(index)}
+          return <div styleName={ `action-td-wrapper ${ hovered || selected ? 'selected' : '' }` }
+                      key={ index }
+                      onMouseEnter={ () => setHoveredIndex(index) }
           >
-            <Checkbox checked={selected} onChange={() => {
+            <Checkbox checked={ selected } onChange={ () => {
               if ( selected ) {
                 const z = selectedIndexes.slice()
                 z.splice(z.indexOf(index), 1)
@@ -44,7 +44,7 @@ const Table = ({ setSelectedIndexes, sort, setSort, selectedIndexes, location, h
               } else {
                 setSelectedIndexes([...selectedIndexes, index])
               }
-            }}/>
+            } }/>
           </div>
         })}
       </div>
@@ -53,11 +53,11 @@ const Table = ({ setSelectedIndexes, sort, setSort, selectedIndexes, location, h
           <thead>
           <tr>{visibleLabels.map(({ label, key }) => {
             const sortByThisKey = sort && sort.key === key
-            return <th key={key} onClick={() => setSort(key)}>
+            return <th key={ key } onClick={ () => setSort(key) }>
               {setSort && <div >
 
                 {sortByThisKey && <span styleName="current-th">
-                {label}&nbsp;<Icon svg={sort.asc ? arrowAsc : arrowDesc}/>
+                {label}&nbsp;<Icon svg={ sort.asc ? arrowAsc : arrowDesc }/>
               </span> }
                 {!sortByThisKey && label }
               </div>}
@@ -65,19 +65,19 @@ const Table = ({ setSelectedIndexes, sort, setSort, selectedIndexes, location, h
             </th>
           })}</tr>
           </thead>
-          <tbody onMouseLeave={() => setHoveredIndex(-1)}>
+          <tbody onMouseLeave={ () => setHoveredIndex(-1) }>
           {assets.list.map((row, index) => {
             const selected = selectedIndexes.includes(index)
             const hovered = hoveredIndex === index
             return <tr
-              key={index}
-              styleName={hovered || selected ? 'selected' : ''}
-              onMouseEnter={() => setHoveredIndex(index)}
-              onClick={() => { history.push(`${location.pathname}/view/${row.id}`) }}>
+              key={ index }
+              styleName={ hovered || selected ? 'selected' : '' }
+              onMouseEnter={ () => setHoveredIndex(index) }
+              onClick={ () => { history.push(`${ location.pathname }/view/${ row.id }`) } }>
               {visibleLabels.map(({ key }) => {
                 const val = row[key] || ''
-                return <td key={key}>
-                  {val.length > 21 ? <Tooltip text={val} noArrow={true}>
+                return <td key={ key }>
+                  {val.length > 21 ? <Tooltip text={ val } noArrow={ true }>
                     <div>{val}</div>
                   </Tooltip> : val}
                 </td>
@@ -87,29 +87,29 @@ const Table = ({ setSelectedIndexes, sort, setSort, selectedIndexes, location, h
           </tbody>
         </table>
       </div>
-      <div styleName="actions-row-wrapper" onMouseLeave={() => setHoveredIndex(-1)}>
+      <div styleName="actions-row-wrapper" onMouseLeave={ () => setHoveredIndex(-1) }>
         <div styleName="action-td-wrapper"/>
         {assets.list.map((row, index) => {
           const selected = selectedIndexes.includes(index)
           const hovered = hoveredIndex === index
           return <div
-            styleName={`action-td-wrapper ${(hovered || selected) && !menuHidden ? 'selected' : ''}`}
-            key={index}
-            onMouseEnter={() => setHoveredIndex(index)}>
-            <Icon svg={verticalDotsIcon}/>
+            styleName={ `action-td-wrapper ${ (hovered || selected) && !menuHidden ? 'selected' : '' }` }
+            key={ index }
+            onMouseEnter={ () => setHoveredIndex(index) }>
+            <Icon svg={ verticalDotsIcon }/>
             <div styleName="action-menu">
-              <NavLink to={`${location.pathname}/edit/${row.id}`}>
+              <NavLink to={ `${ location.pathname }/edit/${ row.id }` }>
                 <Tooltip text="Edit">
                   <div>
-                    <IconButton tooltip="Update" svg={updateIcon}/>
+                    <IconButton tooltip="Update" svg={ updateIcon }/>
                   </div>
                 </Tooltip>
               </NavLink>
 
-              <DeleteDialog action={() => assets.remove(row.id)} type="asset">
+              <DeleteDialog action={ () => assets.remove(row.id) } type="asset">
                 <Tooltip text="Delete">
                   <div>
-                    <IconButton tooltip="Delete" svg={bulkDeleteIcon}/>
+                    <IconButton tooltip="Delete" svg={ bulkDeleteIcon }/>
                   </div>
                 </Tooltip>
               </DeleteDialog>

@@ -96,7 +96,7 @@
 .greyed-helper-text {
   font-size: 12px;
   font-style: italic;
-  color: #6c717b;
+  color: var(--button-disabled-text-color);
   margin-top: -12px;
   margin-left: 2px;
   margin-bottom: 16px

@@ -18,11 +18,11 @@ const DroppableContainer = props => {
       <div styleName="field-name">
         { props.label }{props.required ? '*' : ''}
       </div>
-      <div styleName={`droppable-container ${filledClass} ${activeClass}`}>
+      <div styleName={ `droppable-container ${ filledClass } ${ activeClass }` }>
         {props.lastDroppedItem && <DraggableItem
-          name={props.lastDroppedItem.name}
+          name={ props.lastDroppedItem.name }
           styleName="inlined-item"
-          onRemove={() => props.onRemove(props.lastDroppedItem)}/>}
+          onRemove={ () => props.onRemove(props.lastDroppedItem) }/>}
       </div>
     </div>
   )

@@ -12,7 +12,7 @@ import assets from 'mobx/Assets.store'
 
 const render = Component => ReactDom.render(
   <AppContainer>
-    <Provider {...{ routing, assets }}>
+    <Provider { ...{ routing, assets } }>
       <Component />
     </Provider>
 

@@ -19,17 +19,17 @@ const Header = ({ username = 'John Doe' }) => <div
   <hr/>
   <div styleName="header-wrapper">
     <div styleName="logo">
-      <img src={logoIcon}/>
+      <img src={ logoIcon }/>
     </div>
     <div styleName="header">
       {stableLinks.map(({ link, value }) => <NavLink
-        key={value} title={value} activeClassName={styles['active']}
-        to={link}>{value}</NavLink>)}
+        key={ value } title={ value } activeClassName={ styles['active'] }
+        to={ link }>{value}</NavLink>)}
     </div>
 
-    <MenuButton label={username} styleName="username" primary
-                icon={active => <FontIcon value={active ? 'arrow_drop_up' : 'arrow_drop_down'}/>}>
-      <MenuItem value='download' icon='get_app' caption={username}/>
+    <MenuButton label={ username } styleName="username" primary
+                icon={ active => <FontIcon value={ active ? 'arrow_drop_up' : 'arrow_drop_down' }/> }>
+      <MenuItem value='download' icon='get_app' caption={ username }/>
       <MenuItem value='help' icon='favorite' caption='Favorite'/>
       <MenuItem value='settings' icon='open_in_browser' caption='Open in app'/>
       <MenuItem value='signout' icon='delete' caption='Delete' disabled/>

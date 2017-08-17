@@ -1,6 +1,5 @@
 import React from 'react'
-import { NavLink, withRouter } from 'react-router-dom'
-import { compose } from 'recompose'
+import { NavLink } from 'react-router-dom'
 import { PageHeader } from 'common'
 import { Button, FontIcon } from 'react-toolbox'
 
@@ -17,6 +16,4 @@ const AssetsPageHeader = () => <PageHeader styleName="header">
   </div>
 </PageHeader>
 
-export default compose(
-  withRouter
-)(AssetsPageHeader)
+export default AssetsPageHeader
