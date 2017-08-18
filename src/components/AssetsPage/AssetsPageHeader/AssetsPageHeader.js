@@ -8,6 +8,8 @@ import exportReportSvg from './export-report.icon.svg'
 import importAssetsSvg from './import-assets.icon.svg'
 import './AssetsPageHeader.css'
 
+import XlsUploadInput from '../../ImportAssetsPage/XlsUploadInput'
+
 const AssetsPageHeader = () => <PageHeader>
   <div styleName="header-text">ASSETS</div>
   <div>
@@ -18,12 +20,10 @@ const AssetsPageHeader = () => <PageHeader>
       </Button>
     </NavLink>
 
-    <NavLink to={ '/assets/import' } styleName="middle-button">
-      <Button raised>
-        <Icon svg={ importAssetsSvg }/>
-        Import Assets
-      </Button>
-    </NavLink>
+    <XlsUploadInput styleName="middle-button">
+      <Icon svg={ importAssetsSvg }/>
+      Import Assets
+    </XlsUploadInput>
 
     <Button raised onClick={ () => alert('define export report action') }>
       <Icon svg={ exportReportSvg }/>

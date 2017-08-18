@@ -3,6 +3,8 @@ import P from 'prop-types'
 import { DragSource } from 'react-dnd'
 import { FontIcon } from 'react-toolbox'
 import { compose, setPropTypes, withState } from 'recompose'
+import { Icon } from 'common'
+import toLinesIcon from './to-lines.icon.svg'
 
 import './DraggableItem.css'
 
@@ -12,7 +14,9 @@ const DraggableItem = props => {
   return connectDragSource(
     <div styleName={ `draggable-item ${ (isDragging ? 'isDragging' : dragging ? 'hoverDragging' : '') }` }
          className={ className }>
-      <FontIcon value="menu" styleName="icon"/>
+      <Icon svg={ toLinesIcon }/>
+      &nbsp;
+      &nbsp;
       <span styleName="text">{ name }</span>
       {onRemove && <FontIcon value="clear" onClick={ onRemove }/>}
     </div>

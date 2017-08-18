@@ -42,7 +42,7 @@ export default compose(
     required: P.bool,
     showError: P.bool,
     label: P.string.isRequired,
-    subText: P.string,
+    // subText: P.string,
     fieldKey: P.string.isRequired,
     onRemove: P.func,
     onDrop: P.func.isRequired

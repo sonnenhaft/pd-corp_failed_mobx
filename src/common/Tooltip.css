@@ -4,6 +4,7 @@
   &:global {
     &.rc-tooltip {
       & .rc-tooltip-content {
+        max-width: 300px;
         transform: translate(0, 0);
 
         & .rc-tooltip-inner {
@@ -26,6 +27,7 @@
 
     & .rc-tooltip-content {
       transform: translate(0, -11px);
+      max-width: 300px;
     }
 
     & .rc-tooltip-inner {
@@ -56,5 +58,15 @@
         border-top-color: var(--color-white);
       }
     }
+  }
+}
+
+.info-tip {
+  cursor: pointer;
+  &:not(:hover) span:last-of-type {
+    display: none;
+  }
+  &:hover span:first-of-type {
+    display: none;
   }
 }

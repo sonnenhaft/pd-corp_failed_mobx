@@ -4,13 +4,13 @@ import ReactDndHTML5Backend from 'react-dnd-html5-backend'
 import { compose, withHandlers, withState } from 'recompose'
 import DroppableContainer from '../DroppableContainer'
 import DraggableItem from '../DraggableItem'
+import { Tooltip } from 'common'
 
 import './DragAndDropBoard.css'
 import { Button, FontIcon } from 'react-toolbox'
 import { NavLink } from 'react-router-dom'
 import assets from 'mobx/Assets.store'
 import { inject, observer } from 'mobx-react'
-import XlsUploadInput from '../XlsUploadInput'
 
 const DragAndDropBoard = props => {
   const { boardState: { dbFields }, isDropped, handleDrop, handleRemove, fieldsFromTable, handleTouched, error } = props
@@ -20,7 +20,10 @@ const DragAndDropBoard = props => {
       <div>
         <div styleName="headerText">
           Imported Asset Name Fields
-          <FontIcon value="info_outline" styleName="icon"/>
+
+          <Tooltip circle={ true } styleName="icon"
+                   text="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas blandit diam sit amet nunc pretium, vel elementum tellus congue. Praesent ultrices varius varius. Phasellus placerat nulla non enim molestie accumsan eu a nibh. Morbi velit purus, vestibulum sed leo vitae, hendrerit imperdiet nisl."/>
+
         </div>
         <div styleName="under-header-text">
           Please drag and drop each imported data field to the corresponding database profile field.
@@ -35,7 +38,8 @@ const DragAndDropBoard = props => {
       <div>
         <div styleName="headerText">
           DATABASE PROFILE
-          <FontIcon value="info_outline" styleName="icon"/>
+          <Tooltip circle={ true } styleName="icon"
+                   text="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas blandit diam sit amet nunc pretium, vel elementum tellus congue. Praesent ultrices varius varius. Phasellus placerat nulla non enim molestie accumsan eu a nibh. Morbi velit purus, vestibulum sed leo vitae, hendrerit imperdiet nisl."/>
         </div>
         <div styleName="dragable-items">
           <div styleName="droppable-wrapper">
@@ -50,25 +54,22 @@ const DragAndDropBoard = props => {
             )}
           </div>
         </div>
-        <div>
-          <br/>
+        <br/>
+        <div style={ {display: 'flex', justifyContent: 'space-between'} }>
           <div styleName={ `under-header-text ${ error ? 'error' : '' }` } style={ { display: 'inline-block' } }>
             * Indciates required field
           </div>
-          <div style={ { display: 'inline-block' } }>
-            <XlsUploadInput/>
+          <div>
+            <NavLink to="/assets">
+              <Button raised>Cancel</Button>
+            </NavLink>
+            &nbsp;
+            &nbsp;
+            <Button raised primary onClick={ handleTouched } disabled={ error }>
+              <FontIcon value="save"/>
+              Save Asset
+            </Button>
           </div>
-          &nbsp;
-          &nbsp;
-          <NavLink to="/assets">
-            <Button raised>Cancel</Button>
-          </NavLink>
-          &nbsp;
-          &nbsp;
-          <Button raised primary onClick={ handleTouched } disabled={ error }>
-            <FontIcon value="save"/>
-            Save Asset
-          </Button>
         </div>
       </div>
     </div>
