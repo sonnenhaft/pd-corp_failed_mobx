@@ -1,5 +1,4 @@
 import React from 'react'
-import update from 'react/lib/update'
 import { DragDropContext } from 'react-dnd'
 import ReactDndHTML5Backend from 'react-dnd-html5-backend'
 import { compose, withHandlers, withState } from 'recompose'
@@ -14,7 +13,7 @@ import { inject, observer } from 'mobx-react'
 import XlsUploadInput from '../XlsUploadInput'
 
 const DragAndDropBoard = props => {
-  const { boardState: { dbFields }, isDropped, handleDrop, handleRemove, fieldsFromTable } = props
+  const { boardState: { dbFields }, isDropped, handleDrop, handleRemove, fieldsFromTable, handleTouched, error } = props
 
   return (
     <div styleName="main-wrapper">
@@ -41,9 +40,10 @@ const DragAndDropBoard = props => {
         <div styleName="dragable-items">
           <div styleName="droppable-wrapper">
             {dbFields.map((data, index) =>
-              <div key={ index }>
+              <div key={ index } styleName={ data.multiple ? 'multiple' : '' }>
                 <DroppableContainer
                   { ...data }
+                  showError={ error }
                   onDrop={ item => handleDrop(index, item) }
                   onRemove={ item => handleRemove(index, item) }/>
               </div>
@@ -52,7 +52,10 @@ const DragAndDropBoard = props => {
         </div>
         <div>
           <br/>
-          <div style={ {display: 'inline-block'} }>
+          <div styleName={ `under-header-text ${ error ? 'error' : '' }` } style={ { display: 'inline-block' } }>
+            * Indciates required field
+          </div>
+          <div style={ { display: 'inline-block' } }>
             <XlsUploadInput/>
           </div>
           &nbsp;
@@ -62,7 +65,7 @@ const DragAndDropBoard = props => {
           </NavLink>
           &nbsp;
           &nbsp;
-          <Button raised primary>
+          <Button raised primary onClick={ handleTouched } disabled={ error }>
             <FontIcon value="save"/>
             Save Asset
           </Button>
@@ -78,28 +81,48 @@ export default compose(
   })),
   observer,
   DragDropContext(ReactDndHTML5Backend),
+  withState('error', 'setError', false),
   withState('boardState', 'setBoxesState', {
     dbFields: assets.labels.filter(({ key }) => key !== 'id').map(({ label, key, required }) => {
-      return { lastDroppedItem: null, label, fieldKey: key, required }
+      const multiple = key === 'notes'
+      const subText = multiple && 'Please drag and drop all other imported data fields to this field.'
+      return { droppedItems: [], label, fieldKey: key, required, multiple, subText }
     }),
     droppedBoxNames: []
+  }),
+  withHandlers({
+    handleTouched: ({ setError, error, boardState: { dbFields } }) => () => {
+      const hasError = dbFields.some(({ required, droppedItems }) => {
+        return required && !droppedItems.length
+      })
+
+      if ( error !== hasError ) {
+        setError(hasError)
+      }
+    }
   }),
   withHandlers({
     isDropped: ({ boardState: { droppedBoxNames: b } }) => box => b.includes(box),
     handleRemove: ({ setBoxesState, boardState }) => (index, item) => {
       const { dbFields, droppedBoxNames } = boardState
-      dbFields[index].lastDroppedItem = null
+      const items = dbFields[index].droppedItems
+      items.splice(items.indexOf(item), 1)
       droppedBoxNames.splice(droppedBoxNames.findIndex(({ name }) => name === item.name), 1)
 
       setBoxesState(boardState)
     },
-    handleDrop: ({ setBoxesState, boardState }) => (index, item) => {
-      const { name } = item
 
-      setBoxesState(update(boardState, {
-        dbFields: { [index]: { lastDroppedItem: { $set: item } } },
-        droppedBoxNames: name ? { $push: [name] } : {}
-      }))
+    handleDrop: ({ setBoxesState, boardState, error, handleTouched }) => (index, item) => {
+      const { dbFields, droppedBoxNames } = boardState
+      const dbField = dbFields[index]
+      if ( !dbField.droppedItems.length || dbField.multiple ) {
+        dbField.droppedItems.push(item)
+        droppedBoxNames.push(item.name)
+        setBoxesState(boardState)
+        if ( error ) {
+          handleTouched()
+        }
+      }
     }
   })
 )(DragAndDropBoard)

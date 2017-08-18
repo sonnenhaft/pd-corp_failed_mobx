@@ -1,7 +1,9 @@
 .assets-page-content {
-  max-width: calc(1024px);
+  max-width: calc(1024px - 16px);
   margin: auto;
   margin-top: 16px;
+  background: #faf9f9;
+  padding: 8px;
   @media only screen and (max-width: 1024px) {
     margin: 16px;
   }

@@ -11,18 +11,25 @@ const DroppableContainer = props => {
   const { isOver, canDrop, connectDropTarget } = props
   const isActive = isOver && canDrop
 
-  const filledClass = props.lastDroppedItem ? 'filled' : ''
+  const filledClass = props.droppedItems.length && !props.multiple ? 'filled' : ''
   const activeClass = isActive ? 'active' : canDrop ? 'can-drop' : ''
+  const multipleClass = props.multiple ? 'multiple' : ''
+  const highlightError = props.required && props.showError && !props.droppedItems.length
   return connectDropTarget(
-    <div>
+    <div styleName={ highlightError ? 'error' : '' }>
       <div styleName="field-name">
         { props.label }{props.required ? '*' : ''}
       </div>
-      <div styleName={ `droppable-container ${ filledClass } ${ activeClass }` }>
-        {props.lastDroppedItem && <DraggableItem
-          name={ props.lastDroppedItem.name }
-          styleName="inlined-item"
-          onRemove={ () => props.onRemove(props.lastDroppedItem) }/>}
+      {props.subText && <div styleName="sub-text">{props.subText}</div>}
+      <div styleName={ `droppable-container ${ filledClass } ${ activeClass } ${ multipleClass }` }>
+        {props.droppedItems.map((item, index) => {
+          return <DraggableItem
+            key={ index }
+            name={ item.name }
+            styleName="inlined-item"
+            onRemove={ () => props.onRemove(item) }/>
+        })}
+        {props.multiple && <div styleName="empty-space"/>}
       </div>
     </div>
   )
@@ -30,8 +37,12 @@ const DroppableContainer = props => {
 
 export default compose(
   setPropTypes({
-    lastDroppedItem: P.object,
+    droppedItems: P.array.isRequired,
+    multiple: P.bool.isRequired,
+    required: P.bool,
+    showError: P.bool,
     label: P.string.isRequired,
+    subText: P.string,
     fieldKey: P.string.isRequired,
     onRemove: P.func,
     onDrop: P.func.isRequired

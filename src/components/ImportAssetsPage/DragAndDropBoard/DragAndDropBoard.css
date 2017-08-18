@@ -18,6 +18,8 @@
   flex-direction: column;
   height: 100%;
   overflow-y: auto;
+  padding-top: 4px;
+  padding-right: 1px;
 }
 
 .droppable-wrapper {
@@ -26,9 +28,13 @@
   padding-left: 1px;
   & > div {
     width: 50%;
-    &:nth-of-type(2n) {
+    &:nth-of-type(2n - 1) {
       padding-left: 8px;
       width: calc(50% - 8px);
+    }
+    &.multiple {
+      padding-left: 0;
+      width: 100%;
     }
   }
 }
@@ -42,8 +48,12 @@
   position: relative;
   z-index: 1;
   & > div {
-    max-height: calc(100vh - 164px);
+    &:last-of-type {
+      background: white;
+    }
     padding: 8px;
+    padding-top: 32px;
+    max-height: calc(100vh - 164px - 32px - 24px);
     min-width: 300px;
     display: flex;
     flex-direction: column;
@@ -56,4 +66,8 @@
   color: rgba(108, 113, 123, 1);
   line-height: 16px;
   margin-bottom: 16px;
+}
+
+.error {
+  color: #fc6061;
 }

@@ -3,6 +3,6 @@ import './PageHeader.css'
 
 export const PageHeader = ({ children, className }) => <div
   styleName="page-header"
-  className={className}>
+  className={ className }>
   <div styleName="page-header-wrapper">{children}</div>
 </div>
