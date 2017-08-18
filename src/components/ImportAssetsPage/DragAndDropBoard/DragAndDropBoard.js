@@ -23,6 +23,9 @@ const DragAndDropBoard = props => {
           Imported Asset Name Fields
           <FontIcon value="info_outline" styleName="icon"/>
         </div>
+        <div styleName="under-header-text">
+          Please drag and drop each imported data field to the corresponding database profile field.
+        </div>
         <div styleName="dragable-items">
           {fieldsFromTable.filter(({ name }) => !isDropped(name)).map(({ name }, index) =>
             <DraggableItem key={ index } name={ name }/>
@@ -32,7 +35,7 @@ const DragAndDropBoard = props => {
 
       <div>
         <div styleName="headerText">
-          SAT Asset Name Fields
+          DATABASE PROFILE
           <FontIcon value="info_outline" styleName="icon"/>
         </div>
         <div styleName="dragable-items">

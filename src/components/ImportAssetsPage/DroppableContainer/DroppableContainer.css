@@ -4,7 +4,7 @@
   height: 48px;
   max-width: 280px;
   width: 100%;
-  border: 1px dashed #dcdada;
+  border: 1.2px dashed rgba(197, 207, 218, 1);
   border-radius: 4px;
   display: flex;
   background: var(--color-white);
