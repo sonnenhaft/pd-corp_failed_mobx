@@ -7,7 +7,7 @@ import {withRouter} from 'react-router-dom'
 
 // ie10-11 polyfill
 if (!FileReader.prototype.readAsBinaryString) {
-  FileReader.prototype.readAsBinaryString = function (blob) {
+  FileReader.prototype.readAsBinaryString = function(blob) {
     const reader = new FileReader()
     reader.onload = () => {
       let binaryString = ''
@@ -24,9 +24,9 @@ if (!FileReader.prototype.readAsBinaryString) {
 
 const XlsUploadInput = props => {
   const {proxyClick, onFilesSelected, setInputRef, children, className} = props
-  return <Button raised onClick={proxyClick} {...{className}}>
-    <input ref={setInputRef} type="file"
-           onChange={onFilesSelected} style={{display: 'none'}}/>
+  return <Button raised onClick={ proxyClick } { ...{className} }>
+    <input ref={ setInputRef } type="file"
+           onChange={ onFilesSelected } style={ {display: 'none'} }/>
     {children}
   </Button>
 }
@@ -35,20 +35,18 @@ export default compose(
   withRouter,
   withState('inputRef', 'setInputRef', null),
   withHandlers({
-    proxyClick: ({inputRef}) => () => {
-      // assets.setSheetToImport([{
-      //   ' stub field 1: ': '7/21/09',
-      //   ' stub field 2 ': 'MONITORS: BEDSIDE: RESP: EXHALED CO2'
-      // }]);
-      inputRef.click()
-    },
+    proxyClick: ({inputRef}) => () => inputRef.click(),
     onFilesSelected: ({history}) => ({target}) => {
       const reader = new FileReader()
-
       reader.onload = e => {
-        const data = e.target.result
+        let data = e.target.result
+        if ( target.files[0].name.endsWith('.csv') ) {
+          if ( data.split(';').length > data.split(',').length ) {
+            console.warn('Converting semicolon separated CSV to comma separated csv.')
+            data = data.replace(/;/g, ',')
+          }
+        }
         const workbook = window.XLSX.read(data, {type: 'binary'})
-        console.log(workbook)
         const sheetData = workbook.Sheets[workbook.SheetNames[0]]
         assets.setSheetToImport(window.XLSX.utils.sheet_to_json(sheetData))
         history.push('/assets/import')

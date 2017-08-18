@@ -11,6 +11,13 @@ class AssetsStore {
   @persist @observable activeId = null
   @persist('object') @observable active = {}
   @persist('object') @observable activeItem = {}
+
+  /**
+   * @example [{
+   *    ' stub field 1: ': 'some val 1',
+   *    ' stub field 2 ': 'some val 2'
+   * }]
+   */
   @persist('list') @observable xlsTable = []
   @persist('object') @observable sort = { key: 'id', asc: true }
   @persist('object') @observable activeColumns = {

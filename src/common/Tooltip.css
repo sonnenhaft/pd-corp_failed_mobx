@@ -63,9 +63,11 @@
 
 .info-tip {
   cursor: pointer;
+
   &:not(:hover) span:last-of-type {
     display: none;
   }
+
   &:hover span:first-of-type {
     display: none;
   }
