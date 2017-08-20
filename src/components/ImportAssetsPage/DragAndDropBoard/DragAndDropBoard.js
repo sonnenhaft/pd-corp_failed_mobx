@@ -10,7 +10,7 @@ import { Tooltip } from 'common'
 import './DragAndDropBoard.css'
 import { Button, FontIcon } from 'react-toolbox'
 import { NavLink } from 'react-router-dom'
-import assets from 'mobx/Assets.store'
+import assets from 'mobx-stores/Assets.store'
 import { inject, observer } from 'mobx-react'
 
 const DragAndDropBoard = props => {

@@ -7,7 +7,7 @@ import Header from './components/Header'
 import AssetsPage from './components/AssetsPage'
 import EditAssetPage from './components/EditAssetPage'
 import ImportAssetsPage from './components/ImportAssetsPage'
-import { history } from 'mobx/Routing.store'
+import { history } from 'mobx-stores/Routing.store'
 
 const App = ({ user = {} }) => {
   if ( user ) {

@@ -7,7 +7,7 @@ import Checkbox from 'react-toolbox/lib/checkbox'
 import { Icon, IconButton, Tooltip } from 'common'
 
 import DeleteDialog from '../DeleteDialog'
-import assets from 'mobx/Assets.store'
+import { assets, routing } from 'mobx-stores'
 
 import arrowAsc from './arrow-asc.svg'
 import arrowDesc from './arrow-desc.svg'
@@ -17,7 +17,7 @@ import updateIcon from './update-icon.svg'
 
 import './Table.css'
 
-const Table = ({ setSelectedIndexes, sort, setSort, selectedIndexes, location, hoveredIndex, setHoveredIndex, history, assets, labels }) => {
+const Table = ({ setSelectedIndexes, sort, setSort, selectedIndexes, location, hoveredIndex, setHoveredIndex, labels }) => {
 
   const someSelected = selectedIndexes.length > 0
   const visibleLabels = labels.filter(({ hidden }) => !hidden)
@@ -76,7 +76,7 @@ const Table = ({ setSelectedIndexes, sort, setSort, selectedIndexes, location, h
               key={ index }
               styleName={ classnames({ selected: hovered || selected }) }
               onMouseEnter={ () => setHoveredIndex(index) }
-              onClick={ () => { history.push(`${ location.pathname }/view/${ row.id }`) } }>
+              onClick={ () => { routing.push(`${ location.pathname }/view/${ row.id }`) } }>
               {visibleLabels.map(({ key }) => {
                 const val = row[key] || ''
                 return <td key={ key }>
@@ -125,9 +125,9 @@ const Table = ({ setSelectedIndexes, sort, setSort, selectedIndexes, location, h
 }
 
 export default compose(
-  inject(() => ({ assets, list: assets.list })),
+  inject(() => ({ list: assets.list })),
   observer,
   withRouter,
   withState('hoveredIndex', 'setHoveredIndex', -1),
-  onlyUpdateForKeys(['assets', 'list', 'selectedIndexes', 'hoveredIndex', 'labels'])
+  onlyUpdateForKeys(['list', 'selectedIndexes', 'hoveredIndex', 'labels'])
 )(Table)

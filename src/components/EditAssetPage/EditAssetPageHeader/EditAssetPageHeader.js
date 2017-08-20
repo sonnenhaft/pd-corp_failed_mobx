@@ -1,13 +1,12 @@
 import React from 'react'
 import { compose, withProps, withState } from 'recompose'
 import { NavLink, Route, withRouter } from 'react-router-dom'
+import { Button, FontIcon } from 'react-toolbox'
+import { inject, observer } from 'mobx-react'
 
+import DeleteDialog from '../../AssetsPage/PaginatableTable/DeleteDialog'
 import { PageHeader } from 'common'
 import './EditAssetPageHeader.css'
-import { Button, FontIcon } from 'react-toolbox'
-import DeleteDialog from '../../AssetsPage/PaginatableTable/DeleteDialog'
-import assets from 'mobx/Assets.store'
-import { inject, observer } from 'mobx-react'
 
 const BackBtn = ({ children, to = '/assets', ...props }) => <NavLink to={ to }>
   <Button { ...props }>
@@ -15,13 +14,15 @@ const BackBtn = ({ children, to = '/assets', ...props }) => <NavLink to={ to }>
   </Button>
 </NavLink>
 
-const EditAssetsPageHeader = ({
-                                hoveredIndex, setHoveredIndex, location,
-                                match: { params: { assetId } },
-                                history,
-                                activeItem = {},
-                                assets
-                              }) => {
+const EditAssetsPageHeader = props => {
+  const {
+    hoveredIndex, setHoveredIndex, location,
+    match: { params: { assetId } },
+    activeItem = {}
+  } = props
+
+  const { assets, routing } = props
+
   return <PageHeader>
     <div styleName="header-text">
       <BackBtn raised styleName="back-link">
@@ -43,7 +44,7 @@ const EditAssetsPageHeader = ({
       <Route path="/assets/view/:assetId" component={ () => (
         <DeleteDialog action={ () => {
           assets.remove(assets.active.id).then(() => {
-            history.push(`${ location.pathname }/view/${ assetId }`)
+            routing.push(`${ location.pathname }/view/${ assetId }`)
           })
         } } type="asset">
           <Button raised>
@@ -59,7 +60,7 @@ const EditAssetsPageHeader = ({
 export default compose(
   withRouter,
   withState('hoveredIndex', 'setHoveredIndex', -1),
-  inject(() => ({ assets })),
+  inject('assets', 'routing'),
   observer,
   withProps(({ assets }) => ({ activeItem: assets.active }))
 )(EditAssetsPageHeader)

@@ -3,9 +3,10 @@ import P from 'prop-types'
 import { IconButton as RtIconButton } from 'react-toolbox/lib/button'
 import './Icon.css'
 
-export const Icon = ({ svg, ...props }) => <span
+export const Icon = ({ svg, className, ...props }) => <span
   { ...props }
   styleName="icon"
+  className={ className }
   dangerouslySetInnerHTML={ { __html: svg } }/>
 
 Icon.propTypes = {

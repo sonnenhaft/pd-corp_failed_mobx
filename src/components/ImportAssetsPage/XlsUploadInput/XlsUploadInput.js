@@ -2,11 +2,10 @@ import React from 'react'
 import { compose, withHandlers, withState } from 'recompose'
 import { Button } from 'react-toolbox'
 import './XlsUploadInput.css'
-import assets from 'mobx/Assets.store'
-import { withRouter } from 'react-router-dom'
+import { assets, routing } from 'mobx-stores'
 
 // ie10-11 polyfill
-if (!FileReader.prototype.readAsBinaryString) {
+if ( !FileReader.prototype.readAsBinaryString ) {
   FileReader.prototype.readAsBinaryString = function(blob) {
     const reader = new FileReader()
     reader.onload = () => {
@@ -32,11 +31,10 @@ const XlsUploadInput = props => {
 }
 
 export default compose(
-  withRouter,
   withState('inputRef', 'setInputRef', null),
   withHandlers({
     proxyClick: ({ inputRef }) => () => inputRef.click(),
-    onFilesSelected: ({ history }) => ({ target }) => {
+    onFilesSelected: () => ({ target }) => {
       const reader = new FileReader()
       reader.onload = e => {
         let data = e.target.result
@@ -51,7 +49,7 @@ export default compose(
           const workbook = XLSX.read(data, { type: 'binary' })
           const sheetData = workbook.Sheets[workbook.SheetNames[0]]
           assets.setSheetToImport(XLSX.utils.sheet_to_json(sheetData))
-          history.push('/assets/import')
+          routing.push('/assets/import')
         })
       }
 

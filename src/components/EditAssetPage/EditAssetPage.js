@@ -6,12 +6,11 @@ import AssetsPageHeader from './EditAssetPageHeader'
 import { Dialog, TextInput } from 'common'
 import EditAssetInput from './EditAssetImageInput'
 import { inject, observer } from 'mobx-react'
-import { history } from 'mobx/Routing.store'
-import assets from 'mobx/Assets.store'
+import assets from 'mobx-stores/Assets.store'
 
 import './EditAssetPage.css'
 
-const EditAssetPage = ({ Text, asset = {}, isView, assets }) => {
+const EditAssetPage = ({ Text, asset = {}, isView, assets, routing }) => {
 
   return <div>
     <AssetsPageHeader/>
@@ -45,7 +44,7 @@ const EditAssetPage = ({ Text, asset = {}, isView, assets }) => {
             <Text value="rfidNumber"/>
             <Text value="description"/>
             <Text value="locationUpdatedDate"/>
-            
+
 
           </div>
           {isView && <hr/>}
@@ -62,7 +61,7 @@ const EditAssetPage = ({ Text, asset = {}, isView, assets }) => {
                   okLabel="Yes" cancelLabel="No"
                   action={ () => {
                     (asset.id ? assets.update() : assets.add()).then(({ id }) => {
-                      history.push(`/assets/view/${ id }`)
+                      routing.push(`/assets/view/${ id }`)
                     })
                   } }
                   content={ () => <div>Are you sure you want to update this asset?</div> }>

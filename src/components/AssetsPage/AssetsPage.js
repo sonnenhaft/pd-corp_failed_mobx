@@ -7,7 +7,6 @@ import PaginatableTable from './PaginatableTable'
 import './AssetsPage.css'
 import { inject, observer } from 'mobx-react'
 import { compose } from 'recompose'
-import assets from 'mobx/Assets.store'
 
 const AssetsPage = ({ assets: { list: data, labels } }) => <div>
   <AssetsPageHeader/>
@@ -18,6 +17,6 @@ const AssetsPage = ({ assets: { list: data, labels } }) => <div>
 </div>
 
 export default compose(
-  inject(() => ({ assets })),
+  inject('assets'),
   observer
 )(AssetsPage)

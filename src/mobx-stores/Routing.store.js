@@ -5,5 +5,5 @@ const store = new RouterStore()
 const history = syncHistoryWithStore(createHistory(), store)
 
 export { history, store }
-
+console.log(store)
 export default store
