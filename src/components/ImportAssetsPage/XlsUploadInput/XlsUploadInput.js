@@ -46,10 +46,13 @@ export default compose(
             data = data.replace(/;/g, ',')
           }
         }
-        const workbook = window.XLSX.read(data, { type: 'binary' })
-        const sheetData = workbook.Sheets[workbook.SheetNames[0]]
-        assets.setSheetToImport(window.XLSX.utils.sheet_to_json(sheetData))
-        history.push('/assets/import')
+
+        import(/* webpackChunkName: "xlsx" */ 'xlsx').then(XLSX => {
+          const workbook = XLSX.read(data, { type: 'binary' })
+          const sheetData = workbook.Sheets[workbook.SheetNames[0]]
+          assets.setSheetToImport(XLSX.utils.sheet_to_json(sheetData))
+          history.push('/assets/import')
+        });
       }
 
       reader.readAsBinaryString(target.files[0])

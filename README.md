@@ -22,12 +22,6 @@ For running app in a way, how developers see and extend it, please run:
 $ npm run dev
 ```
 
-## Run locally with webpack monitor
-You can also run app in custom mode with webpack monitor where you can see some interesting stats related to bundles. 
-```sh
-$ npm run dev:dashboard
-```
-
 ## EsLint
 We use eslint with custom eslint config. To see errors and automatically to fix most of them please run:
 ```sh
