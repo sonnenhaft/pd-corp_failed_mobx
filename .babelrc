@@ -7,6 +7,9 @@
     "transform-class-properties"
   ],
   "env": {
-    "development": {"plugins": ["react-hot-loader/babel"]}
+    "development": {"plugins": ["react-hot-loader/babel"]},
+    "test": {
+      "plugins": ["transform-es2015-modules-commonjs"]
+    }
   }
 }

@@ -7,7 +7,7 @@ import RtDialog from 'react-toolbox/lib/dialog'
 
 const Dialog = props => {
   const { handleClose, handleOpen, handleSubmit, isOpened, children, content } = props
-  const { okLabel = 'Submit', cancelLabel = 'Cancel'} = props
+  const { okLabel = 'Submit', cancelLabel = 'Cancel' } = props
   return <div>
     <div onClick={ handleOpen }>{children}</div>
     <RtDialog

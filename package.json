@@ -1,11 +1,12 @@
 {
   "name": "pd-corp-frontend",
-  "version": "0.2.27",
+  "version": "0.2.29",
   "author": "Vladimir Shein <vladimir.sonnenhaft@gmail.com>",
   "license": "MIT",
   "repository": "https://gitlab.isdev.info/PDCorp/frontend",
   "private": true,
   "scripts": {
+    "test": "jest --watchAll --coverage",
     "dev": "cross-env NODE_ENV=development cross-env webpack-dev-server --open",
     "dev:dashboard": "webpack-dashboard --port 9001 --minimal -- npm run dev",
     "build": "cross-env NODE_ENV=production cross-env BOT_TYPE=publicbot webpack --progress --display-error-details  --bail",
@@ -33,15 +34,16 @@
     "react-dom": "15.6.1",
     "react-paginate": "4.4.3",
     "react-router-dom": "4.1.2",
+    "react-test-renderer": "15.6.1",
     "react-toolbox": "2.0.0-beta.12",
     "recompose": "0.25.0",
     "roboto-fontface": "0.8.0",
-    "xlsx": "0.11.2"
+    "xlsx": "0.11.3"
   },
   "devDependencies": {
     "babel-core": "6.26.0",
     "babel-eslint": "7.2.3",
-    "babel-loader": "7.1.1",
+    "babel-loader": "7.1.2",
     "babel-plugin-react-css-modules": "2.2.0",
     "babel-plugin-transform-class-properties": "6.24.1",
     "babel-plugin-transform-decorators-legacy": "1.3.4",
@@ -54,11 +56,13 @@
     "cross-env": "5.0.5",
     "css-loader": "0.28.5",
     "dotenv": "4.0.0",
-    "eslint": "4.4.1",
+    "eslint": "4.5.0",
     "eslint-plugin-react": "7.2.1",
     "extract-text-webpack-plugin": "2.0.0-rc.3",
     "file-loader": "0.11.2",
     "html-webpack-plugin": "2.30.1",
+    "identity-obj-proxy": "3.0.0",
+    "jest": "20.0.4",
     "postcss": "6.0.9",
     "postcss-cssnext": "3.0.2",
     "postcss-import": "10.0.0",
@@ -79,5 +83,10 @@
   },
   "pre-commit": [
     "bump"
-  ]
+  ],
+  "jest": {
+    "moduleNameMapper": {
+      "\\.(css)$": "identity-obj-proxy"
+    }
+  }
 }

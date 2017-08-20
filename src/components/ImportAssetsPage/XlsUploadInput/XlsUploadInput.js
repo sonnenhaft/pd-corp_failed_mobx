@@ -1,9 +1,9 @@
 import React from 'react'
-import {compose, withHandlers, withState} from 'recompose'
-import {Button} from 'react-toolbox'
+import { compose, withHandlers, withState } from 'recompose'
+import { Button } from 'react-toolbox'
 import './XlsUploadInput.css'
 import assets from 'mobx/Assets.store'
-import {withRouter} from 'react-router-dom'
+import { withRouter } from 'react-router-dom'
 
 // ie10-11 polyfill
 if (!FileReader.prototype.readAsBinaryString) {
@@ -16,17 +16,17 @@ if (!FileReader.prototype.readAsBinaryString) {
       for (let i = 0; i < length; i++) {
         binaryString += String.fromCharCode(bytes[i])
       }
-      this.onload({target: {result: binaryString}})
+      this.onload({ target: { result: binaryString } })
     }
     reader.readAsArrayBuffer(blob)
   }
 }
 
 const XlsUploadInput = props => {
-  const {proxyClick, onFilesSelected, setInputRef, children, className} = props
-  return <Button raised onClick={ proxyClick } { ...{className} }>
+  const { proxyClick, onFilesSelected, setInputRef, children, className } = props
+  return <Button raised onClick={ proxyClick } { ...{ className } }>
     <input ref={ setInputRef } type="file"
-           onChange={ onFilesSelected } style={ {display: 'none'} }/>
+           onChange={ onFilesSelected } style={ { display: 'none' } }/>
     {children}
   </Button>
 }
@@ -35,8 +35,8 @@ export default compose(
   withRouter,
   withState('inputRef', 'setInputRef', null),
   withHandlers({
-    proxyClick: ({inputRef}) => () => inputRef.click(),
-    onFilesSelected: ({history}) => ({target}) => {
+    proxyClick: ({ inputRef }) => () => inputRef.click(),
+    onFilesSelected: ({ history }) => ({ target }) => {
       const reader = new FileReader()
       reader.onload = e => {
         let data = e.target.result
@@ -46,7 +46,7 @@ export default compose(
             data = data.replace(/;/g, ',')
           }
         }
-        const workbook = window.XLSX.read(data, {type: 'binary'})
+        const workbook = window.XLSX.read(data, { type: 'binary' })
         const sheetData = workbook.Sheets[workbook.SheetNames[0]]
         assets.setSheetToImport(window.XLSX.utils.sheet_to_json(sheetData))
         history.push('/assets/import')

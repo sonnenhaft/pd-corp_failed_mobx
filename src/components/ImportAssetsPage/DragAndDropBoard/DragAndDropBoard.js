@@ -55,7 +55,7 @@ const DragAndDropBoard = props => {
           </div>
         </div>
         <br/>
-        <div style={ {display: 'flex', justifyContent: 'space-between'} }>
+        <div style={ { display: 'flex', justifyContent: 'space-between' } }>
           <div styleName={ `under-header-text ${ error ? 'error' : '' }` } style={ { display: 'inline-block' } }>
             * Indciates required field
           </div>

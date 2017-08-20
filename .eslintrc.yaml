@@ -7,6 +7,12 @@ extends:
 plugins:
   - react
 
+globals:
+  describe: true
+  expect: true
+  test: true
+  it: true
+
 env:
   browser: true
   node: true
@@ -34,6 +40,9 @@ rules:
   template-curly-spacing:
     - 2
     - always
+  object-curly-spacing:
+    - 2
+    - always
   curly: error
   no-var: error
   no-console: off
@@ -41,3 +50,4 @@ rules:
   no-unused-vars: error
   react/prop-types: off
   arrow-spacing: error
+

@@ -15,7 +15,7 @@ Icon.propTypes = {
 }
 
 export const IconButton = ({ svg }) => <RtIconButton
-  style={ {position: 'relative'} }
+  style={ { position: 'relative' } }
   icon={
     <Icon svg={ svg } styleName="icon-button"/>
   } primary ripple/>

@@ -117,7 +117,7 @@ const development = {
       }
     ]
   },
-  performance: { hints: false },
+  performance: { hints: true },
   plugins: [
     new webpack.NamedModulesPlugin(),
     new webpack.HotModuleReplacementPlugin(),
