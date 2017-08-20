@@ -1,19 +1,21 @@
 import React from 'react'
-import './Table.css'
-
+import { NavLink, withRouter } from 'react-router-dom'
+import { compose, onlyUpdateForKeys, withState } from 'recompose'
+import classnames from 'classnames'
+import { inject, observer } from 'mobx-react'
 import Checkbox from 'react-toolbox/lib/checkbox'
-
 import { Icon, IconButton, Tooltip } from 'common'
+
+import DeleteDialog from '../DeleteDialog'
+import assets from 'mobx/Assets.store'
+
 import arrowAsc from './arrow-asc.svg'
 import arrowDesc from './arrow-desc.svg'
-import { compose, onlyUpdateForKeys, withState } from 'recompose'
-import { NavLink, withRouter } from 'react-router-dom'
-import DeleteDialog from '../DeleteDialog'
 import bulkDeleteIcon from './bulk-delete-icon.svg'
-import updateIcon from './update-icon.svg'
 import verticalDotsIcon from './vertical-dots-icon.svg'
-import assets from 'mobx/Assets.store'
-import { inject, observer } from 'mobx-react'
+import updateIcon from './update-icon.svg'
+
+import './Table.css'
 
 const Table = ({ setSelectedIndexes, sort, setSort, selectedIndexes, location, hoveredIndex, setHoveredIndex, history, assets, labels }) => {
 
@@ -26,16 +28,17 @@ const Table = ({ setSelectedIndexes, sort, setSort, selectedIndexes, location, h
         <div styleName="action-td-wrapper">
 
           <Checkbox checked={ someSelected }
-                    styleName={ someSelected ? 'some-selected' : '' }
+                    styleName={ classnames({ someSelected }) }
                     onChange={ () => setSelectedIndexes(someSelected ? [] : 'all') }/>
         </div>
         {assets.list.map((row, index) => {
           const selected = selectedIndexes.includes(index)
           const hovered = hoveredIndex === index
-          return <div styleName={ `action-td-wrapper ${ hovered || selected ? 'selected' : '' }` }
-                      key={ index }
-                      onMouseEnter={ () => setHoveredIndex(index) }
-          >
+
+          return <div
+            styleName={ classnames('action-td-wrapper', { selected: hovered || selected }) }
+            key={ index }
+            onMouseEnter={ () => setHoveredIndex(index) }>
             <Checkbox checked={ selected } onChange={ () => {
               if ( selected ) {
                 const z = selectedIndexes.slice()
@@ -71,7 +74,7 @@ const Table = ({ setSelectedIndexes, sort, setSort, selectedIndexes, location, h
             const hovered = hoveredIndex === index
             return <tr
               key={ index }
-              styleName={ hovered || selected ? 'selected' : '' }
+              styleName={ classnames({ selected: hovered || selected }) }
               onMouseEnter={ () => setHoveredIndex(index) }
               onClick={ () => { history.push(`${ location.pathname }/view/${ row.id }`) } }>
               {visibleLabels.map(({ key }) => {
@@ -93,7 +96,7 @@ const Table = ({ setSelectedIndexes, sort, setSort, selectedIndexes, location, h
           const selected = selectedIndexes.includes(index)
           const hovered = hoveredIndex === index
           return <div
-            styleName={ `action-td-wrapper ${ (hovered || selected) && !menuHidden ? 'selected' : '' }` }
+            styleName={ classnames('action-td-wrapper', { selected: (hovered || selected) && !menuHidden }) }
             key={ index }
             onMouseEnter={ () => setHoveredIndex(index) }>
             <Icon svg={ verticalDotsIcon }/>

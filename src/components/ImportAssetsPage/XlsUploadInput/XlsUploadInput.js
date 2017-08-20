@@ -24,7 +24,7 @@ if (!FileReader.prototype.readAsBinaryString) {
 
 const XlsUploadInput = props => {
   const { proxyClick, onFilesSelected, setInputRef, children, className } = props
-  return <Button raised onClick={ proxyClick } { ...{ className } }>
+  return <Button raised onClick={ proxyClick } className={ className }>
     <input ref={ setInputRef } type="file"
            onChange={ onFilesSelected } style={ { display: 'none' } }/>
     {children}
@@ -52,7 +52,7 @@ export default compose(
           const sheetData = workbook.Sheets[workbook.SheetNames[0]]
           assets.setSheetToImport(XLSX.utils.sheet_to_json(sheetData))
           history.push('/assets/import')
-        });
+        })
       }
 
       reader.readAsBinaryString(target.files[0])

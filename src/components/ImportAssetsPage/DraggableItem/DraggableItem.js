@@ -1,4 +1,5 @@
 import React from 'react'
+import classnames from 'classnames'
 import P from 'prop-types'
 import { DragSource } from 'react-dnd'
 import { FontIcon } from 'react-toolbox'
@@ -12,8 +13,12 @@ const DraggableItem = props => {
   const { isDragging, connectDragSource, name, dragging, onRemove, className } = props
 
   return connectDragSource(
-    <div styleName={ `draggable-item ${ (isDragging ? 'isDragging' : dragging ? 'hoverDragging' : '') }` }
-         className={ className }>
+    <div
+      styleName={ classnames('draggable-item', {
+        isDragging,
+        hoverDragging: dragging && !isDragging
+      }) }
+      className={ className }>
       <Icon svg={ toLinesIcon }/>
       &nbsp;
       &nbsp;

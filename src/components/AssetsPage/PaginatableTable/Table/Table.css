@@ -145,7 +145,7 @@
 
 }
 
-label.some-selected [data-react-toolbox]::after {
+label.someSelected [data-react-toolbox]::after {
   border-right-width: 3px;
   border-bottom-width: 0;
   left: -2px;

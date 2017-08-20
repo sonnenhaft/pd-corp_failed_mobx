@@ -1,27 +1,30 @@
 import React from 'react'
+import classnames from 'classnames'
+import { compose, setPropTypes } from 'recompose'
+
 import P from 'prop-types'
 import { DropTarget } from 'react-dnd'
 
 import './DroppableContainer.css'
 import DraggableItem from '../DraggableItem'
 
-import { compose, setPropTypes } from 'recompose'
-
 const DroppableContainer = props => {
-  const { isOver, canDrop, connectDropTarget } = props
-  const isActive = isOver && canDrop
+  const { isOver, canDrop, connectDropTarget, multiple } = props
+  const active = isOver && canDrop
 
-  const filledClass = props.droppedItems.length && !props.multiple ? 'filled' : ''
-  const activeClass = isActive ? 'active' : canDrop ? 'can-drop' : ''
-  const multipleClass = props.multiple ? 'multiple' : ''
-  const highlightError = props.required && props.showError && !props.droppedItems.length
+  const error = props.required && props.showError && !props.droppedItems.length
   return connectDropTarget(
-    <div styleName={ highlightError ? 'error' : '' }>
+    <div styleName={ classnames({ error }) }>
       <div styleName="field-name">
         { props.label }{props.required ? '*' : ''}
       </div>
       {props.subText && <div styleName="sub-text">{props.subText}</div>}
-      <div styleName={ `droppable-container ${ filledClass } ${ activeClass } ${ multipleClass }` }>
+      <div styleName={ classnames('droppable-container', {
+        filled: props.droppedItems.length && !multiple,
+        'can-drop': canDrop && !active,
+        multiple,
+        active
+      }) }>
         {props.droppedItems.map((item, index) => {
           return <DraggableItem
             key={ index }
@@ -29,7 +32,7 @@ const DroppableContainer = props => {
             styleName="inlined-item"
             onRemove={ () => props.onRemove(item) }/>
         })}
-        {props.multiple && <div styleName="empty-space"/>}
+        {multiple && <div styleName="empty-space"/>}
       </div>
     </div>
   )

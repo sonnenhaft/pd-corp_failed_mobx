@@ -8,7 +8,7 @@ import { FontIcon } from 'react-toolbox'
 export const Tooltip = ({ children, text, noArrow, circle, className }) => {
   let content = children
   if ( circle ) {
-    content = <div styleName="info-tip" className={ className }>
+    content = <div styleName="info-tip" className={ className } >
       <FontIcon value="info_outline"/>
       <FontIcon value="info"/>
     </div>

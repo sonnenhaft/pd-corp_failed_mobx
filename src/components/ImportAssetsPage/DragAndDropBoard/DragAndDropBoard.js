@@ -1,4 +1,5 @@
 import React from 'react'
+import classnames from 'classnames'
 import { DragDropContext } from 'react-dnd'
 import ReactDndHTML5Backend from 'react-dnd-html5-backend'
 import { compose, withHandlers, withState } from 'recompose'
@@ -44,7 +45,7 @@ const DragAndDropBoard = props => {
         <div styleName="dragable-items">
           <div styleName="droppable-wrapper">
             {dbFields.map((data, index) =>
-              <div key={ index } styleName={ data.multiple ? 'multiple' : '' }>
+              <div key={ index } styleName={ classnames({ multiple: data.multiple }) }>
                 <DroppableContainer
                   { ...data }
                   showError={ error }
@@ -56,7 +57,7 @@ const DragAndDropBoard = props => {
         </div>
         <br/>
         <div style={ { display: 'flex', justifyContent: 'space-between' } }>
-          <div styleName={ `under-header-text ${ error ? 'error' : '' }` } style={ { display: 'inline-block' } }>
+          <div styleName={ classnames('under-header-text', { error }) } style={ { display: 'inline-block' } }>
             * Indciates required field
           </div>
           <div>

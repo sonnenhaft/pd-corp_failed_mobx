@@ -1,10 +1,12 @@
 import React from 'react'
+import classnames from 'classnames'
 import { compose, withHandlers, withState } from 'recompose'
 import { FontIcon, IconButton } from 'react-toolbox'
 import './EditAssetImageInput.css'
 
 const EditAssetInputRef = ({ proxyClick, onFilesSelected, setInputRef, previewImage, setPreviewImage, isView }) => <div
-  styleName={ `input-wrapper ${ isView ? 'is-view' :'' }` } onClick={ proxyClick }>
+  styleName={ classnames('input-wrapper', { isView }) }
+  onClick={ proxyClick }>
   <input ref={ setInputRef } type="file" accept="image/*"
          onChange={ onFilesSelected } style={ { display: 'none' } }/>
   {!previewImage && <div>
