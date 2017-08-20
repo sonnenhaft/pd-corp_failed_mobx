@@ -116,8 +116,9 @@ class AssetsStore {
 
 const assetsStore = new AssetsStore()
 
-hydrate()('assetsStore', assetsStore)
-  .then(() => console.log('assetsStore hydrated'))
+hydrate()('assetsStore', assetsStore).then(() => {
+  console.log('assetsStore hydrated')
+})
 
 history.subscribe(location => {
   const matches = /\/assets\/(edit|view)\/(.*)/.exec(location.pathname)
