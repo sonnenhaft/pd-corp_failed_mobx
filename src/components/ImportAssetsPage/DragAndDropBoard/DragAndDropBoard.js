@@ -6,10 +6,9 @@ import { compose, withHandlers, withState } from 'recompose'
 import DroppableContainer from '../DroppableContainer'
 import DraggableItem from '../DraggableItem'
 import { Tooltip } from 'common'
-
+import { NavLink, Route } from 'react-router-dom'
 import './DragAndDropBoard.css'
 import { Button, FontIcon } from 'react-toolbox'
-import { NavLink } from 'react-router-dom'
 import assets from 'mobx-stores/Assets.store'
 import { inject, observer } from 'mobx-react'
 
@@ -17,61 +16,68 @@ const DragAndDropBoard = props => {
   const { boardState: { dbFields }, isDropped, handleDrop, handleRemove, fieldsFromTable, handleTouched, error } = props
 
   return (
-    <div styleName="main-wrapper">
-      <div>
-        <div styleName="headerText">
-          Imported Asset Name Fields
-
-          <Tooltip circle={ true } styleName="icon"
-                   text="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas blandit diam sit amet nunc pretium, vel elementum tellus congue. Praesent ultrices varius varius. Phasellus placerat nulla non enim molestie accumsan eu a nibh. Morbi velit purus, vestibulum sed leo vitae, hendrerit imperdiet nisl."/>
-
-        </div>
-        <div styleName="under-header-text">
-          Please drag and drop each imported data field to the corresponding database profile field.
-        </div>
-        <div styleName="dragable-items">
-          {fieldsFromTable.filter(({ name }) => !isDropped(name)).map(({ name }, index) =>
-            <DraggableItem key={ index } name={ name }/>
-          )}
-        </div>
+    <div>
+      <div styleName="links-header">
+        <NavLink to="/assets">Asset</NavLink>
+        <div styleName="dot"/>
+        <span>Import Assets</span>
       </div>
+      <div styleName="main-wrapper">
+        <div>
+          <div styleName="headerText">
+            Imported Asset Name Fields
 
-      <div>
-        <div styleName="headerText">
-          DATABASE PROFILE
-          <Tooltip circle={ true } styleName="icon"
-                   text="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas blandit diam sit amet nunc pretium, vel elementum tellus congue. Praesent ultrices varius varius. Phasellus placerat nulla non enim molestie accumsan eu a nibh. Morbi velit purus, vestibulum sed leo vitae, hendrerit imperdiet nisl."/>
-        </div>
-        <div styleName="dragable-items">
-          <div styleName="droppable-wrapper">
-            {dbFields.map((data, index) =>
-              <div key={ index } styleName={ classnames({ multiple: data.multiple }) }>
-                <DroppableContainer
-                  { ...data }
-                  showError={ error }
-                  onDrop={ item => handleDrop(index, item) }
-                  onRemove={ item => handleRemove(index, item) }/>
-              </div>
+            <Tooltip circle={ true } styleName="icon"
+                     text="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas blandit diam sit amet nunc pretium, vel elementum tellus congue. Praesent ultrices varius varius. Phasellus placerat nulla non enim molestie accumsan eu a nibh. Morbi velit purus, vestibulum sed leo vitae, hendrerit imperdiet nisl."/>
+
+          </div>
+          <div styleName="under-header-text">
+            Please drag and drop each imported data field to the corresponding database profile field.
+          </div>
+          <div styleName="dragable-items">
+            {fieldsFromTable.filter(({ name }) => !isDropped(name)).map(({ name }, index) =>
+              <DraggableItem key={ index } name={ name }/>
             )}
           </div>
         </div>
-        <br/>
-        <div style={ { display: 'flex', justifyContent: 'space-between' } }>
-          <div styleName={ classnames('under-header-text', { error }) } style={ { display: 'inline-block' } }>
-            * Indciates required field
+
+        <div>
+          <div styleName="headerText">
+            DATABASE PROFILE
+            <Tooltip circle={ true } styleName="icon"
+                     text="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas blandit diam sit amet nunc pretium, vel elementum tellus congue. Praesent ultrices varius varius. Phasellus placerat nulla non enim molestie accumsan eu a nibh. Morbi velit purus, vestibulum sed leo vitae, hendrerit imperdiet nisl."/>
           </div>
-          <div>
-            <NavLink to="/assets">
-              <Button raised>Cancel</Button>
-            </NavLink>
-            &nbsp;
-            &nbsp;
-            <Button raised primary onClick={ handleTouched } disabled={ error }>
-              <FontIcon value="save"/>
-              Save Assets
-            </Button>
-            &nbsp;
-            &nbsp;
+          <div styleName="dragable-items">
+            <div styleName="droppable-wrapper">
+              {dbFields.map((data, index) =>
+                <div key={ index } styleName={ classnames({ multiple: data.multiple }) }>
+                  <DroppableContainer
+                    { ...data }
+                    showError={ error }
+                    onDrop={ item => handleDrop(index, item) }
+                    onRemove={ item => handleRemove(index, item) }/>
+                </div>
+              )}
+            </div>
+          </div>
+          <br/>
+          <div style={ { display: 'flex', justifyContent: 'space-between' } }>
+            <div styleName={ classnames('under-header-text', { error }) } style={ { display: 'inline-block' } }>
+              * Indciates required field
+            </div>
+            <div>
+              <NavLink to="/assets">
+                <Button raised>Cancel</Button>
+              </NavLink>
+              &nbsp;
+              &nbsp;
+              <Button raised primary onClick={ handleTouched } disabled={ error }>
+                <FontIcon value="save"/>
+                Save Assets
+              </Button>
+              &nbsp;
+              &nbsp;
+            </div>
           </div>
         </div>
       </div>
