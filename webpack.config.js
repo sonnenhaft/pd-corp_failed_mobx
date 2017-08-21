@@ -1,4 +1,7 @@
-require('dotenv').config({ path: `.env.${ [process.env.NODE_ENV] }` })
+const IS_DEV = process.env.NODE_ENV === 'development'
+if ( IS_DEV ) {
+  require('dotenv').config({ path: `.env.${ [process.env.NODE_ENV] }` })
+}
 
 const path = require('path')
 const merge = require('webpack-merge')
@@ -9,7 +12,6 @@ const ExtractTextPlugin = require('extract-text-webpack-plugin')
 
 process.env.VERSION = require('./package.json').version
 
-const IS_DEV = process.env.NODE_ENV === 'development'
 const copyEnvVars = () => {
   const vars = Array.prototype.slice.call(arguments)
   return vars.reduce((e, v) => {
@@ -96,13 +98,12 @@ const common = {
     ]),
     new webpack.DefinePlugin(copyEnvVars(
       'NODE_ENV',
-      'BACKEND_HOST',
-      'BACKEND_PORT',
       'VERSION'
     ))
   ]
 }
 
+let dsfsdfsdfsdf = 'https://dev7-pdc-aws.isdev.info'
 const development = {
   entry: [
     'babel-polyfill',
@@ -120,6 +121,13 @@ const development = {
       modules: false,
       moduleTrace: false
     },
+    proxy: {
+      '/api/**': {
+        target: process.env.API_URL,
+        secure: false,
+        changeOrigin: true
+      }
+    },
     port: process.env.DEV_SERVER_PORT
   },
   plugins: [
@@ -129,9 +137,7 @@ const development = {
 }
 
 const production = {
-  entry: {
-    app: paths.src
-  },
+  entry: { app: paths.src },
   plugins: [
     new ExtractTextPlugin('[name].[chunkhash].css'),
     new CleanPlugin([paths.dist]),
@@ -149,5 +155,4 @@ const production = {
   ]
 }
 
-const environment = IS_DEV ? development : production
-module.exports = merge(common, environment)
+module.exports = merge(common, IS_DEV ? development : production)

@@ -1,4 +1,5 @@
 export { default as generateDemoTable } from './generateDemoTable'
+export { default as axios } from './axios'
 export Dialog  from './Dialog'
 export MenuButton  from './MenuButton'
 export { PageHeader } from './PageHeader'
