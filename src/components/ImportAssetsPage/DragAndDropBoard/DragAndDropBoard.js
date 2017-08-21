@@ -79,6 +79,15 @@ const DragAndDropBoard = props => {
   )
 }
 
+const getInitialBoard = () => ({
+  dbFields: assets.labels.filter(({ key }) => key !== 'id').map(({ label, key, required }) => {
+    const multiple = key === 'notes'
+    const subText = multiple && 'Please drag and drop all other imported data fields to this field.'
+    return { droppedItems: [], label, fieldKey: key, required, multiple, subText }
+  }),
+  droppedBoxNames: []
+})
+
 export default compose(
   inject(() => ({
     fieldsFromTable: assets.getXlsxLabels().map(name => ({ name }))
@@ -86,14 +95,7 @@ export default compose(
   observer,
   DragDropContext(ReactDndHTML5Backend),
   withState('error', 'setError', false),
-  withState('boardState', 'setBoxesState', {
-    dbFields: assets.labels.filter(({ key }) => key !== 'id').map(({ label, key, required }) => {
-      const multiple = key === 'notes'
-      const subText = multiple && 'Please drag and drop all other imported data fields to this field.'
-      return { droppedItems: [], label, fieldKey: key, required, multiple, subText }
-    }),
-    droppedBoxNames: []
-  }),
+  withState('boardState', 'setBoxesState', getInitialBoard),
   withHandlers({
     handleTouched: ({ setError, error, boardState: { dbFields } }) => () => {
       const hasError = dbFields.some(({ required, droppedItems }) => {
