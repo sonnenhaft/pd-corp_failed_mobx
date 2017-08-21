@@ -70,6 +70,8 @@ const DragAndDropBoard = props => {
               <FontIcon value="save"/>
               Save Assets
             </Button>
+            &nbsp;
+            &nbsp;
           </div>
         </div>
       </div>
