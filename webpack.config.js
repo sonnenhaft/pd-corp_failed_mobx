@@ -103,7 +103,6 @@ const common = {
   ]
 }
 
-let dsfsdfsdfsdf = 'https://dev7-pdc-aws.isdev.info'
 const development = {
   entry: [
     'babel-polyfill',

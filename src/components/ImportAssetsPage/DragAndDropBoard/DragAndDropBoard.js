@@ -76,7 +76,7 @@ const DragAndDropBoard = props => {
               </div>}
             </div>
 
-            <div style={{ whiteSpace: 'nowrap' }}>
+            <div style={ { whiteSpace: 'nowrap' } }>
               <NavLink to="/assets">
                 <Button raised>Cancel</Button>
               </NavLink>
