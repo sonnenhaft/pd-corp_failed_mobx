@@ -8,6 +8,7 @@ import AssetsPage from './components/AssetsPage'
 import EditAssetPage from './components/EditAssetPage'
 import ImportAssetsPage from './components/ImportAssetsPage'
 import { history } from 'mobx-stores/Routing.store'
+import packageJson from '../package.json'
 
 const App = ({ user = {} }) => {
   if ( user ) {
@@ -23,7 +24,7 @@ const App = ({ user = {} }) => {
           <Redirect from="/" to="/assets"/>
           <Route component={ () => <div>404 or page does not exist yet</div> }/>
         </Switch>
-        <div styleName="app-version">PD Corp v{process.env.VERSION}</div>
+        <div styleName="app-version">PD Corp v{packageJson.version}</div>
       </div>
     </Router>
   } else {

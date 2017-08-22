@@ -10,16 +10,6 @@ const HtmlWebpackPlugin = require('html-webpack-plugin')
 const CleanPlugin = require('clean-webpack-plugin')
 const ExtractTextPlugin = require('extract-text-webpack-plugin')
 
-process.env.VERSION = require('./package.json').version
-
-const copyEnvVars = () => {
-  const vars = Array.prototype.slice.call(arguments)
-  return vars.reduce((e, v) => {
-    e[`process.env.${ v }`] = JSON.stringify(process.env[v])
-    return e
-  }, {})
-}
-
 const paths = {
   src: path.join(__dirname, 'src'),
   html: path.join(__dirname, 'src/index.html'),
@@ -95,11 +85,7 @@ const common = {
       { from: 'node_modules/rc-tooltip/assets/bootstrap_white.css', to: 'css/rc-tooltip.css' },
       { from: 'node_modules/roboto-fontface/css/roboto/roboto-fontface.css', to: 'css/roboto/roboto.css' },
       { from: 'node_modules/roboto-fontface/fonts/roboto/', to: 'fonts/roboto/' }
-    ]),
-    new webpack.DefinePlugin(copyEnvVars(
-      'NODE_ENV',
-      'VERSION'
-    ))
+    ])
   ]
 }
 
