@@ -53,7 +53,7 @@
     }
     padding: 8px;
     padding-top: 32px;
-    max-height: calc(100vh - 164px - 32px - 24px);
+    max-height: calc(100vh - 164px - 32px - 24px - 32px);
     min-width: 300px;
     display: flex;
     flex-direction: column;
@@ -90,5 +90,14 @@
     border-radius: 3px;
     display: inline-block;
     margin: 5px 8px;
+  }
+}
+
+.flexy {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  &.vertical {
+    flex-direction:column;
   }
 }

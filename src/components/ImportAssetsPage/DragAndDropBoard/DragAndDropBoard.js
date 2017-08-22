@@ -6,7 +6,7 @@ import { compose, withHandlers, withState } from 'recompose'
 import DroppableContainer from '../DroppableContainer'
 import DraggableItem from '../DraggableItem'
 import { Tooltip } from 'common'
-import { NavLink, Route } from 'react-router-dom'
+import { NavLink } from 'react-router-dom'
 import './DragAndDropBoard.css'
 import { Button, FontIcon } from 'react-toolbox'
 import assets from 'mobx-stores/Assets.store'
@@ -61,11 +61,22 @@ const DragAndDropBoard = props => {
             </div>
           </div>
           <br/>
-          <div style={ { display: 'flex', justifyContent: 'space-between' } }>
-            <div styleName={ classnames('under-header-text', { error }) } style={ { display: 'inline-block' } }>
-              * Indciates required field
+          <div styleName="flexy">
+            <div styleName="flexy vertical">
+              <div styleName={ classnames('under-header-text') }>
+                * Indciates required field
+              </div>
+              {error && <div styleName={ classnames('under-header-text', { error }) }>
+                Invalid mapping. Data structure requires either Barcode
+                Number or Asset Number to be mapped with an import data field.
+                <br/>
+                <br/>
+                <br/>
+                <br/>
+              </div>}
             </div>
-            <div>
+
+            <div style={{ whiteSpace: 'nowrap' }}>
               <NavLink to="/assets">
                 <Button raised>Cancel</Button>
               </NavLink>
@@ -77,6 +88,8 @@ const DragAndDropBoard = props => {
               </Button>
               &nbsp;
               &nbsp;
+              <br/>
+              <br/>
             </div>
           </div>
         </div>
