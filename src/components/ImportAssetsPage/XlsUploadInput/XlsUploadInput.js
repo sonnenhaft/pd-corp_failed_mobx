@@ -9,13 +9,13 @@ if ( !FileReader.prototype.readAsBinaryString ) {
   FileReader.prototype.readAsBinaryString = function(blob) {
     const reader = new FileReader()
     reader.onload = () => {
-      let binaryString = ''
+      let result = ''
       const bytes = new Uint8Array(reader.result)
-      const length = bytes.byteLength
-      for (let i = 0; i < length; i++) {
-        binaryString += String.fromCharCode(bytes[i])
+      const stringLen = bytes.byteLength
+      for (let charIdx = 0; charIdx < stringLen; charIdx++) {
+        result += String.fromCharCode(bytes[charIdx])
       }
-      this.onload({ target: { result: binaryString } })
+      this.onload({ target: { result } })
     }
     reader.readAsArrayBuffer(blob)
   }
