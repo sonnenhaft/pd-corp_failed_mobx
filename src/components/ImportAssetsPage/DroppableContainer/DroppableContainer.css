@@ -28,7 +28,7 @@
     }
   }
 
-  &.active:not(.multiple) {
+  &.active:not(.multiple):not(.filled)  {
     background-color: #0091e9;
     border: 1px dashed #0077c8;
   }
