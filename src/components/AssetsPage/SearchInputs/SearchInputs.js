@@ -56,7 +56,7 @@ const SearchInputs = props => {
         <TextInput label="Asset Name" onChange={ keyChanged('rfidAssigned') } value={ filter.rfidAssigned || '' }/>
         <TextInput label="RFID" onChange={ keyChanged('rfid') } value={ filter.rfid || '' }/>
         <TextInput label="Bar Code" onChange={ keyChanged('barCode') } value={ filter.barCode || '' }/>
-        <TextInput label="Serial Number" onChange={ keyChanged('serialNumber') } value={ filter.serialNumber || '' }/>
+        <TextInput label="Serial Number" onChange={ keyChanged('serial') } value={ filter.serial || '' }/>
         <TextInput label="Asset/Equipment Number" onChange={ keyChanged('eq_numer') } value={ filter.eq_numer || '' }/>
         <TextInput label="Model" onChange={ keyChanged('model') } value={ filter.model || '' }/>
         <TextInput label="Description" onChange={ keyChanged('description') } value={ filter.description || '' }/>

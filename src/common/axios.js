@@ -1,13 +1,13 @@
 import * as _axios from 'axios'
 
-const API_URL = '/'
+let headers = {}
 
-let headersObj = {}
+const axios = _axios.create({})
 
-const axios = _axios.create({ baseURL: API_URL })
+axios.setHeaders = _headers => headers = _headers
 
 axios.interceptors.request.use(function(config) {
-  config.headers = Object.assign(headersObj, config.headers)
+  config.headers = Object.assign({}, headers, config.headers)
   return config
 })
 

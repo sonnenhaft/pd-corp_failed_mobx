@@ -18,7 +18,8 @@
 }
 
 .paginatable-table {
-  padding: 16px
+  padding: 16px;
+  overflow: visible;
 }
 
 .pagination {

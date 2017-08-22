@@ -7,11 +7,11 @@ import { AppContainer } from 'react-hot-loader'
 import App from './App'
 import { Provider } from 'mobx-react'
 
-import { assets, routing } from 'mobx-stores'
+import { assets, routing, user } from 'mobx-stores'
 
 const render = Component => ReactDom.render(
   <AppContainer>
-    <Provider { ...{ routing, assets } }>
+    <Provider { ...{ routing, assets, user } }>
       <Component />
     </Provider>
 

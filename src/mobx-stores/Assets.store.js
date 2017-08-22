@@ -1,7 +1,7 @@
 import { observable } from 'mobx'
 import { generateDemoTable } from 'common'
-import { history } from './Routing.store'
 import { create as hydrate, persist } from 'mobx-persist'
+import { axios } from 'common'
 
 const delay = () => new Promise(resolve => setTimeout(resolve, 1000))
 
@@ -21,7 +21,7 @@ class AssetsStore {
   @persist('list') @observable xlsTable = []
   @persist('object') @observable sort = { key: 'id', asc: true }
   @persist('object') @observable activeColumns = {
-    assetType: true,
+    type: true,
     owner: true,
     location: true
   }
@@ -37,11 +37,14 @@ class AssetsStore {
     }), {})
   }
 
+
+
   labels = [
     { label: 'id', key: 'id', hidden: true },
-    { label: 'Asset Type', key: 'assetType', defaultVisible: true },
-    { label: 'Asset Name', key: 'assetName', hidden: true },
-    { label: 'Asset Number', key: 'assetNumber', hidden: true, required: true },
+    { label: 'Asset Type', key: 'type', defaultVisible: true },
+
+    { label: 'Asset Name', key: 'name', hidden: true },
+    { label: 'Asset Number', key: 'number', hidden: true, required: true },
     { label: 'Owner/Department', key: 'owner', defaultVisible: true },
     { label: 'Location', key: 'location', defaultVisible: true },
     { label: 'Model', key: 'model' },
@@ -49,7 +52,7 @@ class AssetsStore {
     { label: 'Description', key: 'description' },
     { label: 'Search Terms', key: 'searchTerms' },
     { label: 'RFID Assigned', key: 'rfidAssigned' },
-    { label: 'Serial Number', key: 'serialNumber' },
+    { label: 'Serial Number', key: 'serial' },
     { label: 'Barcode Number', key: 'barcode', required: true },
     { label: 'RFID Number', key: 'rfidNumber' },
     { label: 'Update Location Date', key: 'locationUpdatedDate' },
@@ -112,21 +115,17 @@ class AssetsStore {
   constructor() {
     this.list = generateDemoTable(this.labels)
   }
+
+  async loadList(){
+    const { data: { content } } = await axios.get('/api/v1/hospital/assets')
+    this.list = content
+  }
 }
 
 const assetsStore = new AssetsStore()
 
 hydrate()('assetsStore', assetsStore).then(() => {
   console.log('assetsStore hydrated')
-})
-
-history.subscribe(location => {
-  const matches = /\/assets\/(edit|view)\/(.*)/.exec(location.pathname)
-  if ( matches && (matches[2] !== assetsStore.activeId) ) {
-    assetsStore.activate(matches[2])
-  } else if ( !matches ) {
-    assetsStore.activate(-1)
-  }
 })
 
 export default assetsStore
