@@ -6,20 +6,22 @@ import { ThemeProvider } from 'react-css-themr'
 import Header from './components/Header'
 import AssetsPage from './components/AssetsPage'
 import EditAssetPage from './components/EditAssetPage'
-import { history } from 'mobx/Routing.store'
+import ImportAssetsPage from './components/ImportAssetsPage'
+import { history } from 'mobx-stores/Routing.store'
 
 const App = ({ user = {} }) => {
   if ( user ) {
-    return <Router history={history}>
+    return <Router history={ history }>
       <div styleName="app">
         <Header/>
         <Switch>
-          <Route exact path="/assets/edit/:assetId" component={EditAssetPage}/>
-          <Route exact path="/assets/view/:assetId" component={() => <EditAssetPage/>}/>
-          <Route exact path="/assets/create" component={EditAssetPage}/>
-          <Route exact path="/assets" component={AssetsPage}/>
+          <Route exact path="/assets/edit/:assetId" component={ EditAssetPage }/>
+          <Route exact path="/assets/view/:assetId" component={ () => <EditAssetPage/> }/>
+          <Route exact path="/assets/create" component={ EditAssetPage }/>
+          <Route exact path="/assets/import" component={ ImportAssetsPage }/>
+          <Route exact path="/assets" component={ AssetsPage }/>
           <Redirect from="/" to="/assets"/>
-          <Route component={() => <div>404 or page does not exist yet</div>}/>
+          <Route component={ () => <div>404 or page does not exist yet</div> }/>
         </Switch>
         <div styleName="app-version">PD Corp v{process.env.VERSION}</div>
       </div>
@@ -38,7 +40,8 @@ const theme = {
 
 // eslint-disable-next-line react/display-name
 export default  props => (
-  <ThemeProvider {...{ theme }}>
-    <App {...props}/>
+  <ThemeProvider { ...{ theme } }>
+    <App { ...props }/>
   </ThemeProvider>
 )
+

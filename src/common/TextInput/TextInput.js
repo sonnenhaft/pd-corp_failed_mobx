@@ -1,16 +1,17 @@
 import React from 'react'
+import P from 'prop-types'
+import { compose, setPropTypes, withState } from 'recompose'
 import Input from 'react-toolbox/lib/input'
 
-import { compose, withState } from 'recompose'
 import './TextInput.css'
 
 export const TextInput = ({ errorText, ...props }) => {
   const { multiline, disabled } = props
   if ( multiline && disabled ) {
-    return <DisabledTextArea {...props}/>
+    return <DisabledTextArea { ...props }/>
   } else {
     return <section>
-      <Input type="text" {...props}/>
+      <Input type="text" { ...props }/>
       {errorText && <div><br/><br/></div>}
     </section>
   }
@@ -23,8 +24,8 @@ const DisabledTextAreaDummy = ({ setExpanded, expanded, multiline, value = '', d
   return <section styleName="content">
     <label styleName="label">{label}</label>
     {collsapsible && <div>
-      {expanded ? value : `${value.slice(0, MAX_LEN)}...`}
-      <a onClick={() => setExpanded(!expanded)} styleName="expandable-button">
+      {expanded ? value : `${ value.slice(0, MAX_LEN) }...`}
+      <a onClick={ () => setExpanded(!expanded) } styleName="expandable-button">
         {expanded ? 'Collapse' : 'Expand'}
       </a>
     </div>}
@@ -33,5 +34,11 @@ const DisabledTextAreaDummy = ({ setExpanded, expanded, multiline, value = '', d
 }
 
 const DisabledTextArea = compose(
+  setPropTypes({
+    multiline: P.bool,
+    value: P.string,
+    disabled: P.bool,
+    label: P.string
+  }),
   withState('expanded', 'setExpanded', false)
 )(DisabledTextAreaDummy)

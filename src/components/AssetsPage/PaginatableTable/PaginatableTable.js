@@ -9,7 +9,7 @@ import DeleteDialog from './DeleteDialog'
 import FilterColumnsButton from './FilterColumnsButton'
 import styles from './PaginatableTable.css'
 import bulkDeleteIcon from './bulk-delete-icon.svg'
-import assets from 'mobx/Assets.store'
+import assets from 'mobx-stores/Assets.store'
 import { inject, observer } from 'mobx-react'
 
 const PaginatableTable = props => {
@@ -21,40 +21,40 @@ const PaginatableTable = props => {
       <div styleName="header">ASSETS FOUND ({list.length})</div>
       <div styleName="flex-buttons">
         <div styleName="some-right-wrapper">
-          {!!selectedIndexes.length && <DeleteDialog action={() => {
+          {!!selectedIndexes.length && <DeleteDialog action={ () => {
             assets.remove(selectedIndexes.map(idx => list[idx].id)).then(() => {
               setSelectedIndexes([])
             })
-          }}>
+          } }>
             <Button raised primary>
               Delete
               &nbsp;&nbsp;
-              <Icon svg={bulkDeleteIcon}/>
+              <Icon svg={ bulkDeleteIcon }/>
             </Button>
           </DeleteDialog>}
         </div>
 
-        <FilterColumnsButton {...{ labels, changeColumnStage, activeColumns: assets.activeColumns }} />
+        <FilterColumnsButton { ...{ labels, changeColumnStage, activeColumns: assets.activeColumns } } />
       </div>
     </div>
 
-    <Table {...{ labels: assets.getVisibleLabels(), list, setSelectedIndexes, sort, setSort, selectedIndexes }}/>
+    <Table { ...{ labels: assets.getVisibleLabels(), list, setSelectedIndexes, sort, setSort, selectedIndexes } }/>
     <div>
       <ReactPaginate
-        nextLabel={<FontIcon value="keyboard_arrow_right"/>}
-        previousLabel={<FontIcon value="keyboard_arrow_left"/>}
-        breakLabel={<span>...</span>}
-        breakClassName={styles['break-me']}
-        pageCount={12}
-        marginPagesDisplayed={2}
-        pageRangeDisplayed={5}
-        onPageChange={this.handlePageClick}
-        containerClassName={styles['pagination']}
-        previousClassName={styles['next']}
-        nextClassName={styles['prev']}
-        disabledClassName={styles['page-disabled']}
-        subContainerClassName={'pages pagination'}
-        activeClassName={styles['active-page-link']}/>
+        nextLabel={ <FontIcon value="keyboard_arrow_right"/> }
+        previousLabel={ <FontIcon value="keyboard_arrow_left"/> }
+        breakLabel={ <span>...</span> }
+        breakClassName={ styles['break-me'] }
+        pageCount={ 12 }
+        marginPagesDisplayed={ 2 }
+        pageRangeDisplayed={ 5 }
+        onPageChange={ this.handlePageClick }
+        containerClassName={ styles['pagination'] }
+        previousClassName={ styles['next'] }
+        nextClassName={ styles['prev'] }
+        disabledClassName={ styles['page-disabled'] }
+        subContainerClassName={ 'pages pagination' }
+        activeClassName={ styles['active-page-link'] }/>
     </div>
   </Card>
 }

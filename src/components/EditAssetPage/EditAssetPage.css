@@ -59,7 +59,7 @@
 .greyed {
   font-size: 12px;
   font-style: italic;
-  color: #6c717b;
+  color: var(--button-disabled-text-color);
 }
 
 .bottom-buttons {

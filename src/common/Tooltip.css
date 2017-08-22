@@ -1,13 +1,18 @@
+@import "react-toolbox/lib/variables";
+
 .custom-tooltip.no-arrow {
   &:global {
     &.rc-tooltip {
       & .rc-tooltip-content {
-        transform: translate(0, 0px);
+        max-width: 300px;
+        transform: translate(0, 0);
+
         & .rc-tooltip-inner {
           border-radius: 0;
-          box-shadow: 0 0 7px rgba(0,0,0,0.5);
-          padding: 16px 16px;
+          box-shadow: 0 0 7px rgba(0, 0, 0, 0.5);
+          padding: 16px;
         }
+
         & .rc-tooltip-arrow {
           visibility: hidden !important;
         }
@@ -19,14 +24,16 @@
 .custom-tooltip:global {
   &.rc-tooltip {
     background: none;
+
     & .rc-tooltip-content {
       transform: translate(0, -11px);
+      max-width: 300px;
     }
 
     & .rc-tooltip-inner {
       padding: 4px 8px;
       border-radius: 4px;
-      font-family: 'Roboto';
+      font-family: var(--preferred-font);
       border: none;
       font-size: 13px;
       color: #52555b;
@@ -39,6 +46,7 @@
       margin-left: -10px;
       border-width: 10px 10px 0;
       border-top-color: #dedede;
+
       &::after {
         display: block;
         content: ' ';
@@ -47,8 +55,20 @@
         width: 0;
         height: 0;
         border: 9px solid transparent;
-        border-top-color: white;
+        border-top-color: var(--color-white);
       }
     }
+  }
+}
+
+.info-tip {
+  cursor: pointer;
+
+  &:not(:hover) span:last-of-type {
+    display: none;
+  }
+
+  &:hover span:first-of-type {
+    display: none;
   }
 }

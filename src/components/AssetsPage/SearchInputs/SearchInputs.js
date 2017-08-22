@@ -1,26 +1,20 @@
 import React from 'react'
 
 import './SearchInputs.css'
-import { TextInput, TextInputWithIcon } from 'common'
+import { TextInput, TextInputWithIcon, RippleDiv } from 'common'
 import searchIcon from './search-icon.svg'
 import { Button, Card } from 'react-toolbox'
 import { compose, withHandlers, withState } from 'recompose'
 import FontIcon from 'react-toolbox/lib/font_icon'
 
-import Ripple from 'react-toolbox/lib/ripple'
 import { DatePicker } from 'react-toolbox/lib/date_picker'
-// eslint-disable-next-line no-unused-vars
-const RippleDiv = Ripple({ spread: 1 })(({ theme, ...props }) => {
-  return <div {...props} style={{ position: 'relative' }}>
-    {props.children}
-  </div>
-})
 
-const SearchInputs = ({ isExpaned, setIsExpanded, filter, setSearch, search, resetFilters, keyChanged }) => {
+const SearchInputs = props => {
+  const { expanded, setExpanded, filter, search, setSearch, resetFilters, keyChanged } = props
   const isNotEmpty = !!Object.values(filter).length
 
   const searchButton = <div styleName="search-button-wrapper">
-    <Button raised primary onClick={() => (isNotEmpty || search) && alert('TODO: add search action')}
+    <Button raised primary onClick={ () => (isNotEmpty || search) && alert('TODO: add search action') }
             styleName="blue-button">
       SEARCH
     </Button>
@@ -31,11 +25,11 @@ const SearchInputs = ({ isExpaned, setIsExpanded, filter, setSearch, search, res
 
     <div styleName="input-with-button">
       <TextInputWithIcon
-        icon={searchIcon}
-        label={search ? '' : 'Type here'}
-        value={search}
-        onChange={setSearch}/>
-      {!isExpaned && searchButton}
+        icon={ searchIcon }
+        label={ search ? '' : 'Type here' }
+        value={ search }
+        onChange={ setSearch }/>
+      {!expanded && searchButton}
     </div>
 
     <div styleName="greyed-helper-text">
@@ -45,38 +39,38 @@ const SearchInputs = ({ isExpaned, setIsExpanded, filter, setSearch, search, res
 
 
     <div styleName="blue-text-buttons">
-      <RippleDiv onClick={() => setIsExpanded(!isExpaned)}>
+      <RippleDiv onClick={ () => setExpanded(!expanded) }>
         Filters
-        <FontIcon value={isExpaned ? 'keyboard_arrow_up' : 'keyboard_arrow_down'}
+        <FontIcon value={ expanded ? 'keyboard_arrow_up' : 'keyboard_arrow_down' }
                   styleName="icon"/>
       </RippleDiv>
 
-      {isExpaned && isNotEmpty && <RippleDiv onClick={resetFilters}>
+      {expanded && isNotEmpty && <RippleDiv onClick={ resetFilters }>
         Reset fields
         <FontIcon value="refresh" styleName="icon"/>
       </RippleDiv>}
     </div>
 
-    {isExpaned && <div>
+    {expanded && <div>
       <div styleName="search-input-buttons">
-        <TextInput label="Asset Name" onChange={keyChanged('rfidAssigned')} value={filter.rfidAssigned || ''}/>
-        <TextInput label="RFID" onChange={keyChanged('rfid')} value={filter.rfid || ''}/>
-        <TextInput label="Bar Code" onChange={keyChanged('barCode')} value={filter.barCode || ''}/>
-        <TextInput label="Serial Number" onChange={keyChanged('serialNumber')} value={filter.serialNumber || ''}/>
-        <TextInput label="Asset/Equipment Number" onChange={keyChanged('eq_numer')} value={filter.eq_numer || ''}/>
-        <TextInput label="Model" onChange={keyChanged('model')} value={filter.model || ''}/>
-        <TextInput label="Description" onChange={keyChanged('description')} value={filter.description || ''}/>
-        <TextInput label="Notes" onChange={keyChanged('notes')} value={filter.notes || ''}/>
+        <TextInput label="Asset Name" onChange={ keyChanged('rfidAssigned') } value={ filter.rfidAssigned || '' }/>
+        <TextInput label="RFID" onChange={ keyChanged('rfid') } value={ filter.rfid || '' }/>
+        <TextInput label="Bar Code" onChange={ keyChanged('barCode') } value={ filter.barCode || '' }/>
+        <TextInput label="Serial Number" onChange={ keyChanged('serialNumber') } value={ filter.serialNumber || '' }/>
+        <TextInput label="Asset/Equipment Number" onChange={ keyChanged('eq_numer') } value={ filter.eq_numer || '' }/>
+        <TextInput label="Model" onChange={ keyChanged('model') } value={ filter.model || '' }/>
+        <TextInput label="Description" onChange={ keyChanged('description') } value={ filter.description || '' }/>
+        <TextInput label="Notes" onChange={ keyChanged('notes') } value={ filter.notes || '' }/>
 
         <div styleName="date-inputs">
           <DatePicker label="Last Update Date from"
-                      onChange={keyChanged('dateFrom')}
+                      onChange={ keyChanged('dateFrom') }
                       icon="event"
-                      value={filter.dateFrom}/>
+                      value={ filter.dateFrom }/>
           <DatePicker label="Last Update Date to"
-                      onChange={keyChanged('dateTo')}
+                      onChange={ keyChanged('dateTo') }
                       icon="event"
-                      value={filter.dateTo}/>
+                      value={ filter.dateTo }/>
         </div>
 
       </div>
@@ -85,7 +79,7 @@ const SearchInputs = ({ isExpaned, setIsExpanded, filter, setSearch, search, res
   </Card>
 }
 export default compose(
-  withState('isExpaned', 'setIsExpanded', false),
+  withState('expanded', 'setExpanded', false),
   withState('filter', 'setFilter', {}),
   withState('search', 'setSearch', ''),
   withHandlers({

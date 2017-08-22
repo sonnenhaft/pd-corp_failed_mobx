@@ -1,21 +1,23 @@
 import React from 'react'
-import { compose, withHandlers, withState } from 'recompose'
+import P from 'prop-types'
+
+import { compose, withHandlers, withState, setPropTypes } from 'recompose'
 
 import RtDialog from 'react-toolbox/lib/dialog'
 
 const Dialog = props => {
   const { handleClose, handleOpen, handleSubmit, isOpened, children, content } = props
-  const { okLabel = 'Submit', cancelLabel = 'Cancel'} = props
+  const { okLabel = 'Submit', cancelLabel = 'Cancel' } = props
   return <div>
-    <div onClick={handleOpen}>{children}</div>
+    <div onClick={ handleOpen }>{children}</div>
     <RtDialog
-      actions={[
+      actions={ [
         { label: cancelLabel, onClick: handleClose },
         { label: okLabel, onClick: handleSubmit }
-      ]}
-      active={isOpened}
-      onEscKeyDown={handleClose}
-      onOverlayClick={handleClose}
+      ] }
+      active={ isOpened }
+      onEscKeyDown={ handleClose }
+      onOverlayClick={ handleClose }
       title="Dialog With Actions">
       {content()}
     </RtDialog>
@@ -23,6 +25,10 @@ const Dialog = props => {
 }
 
 export default compose(
+  setPropTypes({
+    children: P.element.isRequired,
+    content: P.func.isRequired
+  }),
   withState('isOpened', 'setIsOpened', false),
   withHandlers({
     handleClose: ({ setIsOpened }) => () => setIsOpened(false),

@@ -22,12 +22,6 @@ For running app in a way, how developers see and extend it, please run:
 $ npm run dev
 ```
 
-## Run locally with webpack monitor
-You can also run app in custom mode with webpack monitor where you can see some interesting stats related to bundles. 
-```sh
-$ npm run dev:dashboard
-```
-
 ## EsLint
 We use eslint with custom eslint config. To see errors and automatically to fix most of them please run:
 ```sh
@@ -43,4 +37,7 @@ $ npm run build
 
 ## Global UI colors
 We use react-toolbox for common components. You can update most of global colors via updating "postcss.config.js".  Object in bottom of this file contains examples of how we override libraries colors.
+
+## Assets as  XLS/XLSX/CSV samples
+This FE app parses XLS/XLSX/CSV files, gets headers of table, allows to map this headers to our database layer and sends JSON to server. You can find file samples in directory "import-samples". Note please that work in IE11- is not guaranteed.
 

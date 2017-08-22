@@ -11,6 +11,14 @@ class AssetsStore {
   @persist @observable activeId = null
   @persist('object') @observable active = {}
   @persist('object') @observable activeItem = {}
+
+  /**
+   * @example [{
+   *    ' stub field 1: ': 'some val 1',
+   *    ' stub field 2 ': 'some val 2'
+   * }]
+   */
+  @persist('list') @observable xlsTable = []
   @persist('object') @observable sort = { key: 'id', asc: true }
   @persist('object') @observable activeColumns = {
     assetType: true,
@@ -31,22 +39,34 @@ class AssetsStore {
 
   labels = [
     { label: 'id', key: 'id', hidden: true },
-    { label: 'Asset Type', key: 'assetType', required: true, defaultVisible: true },
+    { label: 'Asset Type', key: 'assetType', defaultVisible: true },
     { label: 'Asset Name', key: 'assetName', hidden: true },
-    { label: 'Asset Number', key: 'assetNumber', hidden: true },
+    { label: 'Asset Number', key: 'assetNumber', hidden: true, required: true },
     { label: 'Owner/Department', key: 'owner', defaultVisible: true },
     { label: 'Location', key: 'location', defaultVisible: true },
     { label: 'Model', key: 'model' },
     { label: 'Manufacturer', key: 'manufacturer' },
     { label: 'Description', key: 'description' },
     { label: 'Search Terms', key: 'searchTerms' },
-    { label: 'RFID Assigned', key: 'rfidAssigned', required: true },
+    { label: 'RFID Assigned', key: 'rfidAssigned' },
     { label: 'Serial Number', key: 'serialNumber' },
     { label: 'Barcode Number', key: 'barcode', required: true },
     { label: 'RFID Number', key: 'rfidNumber' },
     { label: 'Update Location Date', key: 'locationUpdatedDate' },
     { label: 'Notes', key: 'notes' }
   ]
+
+  getXlsxLabels() {
+    if ( this.xlsTable.length && this.xlsTable[0] ) {
+      return Object.keys(this.xlsTable[0])
+    } else {
+      return []
+    }
+  }
+
+  setSheetToImport(xlsTable) {
+    this.xlsTable = xlsTable
+  }
 
   change(value, val) {
     this.active = { ...this.active, ...{ [value]: val } }
@@ -78,7 +98,7 @@ class AssetsStore {
   async add() {
     await delay()
     const newAsset = this.active
-    newAsset.id = `${Date.now()  }`
+    newAsset.id = `${ Date.now()  }`
     this.list.push(newAsset)
     this.active = {}
     return newAsset
@@ -96,8 +116,9 @@ class AssetsStore {
 
 const assetsStore = new AssetsStore()
 
-hydrate()('assetsStore', assetsStore)
-  .then(() => console.log('assetsStore hydrated'))
+hydrate()('assetsStore', assetsStore).then(() => {
+  console.log('assetsStore hydrated')
+})
 
 history.subscribe(location => {
   const matches = /\/assets\/(edit|view)\/(.*)/.exec(location.pathname)

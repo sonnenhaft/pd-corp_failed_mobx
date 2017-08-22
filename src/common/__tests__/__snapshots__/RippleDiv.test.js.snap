@@ -1,0 +1,17 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`RippleDiv code should now changed 1`] = `
+<div
+  disabled={false}
+  onMouseDown={[Function]}
+  onTouchStart={[Function]}
+  page="http://www.facebook.com"
+  style={
+    Object {
+      "position": "relative",
+    }
+  }
+>
+  Facebook
+</div>
+`;
