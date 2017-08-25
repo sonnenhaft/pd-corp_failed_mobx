@@ -19,8 +19,7 @@ class AssetsStore {
   /** @example [{' stub field 1: ': 'some val 1'}] */
   @persist('list') @observable xlsTable = []
   @observable tableLoading = false
-  /** @example {key: 'id', asc: true} */
-  @persist('object') @observable sort = {}
+  @persist('object') @observable sort = {key: 'name',  asc: true}
   @persist('object') @observable activeColumns = {
     type: true,
     owner: true,
@@ -157,7 +156,7 @@ class AssetsStore {
 
   async changeSort(key){
     if ( this.sort.key === key && this.sort.asc === false ) {
-      this.sort = {}
+      this.sort = {key: 'name',  asc: true}
     } else {
       this.sort = { key, asc: this.sort.key === key ? !this.sort.asc : true }
     }
