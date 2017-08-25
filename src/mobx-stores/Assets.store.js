@@ -19,7 +19,7 @@ class AssetsStore {
   /** @example [{' stub field 1: ': 'some val 1'}] */
   @persist('list') @observable xlsTable = []
   @observable tableLoading = false
-  @persist('object') @observable sort = {key: 'name',  asc: true}
+  @persist('object') @observable sort = { key: 'name', asc: true }
   @persist('object') @observable activeColumns = {
     type: true,
     owner: true,
@@ -67,22 +67,27 @@ class AssetsStore {
 
   labels = [
     { label: 'id', key: 'id', hidden: true },
-    { label: 'Asset Name', key: 'name', required: true, hideOnView: true, searchOrder: 'с' },
-    { label: 'Asset Number', key: 'number', required: true, searchOrder: 'a' },
-    { label: 'Asset Type', key: 'type', required: true, defaultVisible: true, searchOrder: 'b' },
-    { label: 'Owner/Department', key: 'department', defaultVisible: true, searchOrder: 'h' },
-    { label: 'Location', key: 'keyLocation', defaultVisible: true, searchOrder: 'l' },
-    { label: 'Model', key: 'model', searchOrder: 'j' },
-    { label: 'Manufacturer', key: 'manufacturer', searchOrder: 'i' },
-    { label: 'Description', key: 'description', searchOrder: 'k' },
-    { label: 'Search Terms', key: 'search_terms', searchOrder: 'm' },
-    { label: 'RFID Assigned', key: 'rfidAssigned' },
-    { label: 'Serial Number', key: 'serial', searchOrder: 'f' },
-    { label: 'Barcode Number', key: 'barcode', required: true, searchOrder: 'e' },
-    { label: 'RFID Number', key: 'rfid', searchOrder: 'd' },
-    { label: 'Notes', key: 'note', multiline: true, searchOrder: 'n' },
+    { label: 'Asset Name', key: 'name', required: true, hideOnView: true },
+    { label: 'Asset Number', key: 'number', required: true },
+    { label: 'Asset Type', key: 'type', required: true, defaultVisible: true, searchOrder: 1 },
+    { label: 'Owner/Department', key: 'department', defaultVisible: true, searchOrder: 5 },
+    { label: 'Location', key: 'keyLocation', defaultVisible: true, searchOrder: 2 },
+    { label: 'Model', key: 'model', searchOrder: 3 },
+    { label: 'Manufacturer', key: 'manufacturer', searchOrder: 4 },
+    { label: 'Description', key: 'description' },
+    { label: 'Search Terms', key: 'search_terms' },
+    { label: 'RFID Assigned', key: 'rfidAssigned', searchOrder: 6 },
+    { label: 'Serial Number', key: 'serial' },
+    { label: 'Barcode Number', key: 'barcode', required: true },
+    { label: 'RFID Number', key: 'rfid' },
+    { label: 'Notes', key: 'note', multiline: true },
     { label: 'Image', key: 'image', hidden: true },
-    { label: 'Update Location Date', key: 'lastUsedDate', hideOnEdit: true }
+    {
+      label: 'Update Location Date', key: 'lastUsedDate', hideOnEdit: true, searchOrder: 7, dateFilterKeys: [
+      { key: 'fromUpdateLocationDate', label: 'Last Update Date from' },
+      { key: 'toUpdateLocationDate', label: 'Last Update Date to' }
+    ]
+    }
   ]
 
   getXlsxLabels() {
@@ -154,9 +159,9 @@ class AssetsStore {
     return Object.assign(this.activeItem, this.active, data)
   }
 
-  async changeSort(key){
+  async changeSort(key) {
     if ( this.sort.key === key && this.sort.asc === false ) {
-      this.sort = {key: 'name',  asc: true}
+      this.sort = { key: 'name', asc: true }
     } else {
       this.sort = { key, asc: this.sort.key === key ? !this.sort.asc : true }
     }
@@ -167,7 +172,7 @@ class AssetsStore {
     this.tableLoading = true
 
     let sort
-    if (this.sort.key) {
+    if ( this.sort.key ) {
       sort = `${ this.sort.key },${ this.sort.asc ? 'asc' : 'desc' }`
     }
     const params = { ...this.searchParams, ...this.paging, size: 10, sort }

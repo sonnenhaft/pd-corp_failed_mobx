@@ -57,24 +57,32 @@ const SearchInputs = props => {
     {expanded && <div>
       <div styleName="search-input-buttons">
         {assets.labels.filter(a => {
-          return !a.hidden && !a.hideOnEdit
+          return a.searchOrder
         }).sort((a, b) => {
           return a.searchOrder > b.searchOrder ? 1 : -1
-        }).map(({ key, label }) => {
-          return <TextInput key={ key } label={ label } onChange={ keyChanged(key) } value={ searchParams[key] || '' }/>
+        }).map(({ key, label, dateFilterKeys }) => {
+          if ( dateFilterKeys ) {
+            const [l1, l2] = dateFilterKeys
+            return <div styleName="date-inputs">
+              {dateFilterKeys.map(({ key, label }) => <StringDatePicker
+                label={ label }
+                key={ key }
+                onChange={ keyChanged(key) }
+                value={ searchParams[key] }/>)}
+              {searchParams[l1.key] > searchParams[l2.key] && <div styleName="date-error">
+                <span>&quot;{l1.label}&quot;</span>
+                &nbsp;should be greater or equal to&nbsp;
+                <span>&quot;{l2.label}&quot;</span>
+              </div>}
+            </div>
+          } else {
+            return <TextInput
+              key={ key }
+              label={ label }
+              onChange={ keyChanged(key) }
+              value={ searchParams[key] || '' }/>
+          }
         })}
-
-        <div styleName="date-inputs">
-          <StringDatePicker label="Last Update Date from"
-                            onChange={ keyChanged('fromUpdateLocationDate') }
-                            icon="event"
-                            value={ searchParams.fromUpdateLocationDate }/>
-          <StringDatePicker label="Last Update Date to"
-                            onChange={ keyChanged('toUpdateLocationDate') }
-                            icon="event"
-                            value={ searchParams.toUpdateLocationDate }/>
-        </div>
-
       </div>
       {searchButton}
     </div>}
@@ -92,7 +100,10 @@ export default compose(
   observer,
   withState('expanded', 'setExpanded', false),
   withHandlers({
-    resetFilters: () => () => assets.searchParams = {},
+    resetFilters: () => () => {
+      assets.searchParams = {}
+      assets.search()
+    },
     keyChanged: ({ assets }) => key => value => {
       if ( value ) {
         if ( key === 'search' ) {
