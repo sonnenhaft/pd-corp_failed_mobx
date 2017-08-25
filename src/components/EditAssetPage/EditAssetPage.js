@@ -6,11 +6,16 @@ import AssetsPageHeader from './EditAssetPageHeader'
 import { Dialog, TextInput } from 'common'
 import EditAssetInput from './EditAssetImageInput'
 import { inject, observer } from 'mobx-react'
-import assets from 'mobx-stores/Assets.store'
+import { assets, routing } from 'mobx-stores'
 
 import './EditAssetPage.css'
 
 const EditAssetPage = ({ Text, asset = {}, isView, assets, routing }) => {
+
+  let saveAssetButton = <Button raised primary>
+    <FontIcon value="save"/>
+    Save Asset
+  </Button>
   return <div>
     <AssetsPageHeader/>
     <Card styleName="page-wrapper">
@@ -18,7 +23,7 @@ const EditAssetPage = ({ Text, asset = {}, isView, assets, routing }) => {
         <NavLink to="/assets">Asset</NavLink>
         <div styleName="dot"/>
         <Route path="/assets/edit/:assetId" component={ () => <span>Update Asset</span> }/>
-        <Route path="/assets/view/:assetId" component={ () => <span>{asset.assetName}</span> }/>
+        <Route path="/assets/view/:assetId" component={ () => <span>{asset.name}</span> }/>
         <Route path="/assets/create" component={ () => <span>Create Asset</span> }/>
       </div>
       <div styleName="edit-asset-page-content">
@@ -29,49 +34,42 @@ const EditAssetPage = ({ Text, asset = {}, isView, assets, routing }) => {
           </div>}
           {isView && <hr/>}
           <div styleName="asset-fields">
-            {!isView && <Text value="name"/>}
-
-            <Text value="number"/>
-            <Text value="searchTerms"/>
-            <Text value="assetType"/>
-            <Text value="rfidAssigned"/>
-            <Text value="owner"/>
-            <Text value="serial"/>
-            <Text value="location"/>
-            <Text value="barcode"/>
-            <Text value="model"/>
-            <Text value="rfidNumber"/>
-            <Text value="manufacturer"/>
-            <Text value="locationUpdatedDate"/>
-            <Text value="description"/>
-
+            {assets.labels.filter(({ hidden, hideOnView, hideOnEdit, multiline }) => {
+              return !hidden && (!isView || !hideOnView) && (isView || !hideOnEdit) && !multiline
+            }).map(({ key }) => {
+              return <Text value={ key } key={ key }/>
+            })}
           </div>
           {isView && <hr/>}
-          <Text value="notes" multiline/>
+
+          {assets.labels.filter(({ hidden, hideOnView, hideOnEdit, multiline }) => {
+            return !hidden && (!isView || !hideOnView) && (isView || !hideOnEdit) && multiline
+          }).map(({ key }) => {
+            return <Text value={ key } key={ key } multiline/>
+          })}
+
           {!isView && <div>
-            <br/><br/><br/>
+            <br/>
             <div styleName="bottom-buttons">
               <div styleName="greyed bottom-buttons">* Indicates required field</div>
               <div styleName="bottom-buttons left">
                 <NavLink to="/assets">
                   <Button raised styleName="cancel-button">Cancel</Button>
                 </NavLink>
-                {!asset.id && <Button raised primary
-                                      onClick={ () => assets.add().then(() => routing.push(`/assets`)) }>
-                  <FontIcon value="save"/>
-                  Save Asset
-                </Button>}
-                {asset.id &&
-                <Dialog
+                {asset.id ? <Dialog
                   okLabel="Yes" cancelLabel="No"
-                  title="Update Asset"
-                  action={ () => assets.update().then(() => routing.push(`/assets`)) }
+                  action={ () => {
+                    assets.update().then(({ id }) => {
+                      routing.push(`/assets`)
+                    })
+                  } }
                   content={ () => <div>Are you sure you want to update this asset?</div> }>
-                  <Button raised primary>
-                    <FontIcon value="save"/>
-                    Save Asset
-                  </Button>
-                </Dialog>}
+                  {saveAssetButton}
+                </Dialog> : <div onClick={ () => assets.add().then(({ id }) => {
+                  routing.push(`/assets`)
+                }) }>
+                  {saveAssetButton}
+                </div>}
               </div>
             </div>
           </div>}
@@ -95,7 +93,12 @@ const Text = ({ assets, asset, isView, value, multiline }) => {
 }
 
 export default compose(
-  inject('routing', 'assets'),
+  inject(() => ({
+    assets,
+    routing,
+    activeItem: assets.activeItem,
+    active: assets.active
+  })),
   observer,
   withProps(({ assets, routing }) => {
     const isView = routing.location.pathname.includes('view')

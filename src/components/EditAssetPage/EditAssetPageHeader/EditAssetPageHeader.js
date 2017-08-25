@@ -23,6 +23,8 @@ const EditAssetsPageHeader = props => {
 
   const { assets, routing } = props
 
+  const isView = location.pathname.includes('view')
+
   return <PageHeader>
     <div styleName="header-text">
       <BackBtn raised styleName="back-link">
@@ -33,6 +35,9 @@ const EditAssetsPageHeader = props => {
       <Route path="/assets/create" component={ () => <span>CREATE ASSET</span> }/>
     </div>
     <div styleName="buttons-block">
+      {!isView && <Button onClick={ () => assets.setRandomForActive() } raised>
+        SET RANDOM DATA
+      </Button>}
       <Route path="/assets/view/:assetId"
              component={ () => ( <NavLink to={ `/assets/edit/${ assetId }` } replace onClick={ () => setHoveredIndex(hoveredIndex + 1) }>
                  <Button raised>

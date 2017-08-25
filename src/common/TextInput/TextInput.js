@@ -5,13 +5,14 @@ import Input from 'react-toolbox/lib/input'
 
 import './TextInput.css'
 
-export const TextInput = ({ errorText, ...props }) => {
+export const TextInput = ({ errorText, onEnterPressed, ...props }) => {
+  const onKeyPress = onEnterPressed && (e => e.key === 'Enter' && onEnterPressed())
   const { multiline, disabled } = props
   if ( multiline && disabled ) {
-    return <DisabledTextArea { ...props }/>
+    return <DisabledTextArea { ...props } onKeyPress={ onKeyPress }/>
   } else {
     return <section>
-      <Input type="text" { ...props }/>
+      <Input type="text" { ...props } onKeyPress={ onKeyPress }/>
       {errorText && <div><br/><br/></div>}
     </section>
   }

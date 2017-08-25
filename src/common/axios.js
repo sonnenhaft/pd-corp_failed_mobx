@@ -7,7 +7,9 @@ const axios = _axios.create({})
 axios.setHeaders = _headers => headers = _headers
 
 axios.interceptors.request.use(function(config) {
-  config.headers = Object.assign({}, headers, config.headers)
+  config.headers = Object.assign({
+    // 'Content-Type': 'multipart/form-data'
+  }, headers, config.headers)
   return config
 })
 

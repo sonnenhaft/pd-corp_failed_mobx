@@ -1,20 +1,23 @@
 import React from 'react'
 
 import './SearchInputs.css'
-import { TextInput, TextInputWithIcon, RippleDiv } from 'common'
+import { RippleDiv, StringDatePicker, TextInput, TextInputWithIcon } from 'common'
 import searchIcon from './search-icon.svg'
-import { Button, Card } from 'react-toolbox'
+import { Button, Card, ProgressBar } from 'react-toolbox'
 import { compose, withHandlers, withState } from 'recompose'
 import FontIcon from 'react-toolbox/lib/font_icon'
-
-import { DatePicker } from 'react-toolbox/lib/date_picker'
+import { inject, observer } from 'mobx-react'
+import { assets } from 'mobx-stores'
 
 const SearchInputs = props => {
-  const { expanded, setExpanded, filter, search, setSearch, resetFilters, keyChanged } = props
-  const isNotEmpty = !!Object.values(filter).length
+  const { expanded, setExpanded, resetFilters, keyChanged } = props
+  const { assets } = props
+  const searchParams = assets.searchParams
+  const search = searchParams.search
+  const isNotEmpty = !!Object.values(searchParams).length
 
   const searchButton = <div styleName="search-button-wrapper">
-    <Button raised primary onClick={ () => (isNotEmpty || search) && alert('TODO: add search action') }
+    <Button raised primary onClick={ () => assets.search() }
             styleName="blue-button">
       SEARCH
     </Button>
@@ -27,8 +30,9 @@ const SearchInputs = props => {
       <TextInputWithIcon
         icon={ searchIcon }
         label={ search ? '' : 'Type here' }
-        value={ search }
-        onChange={ setSearch }/>
+        value={ search || '' }
+        onChange={ keyChanged('search') }
+        onEnterPressed={ () => search && search.length > 2 && assets.search()  }/>
       {!expanded && searchButton}
     </div>
 
@@ -36,7 +40,6 @@ const SearchInputs = props => {
       Help text on how user can use it . such as comma
       separated AND operation on search terms.
     </div>
-
 
     <div styleName="blue-text-buttons">
       <RippleDiv onClick={ () => setExpanded(!expanded) }>
@@ -53,44 +56,55 @@ const SearchInputs = props => {
 
     {expanded && <div>
       <div styleName="search-input-buttons">
-        <TextInput label="Asset Name" onChange={ keyChanged('rfidAssigned') } value={ filter.rfidAssigned || '' }/>
-        <TextInput label="RFID" onChange={ keyChanged('rfid') } value={ filter.rfid || '' }/>
-        <TextInput label="Bar Code" onChange={ keyChanged('barCode') } value={ filter.barCode || '' }/>
-        <TextInput label="Serial Number" onChange={ keyChanged('serial') } value={ filter.serial || '' }/>
-        <TextInput label="Asset/Equipment Number" onChange={ keyChanged('eq_numer') } value={ filter.eq_numer || '' }/>
-        <TextInput label="Model" onChange={ keyChanged('model') } value={ filter.model || '' }/>
-        <TextInput label="Description" onChange={ keyChanged('description') } value={ filter.description || '' }/>
-        <TextInput label="Notes" onChange={ keyChanged('notes') } value={ filter.notes || '' }/>
+        {assets.labels.filter(a => {
+          return !a.hidden && !a.hideOnEdit
+        }).sort((a, b) => {
+          return a.searchOrder > b.searchOrder ? 1 : -1
+        }).map(({ key, label }) => {
+          return <TextInput key={ key } label={ label } onChange={ keyChanged(key) } value={ searchParams[key] || '' }/>
+        })}
 
         <div styleName="date-inputs">
-          <DatePicker label="Last Update Date from"
-                      onChange={ keyChanged('dateFrom') }
-                      icon="event"
-                      value={ filter.dateFrom }/>
-          <DatePicker label="Last Update Date to"
-                      onChange={ keyChanged('dateTo') }
-                      icon="event"
-                      value={ filter.dateTo }/>
+          <StringDatePicker label="Last Update Date from"
+                            onChange={ keyChanged('fromUpdateLocationDate') }
+                            icon="event"
+                            value={ searchParams.fromUpdateLocationDate }/>
+          <StringDatePicker label="Last Update Date to"
+                            onChange={ keyChanged('toUpdateLocationDate') }
+                            icon="event"
+                            value={ searchParams.toUpdateLocationDate }/>
         </div>
 
       </div>
       {searchButton}
     </div>}
+    <div styleName="absolute-loader">
+      {assets.tableLoading && <ProgressBar type="linear" mode="indeterminate"/>}
+    </div>
   </Card>
 }
 export default compose(
+  inject(() => ({
+    assets,
+    searchParams: assets.searchParams,
+    tableLoading: assets.tableLoading
+  })),
+  observer,
   withState('expanded', 'setExpanded', false),
-  withState('filter', 'setFilter', {}),
-  withState('search', 'setSearch', ''),
   withHandlers({
-    resetFilters: ({ setFilter }) => () => setFilter({}),
-    keyChanged: ({ filter, setFilter }) => key => value => {
+    resetFilters: () => () => assets.searchParams = {},
+    keyChanged: ({ assets }) => key => value => {
       if ( value ) {
-        filter[key] = value
+        if ( key === 'search' ) {
+          value = value.replace(',', '')
+          if ( value > 500 ) {
+            value = value.slice(0, 500)
+          }
+        }
       } else {
-        delete filter[key]
+        value = undefined
       }
-      setFilter(filter)
+      assets.searchParams = { ...assets.searchParams, [key]: value }
     }
   })
 )(SearchInputs)

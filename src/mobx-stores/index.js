@@ -9,12 +9,10 @@ import routing, { history } from './Routing.store'
 export { user, assets, history, routing }
 
 autorun(() => {
-  if (user.loggedIn && history.location.pathname === '/assets' && !assets.list.length) {
+  if (user.loggedIn && history.location.pathname === '/assets' && !assets.list.length && !assets.tableLoading) {
     assets.loadList()
-  } else if (!user.loggedIn && assets.list.length) {
-    assets.list = [];
   }
-});
+})
 
 hydrate()('userStore', user).then(() => {
   if ( user.token ) {
