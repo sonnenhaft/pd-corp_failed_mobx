@@ -168,6 +168,15 @@ class AssetsStore {
     this.search()
   }
 
+  async loadAutocompleteValues(key = 'department', query) {
+    let params = null
+    if ( query ) {
+      params = { q: query }
+    }
+    const { data: { values } } = await axios.get(`/api/v1/hospital/assets/${ key }s`, { params })
+    return values
+  }
+
   async loadList() {
     this.tableLoading = true
 
@@ -182,6 +191,7 @@ class AssetsStore {
     this.totalPages = totalPages
     this.totalElements = totalElements
     this.tableLoading = false
+    this.loadAuto()
   }
 }
 

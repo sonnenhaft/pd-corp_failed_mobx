@@ -1,7 +1,7 @@
 import React from 'react'
 
 import './SearchInputs.css'
-import { RippleDiv, StringDatePicker, TextInput, TextInputWithIcon } from 'common'
+import { RippleDiv, StringDatePicker, TextInputWithIcon } from 'common'
 import searchIcon from './search-icon.svg'
 import { Button, Card, ProgressBar } from 'react-toolbox'
 import { compose, withHandlers, withState } from 'recompose'
@@ -9,6 +9,7 @@ import FontIcon from 'react-toolbox/lib/font_icon'
 import { inject, observer } from 'mobx-react'
 import { assets } from 'mobx-stores'
 
+import AssetsAutocomplete from './AssetsAutocomplete'
 const SearchInputs = props => {
   const { expanded, setExpanded, resetFilters, keyChanged } = props
   const { assets } = props
@@ -63,7 +64,7 @@ const SearchInputs = props => {
         }).map(({ key, label, dateFilterKeys }) => {
           if ( dateFilterKeys ) {
             const [l1, l2] = dateFilterKeys
-            return <div styleName="date-inputs">
+            return <div styleName="date-inputs" key={ key }>
               {dateFilterKeys.map(({ key, label }) => <StringDatePicker
                 label={ label }
                 key={ key }
@@ -76,8 +77,9 @@ const SearchInputs = props => {
               </div>}
             </div>
           } else {
-            return <TextInput
+            return <AssetsAutocomplete
               key={ key }
+              field={ key }
               label={ label }
               onChange={ keyChanged(key) }
               value={ searchParams[key] || '' }/>
