@@ -169,12 +169,20 @@ class AssetsStore {
   }
 
   async loadAutocompleteValues(key = 'department', query) {
-    let params = null
-    if ( query ) {
-      params = { q: query }
+    if ( key === 'rfidAssigned' ) {
+      return await Promise.resolve([
+        'All Assets',
+        'RFID Assigned',
+        'RFID Not Assigned'
+      ])
+    } else {
+      let params = null
+      if ( query ) {
+        params = { q: query }
+      }
+      const { data: { values } } = await axios.get(`/api/v1/hospital/assets/${ key }s`, { params })
+      return values
     }
-    const { data: { values } } = await axios.get(`/api/v1/hospital/assets/${ key }s`, { params })
-    return values
   }
 
   async loadList() {
