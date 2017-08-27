@@ -33,6 +33,8 @@ const App = ({ user }) => {
   } else {
     return <div style={ { padding: '20px' } }>
       <Button primary raised onClick={ () => user.login() }>Login</Button>
+      &nbsp;
+      <Button primary raised onClick={ () => user.stubLogin() }>Stub</Button>
       <br/>
       <div>{user.error}</div>
     </div>

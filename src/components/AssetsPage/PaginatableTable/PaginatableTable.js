@@ -9,7 +9,7 @@ import DeleteDialog from './DeleteDialog'
 import FilterColumnsButton from './FilterColumnsButton'
 import styles from './PaginatableTable.css'
 import bulkDeleteIcon from './bulk-delete-icon.svg'
-import assets from 'mobx-stores/Assets.store'
+import { assets } from 'mobx-stores'
 import { inject, observer } from 'mobx-react'
 
 const PaginatableTable = props => {

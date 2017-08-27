@@ -16,6 +16,6 @@ export const generateLine = labels => () => labels.reduce((obj, { key }) => {
   return obj
 }, {})
 
-export default labels => {
-  return chance.n(generateLine(labels), chance.integer({ min: 5, max: 12 }))
+export default (labels, size) => {
+  return chance.n(generateLine(labels), chance.integer({ min: Math.min(2, size), max: size }))
 }

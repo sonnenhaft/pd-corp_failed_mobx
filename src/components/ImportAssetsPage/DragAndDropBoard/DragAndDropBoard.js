@@ -9,7 +9,7 @@ import { Tooltip } from 'common'
 import { NavLink } from 'react-router-dom'
 import './DragAndDropBoard.css'
 import { Button, FontIcon } from 'react-toolbox'
-import assets from 'mobx-stores/Assets.store'
+import { assets } from 'mobx-stores'
 import { inject, observer } from 'mobx-react'
 
 const DragAndDropBoard = props => {
