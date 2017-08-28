@@ -170,11 +170,12 @@ export default class AssetsStore {
       await delay()
       return []
     } else {
+      let term = { manufacture: 'manufacturer' }[key] || key
       let params = null
       if ( query ) {
         params = { q: query }
       }
-      const { data: { values } } = await axios.get(`/api/v1/hospital/assets/${ key }s`, { params })
+      const { data: { values } } = await axios.get(`/api/v1/hospital/assets/${ term }`, { params })
       return values
     }
   }

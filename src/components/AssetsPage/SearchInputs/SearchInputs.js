@@ -108,11 +108,8 @@ export default compose(
     },
     keyChanged: ({ assets }) => key => value => {
       if ( value ) {
-        if ( key === 'search' ) {
-          value = value.replace(',', '')
-          if ( value > 500 ) {
-            value = value.slice(0, 500)
-          }
+        if ( key === 'search' && value > 500 ) {
+          value = value.slice(0, 500)
         }
       } else {
         value = undefined
