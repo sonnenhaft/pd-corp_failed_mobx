@@ -14,7 +14,14 @@ export const assets = new AssetsStore()
 export const routing = new RouterStore()
 export const history = syncHistoryWithStore(createHashHistory(), routing)
 
-hydrate()('userStore', user)
+hydrate()('userStore', user).then(() => {
+  const STORES_VERSION =  '2'
+  if (localStorage.getItem('STORES_VERSION') !== STORES_VERSION) {
+    localStorage.clear()
+    localStorage.setItem('STORES_VERSION', STORES_VERSION)
+    location.reload()
+  }
+})
 hydrate()('assetsStore', assets)
 
 const userObservables = {
@@ -56,4 +63,3 @@ export const mobxConnect = (...args) => compose(
   inject(...args),
   observer
 )
-

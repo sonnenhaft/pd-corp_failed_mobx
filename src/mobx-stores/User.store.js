@@ -3,7 +3,6 @@ import { axios } from 'common'
 import { persist } from 'mobx-persist'
 
 export default class UserStore {
-  @observable incr = 0
   @persist @observable username = null
   @persist @observable token = null
   @observable error = null

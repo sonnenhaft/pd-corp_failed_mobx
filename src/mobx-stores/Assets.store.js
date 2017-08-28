@@ -194,6 +194,14 @@ export default class AssetsStore {
       const params = { ...this.searchParams, ...this.paging, size: PAGE_SIZE, sort }
 
       const { data: { content, totalPages, totalElements } } = await axios.get('/api/v1/hospital/assets', { params })
+      content.forEach(item => {
+        const keyLocation = item.keyLocation || {}
+        const searchTerms = keyLocation.searchTerms || []
+        item.keyLocationObject = keyLocation
+        item.keyLocation = keyLocation.name
+        item.keyLocationId = keyLocation.id
+        item.searchTerms = searchTerms.join(', ')
+      })
       Object.assign(this, { list: content, totalPages, totalElements })
     }
 
