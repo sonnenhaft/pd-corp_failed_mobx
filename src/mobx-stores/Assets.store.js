@@ -1,4 +1,4 @@
-import { observable, computed } from 'mobx'
+import { observable } from 'mobx'
 import { axios, generateDemoTable, generateLine, toFormData } from 'common'
 import { persist } from 'mobx-persist'
 import labels from './labels.list'
@@ -24,11 +24,10 @@ export default class AssetsStore {
   @persist('list') @observable xlsTable = []
   @observable tableLoading = false
   @persist('object') @observable sort = { key: 'name', asc: true }
-  @persist('object') @observable activeColumns = {
-    type: true,
-    owner: true,
-    location: true
-  }
+  @persist('object') @observable activeColumns = labels
+    .filter(({ defaultVisible }) => defaultVisible)
+    .map(({ key }) => key)
+    .reduce((map, key) => (map[key] = true) && map, {})
 
   search() {
     this.paging.page = 0
@@ -38,6 +37,16 @@ export default class AssetsStore {
   setPage(item) {
     this.paging.page = item
     return this.loadList()
+  }
+
+  activateColumn(columnName, active) {
+    const newColumns = { ...this.activeColumns, [columnName]: active }
+    const atLeastOneActive = Object.keys(newColumns).some(key => {
+      return newColumns[key]
+    })
+    if ( atLeastOneActive ) {
+      this.activeColumns = newColumns
+    }
   }
 
   getVisibleLabels() {

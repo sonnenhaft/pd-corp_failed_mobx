@@ -79,9 +79,7 @@ export default compose(
       }
       setIndexes(indexes)
     },
-    changeColumnStage: () => (active, columnName) => {
-      assets.activeColumns = { ...assets.activeColumns, [columnName]: active }
-    }
+    changeColumnStage: () => (active, key) => assets.activateColumn(key, active)
   }),
   inject('assets'),
   observer

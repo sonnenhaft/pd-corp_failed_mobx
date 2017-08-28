@@ -1,4 +1,4 @@
-import { observable, observe, action, ObservableMap } from 'mobx'
+import { observe } from 'mobx'
 import { create as hydrate } from 'mobx-persist'
 import { RouterStore, syncHistoryWithStore } from 'mobx-react-router'
 import createHashHistory from 'history/createHashHistory'
@@ -20,7 +20,7 @@ hydrate()('assetsStore', assets)
 const userObservables = {
   stub: () => {
     assets.stub = user.stub
-    if (user.stub) {
+    if ( user.stub ) {
       user.stubLogin()
     }
   },

@@ -16,7 +16,7 @@
  private ImageDto image;
  */
 
-export default[
+export default [
   { label: 'id', key: 'id', hidden: true },
   { label: 'Asset Name', key: 'name', required: true, hideOnView: true },
   { label: 'Asset Number', key: 'number', required: true },
