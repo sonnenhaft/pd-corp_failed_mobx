@@ -6,10 +6,10 @@ import { compose, withHandlers, withState } from 'recompose'
 import { assets } from 'mobx-stores'
 import Autocomplete from 'react-toolbox/lib/autocomplete'
 import { debounce } from 'lodash'
-import classnames from 'classnames'
+import cn from 'classnames'
 
 const AssetsAutocomplete = ({ source, onFocus, value, onQueryChange, loading, label, onChange }) => {
-  return <div styleName={ classnames('autocomplete-wrapper', { loading }) }>
+  return <div styleName={ cn('autocomplete-wrapper', { loading }) }>
     <Autocomplete
       direction="down"
       selectedPosition="above"

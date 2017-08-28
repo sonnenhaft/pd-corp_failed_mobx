@@ -1,0 +1,39 @@
+:global .notification-enter {
+  opacity: 0.01;
+}
+
+:global .notification-enter.notification-enter-active {
+  opacity: 1;
+  transition: opacity 500ms ease-in;
+}
+
+:global .notification-leave {
+  opacity: 1;
+}
+
+:global .notification-leave.notification-leave-active {
+  opacity: 0.01;
+  transition: opacity 300ms ease-in;
+}
+
+.notification-wrapper {
+  position: fixed;
+  right: 20px;
+  top: 40px;
+  width: 200px;
+  z-index: 1;
+  & .notification {
+    margin-bottom: 8px;
+    padding: 16px 8px;
+    color: white;
+    font-size: 14px;
+    &:global {
+      &.success {
+        background-color: #78be20;
+      }
+      &.error {
+        background-color: #fc6061;
+      }
+    }
+  }
+}

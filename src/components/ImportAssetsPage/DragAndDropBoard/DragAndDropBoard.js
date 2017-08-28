@@ -1,5 +1,5 @@
 import React from 'react'
-import classnames from 'classnames'
+import cn from 'classnames'
 import { DragDropContext } from 'react-dnd'
 import ReactDndHTML5Backend from 'react-dnd-html5-backend'
 import { compose, withHandlers, withState } from 'recompose'
@@ -49,7 +49,7 @@ const DragAndDropBoard = props => {
           <div styleName="dragable-items">
             <div styleName="droppable-wrapper">
               {dbFields.map((data, index) =>
-                <div key={ index } styleName={ classnames({ multiple: data.multiple }) }>
+                <div key={ index } styleName={ cn({ multiple: data.multiple }) }>
                   <DroppableContainer
                     { ...data }
                     showError={ error }
@@ -62,10 +62,10 @@ const DragAndDropBoard = props => {
           <br/>
           <div styleName="flexy">
             <div styleName="flexy vertical">
-              <div styleName={ classnames('under-header-text') }>
+              <div styleName={ cn('under-header-text') }>
                 * Indicates required field
               </div>
-              {error && <div styleName={ classnames('under-header-text', { error }) }>
+              {error && <div styleName={ cn('under-header-text', { error }) }>
                 Invalid mapping. Data structure requires either Barcode
                 Number or Asset Number to be mapped with an import data field.
                 <br/>

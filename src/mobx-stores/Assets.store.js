@@ -8,6 +8,8 @@ const delay = () => new Promise(resolve => setTimeout(resolve, 1000))
 
 export default class AssetsStore {
   labels = labels
+  notifications = null
+
   @persist('list') @observable list = []
   @persist @observable totalPages = 1
   @persist @observable totalElements = 1
@@ -48,6 +50,10 @@ export default class AssetsStore {
     if ( atLeastOneActive ) {
       this.activeColumns = newColumns
     }
+  }
+
+  constructor(notifications){
+    this.notifications = notifications
   }
 
   getVisibleLabels() {
@@ -116,18 +122,24 @@ export default class AssetsStore {
     delete assetData.lastUsedDate
 
     let newItem
-    if ( this.stub ) {
-      await delay()
-      newItem = { ...this.active }
-    } else {
-      const { data } = await axios.post('/api/v1/hospital/assets', toFormData(assetData))
-      newItem = data
-    }
 
-    this.list.push(newItem)
-    this.active = newItem
-    this.activeItem = newItem
-    return newItem
+    try {
+      if ( this.stub ) {
+        await delay()
+        newItem = { ...this.active }
+        this.notifications.info('Created Successfully')
+      } else {
+        const { data } = await axios.post('/api/v1/hospital/assets', toFormData(assetData))
+        newItem = data
+      }
+      this.list.push(newItem)
+      this.active = newItem
+      this.activeItem = newItem
+      return newItem
+    } catch (e) {
+      this.notifications.error('Did not created')
+      throw new Error(e)
+    }
   }
 
   setRandomForActive() {
@@ -137,20 +149,25 @@ export default class AssetsStore {
   }
 
   async update() {
-    const assetData = { ...this.activeItem, ...this.active }
-    delete assetData.keyLocation
-    delete assetData.lastUsedDate
-    // delete assetData.id
-    let updatedItem
-    if ( this.stub ) {
-      await delay()
-      updatedItem = assetData
-    } else {
-      const { data } = await axios.put(`/api/v1/hospital/assets/${ assetData.id }`, toFormData(assetData))
-      updatedItem = data
+    try {
+      const assetData = { ...this.activeItem, ...this.active }
+      delete assetData.keyLocation
+      delete assetData.lastUsedDate
+      // delete assetData.id
+      let updatedItem
+      if ( this.stub ) {
+        await delay()
+        updatedItem = assetData
+      } else {
+        const { data } = await axios.put(`/api/v1/hospital/assets/${ assetData.id }`, toFormData(assetData))
+        updatedItem = data
+      }
+      this.notifications.info('Asset updated')
+      return Object.assign(this.activeItem, this.active, updatedItem)
+    } catch (e) {
+      this.notifications.error('Did not updated')
+      throw new Error(e)
     }
-
-    return Object.assign(this.activeItem, this.active, updatedItem)
   }
 
   async changeSort(key) {

@@ -1,7 +1,7 @@
 import React from 'react'
 import { NavLink, withRouter } from 'react-router-dom'
 import { compose, onlyUpdateForKeys, withState } from 'recompose'
-import classnames from 'classnames'
+import cn from 'classnames'
 import { inject, observer } from 'mobx-react'
 import Checkbox from 'react-toolbox/lib/checkbox'
 import { Icon, IconButton, Tooltip } from 'common'
@@ -28,7 +28,7 @@ const Table = ({ setSelectedIndexes, sort, setSort, selectedIndexes, location, h
         <div styleName="action-td-wrapper">
 
           <Checkbox checked={ someSelected }
-                    styleName={ classnames({ someSelected }) }
+                    styleName={ cn({ someSelected }) }
                     onChange={ () => setSelectedIndexes(someSelected ? [] : 'all') }/>
         </div>
         {assets.list.map((row, index) => {
@@ -36,7 +36,7 @@ const Table = ({ setSelectedIndexes, sort, setSort, selectedIndexes, location, h
           const hovered = hoveredIndex === index
 
           return <div
-            styleName={ classnames('action-td-wrapper', { selected: hovered || selected }) }
+            styleName={ cn('action-td-wrapper', { selected: hovered || selected }) }
             key={ index }
             onMouseEnter={ () => setHoveredIndex(index) }>
             <Checkbox checked={ selected } onChange={ () => {
@@ -73,7 +73,7 @@ const Table = ({ setSelectedIndexes, sort, setSort, selectedIndexes, location, h
             const hovered = hoveredIndex === index
             return <tr
               key={ index }
-              styleName={ classnames({ selected: hovered || selected }) }
+              styleName={ cn({ selected: hovered || selected }) }
               onMouseEnter={ () => setHoveredIndex(index) }
               onClick={ () => { routing.push(`${ location.pathname }/view/${ row.id }`) } }>
               {visibleLabels.map(({ key }) => {
@@ -95,7 +95,7 @@ const Table = ({ setSelectedIndexes, sort, setSort, selectedIndexes, location, h
           const selected = selectedIndexes.includes(index)
           const hovered = hoveredIndex === index
           return <div
-            styleName={ classnames('action-td-wrapper', { selected: (hovered || selected) && !menuHidden }) }
+            styleName={ cn('action-td-wrapper', { selected: (hovered || selected) && !menuHidden }) }
             key={ index }
             onMouseEnter={ () => setHoveredIndex(index) }>
             <Icon svg={ verticalDotsIcon }/>

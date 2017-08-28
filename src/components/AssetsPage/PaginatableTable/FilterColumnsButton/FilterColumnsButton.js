@@ -1,5 +1,5 @@
 import React from 'react'
-import classnames from 'classnames'
+import cn from 'classnames'
 import { Icon, MenuButton } from 'common'
 import Checkbox from 'react-toolbox/lib/checkbox'
 import './FilterColumnsButton.css'
@@ -17,7 +17,7 @@ const FilterColumnsButton = ({ labels, changeColumnStage, activeColumns }) => <d
           return <Checkbox
             key={ key }
             { ...{ label, checked } }
-            styleName={ classnames('checkbox', { checked }) }
+            styleName={ cn('checkbox', { checked }) }
             onChange={ active => changeColumnStage(active, key) }/>
         })}
     </div>
