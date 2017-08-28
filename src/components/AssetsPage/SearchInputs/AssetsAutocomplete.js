@@ -15,6 +15,7 @@ const AssetsAutocomplete = ({ source, onFocus, value, onQueryChange, loading, la
       selectedPosition="above"
       label={ label }
       multiple={ false }
+      suggestionMatch="anywhere"
       allowCreate={ true }
       source={ source }
       onFocus={ onFocus }

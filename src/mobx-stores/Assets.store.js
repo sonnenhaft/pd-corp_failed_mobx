@@ -170,12 +170,18 @@ export default class AssetsStore {
       await delay()
       return []
     } else {
-      let term = { manufacture: 'manufacturer' }[key] || key
+      let term = {
+          keyLocation: 'keylocations',
+          manufacture: 'assets/manufacturer'
+        }[key] || `assets/${key}`
       let params = null
       if ( query ) {
         params = { q: query }
       }
-      const { data: { values } } = await axios.get(`/api/v1/hospital/assets/${ term }`, { params })
+      let { data: { values, content } } = await axios.get(`/api/v1/hospital/${ term }`, { params })
+      if ( key === 'keyLocation' ) {
+        values = content.map(({ name }) => name)
+      }
       return values
     }
   }
