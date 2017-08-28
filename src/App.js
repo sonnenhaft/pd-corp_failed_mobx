@@ -7,13 +7,11 @@ import Header from './components/Header'
 import AssetsPage from './components/AssetsPage'
 import EditAssetPage from './components/EditAssetPage'
 import ImportAssetsPage from './components/ImportAssetsPage'
-import { history, user } from 'mobx-stores'
-import { inject, observer } from 'mobx-react'
-import { compose } from 'recompose'
+import { history, mobxConnect } from 'mobx-stores'
 import { Button } from 'react-toolbox'
 import packageJson from '../package.json'
 
-const App = ({ user }) => {
+const App = mobxConnect('user')(({ user }) => {
   if ( user.loggedIn ) {
     return <Router history={ history }>
       <div styleName="app">
@@ -39,7 +37,9 @@ const App = ({ user }) => {
       <div>{user.error}</div>
     </div>
   }
-}
+})
+
+
 
 const theme = {
   RTButton: require('./theme/Button.css'),
@@ -48,16 +48,12 @@ const theme = {
   RTInput: require('./theme/Input.css')
 }
 
-export default compose(
-  inject(() => ({ user, loggedIn: user.loggedIn, error: user.error })),
-  observer
-)(
-  // eslint-disable-next-line react/display-name
-  props => (
-    <ThemeProvider { ...{ theme } }>
-      <App { ...props }/>
-    </ThemeProvider>
-  )
+// eslint-disable-next-line react/display-name
+export default () => (
+  <ThemeProvider { ...{ theme } }>
+    <App/>
+  </ThemeProvider>
 )
+
 
 

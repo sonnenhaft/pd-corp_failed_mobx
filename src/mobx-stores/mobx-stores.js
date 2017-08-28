@@ -1,4 +1,4 @@
-import { observe } from 'mobx'
+import { observable, observe, action, ObservableMap } from 'mobx'
 import { create as hydrate } from 'mobx-persist'
 import { RouterStore, syncHistoryWithStore } from 'mobx-react-router'
 import createHashHistory from 'history/createHashHistory'
@@ -6,6 +6,8 @@ import createHashHistory from 'history/createHashHistory'
 import { axios } from 'common'
 import UserStore from './User.store'
 import AssetsStore from './Assets.store'
+import { compose } from 'recompose'
+import { inject, observer } from 'mobx-react'
 
 export const user = new UserStore()
 export const assets = new AssetsStore()
@@ -16,7 +18,12 @@ hydrate()('userStore', user)
 hydrate()('assetsStore', assets)
 
 const userObservables = {
-  stub: () => assets.stub = user.stub,
+  stub: () => {
+    assets.stub = user.stub
+    if (user.stub) {
+      user.stubLogin()
+    }
+  },
   token: () => {
     axios.setHeaders({ authorization: user.token })
     user.loggedIn = !!user.token
@@ -45,4 +52,8 @@ history.subscribe(location => {
   }
 })
 
+export const mobxConnect = (...args) => compose(
+  inject(...args),
+  observer
+)
 

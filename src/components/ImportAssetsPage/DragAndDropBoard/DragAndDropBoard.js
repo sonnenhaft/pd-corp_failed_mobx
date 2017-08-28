@@ -9,11 +9,10 @@ import { Tooltip } from 'common'
 import { NavLink } from 'react-router-dom'
 import './DragAndDropBoard.css'
 import { Button, FontIcon } from 'react-toolbox'
-import { assets } from 'mobx-stores'
-import { inject, observer } from 'mobx-react'
+import { mobxConnect, assets } from 'mobx-stores'
 
 const DragAndDropBoard = props => {
-  const { boardState: { dbFields }, isDropped, handleDrop, handleRemove, fieldsFromTable, handleTouched, error } = props
+  const { boardState: { dbFields }, isDropped, handleDrop, handleRemove, assets, handleTouched, error } = props
 
   return (
     <div>
@@ -35,7 +34,7 @@ const DragAndDropBoard = props => {
             Please drag and drop each imported data field to the corresponding database profile field.
           </div>
           <div styleName="dragable-items">
-            {fieldsFromTable.filter(({ name }) => !isDropped(name)).map(({ name }, index) =>
+            {assets.getFieldsFromTable().filter(({ name }) => !isDropped(name)).map(({ name }, index) =>
               <DraggableItem key={ index } name={ name }/>
             )}
           </div>
@@ -108,10 +107,7 @@ const getInitialBoard = () => ({
 })
 
 export default compose(
-  inject(() => ({
-    fieldsFromTable: assets.getXlsxLabels().map(name => ({ name }))
-  })),
-  observer,
+  mobxConnect('assets'),
   DragDropContext(ReactDndHTML5Backend),
   withState('error', 'setError', false),
   withState('boardState', 'setBoxesState', getInitialBoard),

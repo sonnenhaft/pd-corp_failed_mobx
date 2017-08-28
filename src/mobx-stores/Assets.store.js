@@ -1,4 +1,4 @@
-import { observable } from 'mobx'
+import { observable, computed } from 'mobx'
 import { axios, generateDemoTable, generateLine, toFormData } from 'common'
 import { persist } from 'mobx-persist'
 import labels from './labels.list'
@@ -51,9 +51,9 @@ export default class AssetsStore {
     }), {})
   }
 
-  getXlsxLabels() {
+  getFieldsFromTable() {
     if ( this.xlsTable.length && this.xlsTable[0] ) {
-      return Object.keys(this.xlsTable[0])
+      return Object.keys(this.xlsTable[0]).map(name => ({ name }))
     } else {
       return []
     }

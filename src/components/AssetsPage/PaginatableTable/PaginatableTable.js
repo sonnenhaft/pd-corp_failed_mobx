@@ -70,24 +70,19 @@ const PaginatableTable = props => {
 }
 
 export default compose(
-  inject(() => {
-    const { activeColumns, sort, totalPages, paging, totalElements } = assets
-    return ({ assets, activeColumns, sort, totalPages, paging, totalElements })
-  }),
-  observer,
   withState('selectedIndexes', 'setIndexes', []),
   withHandlers({
-    setSort: ({ assets }) => key => {
-      assets.changeSort(key)
-    },
+    setSort: () => key => assets.changeSort(key),
     setSelectedIndexes: ({ setIndexes }) => indexes => {
       if ( indexes === 'all' ) {
         indexes = assets.list.map((item, index) => index)
       }
       setIndexes(indexes)
     },
-    changeColumnStage: ({ assets }) => (active, columnName) => {
+    changeColumnStage: () => (active, columnName) => {
       assets.activeColumns = { ...assets.activeColumns, [columnName]: active }
     }
-  })
+  }),
+  inject('assets'),
+  observer
 )(PaginatableTable)

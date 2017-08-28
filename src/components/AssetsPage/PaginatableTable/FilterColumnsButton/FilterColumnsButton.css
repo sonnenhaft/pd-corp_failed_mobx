@@ -6,6 +6,10 @@
   margin-top: -8px;
 }
 
+.checked {
+  opacity: 0.4;
+}
+
 .checkbox {
   padding: 8px 18px;
   margin: 0;
