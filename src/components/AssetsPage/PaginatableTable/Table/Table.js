@@ -110,7 +110,7 @@ const Table = ({ setSelectedIndexes, sort, setSort, selectedIndexes, location, h
               </NavLink>
 
               <DeleteDialog action={ () => assets.remove(row.id) }
-                            text="Are you sure you want to delete these asset?"
+                            text="Are you sure you want to delete this asset?"
                             title="Delete Asset">
 
                 <Tooltip text="Delete">

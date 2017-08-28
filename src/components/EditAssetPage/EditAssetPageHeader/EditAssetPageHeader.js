@@ -29,7 +29,7 @@ const EditAssetsPageHeader = props => {
         <FontIcon value="chevron_left"/>
       </BackBtn>
       <Route path="/assets/edit/:assetId" component={ () => <span>UPDATE ASSET</span> }/>
-      <Route path="/assets/view/:assetId" component={ () => <span title={ activeItem.rfidAssigned }>{activeItem.rfidAssigned}</span> }/>
+      <Route path="/assets/view/:assetId" component={ () => <span title={ activeItem.assetName }>{activeItem.assetName}</span> }/>
       <Route path="/assets/create" component={ () => <span>CREATE ASSET</span> }/>
     </div>
     <div styleName="buttons-block">
@@ -47,7 +47,7 @@ const EditAssetsPageHeader = props => {
           action={ () => assets.remove(assets.active.id).then(() => {
             routing.push(`${ location.pathname }/view/${ assetId }`)
           })}
-          text="Are you sure you want to delete these asset?"
+          text="Are you sure you want to delete this asset?"
           title="Delete Asset">
 
           <Button raised>

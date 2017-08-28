@@ -18,32 +18,32 @@ const EditAssetPage = ({ Text, asset = {}, isView, assets, routing }) => {
         <NavLink to="/assets">Asset</NavLink>
         <div styleName="dot"/>
         <Route path="/assets/edit/:assetId" component={ () => <span>Update Asset</span> }/>
-        <Route path="/assets/view/:assetId" component={ () => <span>{asset.rfidAssigned}</span> }/>
+        <Route path="/assets/view/:assetId" component={ () => <span>{asset.assetName}</span> }/>
         <Route path="/assets/create" component={ () => <span>Create Asset</span> }/>
       </div>
       <div styleName="edit-asset-page-content">
         <EditAssetInput { ...{ isView } }/>
         <div style={ { paddingLeft: '32px' } }>
           {isView && <div styleName="asset-number-header">
-            ASSET NUMBER: {asset.assetNumber}
+            ASSET NAME: {asset.assetName}
           </div>}
           {isView && <hr/>}
           <div styleName="asset-fields">
-            {!isView && <Text value="assetNumber"/>}
+            {!isView && <Text value="assetName"/>}
 
-            <Text value="assetType"/>
+            <Text value="assetNumber"/>
             <Text value="searchTerms"/>
-            <Text value="owner"/>
+            <Text value="assetType"/>
             <Text value="rfidAssigned"/>
-            <Text value="location"/>
+            <Text value="owner"/>
             <Text value="serialNumber"/>
-            <Text value="model"/>
+            <Text value="location"/>
             <Text value="barcode"/>
-            <Text value="manufacturer"/>
+            <Text value="model"/>
             <Text value="rfidNumber"/>
-            <Text value="description"/>
+            <Text value="manufacturer"/>
             <Text value="locationUpdatedDate"/>
-
+            <Text value="description"/>
 
           </div>
           {isView && <hr/>}
@@ -51,7 +51,7 @@ const EditAssetPage = ({ Text, asset = {}, isView, assets, routing }) => {
           {!isView && <div>
             <br/><br/><br/>
             <div styleName="bottom-buttons">
-              <div styleName="greyed bottom-buttons">* Indciates required</div>
+              <div styleName="greyed bottom-buttons">* Indicates required field</div>
               <div styleName="bottom-buttons left">
                 <NavLink to="/assets">
                   <Button raised styleName="cancel-button">Cancel</Button>
