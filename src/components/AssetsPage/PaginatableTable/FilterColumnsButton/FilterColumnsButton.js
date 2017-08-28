@@ -6,7 +6,7 @@ import './FilterColumnsButton.css'
 import configGearIcon from './config-gear-icon.svg'
 
 const FilterColumnsButton = ({ labels, changeColumnStage, activeColumns }) => <div>
-  <MenuButton label={ 'Filter Columns' } raised icon={ () => {
+  <MenuButton label="Show Columns" raised icon={ () => {
     return <span>&nbsp;&nbsp;<Icon svg={ configGearIcon }/></span>
   } }>
     <div styleName="checkbox-wrapper">
