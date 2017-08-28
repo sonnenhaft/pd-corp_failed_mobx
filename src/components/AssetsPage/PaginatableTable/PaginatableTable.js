@@ -21,11 +21,14 @@ const PaginatableTable = props => {
       <div styleName="header">ASSETS FOUND ({list.length})</div>
       <div styleName="flex-buttons">
         <div styleName="some-right-wrapper">
-          {!!selectedIndexes.length && <DeleteDialog action={ () => {
-            assets.remove(selectedIndexes.map(idx => list[idx].id)).then(() => {
-              setSelectedIndexes([])
-            })
-          } }>
+          {!!selectedIndexes.length && <DeleteDialog
+            action={ () => {
+              assets.remove(selectedIndexes.map(idx => list[idx].id)).then(() => {
+                setSelectedIndexes([])
+              })
+            } }
+            text="Are you sure you want to delete these assets?"
+            title="Delete Assets">
             <Button raised primary>
               Delete
               &nbsp;&nbsp;

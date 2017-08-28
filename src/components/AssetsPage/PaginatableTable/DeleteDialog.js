@@ -1,9 +1,12 @@
 import React from 'react'
 import { Dialog } from 'common'
 
-const DeleteDialog = ({ children, action, type }) => <Dialog
+const DeleteDialog = ({ children, action, type, text, title }) => <Dialog
   action={ action }
-  content={ () => <div>Are you sure you want to delete this {type}?</div> }>
+  okLabel="Yes"
+  cancelLabel="No"
+  title={title}
+  content={ () => <div>{text}</div> }>
   {children}
 </Dialog>
 

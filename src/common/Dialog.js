@@ -6,7 +6,7 @@ import { compose, withHandlers, withState, setPropTypes } from 'recompose'
 import RtDialog from 'react-toolbox/lib/dialog'
 
 const Dialog = props => {
-  const { handleClose, handleOpen, handleSubmit, isOpened, children, content } = props
+  const { handleClose, handleOpen, handleSubmit, isOpened, children, content, title } = props
   const { okLabel = 'Submit', cancelLabel = 'Cancel' } = props
   return <div>
     <div onClick={ handleOpen }>{children}</div>
@@ -18,7 +18,8 @@ const Dialog = props => {
       active={ isOpened }
       onEscKeyDown={ handleClose }
       onOverlayClick={ handleClose }
-      title="Dialog With Actions">
+
+      title={title || ''}>
       {content()}
     </RtDialog>
   </div>

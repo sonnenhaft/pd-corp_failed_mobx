@@ -64,7 +64,7 @@ const DragAndDropBoard = props => {
           <div styleName="flexy">
             <div styleName="flexy vertical">
               <div styleName={ classnames('under-header-text') }>
-                * Indciates required field
+                * Indicates required field
               </div>
               {error && <div styleName={ classnames('under-header-text', { error }) }>
                 Invalid mapping. Data structure requires either Barcode

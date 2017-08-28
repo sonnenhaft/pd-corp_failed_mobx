@@ -11,7 +11,6 @@ import assets from 'mobx-stores/Assets.store'
 import './EditAssetPage.css'
 
 const EditAssetPage = ({ Text, asset = {}, isView, assets, routing }) => {
-
   return <div>
     <AssetsPageHeader/>
     <Card styleName="page-wrapper">
@@ -54,22 +53,25 @@ const EditAssetPage = ({ Text, asset = {}, isView, assets, routing }) => {
             <div styleName="bottom-buttons">
               <div styleName="greyed bottom-buttons">* Indciates required</div>
               <div styleName="bottom-buttons left">
-                <NavLink to={ asset.id ? `/assets/view/${ asset.id }` : '/assets' }>
+                <NavLink to="/assets">
                   <Button raised styleName="cancel-button">Cancel</Button>
                 </NavLink>
+                {!asset.id && <Button raised primary
+                                      onClick={ () => assets.add().then(() => routing.push(`/assets`)) }>
+                  <FontIcon value="save"/>
+                  Save Asset
+                </Button>}
+                {asset.id &&
                 <Dialog
                   okLabel="Yes" cancelLabel="No"
-                  action={ () => {
-                    (asset.id ? assets.update() : assets.add()).then(({ id }) => {
-                      routing.push(`/assets/view/${ id }`)
-                    })
-                  } }
+                  title="Update Asset"
+                  action={ () => assets.update().then(() => routing.push(`/assets`)) }
                   content={ () => <div>Are you sure you want to update this asset?</div> }>
                   <Button raised primary>
                     <FontIcon value="save"/>
                     Save Asset
                   </Button>
-                </Dialog>
+                </Dialog>}
               </div>
             </div>
           </div>}

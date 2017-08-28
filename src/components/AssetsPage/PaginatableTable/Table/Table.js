@@ -104,15 +104,18 @@ const Table = ({ setSelectedIndexes, sort, setSort, selectedIndexes, location, h
               <NavLink to={ `${ location.pathname }/edit/${ row.id }` }>
                 <Tooltip text="Edit">
                   <div>
-                    <IconButton tooltip="Update" svg={ updateIcon }/>
+                    <IconButton tooltip="Edit" svg={ updateIcon }/>
                   </div>
                 </Tooltip>
               </NavLink>
 
-              <DeleteDialog action={ () => assets.remove(row.id) } type="asset">
+              <DeleteDialog action={ () => assets.remove(row.id) }
+                            text="Are you sure you want to delete these asset?"
+                            title="Delete Asset">
+
                 <Tooltip text="Delete">
                   <div>
-                    <IconButton tooltip="Delete" svg={ bulkDeleteIcon }/>
+                    <IconButton tooltip="Delete Asset" svg={ bulkDeleteIcon }/>
                   </div>
                 </Tooltip>
               </DeleteDialog>

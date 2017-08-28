@@ -34,6 +34,7 @@ const App = ({ user = {} }) => {
 
 const theme = {
   RTButton: require('./theme/Button.css'),
+  RTDialog: require('./theme/Dialog.css'),
   RTCheckbox: require('./theme/Checkbox.css'),
   RTInput: require('./theme/Input.css')
 }

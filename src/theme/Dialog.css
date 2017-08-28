@@ -1,0 +1,15 @@
+@import "react-toolbox/lib/variables";
+
+.dialog {
+  & .title {
+    background: #004890;
+    text-transform: uppercase;
+    color: white;
+    padding: 16px;
+    margin: -24px;
+    margin-bottom: 15px;
+  }
+  & button {
+    text-transform: uppercase;
+  }
+}
