@@ -1,20 +1,24 @@
 import React from 'react'
 
 import './SearchInputs.css'
-import { TextInput, TextInputWithIcon, RippleDiv } from 'common'
+import { RippleDiv, StringDatePicker, TextInputWithIcon } from 'common'
 import searchIcon from './search-icon.svg'
-import { Button, Card } from 'react-toolbox'
+import { Button, Card, ProgressBar } from 'react-toolbox'
 import { compose, withHandlers, withState } from 'recompose'
 import FontIcon from 'react-toolbox/lib/font_icon'
+import { inject, observer } from 'mobx-react'
+import { assets } from 'mobx-stores'
 
-import { DatePicker } from 'react-toolbox/lib/date_picker'
-
+import AssetsAutocomplete from './AssetsAutocomplete'
 const SearchInputs = props => {
-  const { expanded, setExpanded, filter, search, setSearch, resetFilters, keyChanged } = props
-  const isNotEmpty = !!Object.values(filter).length
+  const { expanded, setExpanded, resetFilters, keyChanged } = props
+  const { assets } = props
+  const searchParams = assets.searchParams
+  const search = searchParams.search
+  const isNotEmpty = !!Object.values(searchParams).length
 
   const searchButton = <div styleName="search-button-wrapper">
-    <Button raised primary onClick={ () => (isNotEmpty || search) && alert('TODO: add search action') }
+    <Button raised primary onClick={ () => assets.search() }
             styleName="blue-button">
       SEARCH
     </Button>
@@ -27,8 +31,9 @@ const SearchInputs = props => {
       <TextInputWithIcon
         icon={ searchIcon }
         label={ search ? '' : 'Type here' }
-        value={ search }
-        onChange={ setSearch }/>
+        value={ search || '' }
+        onChange={ keyChanged('search') }
+        onEnterPressed={ () => search && search.length > 2 && assets.search()  }/>
       {!expanded && searchButton}
     </div>
 
@@ -36,7 +41,6 @@ const SearchInputs = props => {
       Help text on how user can use it . such as comma
       separated AND operation on search terms.
     </div>
-
 
     <div styleName="blue-text-buttons">
       <RippleDiv onClick={ () => setExpanded(!expanded) }>
@@ -53,44 +57,64 @@ const SearchInputs = props => {
 
     {expanded && <div>
       <div styleName="search-input-buttons">
-        <TextInput label="Asset Name" onChange={ keyChanged('rfidAssigned') } value={ filter.rfidAssigned || '' }/>
-        <TextInput label="RFID" onChange={ keyChanged('rfid') } value={ filter.rfid || '' }/>
-        <TextInput label="Bar Code" onChange={ keyChanged('barCode') } value={ filter.barCode || '' }/>
-        <TextInput label="Serial Number" onChange={ keyChanged('serialNumber') } value={ filter.serialNumber || '' }/>
-        <TextInput label="Asset/Equipment Number" onChange={ keyChanged('eq_numer') } value={ filter.eq_numer || '' }/>
-        <TextInput label="Model" onChange={ keyChanged('model') } value={ filter.model || '' }/>
-        <TextInput label="Description" onChange={ keyChanged('description') } value={ filter.description || '' }/>
-        <TextInput label="Notes" onChange={ keyChanged('notes') } value={ filter.notes || '' }/>
-
-        <div styleName="date-inputs">
-          <DatePicker label="Last Update Date from"
-                      onChange={ keyChanged('dateFrom') }
-                      icon="event"
-                      value={ filter.dateFrom }/>
-          <DatePicker label="Last Update Date to"
-                      onChange={ keyChanged('dateTo') }
-                      icon="event"
-                      value={ filter.dateTo }/>
-        </div>
-
+        {assets.labels.filter(a => {
+          return a.searchOrder
+        }).sort((a, b) => {
+          return a.searchOrder > b.searchOrder ? 1 : -1
+        }).map(({ key, label, dateFilterKeys }) => {
+          if ( dateFilterKeys ) {
+            const [l1, l2] = dateFilterKeys
+            return <div styleName="date-inputs" key={ key }>
+              {dateFilterKeys.map(({ key, label }) => <StringDatePicker
+                label={ label }
+                key={ key }
+                onChange={ keyChanged(key) }
+                value={ searchParams[key] }/>)}
+              {searchParams[l1.key] > searchParams[l2.key] && <div styleName="date-error">
+                <span>&quot;{l1.label}&quot;</span>
+                &nbsp;should be greater or equal to&nbsp;
+                <span>&quot;{l2.label}&quot;</span>
+              </div>}
+            </div>
+          } else {
+            return <AssetsAutocomplete
+              key={ key }
+              field={ key }
+              label={ label }
+              onChange={ keyChanged(key) }
+              value={ searchParams[key] || '' }/>
+          }
+        })}
       </div>
       {searchButton}
     </div>}
+    <div styleName="absolute-loader">
+      {assets.tableLoading && <ProgressBar type="linear" mode="indeterminate"/>}
+    </div>
   </Card>
 }
 export default compose(
+  inject(() => ({
+    assets,
+    searchParams: assets.searchParams,
+    tableLoading: assets.tableLoading
+  })),
+  observer,
   withState('expanded', 'setExpanded', false),
-  withState('filter', 'setFilter', {}),
-  withState('search', 'setSearch', ''),
   withHandlers({
-    resetFilters: ({ setFilter }) => () => setFilter({}),
-    keyChanged: ({ filter, setFilter }) => key => value => {
+    resetFilters: () => () => {
+      assets.searchParams = {}
+      assets.search()
+    },
+    keyChanged: ({ assets }) => key => value => {
       if ( value ) {
-        filter[key] = value
+        if ( key === 'search' && value > 500 ) {
+          value = value.slice(0, 500)
+        }
       } else {
-        delete filter[key]
+        value = undefined
       }
-      setFilter(filter)
+      assets.searchParams = { ...assets.searchParams, [key]: value }
     }
   })
 )(SearchInputs)

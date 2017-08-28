@@ -5,6 +5,7 @@ import styles from './Header.css'
 import logoIcon from './logo-icon.png'
 import { FontIcon, MenuItem } from 'react-toolbox'
 import { MenuButton } from 'common'
+import { user } from 'mobx-stores'
 
 const stableLinks = [
   { link: '/assets', value: 'assets' },
@@ -14,28 +15,32 @@ const stableLinks = [
   { link: '/stationary-readers', value: 'Stationary Readers' }
 ]
 
-const Header = ({ username = 'John Doe' }) => <div
-  styleName="header-width-wrapper">
-  <hr/>
-  <div styleName="header-wrapper">
-    <div styleName="logo">
-      <img src={ logoIcon }/>
-    </div>
-    <div styleName="header">
-      {stableLinks.map(({ link, value }) => <NavLink
-        key={ value } title={ value } activeClassName={ styles['active'] }
-        to={ link }>{value}</NavLink>)}
-    </div>
+const Header = () => {
+  const username = user.username
+  return <div
+    styleName="header-width-wrapper">
+    <hr/>
+    <div styleName="header-wrapper">
+      <div styleName="logo">
+        <img src={ logoIcon }/>
+      </div>
+      <div styleName="header">
+        {stableLinks.map(({ link, value }) => <NavLink
+          key={ value } title={ value } activeClassName={ styles['active'] }
+          to={ link }>{value}</NavLink>)}
+      </div>
 
-    <MenuButton label={ username } styleName="username" primary
-                icon={ active => <FontIcon value={ active ? 'arrow_drop_up' : 'arrow_drop_down' }/> }>
-      <MenuItem value='download' icon='get_app' caption={ username }/>
-      <MenuItem value='help' icon='favorite' caption='Favorite'/>
-      <MenuItem value='settings' icon='open_in_browser' caption='Open in app'/>
-      <MenuItem value='signout' icon='delete' caption='Delete' disabled/>
-    </MenuButton>
+      <MenuButton label={ username } styleName="username" primary
+                  icon={ active => <FontIcon value={ active ? 'arrow_drop_up' : 'arrow_drop_down' }/> }>
+        {/*<MenuItem value='download' icon='get_app' caption={ username }/>*/}
+        {/*<MenuItem value='help' icon='favorite' caption='Favorite'/>*/}
+        {/*<MenuItem value='settings' icon='open_in_browser' caption='Open in app'/>*/}
+        {/*<MenuItem value='signout' icon='delete' caption='Delete' disabled/>*/}
+        <MenuItem value='Logout' caption='Logout' onClick={ () => user.logout() }/>
+      </MenuButton>
+    </div>
   </div>
-</div>
+}
 
 export default compose(
   withRouter,

@@ -6,11 +6,11 @@ import { TextInput } from './TextInput'
 
 import './TextInputWithIcon.css'
 
-export const TextInputWithIcon = ({ icon, value, onChange, ...props }) => {
+export const TextInputWithIcon = ({ icon, value, onChange, ...props, onEnterPressed }) => {
   return <div styleName="input-with-icon">
     <Icon svg={ icon } styleName="icon"/>
     <div styleName="input-wrapper">
-      <TextInput { ...{ ...props } } value={ value } onChange={ e => onChange(e) }/>
+      <TextInput { ...{ ...props, onEnterPressed, value, onChange } } />
     </div>
 
     {value && <div styleName="icon back-icon" onClick={ () => onChange('') }>
