@@ -88,7 +88,7 @@ const SearchInputs = props => {
       </div>
     </div>}
     <div styleName="absolute-loader">
-      {assets.tableLoading && <ProgressBar type="linear" mode="indeterminate"/>}
+      {(assets.tableLoading || assets.deletingItem) && <ProgressBar type="linear" mode="indeterminate"/>}
     </div>
   </Card>
 }
@@ -96,7 +96,8 @@ export default compose(
   inject(() => ({
     assets,
     searchParams: assets.searchParams,
-    tableLoading: assets.tableLoading
+    tableLoading: assets.tableLoading,
+    deletingItem: assets.deletingItem
   })),
   observer,
   withState('expanded', 'setExpanded', false),

@@ -59,6 +59,7 @@ const Table = ({ setSelectedIndexes, sort, setSort, selectedIndexes, location, h
             return <th key={ key } onClick={ () => setSort(key) }>
               {setSort && <div >
 
+
                 {sortByThisKey && <span styleName="current-th">
                 {label}&nbsp;<Icon svg={ sort.asc ? arrowAsc : arrowDesc }/>
               </span> }
