@@ -173,7 +173,7 @@ export default class AssetsStore {
       let term = {
           keyLocation: 'keylocations',
           manufacture: 'assets/manufacturer'
-        }[key] || `assets/${key}`
+        }[key] || `assets/${ key }`
       let params = null
       if ( query ) {
         params = { q: query }
