@@ -17,13 +17,6 @@ const SearchInputs = props => {
   const search = searchParams.search
   const isNotEmpty = !!Object.values(searchParams).length
 
-  const searchButton = <div styleName="search-button-wrapper">
-    <Button raised primary onClick={ () => assets.search() }
-            styleName="blue-button">
-      SEARCH
-    </Button>
-  </div>
-
   return <Card styleName="search-inputs-card">
     <div styleName="header">SEARCH</div>
 
@@ -34,12 +27,19 @@ const SearchInputs = props => {
         value={ search || '' }
         onChange={ keyChanged('search') }
         onEnterPressed={ () => search && search.length > 2 && assets.search()  }/>
-      {!expanded && searchButton}
+      <div styleName="search-button-wrapper">
+        <Button raised primary onClick={ () => assets.search() }
+                styleName="blue-button">
+          SEARCH
+        </Button>
+      </div>
     </div>
 
     <div styleName="greyed-helper-text">
-      Help text on how user can use it . such as comma
-      separated AND operation on search terms.
+      Please search by data fields comma
+      separated .
+      For example, to search by Asset Type and Asset
+      Name enter “Monitors, PCA Module”
     </div>
 
     <div styleName="blue-text-buttons">
@@ -86,7 +86,6 @@ const SearchInputs = props => {
           }
         })}
       </div>
-      {searchButton}
     </div>}
     <div styleName="absolute-loader">
       {assets.tableLoading && <ProgressBar type="linear" mode="indeterminate"/>}
@@ -108,8 +107,8 @@ export default compose(
     },
     keyChanged: ({ assets }) => key => value => {
       if ( value ) {
-        if ( key === 'search' && value > 500 ) {
-          value = value.slice(0, 500)
+        if ( key === 'search' && value.length > 5 ) {
+          value = value.slice(0, 5)
         }
       } else {
         value = undefined
