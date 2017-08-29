@@ -1,11 +1,11 @@
 import React from 'react'
 import { Dialog } from 'common'
 
-const DeleteDialog = ({ children, action, text, title }) => <Dialog
+const DeleteDialog = ({ children, action, type, text, title }) => <Dialog
   action={ action }
   okLabel="Yes"
   cancelLabel="No"
-  title={ title }
+  title={title}
   content={ () => <div>{text}</div> }>
   {children}
 </Dialog>

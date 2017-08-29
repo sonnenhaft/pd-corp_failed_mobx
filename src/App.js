@@ -1,6 +1,6 @@
 import './App.css'
 import React from 'react'
-import { Router, Redirect, Route, Switch } from 'react-router-dom'
+import { HashRouter as Router, Redirect, Route, Switch } from 'react-router-dom'
 import { ThemeProvider } from 'react-css-themr'
 
 import Header from './components/Header'

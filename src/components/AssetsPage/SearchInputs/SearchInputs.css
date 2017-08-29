@@ -42,7 +42,7 @@
 
 .search-inputs-card {
   position: relative;
-  background: #faf9f9;
+  background: var(--palette-blue-grey-50);
   padding: 16px
 }
 

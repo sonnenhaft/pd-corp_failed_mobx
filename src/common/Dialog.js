@@ -19,7 +19,7 @@ const Dialog = props => {
       onEscKeyDown={ handleClose }
       onOverlayClick={ handleClose }
 
-      title={ title || '' }>
+      title={title || ''}>
       {content()}
     </RtDialog>
   </div>

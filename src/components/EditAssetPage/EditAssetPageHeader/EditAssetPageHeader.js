@@ -51,7 +51,7 @@ const EditAssetsPageHeader = props => {
         <DeleteDialog
           action={ () => assets.remove(assets.active.id).then(() => {
             routing.push(`${ location.pathname }/view/${ assetId }`)
-          }) }
+          })}
           text="Are you sure you want to delete this asset?"
           title="Delete Asset">
 

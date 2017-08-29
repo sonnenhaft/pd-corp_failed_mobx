@@ -21,7 +21,7 @@ const PaginatableTable = props => {
       <div styleName="header">NO ASSETS FOUND</div>
     </div>}
 
-    {!!totalPages && <div>
+    {totalPages && <div>
       <div styleName="filter-button">
         <div styleName="header">ASSETS FOUND ({assets.totalElements})</div>
         <div styleName="flex-buttons">

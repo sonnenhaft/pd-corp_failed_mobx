@@ -58,10 +58,16 @@ const EditAssetPage = ({ Text, asset = {}, isView, assets, routing }) => {
                 </NavLink>
                 {asset.id ? <Dialog
                   okLabel="Yes" cancelLabel="No"
-                  action={ () => assets.update().then(() => routing.push('/assets')) }
+                  action={ () => {
+                    assets.update().then(({ id }) => {
+                      routing.push(`/assets`)
+                    })
+                  } }
                   content={ () => <div>Are you sure you want to update this asset?</div> }>
                   {saveAssetButton}
-                </Dialog> : <div onClick={ () => assets.add().then(() => routing.push('/assets')) }>
+                </Dialog> : <div onClick={ () => assets.add().then(({ id }) => {
+                  routing.push(`/assets`)
+                }) }>
                   {saveAssetButton}
                 </div>}
               </div>
