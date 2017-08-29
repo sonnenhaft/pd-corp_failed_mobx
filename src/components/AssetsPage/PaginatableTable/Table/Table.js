@@ -56,10 +56,9 @@ const Table = ({ setSelectedIndexes, sort, setSort, selectedIndexes, location, h
           <thead>
           <tr>{visibleLabels.map(({ label, key }) => {
             const sortByThisKey = sort && sort.key === key
+            console.log(sort)
             return <th key={ key } onClick={ () => setSort(key) }>
               {setSort && <div >
-
-
                 {sortByThisKey && <span styleName="current-th">
                 {label}&nbsp;<Icon svg={ sort.asc ? arrowAsc : arrowDesc }/>
               </span> }
@@ -129,7 +128,7 @@ const Table = ({ setSelectedIndexes, sort, setSort, selectedIndexes, location, h
 }
 
 export default compose(
-  inject(() => ({ list: assets.list })),
+  inject(() => ({ list: assets.list, sort: assets.sort })),
   observer,
   withRouter,
   withState('hoveredIndex', 'setHoveredIndex', -1),
