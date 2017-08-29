@@ -42,6 +42,13 @@ const setPreviewImageFromFile = (file, setPreviewImage) => {
 }
 
 export default compose(
+  mobxConnect(() => {
+    return ({
+      assets,
+      active: assets.active,
+      previewImage: assets.previewImage
+    })
+  }),
   withState('inputRef', 'setInputRef', null),
   withHandlers({
     proxyClick: ({ inputRef, isView }) => () => !isView && inputRef.click(),
@@ -51,6 +58,5 @@ export default compose(
       })
       target.value = null
     }
-  }),
-  mobxConnect('assets')
+  })
 )(EditAssetInputRef)

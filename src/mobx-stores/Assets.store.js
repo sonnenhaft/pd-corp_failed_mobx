@@ -14,16 +14,14 @@ export default class AssetsStore {
   @persist @observable totalPages = 1
   @persist @observable totalElements = 1
 
+  @persist @observable _previewImage = null
+
   @computed get previewImage() {
-    return this.active.image && this.active.image.data_uri
+    return this._previewImage
   }
 
   setPreviewImage(data_url) {
-    if ( !data_url ) {
-      this.active.image = { data_url }
-    } else {
-      delete this.activeItem.image
-    }
+    this._previewImage = data_url
   }
 
   @persist('object') @observable searchParams = {}
@@ -97,19 +95,26 @@ export default class AssetsStore {
 
   activate(activeId) {
     this.activeId = activeId
+
     if ( activeId === -1 ) {
       this.active = {}
       this.activeItem = {}
-      return
-    }
-    const activeItem = { ...this.list.find(({ id }) => id === activeId) }
-    this.active = this.labels.reduce((item, { key }) => {
-      if ( !item.hasOwnProperty(key) ) {
-        item[key] = null
+      this._previewImage = null
+    } else {
+      const activeItem = { ...this.list.find(({ id }) => id === activeId) }
+      this.active = this.labels.reduce((item, { key }) => {
+        if ( !item.hasOwnProperty(key) ) {
+          item[key] = null
+        }
+        return item
+      }, activeItem || {})
+
+      if ( this.active.id && this.active.image ) {
+        this._previewImage = `/api/v1/hospital/images/${this.active.image.id}`
       }
-      return item
-    }, activeItem || {})
-    this.activeItem = activeItem
+
+      this.activeItem = activeItem
+    }
   }
 
   async remove(ids) {
@@ -123,12 +128,13 @@ export default class AssetsStore {
       await delay()
     }
     this.deletingItem = false
+    this.loadList()
 
     this.list = this.list.filter(({ id }) => !ids.includes(id))
   }
 
   async add() {
-    const assetData = { ...this.active }
+    const assetData = { ...this.active, image: { data_uri: this._previewImage } }
 
     this.labels.filter(label => {
       return label.hideOnCreate
