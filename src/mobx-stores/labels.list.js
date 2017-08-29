@@ -27,14 +27,14 @@ export default [
   { label: 'Manufacturer', key: 'manufacture', searchOrder: 4 },
   { label: 'Description', key: 'description' },
   { label: 'Search Terms', key: 'searchTerms' },
-  { label: 'RFID Assigned', key: 'rfidAssigned', searchOrder: 6 },
+  { label: 'RFID Assigned', key: 'rfidAssigned', searchOrder: 7 },
   { label: 'Serial Number', key: 'serial' },
   { label: 'Barcode Number', key: 'barcode', required: true },
   { label: 'RFID Number', key: 'rfid' },
   { label: 'Notes', key: 'note', multiline: true },
   { label: 'Image', key: 'image', hidden: true },
   {
-    label: 'Update Location Date', key: 'lastUsedDate', hideOnEdit: true, searchOrder: 7, dateFilterKeys: [
+    label: 'Update Location Date', key: 'lastUsedDate', hideOnEdit: true, searchOrder: 6, dateFilterKeys: [
     { key: 'fromUpdateLocationDate', label: 'Last Update Date from' },
     { key: 'toUpdateLocationDate', label: 'Last Update Date to' }
   ]

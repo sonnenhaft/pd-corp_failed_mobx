@@ -23,7 +23,6 @@ export default class AssetsStore {
   /** @example [{' stub field 1: ': 'some val 1'}] */
   @persist('list') @observable xlsTable = []
   @observable tableLoading = false
-  @observable deletingItem = false
   @persist('object') @observable sort = { key: 'name', asc: true }
   @persist('object') @observable activeColumns = labels
     .filter(({ defaultVisible }) => defaultVisible)
@@ -95,7 +94,6 @@ export default class AssetsStore {
   }
 
   async remove(ids) {
-    this.deletingItem = true
     ids = Array.isArray(ids) ? ids : [ids]
     if ( !this.stub ) {
       await Promise.all(ids.map(id => {
@@ -104,7 +102,6 @@ export default class AssetsStore {
     } else {
       await delay()
     }
-    this.deletingItem = false
 
     this.list = this.list.filter(({ id }) => !ids.includes(id))
   }
@@ -176,7 +173,7 @@ export default class AssetsStore {
       let term = {
           keyLocation: 'keylocations',
           manufacture: 'assets/manufacturer'
-        }[key] || `assets/${key}`
+        }[key] || `assets/${ key }`
       let params = null
       if ( query ) {
         params = { q: query }
