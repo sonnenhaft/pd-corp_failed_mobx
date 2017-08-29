@@ -36,7 +36,8 @@ const SearchInputs = props => {
     </div>
 
     <div styleName="greyed-helper-text">
-      Please search by data fields comma separated.
+      Please search by data fields comma
+      separated .
       For example, to search by Asset Type and Asset
       Name enter “Monitors, PCA Module”
     </div>
