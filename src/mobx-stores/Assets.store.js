@@ -14,6 +14,12 @@ export default class AssetsStore {
   @persist @observable totalPages = 1
   @persist @observable totalElements = 1
 
+  @persist @observable previewImage
+
+  setPreviewImage(item) {
+    this.previewImage = item
+  }
+
   @persist('object') @observable searchParams = {}
   @persist('object') @observable paging = { page: 0 }
 
@@ -116,10 +122,12 @@ export default class AssetsStore {
   }
 
   async add() {
-    const assetData = { ...this.active }
+    const assetData = { ...this.active, image: { data_uri: this.previewImage } }
 
     delete assetData.keyLocation
     delete assetData.lastUsedDate
+    assetData.barcode = assetData.barcode - 0
+
 
     let newItem
 
@@ -129,7 +137,7 @@ export default class AssetsStore {
         newItem = { ...this.active }
         this.notifications.info('Created Successfully')
       } else {
-        const { data } = await axios.post('/api/v1/hospital/assets', toFormData(assetData))
+        const { data } = await axios.post('/api/v1/hospital/assets', assetData)
         newItem = data
       }
       this.list.push(newItem)
@@ -191,7 +199,7 @@ export default class AssetsStore {
       return []
     } else {
       let term = {
-          keyLocation: 'keylocations',
+          keyLocation: 'assets/keylocations',
           manufacture: 'assets/manufacturer'
         }[key] || `assets/${ key }`
       let params = null

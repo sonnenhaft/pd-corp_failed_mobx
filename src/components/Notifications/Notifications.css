@@ -20,13 +20,23 @@
   position: fixed;
   right: 20px;
   top: 40px;
-  width: 200px;
+  width: 300px;
   z-index: 1;
+  & .text-wrapper {
+    display: flex;
+    align-items: center;
+    & span {
+      margin-right: 6px;
+    }
+  }
   & .notification {
     margin-bottom: 8px;
     padding: 16px 8px;
     color: white;
     font-size: 14px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
     &:global {
       &.success {
         background-color: #78be20;

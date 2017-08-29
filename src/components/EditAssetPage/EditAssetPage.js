@@ -4,7 +4,7 @@ import { NavLink, Route } from 'react-router-dom'
 import { Button, Card, FontIcon } from 'react-toolbox'
 import AssetsPageHeader from './EditAssetPageHeader'
 import { Dialog, TextInput } from 'common'
-import EditAssetInput from './EditAssetImageInput'
+import EditAssetImageInput from './EditAssetImageInput'
 import { inject, observer } from 'mobx-react'
 import { assets, routing } from 'mobx-stores'
 
@@ -27,7 +27,7 @@ const EditAssetPage = ({ Text, asset = {}, isView, assets, routing }) => {
         <Route path="/assets/create" component={ () => <span>Create Asset</span> }/>
       </div>
       <div styleName="edit-asset-page-content">
-        <EditAssetInput { ...{ isView } }/>
+        <EditAssetImageInput { ...{ isView } }/>
         <div style={ { paddingLeft: '32px' } }>
           {isView && <div styleName="asset-number-header">
             ASSET NAME: {asset.name}
