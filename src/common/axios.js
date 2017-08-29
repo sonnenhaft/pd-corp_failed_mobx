@@ -17,7 +17,7 @@ axios.interceptors.response.use(
   response => response,
   error => {
     if ( error.response.status === 401 ) {
-      console.log('TODO: logout user')
+      console.warn('//TODO: logout user on 401')
     }
     return Promise.reject(error)
   }

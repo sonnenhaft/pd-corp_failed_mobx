@@ -78,3 +78,10 @@
   border: 1px solid #0077c8;
   width: 100px
 }
+
+.image-error {
+  display: block;
+  margin-top: 8px;
+  color: rgb(222, 50, 38);
+  font-size: 12px;
+}

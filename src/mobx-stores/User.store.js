@@ -14,11 +14,9 @@ export default class UserStore {
     this.token = null
     this.loggedIn = false
     this.stub = false
-    console.log('login out')
   }
 
   @action stubLogin() {
-    console.log('stub logining')
     this.stub = true
     this.username = '@stub mode'
     this.loggedIn = true

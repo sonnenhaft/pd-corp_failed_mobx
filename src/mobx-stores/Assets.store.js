@@ -1,4 +1,4 @@
-import { observable } from 'mobx'
+import { computed, observable } from 'mobx'
 import { axios, generateDemoTable, generateLine, toFormData } from 'common'
 import { persist } from 'mobx-persist'
 import labels from './labels.list'
@@ -14,10 +14,16 @@ export default class AssetsStore {
   @persist @observable totalPages = 1
   @persist @observable totalElements = 1
 
-  @persist @observable previewImage
+  @computed get previewImage() {
+    return this.active.image && this.active.image.data_uri
+  }
 
-  setPreviewImage(item) {
-    this.previewImage = item
+  setPreviewImage(data_url) {
+    if ( !data_url ) {
+      this.active.image = { data_url }
+    } else {
+      delete this.activeItem.image
+    }
   }
 
   @persist('object') @observable searchParams = {}
@@ -58,7 +64,7 @@ export default class AssetsStore {
     }
   }
 
-  constructor(notifications){
+  constructor(notifications) {
     this.notifications = notifications
   }
 
@@ -122,12 +128,13 @@ export default class AssetsStore {
   }
 
   async add() {
-    const assetData = { ...this.active, image: { data_uri: this.previewImage } }
+    const assetData = { ...this.active }
 
-    delete assetData.keyLocation
-    delete assetData.lastUsedDate
-    assetData.barcode = assetData.barcode - 0
-
+    this.labels.filter(label => {
+      return label.hideOnCreate
+    }).forEach(({ key }) => {
+      delete assetData[key]
+    })
 
     let newItem
 
@@ -135,17 +142,17 @@ export default class AssetsStore {
       if ( this.stub ) {
         await delay()
         newItem = { ...this.active }
-        this.notifications.info('Created Successfully')
       } else {
         const { data } = await axios.post('/api/v1/hospital/assets', assetData)
         newItem = data
       }
+      this.notifications.info('Asset saved')
       this.list.push(newItem)
       this.active = newItem
       this.activeItem = newItem
       return newItem
     } catch (e) {
-      this.notifications.error('Did not created')
+      this.notifications.error('Asset not saved')
       throw new Error(e)
     }
   }
@@ -173,7 +180,7 @@ export default class AssetsStore {
       this.notifications.info('Asset updated')
       return Object.assign(this.activeItem, this.active, updatedItem)
     } catch (e) {
-      this.notifications.error('Did not updated')
+      this.notifications.error('Asset was not updated')
       throw new Error(e)
     }
   }

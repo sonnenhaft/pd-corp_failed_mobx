@@ -6,7 +6,7 @@ const DeleteDialog = ({ children, action, text, title }) => <Dialog
   okLabel="Yes"
   cancelLabel="No"
   title={ title }
-  content={ () => <div>{text}</div> }>
+  content={ text }>
   {children}
 </Dialog>
 

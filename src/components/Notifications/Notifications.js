@@ -17,12 +17,13 @@ const Notifications = mobxConnect('notifications')(({ notifications }) => {
       className={ notification.type }
       key={ i }>
       <div styleName="text-wrapper">
-        <FontIcon value="error_outline"/>
+        {notification.type === 'success' && <FontIcon value="check_circle"/>}
+        {notification.type === 'error' && <FontIcon value="error_outline"/>}
         {notification.text}
       </div>
 
-      <IconButton onClick={ () => notifications.remove(notification)}>
-        <FontIcon value="close" style={{ color: 'white' }}/>
+      <IconButton onClick={ () => notifications.remove(notification) }>
+        <FontIcon value="close" style={ { color: 'white' } }/>
       </IconButton>
     </div>))}
   </ReactCSSTransitionGroup>

@@ -1,5 +1,5 @@
 import React from 'react'
-import { compose, withHandlers, withProps } from 'recompose'
+import { compose, withHandlers, withProps, withState } from 'recompose'
 import { NavLink, Route } from 'react-router-dom'
 import { Button, Card, FontIcon } from 'react-toolbox'
 import AssetsPageHeader from './EditAssetPageHeader'
@@ -10,7 +10,7 @@ import { assets, routing } from 'mobx-stores'
 
 import './EditAssetPage.css'
 
-const EditAssetPage = ({ Text, asset = {}, isView, assets, routing }) => {
+const EditAssetPage = ({ Text, asset = {}, isView, assets, save, touched }) => {
 
   let saveAssetButton = <Button raised primary>
     <FontIcon value="save"/>
@@ -27,7 +27,13 @@ const EditAssetPage = ({ Text, asset = {}, isView, assets, routing }) => {
         <Route path="/assets/create" component={ () => <span>Create Asset</span> }/>
       </div>
       <div styleName="edit-asset-page-content">
-        <EditAssetImageInput { ...{ isView } }/>
+        <div>
+          <EditAssetImageInput { ...{ isView } }/>
+          {touched && !isView && !asset.image && <span styleName="image-error">
+            &quot;Image&quot; is required
+          </span>}
+        </div>
+
         <div style={ { paddingLeft: '32px' } }>
           {isView && <div styleName="asset-number-header">
             ASSET NAME: {asset.name}
@@ -36,6 +42,8 @@ const EditAssetPage = ({ Text, asset = {}, isView, assets, routing }) => {
           <div styleName="asset-fields">
             {assets.labels.filter(({ hidden, hideOnView, hideOnEdit, multiline }) => {
               return !hidden && (!isView || !hideOnView) && (isView || !hideOnEdit) && !multiline
+            }).filter(label => {
+              return asset.id || !label.hideOnCreate
             }).map(({ key }) => {
               return <Text value={ key } key={ key }/>
             })}
@@ -58,10 +66,10 @@ const EditAssetPage = ({ Text, asset = {}, isView, assets, routing }) => {
                 </NavLink>
                 {asset.id ? <Dialog
                   okLabel="Yes" cancelLabel="No"
-                  action={ () => assets.update().then(() => routing.push('/assets')) }
-                  content={ () => <div>Are you sure you want to update this asset?</div> }>
+                  action={ save }
+                  content="Are you sure you want to update this asset?">
                   {saveAssetButton}
-                </Dialog> : <div onClick={ () => assets.add().then(() => routing.push('/assets')) }>
+                </Dialog> : <div onClick={ save }>
                   {saveAssetButton}
                 </div>}
               </div>
@@ -74,7 +82,7 @@ const EditAssetPage = ({ Text, asset = {}, isView, assets, routing }) => {
 }
 
 const labels = assets.getLabelsMap()
-const Text = ({ assets, asset, isView, value, multiline }) => {
+const Text = ({ assets, asset, isView, value, multiline, touched }) => {
   let { required, label } = labels[value] || {}
   required = !isView && required
   label = isView ? `${ label }:` : `${ label }`
@@ -83,15 +91,15 @@ const Text = ({ assets, asset, isView, value, multiline }) => {
     value={ asset[value] || '' }
     { ...{ label, required, multiline } }
     onChange={ val => assets.change(value, val) }
-    error={ (required && !asset[value]) ? `"${ label }" is required` : null }/>
+    error={ (touched && required && !asset[value]) ? `"${ label }" is required` : null }/>
 }
 
 export default compose(
   inject(() => ({
     assets,
     routing,
-    activeItem: assets.activeItem,
-    active: assets.active
+    active: assets.active,
+    activeItem: assets.activeItem
   })),
   observer,
   withProps(({ assets, routing }) => {
@@ -101,10 +109,21 @@ export default compose(
       isView
     }
   }),
+  withState('touched', 'setTouched', false),
   withHandlers({
     // eslint-disable-next-line react/display-name
-    Text: ({ asset, isView, assets }) => ({ value, multiline }) => {
-      return <Text { ...{ asset, assets, isView, value, multiline } }/>
+    Text: ({ asset, isView, assets, touched }) => ({ value, multiline }) => {
+      return <Text { ...{ asset, assets, isView, value, multiline, touched } }/>
+    },
+    save: ({ asset, assets, setTouched, routing }) => () => {
+      setTouched(true)
+      const hasError = assets.labels.some(({ key, required }) => {
+        return required && !asset[key]
+      }) || !asset.image
+      if ( !hasError ) {
+        (asset.id ? assets.update() : assets.add())
+          .then(() => routing.push('/assets'))
+      }
     }
   })
 )(EditAssetPage)

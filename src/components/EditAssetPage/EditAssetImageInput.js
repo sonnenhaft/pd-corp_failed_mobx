@@ -45,7 +45,7 @@ export default compose(
   withState('inputRef', 'setInputRef', null),
   withHandlers({
     proxyClick: ({ inputRef, isView }) => () => !isView && inputRef.click(),
-    onFilesSelected: ({ setPreviewImage }) => ({ target }) => {
+    onFilesSelected: () => ({ target }) => {
       setPreviewImageFromFile(target.files[0], item => {
         assets.setPreviewImage(item)
       })

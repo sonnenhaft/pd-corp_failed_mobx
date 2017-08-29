@@ -30,6 +30,7 @@
     }
   }
   & .notification {
+    border-radius: 4px;
     margin-bottom: 8px;
     padding: 16px 8px;
     color: white;
