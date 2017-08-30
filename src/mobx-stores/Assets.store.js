@@ -1,5 +1,5 @@
 import { computed, observable } from 'mobx'
-import { axios, generateDemoTable, generateLine, toFormData } from 'common'
+import { axios, generateDemoTable, generateLine } from 'common'
 import { persist } from 'mobx-persist'
 import labels from './labels.list'
 
@@ -22,7 +22,7 @@ export default class AssetsStore {
 
   setPreviewImage(data_url) {
     this._previewImage = data_url
-    if (!data_url && this.active.image) {
+    if ( !data_url && this.active.image ) {
       this.active.image = null
     }
   }
@@ -93,6 +93,15 @@ export default class AssetsStore {
   }
 
   change(value, val) {
+    if ( typeof val === 'string' ) {
+      if ( ['description', 'notes'].includes(value) ) {
+        if ( val.length > 1000 ) {
+          val = val.slice(0, 1000)
+        }
+      } else if ( val > 50 ) {
+        val = val.slice(0, 50)
+      }
+    }
     this.active = { ...this.active, ...{ [value]: val } }
   }
 
@@ -104,14 +113,10 @@ export default class AssetsStore {
       this.activeItem = {}
       this._previewImage = null
     } else {
-      const activeItem = { ...this.list.find(({ id }) => id === activeId) }
-      this.active = this.labels.reduce((item, { key }) => {
-        if ( !item.hasOwnProperty(key) ) {
-          item[key] = null
-        }
-        return item
-      }, activeItem || {})
+      const activeItem = this.list.find(({ id }) => id === activeId) || {}
+      this.active = { ...activeItem }
 
+      console.log('setting', this.active.image && this.active.image.id)
       if ( this.active.id && this.active.image ) {
         this._previewImage = `/api/v1/hospital/images/${ this.active.image.id }`
       }
@@ -162,19 +167,22 @@ export default class AssetsStore {
       return newItem
     } catch (e) {
       this.notifications.error('Asset not saved')
-      throw new Error(e)
+      return Promise.reject(e)
     }
   }
 
   setRandomForActive() {
     const randData = generateLine(this.labels.filter(({ key }) => key !== 'id'))()
-    this.activeItem = Object.assign({}, this.activeItem, randData)
-    this.active = Object.assign({}, this.active, randData)
+    this.active = { ...this.active, randData }
   }
 
   async update() {
     try {
-      const assetData = { ...this.activeItem, ...this.active }
+      let image
+      if ( this._previewImage && !this._previewImage.includes('/api/v1/hospital/images') ) {
+        image = { data_uri: this._previewImage }
+      }
+      const assetData = { ...this.activeItem, ...this.active, image }
       delete assetData.keyLocation
       delete assetData.lastUsedDate
       // delete assetData.id
@@ -187,10 +195,12 @@ export default class AssetsStore {
         updatedItem = data
       }
       this.notifications.info('Asset updated')
-      return Object.assign(this.activeItem, this.active, updatedItem)
+      Object.assign(this.active, updatedItem)
+      Object.assign(this.activeItem, this.active)
+      return this.active
     } catch (e) {
       this.notifications.error('Asset was not updated')
-      throw new Error(e)
+      return Promise.reject(e)
     }
   }
 

@@ -18,6 +18,7 @@
 
 export default [
   { label: 'id', key: 'id', hidden: true },
+  { label: 'image', key: 'image', hidden: true },
   { label: 'Asset Name', key: 'name', required: true, hideOnView: true, alwaysInTable: true },
   { label: 'Asset Number', key: 'number', required: true, alwaysInTable: true },
   { label: 'Asset Type', key: 'type', required: true, defaultVisible: true, searchOrder: 1 },

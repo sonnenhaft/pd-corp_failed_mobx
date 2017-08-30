@@ -10,8 +10,8 @@ const Notifications = mobxConnect('notifications')(({ notifications }) => {
     component="div"
     styleName="notification-wrapper"
     transitionName="notification"
-    transitionEnterTimeout={ 300 }
-    transitionLeaveTimeout={ 300 }>
+    transitionEnterTimeout={ 500 }
+    transitionLeaveTimeout={ 500 }>
     {list.map((notification, i) => (<div
       styleName="notification"
       className={ notification.type }

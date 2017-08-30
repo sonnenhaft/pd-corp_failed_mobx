@@ -10,9 +10,9 @@ import { assets, routing } from 'mobx-stores'
 
 import './EditAssetPage.css'
 
-const EditAssetPage = ({ Text, asset = {}, isView, assets, save, touched, hasError }) => {
+const EditAssetPage = ({ Text, asset = {}, isView, assets, save, touched, hasError, errors, setTouched }) => {
 
-  let saveAssetButton = <Button raised primary disabled={hasError && touched}>
+  let saveAssetButton = <Button raised primary disabled={ hasError && touched }>
     <FontIcon value="save"/>
     Save Asset
   </Button>
@@ -28,7 +28,7 @@ const EditAssetPage = ({ Text, asset = {}, isView, assets, save, touched, hasErr
       </div>
       <div styleName="edit-asset-page-content">
         <div>
-          <EditAssetImageInput { ...{ isView } }/>
+          <EditAssetImageInput { ...{ isView, setTouched } }/>
           {touched && !isView && (!asset.image && !assets.previewImage) && <span styleName="image-error">
             &quot;Image&quot; is required
           </span>}
@@ -58,6 +58,9 @@ const EditAssetPage = ({ Text, asset = {}, isView, assets, save, touched, hasErr
 
           {!isView && <div>
             <br/>
+            {errors && errors.unknownError && <div styleName="image-error">
+              {errors.unknownError}
+            </div>}
             <div styleName="bottom-buttons">
               <div styleName="greyed bottom-buttons">* Indicates required field</div>
               <div styleName="bottom-buttons left">
@@ -82,17 +85,19 @@ const EditAssetPage = ({ Text, asset = {}, isView, assets, save, touched, hasErr
 }
 
 const labels = assets.getLabelsMap()
-const Text = ({ asset, isView, value, multiline, touched, change }) => {
+const Text = ({ asset, isView, value, multiline, touched, change, errors }) => {
   let { required, label } = labels[value] || {}
-  required = !isView && required
   label = isView ? `${ label }:` : `${ label }`
 
+  const apiError = errors && errors[value]
+  const requiredError = (required && !asset[value]) && `"${ label }" is required`
+  const errorMsg = (touched && !isView) && (apiError || requiredError)
   return <TextInput
     disabled={ isView }
     value={ asset[value] || '' }
     { ...{ label, required, multiline } }
     onChange={ val => change(value, val) }
-    error={ (touched && required && !asset[value]) ? `"${ label }" is required` : null }/>
+    error={ errorMsg }/>
 }
 
 export default compose(
@@ -103,32 +108,46 @@ export default compose(
     activeItem: assets.activeItem
   })),
   observer,
-  withProps(({ assets, routing }) => {
+  withState('errors', 'setErrors', null),
+  withProps(({ assets, routing, errors }) => {
     const isView = routing.location.pathname.includes('view')
     return {
       asset: isView ? assets.activeItem : assets.active,
       isView,
       hasError: assets.labels.some(({ key, required }) => {
         return required && !assets.active[key]
-      }) || (!assets.active.image && !assets.previewImage)
+      }) || (!assets.active.image && !assets.previewImage) || !!errors
     }
   }),
   withState('touched', 'setTouched', false),
+
   withHandlers({
-    change: ({ assets, asset }) => (key, val) => {
+    change: ({ assets, setErrors }) => (key, val) => {
+      setErrors(null)
       assets.change(key, val)
     }
   }),
   withHandlers({
     // eslint-disable-next-line react/display-name
-    Text: ({ asset, isView, value, multiline, touched, change }) => ({ value, multiline }) => {
-      return <Text { ...{ asset, isView, value, multiline, touched, change } }/>
+    Text: ({ asset, isView, touched, change, errors }) => ({ value, multiline }) => {
+      return <Text { ...{ asset, isView, value, multiline, touched, change, errors } }/>
     },
-    save: ({ asset, assets, setTouched, routing, hasError }) => () => {
+    save: ({ asset, assets, setTouched, routing, hasError, setErrors }) => () => {
       setTouched(true)
       if ( !hasError ) {
         (asset.id ? assets.update() : assets.add())
           .then(() => routing.push('/assets'))
+          .catch(e => {
+            e = e.response.data
+            const key = {
+                RFID_ALREADY_USED: 'rfid',
+                NUMBER_ALREADY_USED: 'name',
+                BARCODE_ALREADY_USED: 'barcode'
+              }[e.error] || e.field || 'unknownError'
+            const errors = { [key]: e.msg || JSON.stringify(e) }
+            console.error(errors)
+            setErrors(errors)
+          })
       }
     }
   })

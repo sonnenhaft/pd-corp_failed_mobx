@@ -1,6 +1,6 @@
 import { observable } from 'mobx'
 
-const delay = (time = 2000) => new Promise(resolve => setTimeout(resolve, time))
+const delay = (time = 3000) => new Promise(resolve => setTimeout(resolve, time))
 
 export default class NotificationsStore {
   @observable list = [
