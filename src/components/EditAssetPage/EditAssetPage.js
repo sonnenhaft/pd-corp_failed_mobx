@@ -120,7 +120,8 @@ export default compose(
     assets,
     routing,
     active: assets.active,
-    activeItem: assets.activeItem
+    activeItem: assets.activeItem,
+    previewImage: assets.previewImage
   })),
   observer,
   withState('errors', 'setErrors', null),
