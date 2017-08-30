@@ -110,7 +110,7 @@ export default class AssetsStore {
       }, activeItem || {})
 
       if ( this.active.id && this.active.image ) {
-        this._previewImage = `/api/v1/hospital/images/${this.active.image.id}`
+        this._previewImage = `/api/v1/hospital/images/${ this.active.image.id }`
       }
 
       this.activeItem = activeItem
@@ -180,7 +180,7 @@ export default class AssetsStore {
         await delay()
         updatedItem = assetData
       } else {
-        const { data } = await axios.put(`/api/v1/hospital/assets/${ assetData.id }`, toFormData(assetData))
+        const { data } = await axios.put(`/api/v1/hospital/assets/${ assetData.id }`, assetData)
         updatedItem = data
       }
       this.notifications.info('Asset updated')
@@ -211,18 +211,9 @@ export default class AssetsStore {
       await delay()
       return []
     } else {
-      let term = {
-          keyLocation: 'assets/keylocations',
-          manufacture: 'assets/manufacturer'
-        }[key] || `assets/${ key }`
-      let params = null
-      if ( query ) {
-        params = { q: query }
-      }
-      let { data: { values, content } } = await axios.get(`/api/v1/hospital/${ term }`, { params })
-      if ( key === 'keyLocation' ) {
-        values = content.map(({ name }) => name)
-      }
+      let term = { manufacture: 'manufacturer' }[key] || key.toLowerCase()
+      const params = query ? null : { q: query }
+      const { data: { values } } = await axios.get(`/api/v1/hospital/assets/${ term }`, { params })
       return values
     }
   }
