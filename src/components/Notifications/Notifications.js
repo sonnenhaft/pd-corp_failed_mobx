@@ -1,7 +1,7 @@
 import React from 'react'
 import { mobxConnect } from 'mobx-stores'
 import ReactCSSTransitionGroup from 'react-addons-css-transition-group'
-import './notifications.css'
+import './Notifications.css'
 import { FontIcon, IconButton } from 'react-toolbox'
 
 const Notifications = mobxConnect('notifications')(({ notifications }) => {
