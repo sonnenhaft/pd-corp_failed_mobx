@@ -10,14 +10,16 @@ const FilterColumnsButton = ({ labels, changeColumnStage, activeColumns }) => <d
     return <span>&nbsp;&nbsp;<Icon svg={ configGearIcon }/></span>
   } }>
     <div styleName="checkbox-wrapper">
-      {labels.filter(({ hidden }) => !hidden).map(({ key, label }) => {
-        const checked = activeColumns[key]
-        return <Checkbox
-          key={ key }
-          { ...{ label, checked } }
-          styleName={ classnames('checkbox', { checked }) }
-          onChange={ active => changeColumnStage(active, key) }/>
-      })}
+      {labels
+        .filter(({ hidden, alwaysInTable }) => !hidden && !alwaysInTable)
+        .map(({ key, label }) => {
+          const checked = activeColumns[key]
+          return <Checkbox
+            key={ key }
+            { ...{ label, checked } }
+            styleName={ classnames('checkbox', { checked }) }
+            onChange={ active => changeColumnStage(active, key) }/>
+        })}
     </div>
   </MenuButton>
 </div>

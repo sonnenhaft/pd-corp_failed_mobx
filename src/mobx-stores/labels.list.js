@@ -18,8 +18,8 @@
 
 export default [
   { label: 'id', key: 'id', hidden: true },
-  { label: 'Asset Name', key: 'name', required: true, hideOnView: true },
-  { label: 'Asset Number', key: 'number', required: true },
+  { label: 'Asset Name', key: 'name', required: true, hideOnView: true, alwaysInTable: true },
+  { label: 'Asset Number', key: 'number', required: true, alwaysInTable: true },
   { label: 'Asset Type', key: 'type', required: true, defaultVisible: true, searchOrder: 1 },
   { label: 'Owner/Department', key: 'department', defaultVisible: true, searchOrder: 5 },
   { label: 'Location', key: 'keyLocation', defaultVisible: true, searchOrder: 2 },
