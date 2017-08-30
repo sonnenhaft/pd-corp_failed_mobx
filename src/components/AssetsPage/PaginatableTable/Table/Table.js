@@ -56,7 +56,6 @@ const Table = ({ setSelectedIndexes, sort, setSort, selectedIndexes, location, h
           <thead>
           <tr>{visibleLabels.map(({ label, key }) => {
             const sortByThisKey = sort && sort.key === key
-            console.log(sort)
             return <th key={ key } onClick={ () => setSort(key) }>
               {setSort && <div >
                 {sortByThisKey && <span styleName="current-th">
