@@ -23,10 +23,17 @@ export default class UserStore {
   }
 
   async login({ username = 'john@company1.com', password = '12345' } = {}) {
+    const self = this
+
+
+    self.loggedIn = true
+    self.username = 'no auth'
+    self.token = `no auth`
+    return
     username = prompt('Set username:', username)
     password = prompt('Set password:', password)
 
-    const self = this
+
     try {
       const { data: { access_token } } = await axios({
         method: 'post',
