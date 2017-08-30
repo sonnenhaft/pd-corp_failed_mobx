@@ -31,12 +31,12 @@ export default [
   { label: 'Serial Number', key: 'serial' },
   { label: 'Barcode Number', key: 'barcode', required: true },
   { label: 'RFID Number', key: 'rfid' },
-  { label: 'Notes', key: 'note', multiline: true },
-  { label: 'Image', key: 'image', hidden: true },
   {
     label: 'Update Location Date', key: 'lastUsedDate', hideOnEdit: true, searchOrder: 6, dateFilterKeys: [
     { key: 'fromUpdateLocationDate', label: 'Last Update Date from' },
     { key: 'toUpdateLocationDate', label: 'Last Update Date to' }
   ]
-  }
+  },
+  { label: 'Notes', key: 'note', multiline: true },
+  { label: 'Image', key: 'image', hidden: true }
 ]
