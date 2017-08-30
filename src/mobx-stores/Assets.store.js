@@ -22,6 +22,9 @@ export default class AssetsStore {
 
   setPreviewImage(data_url) {
     this._previewImage = data_url
+    if (!data_url && this.active.image) {
+      this.active.image = null
+    }
   }
 
   @persist('object') @observable searchParams = {}

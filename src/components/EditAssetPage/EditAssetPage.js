@@ -10,9 +10,9 @@ import { assets, routing } from 'mobx-stores'
 
 import './EditAssetPage.css'
 
-const EditAssetPage = ({ Text, asset = {}, isView, assets, save, touched }) => {
+const EditAssetPage = ({ Text, asset = {}, isView, assets, save, touched, hasError }) => {
 
-  let saveAssetButton = <Button raised primary>
+  let saveAssetButton = <Button raised primary disabled={hasError && touched}>
     <FontIcon value="save"/>
     Save Asset
   </Button>
@@ -29,7 +29,7 @@ const EditAssetPage = ({ Text, asset = {}, isView, assets, save, touched }) => {
       <div styleName="edit-asset-page-content">
         <div>
           <EditAssetImageInput { ...{ isView } }/>
-          {touched && !isView && !asset.image && <span styleName="image-error">
+          {touched && !isView && (!asset.image && !assets.previewImage) && <span styleName="image-error">
             &quot;Image&quot; is required
           </span>}
         </div>
@@ -64,7 +64,7 @@ const EditAssetPage = ({ Text, asset = {}, isView, assets, save, touched }) => {
                 <NavLink to="/assets">
                   <Button raised styleName="cancel-button">Cancel</Button>
                 </NavLink>
-                {asset.id ? <Dialog
+                {(!hasError && asset.id) ? <Dialog
                   okLabel="Yes" cancelLabel="No"
                   action={ save }
                   content="Are you sure you want to update this asset?">
@@ -82,15 +82,16 @@ const EditAssetPage = ({ Text, asset = {}, isView, assets, save, touched }) => {
 }
 
 const labels = assets.getLabelsMap()
-const Text = ({ assets, asset, isView, value, multiline, touched }) => {
+const Text = ({ asset, isView, value, multiline, touched, change }) => {
   let { required, label } = labels[value] || {}
   required = !isView && required
   label = isView ? `${ label }:` : `${ label }`
+
   return <TextInput
     disabled={ isView }
     value={ asset[value] || '' }
     { ...{ label, required, multiline } }
-    onChange={ val => assets.change(value, val) }
+    onChange={ val => change(value, val) }
     error={ (touched && required && !asset[value]) ? `"${ label }" is required` : null }/>
 }
 
@@ -106,20 +107,25 @@ export default compose(
     const isView = routing.location.pathname.includes('view')
     return {
       asset: isView ? assets.activeItem : assets.active,
-      isView
+      isView,
+      hasError: assets.labels.some(({ key, required }) => {
+        return required && !assets.active[key]
+      }) || (!assets.active.image && !assets.previewImage)
     }
   }),
   withState('touched', 'setTouched', false),
   withHandlers({
+    change: ({ assets, asset }) => (key, val) => {
+      assets.change(key, val)
+    }
+  }),
+  withHandlers({
     // eslint-disable-next-line react/display-name
-    Text: ({ asset, isView, assets, touched }) => ({ value, multiline }) => {
-      return <Text { ...{ asset, assets, isView, value, multiline, touched } }/>
+    Text: ({ asset, isView, value, multiline, touched, change }) => ({ value, multiline }) => {
+      return <Text { ...{ asset, isView, value, multiline, touched, change } }/>
     },
-    save: ({ asset, assets, setTouched, routing }) => () => {
+    save: ({ asset, assets, setTouched, routing, hasError }) => () => {
       setTouched(true)
-      const hasError = assets.labels.some(({ key, required }) => {
-        return required && !asset[key]
-      }) || !asset.image
       if ( !hasError ) {
         (asset.id ? assets.update() : assets.add())
           .then(() => routing.push('/assets'))
