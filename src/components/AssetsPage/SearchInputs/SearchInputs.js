@@ -26,7 +26,7 @@ const SearchInputs = props => {
         label={ search ? '' : 'Type here' }
         value={ search || '' }
         onChange={ keyChanged('search') }
-        onEnterPressed={ () => search && search.length > 2 && assets.search()  }/>
+        onEnterPressed={ () => assets.search()  }/>
       <div styleName="search-button-wrapper">
         <Button raised primary onClick={ () => assets.search() }
                 styleName="blue-button">
