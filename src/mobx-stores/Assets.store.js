@@ -173,7 +173,7 @@ export default class AssetsStore {
 
   setRandomForActive() {
     const randData = generateLine(this.labels.filter(({ key }) => key !== 'id'))()
-    this.active = { ...this.active, randData }
+    this.active = Object.assign({}, this.active, randData)
   }
 
   async update() {

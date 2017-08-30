@@ -7,6 +7,7 @@ import { Dialog, TextInput } from 'common'
 import EditAssetImageInput from './EditAssetImageInput'
 import { inject, observer } from 'mobx-react'
 import { assets, routing } from 'mobx-stores'
+import cn from 'classnames'
 
 import './EditAssetPage.css'
 
@@ -16,6 +17,8 @@ const EditAssetPage = ({ Text, asset = {}, isView, assets, save, touched, hasErr
     <FontIcon value="save"/>
     Save Asset
   </Button>
+
+  const barcodeError = touched && (!asset.name || !asset.number)
   return <div>
     <AssetsPageHeader/>
     <Card styleName="page-wrapper">
@@ -39,6 +42,18 @@ const EditAssetPage = ({ Text, asset = {}, isView, assets, save, touched, hasErr
             ASSET NAME: {asset.name}
           </div>}
           {isView && <hr/>}
+          {!isView && <div styleName={ cn('paired-unique', { barcodeError }) }>
+            <div styleName="header">
+              Either
+              <b> Barcode Number </b>
+              or <b> Asset Number </b>
+              required field. You can enter two of them.*
+            </div>
+            <div styleName="paired-fields">
+              <Text value="name"/>
+              <Text value="barcode"/>
+            </div>
+          </div>}
           <div styleName="asset-fields">
             {assets.labels.filter(({ hidden, hideOnView, hideOnEdit, multiline }) => {
               return !hidden && (!isView || !hideOnView) && (isView || !hideOnEdit) && !multiline
