@@ -1,5 +1,5 @@
-import { observable } from 'mobx'
-import { axios, generateDemoTable, generateLine, toFormData } from 'common'
+import { computed, observable } from 'mobx'
+import { axios, generateDemoTable, generateLine } from 'common'
 import { persist } from 'mobx-persist'
 import labels from './labels.list'
 
@@ -8,9 +8,24 @@ const delay = () => new Promise(resolve => setTimeout(resolve, 1000))
 
 export default class AssetsStore {
   labels = labels
+  notifications = null
+
   @persist('list') @observable list = []
   @persist @observable totalPages = 1
   @persist @observable totalElements = 1
+
+  @persist @observable _previewImage = null
+
+  @computed get previewImage() {
+    return this._previewImage
+  }
+
+  setPreviewImage(data_url) {
+    this._previewImage = data_url
+    if ( !data_url && this.active.image ) {
+      this.active.image = null
+    }
+  }
 
   @persist('object') @observable searchParams = {}
   @persist('object') @observable paging = { page: 0 }
@@ -50,6 +65,10 @@ export default class AssetsStore {
     }
   }
 
+  constructor(notifications) {
+    this.notifications = notifications
+  }
+
   getVisibleLabels() {
     return this.labels.filter(({ key }) => this.activeColumns[key])
   }
@@ -74,24 +93,36 @@ export default class AssetsStore {
   }
 
   change(value, val) {
+    if ( typeof val === 'string' ) {
+      if ( ['description', 'notes'].includes(value) ) {
+        if ( val.length > 1000 ) {
+          val = val.slice(0, 1000)
+        }
+      } else if ( val > 50 ) {
+        val = val.slice(0, 50)
+      }
+    }
     this.active = { ...this.active, ...{ [value]: val } }
   }
 
   activate(activeId) {
     this.activeId = activeId
+
     if ( activeId === -1 ) {
       this.active = {}
       this.activeItem = {}
-      return
-    }
-    const activeItem = { ...this.list.find(({ id }) => id === activeId) }
-    this.active = this.labels.reduce((item, { key }) => {
-      if ( !item.hasOwnProperty(key) ) {
-        item[key] = null
+      this._previewImage = null
+    } else {
+      const activeItem = this.list.find(({ id }) => id === activeId) || {}
+      this.active = { ...activeItem }
+
+      console.log('setting', this.active.image && this.active.image.id)
+      if ( this.active.id && this.active.image ) {
+        this._previewImage = `/api/v1/hospital/images/${ this.active.image.id }`
       }
-      return item
-    }, activeItem || {})
-    this.activeItem = activeItem
+
+      this.activeItem = activeItem
+    }
   }
 
   async remove(ids) {
@@ -105,52 +136,72 @@ export default class AssetsStore {
       await delay()
     }
     this.deletingItem = false
+    this.loadList()
 
     this.list = this.list.filter(({ id }) => !ids.includes(id))
   }
 
   async add() {
-    const assetData = { ...this.active }
+    const assetData = { ...this.active, image: { data_uri: this._previewImage } }
 
-    delete assetData.keyLocation
-    delete assetData.lastUsedDate
+    this.labels.filter(label => {
+      return label.hideOnCreate
+    }).forEach(({ key }) => {
+      delete assetData[key]
+    })
 
     let newItem
-    if ( this.stub ) {
-      await delay()
-      newItem = { ...this.active }
-    } else {
-      const { data } = await axios.post('/api/v1/hospital/assets', toFormData(assetData))
-      newItem = data
-    }
 
-    this.list.push(newItem)
-    this.active = newItem
-    this.activeItem = newItem
-    return newItem
+    try {
+      if ( this.stub ) {
+        await delay()
+        newItem = { ...this.active }
+      } else {
+        const { data } = await axios.post('/api/v1/hospital/assets', assetData)
+        newItem = data
+      }
+      this.notifications.info('Asset saved')
+      this.list.push(newItem)
+      this.active = newItem
+      this.activeItem = newItem
+      return newItem
+    } catch (e) {
+      this.notifications.error('Asset not saved')
+      return Promise.reject(e)
+    }
   }
 
   setRandomForActive() {
-    const randData = generateLine(this.labels.filter(({ key }) => key !== 'id'))()
-    this.activeItem = Object.assign({}, this.activeItem, randData)
+    const randData = generateLine(this.labels.filter(({ hidden }) => !hidden))()
     this.active = Object.assign({}, this.active, randData)
   }
 
   async update() {
-    const assetData = { ...this.activeItem, ...this.active }
-    delete assetData.keyLocation
-    delete assetData.lastUsedDate
-    // delete assetData.id
-    let updatedItem
-    if ( this.stub ) {
-      await delay()
-      updatedItem = assetData
-    } else {
-      const { data } = await axios.put(`/api/v1/hospital/assets/${ assetData.id }`, toFormData(assetData))
-      updatedItem = data
+    try {
+      let image
+      if ( this._previewImage && !this._previewImage.includes('/api/v1/hospital/images') ) {
+        image = { data_uri: this._previewImage }
+      }
+      const assetData = { ...this.activeItem, ...this.active, image }
+      delete assetData.keyLocation
+      delete assetData.lastUsedDate
+      // delete assetData.id
+      let updatedItem
+      if ( this.stub ) {
+        await delay()
+        updatedItem = assetData
+      } else {
+        const { data } = await axios.put(`/api/v1/hospital/assets/${ assetData.id }`, assetData)
+        updatedItem = data
+      }
+      this.notifications.info('Asset updated')
+      Object.assign(this.active, updatedItem)
+      Object.assign(this.activeItem, this.active)
+      return this.active
+    } catch (e) {
+      this.notifications.error('Asset was not updated')
+      return Promise.reject(e)
     }
-
-    return Object.assign(this.activeItem, this.active, updatedItem)
   }
 
   async changeSort(key) {
@@ -173,18 +224,9 @@ export default class AssetsStore {
       await delay()
       return []
     } else {
-      let term = {
-          keyLocation: 'keylocations',
-          manufacture: 'assets/manufacturer'
-        }[key] || `assets/${ key }`
-      let params = null
-      if ( query ) {
-        params = { q: query }
-      }
-      let { data: { values, content } } = await axios.get(`/api/v1/hospital/${ term }`, { params })
-      if ( key === 'keyLocation' ) {
-        values = content.map(({ name }) => name)
-      }
+      let term = { manufacture: 'manufacturer' }[key] || key.toLowerCase()
+      const params = query ? null : { q: query }
+      const { data: { values } } = await axios.get(`/api/v1/hospital/assets/${ term }`, { params })
       return values
     }
   }

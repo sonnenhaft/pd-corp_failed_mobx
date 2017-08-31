@@ -20,7 +20,7 @@ const Dialog = props => {
       onOverlayClick={ handleClose }
 
       title={ title || '' }>
-      {content()}
+      <div>{content}</div>
     </RtDialog>
   </div>
 }
@@ -28,7 +28,7 @@ const Dialog = props => {
 export default compose(
   setPropTypes({
     children: P.element.isRequired,
-    content: P.func.isRequired
+    content: P.string.isRequired
   }),
   withState('isOpened', 'setIsOpened', false),
   withHandlers({

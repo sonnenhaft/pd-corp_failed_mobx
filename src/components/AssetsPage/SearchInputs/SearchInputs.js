@@ -43,7 +43,12 @@ const SearchInputs = props => {
     </div>
 
     <div styleName="blue-text-buttons">
-      <RippleDiv onClick={ () => setExpanded(!expanded) }>
+      <RippleDiv onClick={ () => {
+        if (expanded) {
+          resetFilters()
+        }
+        setExpanded(!expanded)
+      } }>
         Filters
         <FontIcon value={ expanded ? 'keyboard_arrow_up' : 'keyboard_arrow_down' }
                   styleName="icon"/>

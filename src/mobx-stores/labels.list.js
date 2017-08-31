@@ -18,25 +18,27 @@
 
 export default [
   { label: 'id', key: 'id', hidden: true },
-  { label: 'Asset Name', key: 'name', required: true, hideOnView: true, alwaysInTable: true },
+  { label: 'Asset Name', key: 'name', required: true, hideOnView: true, hideOnEdit: true, alwaysInTable: true },
   { label: 'Asset Number', key: 'number', required: true, alwaysInTable: true },
   { label: 'Asset Type', key: 'type', required: true, defaultVisible: true, searchOrder: 1 },
   { label: 'Owner/Department', key: 'department', defaultVisible: true, searchOrder: 5 },
-  { label: 'Location', key: 'keyLocation', defaultVisible: true, searchOrder: 2 },
+  { label: 'Location', key: 'keyLocation', defaultVisible: true, searchOrder: 2, hideOnCreate: true },
   { label: 'Model', key: 'model', searchOrder: 3 },
   { label: 'Manufacturer', key: 'manufacture', searchOrder: 4 },
   { label: 'Description', key: 'description' },
   { label: 'Search Terms', key: 'searchTerms' },
   { label: 'RFID Assigned', key: 'rfidAssigned', searchOrder: 7 },
   { label: 'Serial Number', key: 'serial' },
-  { label: 'Barcode Number', key: 'barcode', required: true },
+  { label: 'Barcode Number', key: 'barcode', hideOnEdit: true, required: true },
   { label: 'RFID Number', key: 'rfid' },
   {
-    label: 'Update Location Date', key: 'lastUsedDate', hideOnEdit: true, searchOrder: 6, dateFilterKeys: [
+    label: 'Update Location Date', key: 'lastUsedDate', hideOnEdit: true, searchOrder: 6,
+    hideOnCreate: true,
+    dateFilterKeys: [
     { key: 'fromUpdateLocationDate', label: 'Last Update Date from' },
     { key: 'toUpdateLocationDate', label: 'Last Update Date to' }
   ]
   },
-  { label: 'Notes', key: 'note', multiline: true },
-  { label: 'Image', key: 'image', hidden: true }
+  { label: 'Image', key: 'image', hidden: true },
+  { label: 'Notes', key: 'note', multiline: true }
 ]

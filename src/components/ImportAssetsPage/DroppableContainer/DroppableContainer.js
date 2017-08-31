@@ -1,5 +1,5 @@
 import React from 'react'
-import classnames from 'classnames'
+import cn from 'classnames'
 import { compose, setPropTypes } from 'recompose'
 
 import P from 'prop-types'
@@ -14,12 +14,12 @@ const DroppableContainer = props => {
 
   const error = props.required && props.showError && !props.droppedItems.length
   return connectDropTarget(
-    <div styleName={ classnames({ error }) }>
+    <div styleName={ cn({ error }) }>
       <div styleName="field-name">
         { props.label }{props.required ? '*' : ''}
       </div>
       {props.subText && <div styleName="sub-text">{props.subText}</div>}
-      <div styleName={ classnames('droppable-container', {
+      <div styleName={ cn('droppable-container', {
         filled: props.droppedItems.length && !multiple,
         'can-drop': canDrop && !active,
         multiple,

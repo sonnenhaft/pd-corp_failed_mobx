@@ -6,17 +6,19 @@ import createHashHistory from 'history/createHashHistory'
 import { axios } from 'common'
 import UserStore from './User.store'
 import AssetsStore from './Assets.store'
+import NotificationsStore from './Notifications.store'
 import { compose } from 'recompose'
 import { inject, observer } from 'mobx-react'
 
+export const notifications = new NotificationsStore()
 export const user = new UserStore()
-export const assets = new AssetsStore()
+export const assets = new AssetsStore(notifications)
 export const routing = new RouterStore()
 export const history = syncHistoryWithStore(createHashHistory(), routing)
 
 hydrate()('userStore', user).then(() => {
-  const STORES_VERSION =  '3'
-  if (localStorage.getItem('STORES_VERSION') !== STORES_VERSION) {
+  const STORES_VERSION = '3'
+  if ( localStorage.getItem('STORES_VERSION') !== STORES_VERSION ) {
     localStorage.clear()
     localStorage.setItem('STORES_VERSION', STORES_VERSION)
     location.reload()

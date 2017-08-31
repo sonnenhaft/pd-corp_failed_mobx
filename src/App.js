@@ -7,6 +7,7 @@ import Header from './components/Header'
 import AssetsPage from './components/AssetsPage'
 import EditAssetPage from './components/EditAssetPage'
 import ImportAssetsPage from './components/ImportAssetsPage'
+import Notifications from './components/Notifications'
 import { history, mobxConnect } from 'mobx-stores'
 import { Button } from 'react-toolbox'
 import packageJson from '../package.json'
@@ -15,6 +16,7 @@ const App = mobxConnect('user')(({ user }) => {
   if ( user.loggedIn ) {
     return <Router history={ history }>
       <div styleName="app">
+        <Notifications/>
         <Header/>
         <Switch>
           <Route exact path="/assets/edit/:assetId" component={ EditAssetPage }/>
@@ -38,8 +40,6 @@ const App = mobxConnect('user')(({ user }) => {
     </div>
   }
 })
-
-
 
 const theme = {
   RTButton: require('./theme/Button.css'),

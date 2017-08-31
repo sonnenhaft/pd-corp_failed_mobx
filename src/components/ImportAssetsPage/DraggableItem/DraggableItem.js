@@ -1,5 +1,5 @@
 import React from 'react'
-import classnames from 'classnames'
+import cn from 'classnames'
 import P from 'prop-types'
 import { DragSource } from 'react-dnd'
 import { FontIcon } from 'react-toolbox'
@@ -14,7 +14,7 @@ const DraggableItem = props => {
 
   return connectDragSource(
     <div
-      styleName={ classnames('draggable-item', {
+      styleName={ cn('draggable-item', {
         isDragging,
         hoverDragging: dragging && !isDragging
       }) }
