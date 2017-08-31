@@ -12,7 +12,8 @@ const EditAssetInputRef = props => {
   return <div
     styleName={ cn('input-wrapper', { isView }) }
     onClick={ proxyClick }>
-    <input ref={ setInputRef } type="file" accept="image/*"
+    <input ref={ setInputRef } type="file"
+           accept="image/png,image/jpg,image/jpeg,image/bmp"
            onChange={ onFilesSelected } style={ { display: 'none' } }/>
     {!previewImage && <div>
       <div style={ { textAlign: 'center' } }>

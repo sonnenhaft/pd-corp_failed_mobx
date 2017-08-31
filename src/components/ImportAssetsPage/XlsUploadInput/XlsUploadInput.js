@@ -1,48 +1,27 @@
-import React from 'react'
-import { compose, withHandlers, withState } from 'recompose'
-import { Button } from 'react-toolbox'
-import './XlsUploadInput.css'
-import { assets, routing } from 'mobx-stores'
+import { compose, withProps } from 'recompose'
+import { assets, notifications, routing } from 'mobx-stores'
+import { FileInputButton } from './FileInputButton'
+import './FileReader.readAsBinaryString.polyfill'
 
-// ie10-11 polyfill
-if ( !FileReader.prototype.readAsBinaryString ) {
-  FileReader.prototype.readAsBinaryString = function(blob) {
-    const reader = new FileReader()
-    reader.onload = () => {
-      let result = ''
-      const bytes = new Uint8Array(reader.result)
-      const stringLen = bytes.byteLength
-      for (let charIdx = 0; charIdx < stringLen; charIdx++) {
-        result += String.fromCharCode(bytes[charIdx])
-      }
-      this.onload({ target: { result } })
-    }
-    reader.readAsArrayBuffer(blob)
-  }
-}
-
-const XlsUploadInput = props => {
-  const { proxyClick, onFilesSelected, setInputRef, children, className } = props
-  return <Button raised onClick={ proxyClick } className={ className }>
-    <input ref={ setInputRef } type="file"
-           onChange={ onFilesSelected } style={ { display: 'none' } }/>
-    {children}
-  </Button>
-}
+const MEGABYTE = 1024 * 1024
+const MAX_FILE_SIZE = 5 * MEGABYTE
 
 export default compose(
-  withState('inputRef', 'setInputRef', null),
-  withHandlers({
-    proxyClick: ({ inputRef }) => () => inputRef.click(),
-    onFilesSelected: () => ({ target }) => {
+  withProps(() => ({
+    accept: '.csv,.xls,.xlsx',
+    maxSize: MAX_FILE_SIZE,
+    setMaxSizeError: file => {
+      const megabytes = Math.round(file.size / MEGABYTE * 10) / 10
+      notifications.error(`The file upload has failed. 
+        The file size exceeds the allowable limit of 5 MB. (now is ${ megabytes }mb)`, 5000)
+    },
+    onFileUploaded: file => {
       const reader = new FileReader()
       reader.onload = e => {
         let data = e.target.result
-        if ( target.files[0].name.endsWith('.csv') ) {
-          if ( data.split(';').length > data.split(',').length ) {
-            console.warn('Converting semicolon separated CSV to comma separated csv.')
-            data = data.replace(/;/g, ',')
-          }
+        if ( file.name.endsWith('.csv') && data.split(';').length > data.split(',').length ) {
+          console.warn('Converting semicolon separated CSV to comma separated csv.')
+          data = data.replace(/;/g, ',')
         }
 
         import(/* webpackChunkName: "xlsx" */ 'xlsx').then(XLSX => {
@@ -52,8 +31,7 @@ export default compose(
           routing.push('/assets/import')
         })
       }
-
-      reader.readAsBinaryString(target.files[0])
+      reader.readAsBinaryString(file)
     }
-  })
-)(XlsUploadInput)
+  }))
+)(FileInputButton)
