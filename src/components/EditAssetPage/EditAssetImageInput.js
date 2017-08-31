@@ -16,7 +16,7 @@ const EditAssetInputRef = props => {
            onChange={ onFilesSelected } style={ { display: 'none' } }/>
     {!previewImage && <div>
       <div style={ { textAlign: 'center' } }>
-        <div>Upload photo</div>
+        <div>Upload image</div>
         <i>Click to search</i>
         <div><FontIcon value="library_add"/></div>
       </div>
