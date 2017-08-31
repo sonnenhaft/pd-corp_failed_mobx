@@ -18,7 +18,7 @@ const EditAssetPage = ({ Text, asset = {}, isView, assets, save, touched, hasErr
     Save
   </Button>
 
-  const barcodeError = touched && (!asset.name || !asset.number)
+  const barcodeError = touched && (!asset.barcode || !asset.number)
   return <div>
     <AssetsPageHeader/>
     <Card styleName="page-wrapper">
@@ -50,7 +50,7 @@ const EditAssetPage = ({ Text, asset = {}, isView, assets, save, touched, hasErr
               required field. You can enter two of them.*
             </div>
             <div styleName="paired-fields">
-              <Text value="name"/>
+              <Text value="number"/>
               <Text value="barcode"/>
             </div>
           </div>}
