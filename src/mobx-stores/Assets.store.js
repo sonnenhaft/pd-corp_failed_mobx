@@ -98,7 +98,7 @@ export default class AssetsStore {
         if ( val.length > 1000 ) {
           val = val.slice(0, 1000)
         }
-      } else if ( val > 50 ) {
+      } else if ( val.length > 50 ) {
         val = val.slice(0, 50)
       }
     }
