@@ -105,18 +105,31 @@ export default class AssetsStore {
     this.active = { ...this.active, ...{ [value]: val } }
   }
 
-  activate(activeId) {
-    this.activeId = activeId
+  async activate(id) {
+    this.activeId = id
 
-    if ( activeId === -1 ) {
+    if ( id === -1 ) {
       this.active = {}
       this.activeItem = {}
       this._previewImage = null
     } else {
-      const activeItem = this.list.find(({ id }) => id === activeId) || {}
+      let activeItem
+      if ( this.list.length ) {
+        activeItem = this.list.find(({ id: _id }) => _id === id) || {}
+      } else {
+        try {
+          const {data}  = await axios.get(`/api/v1/hospital/assets/${ id }`)
+          activeItem = data
+        } catch(e) {
+          this.notifications.error('Asset not found', 6000)
+          return Promise.reject(e)
+        }
+
+      }
+
       this.active = { ...activeItem }
 
-      console.log('setting', this.active.image && this.active.image.id)
+      console.log('setting image', this.active.image && this.active.image.id)
       if ( this.active.id && this.active.image ) {
         this._previewImage = `/api/v1/hospital/images/${ this.active.image.id }`
       }
@@ -143,7 +156,7 @@ export default class AssetsStore {
 
   async add() {
     let image
-    if (this._previewImage){
+    if ( this._previewImage ) {
       image = { data_uri: this._previewImage }
     }
 
