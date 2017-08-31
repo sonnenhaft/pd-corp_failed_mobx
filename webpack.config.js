@@ -26,7 +26,7 @@ const cssHelper = arr => {
 }
 
 const common = {
-  devtool: IS_DEV ? 'source-map' : 'cheap-eval-source-map',
+  devtool: IS_DEV ? 'cheap-eval-source-map' : 'source-map',
   resolve: {
     extensions: ['.js', '.jsx', '.json'],
     modules: [paths.src, 'node_modules']
