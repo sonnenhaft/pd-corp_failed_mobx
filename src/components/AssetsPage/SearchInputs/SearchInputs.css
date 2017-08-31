@@ -43,7 +43,8 @@
 .search-inputs-card {
   position: relative;
   background: #faf9f9;
-  padding: 16px
+  padding: 16px;
+  overflow: visible;
 }
 
 .blue-text-buttons {
