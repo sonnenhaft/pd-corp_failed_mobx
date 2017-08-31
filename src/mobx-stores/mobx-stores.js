@@ -39,7 +39,8 @@ const userObservables = {
   },
   loggedIn: () => {
     const isAssetsPage = history.location.pathname === '/assets'
-    if ( user.loggedIn && isAssetsPage && !assets.list.length && !assets.tableLoading ) {
+    if ( user.loggedIn && isAssetsPage && !assets.initiallyLoaded ) {
+      assets.initiallyLoaded = true
       console.log('loading list automatically')
       assets.loadList()
     }
