@@ -15,7 +15,7 @@ const EditAssetPage = ({ Text, asset = {}, isView, assets, save, touched, hasErr
 
   let saveAssetButton = <Button raised primary disabled={ hasError && touched }>
     <FontIcon value="save"/>
-    Save Asset
+    Save
   </Button>
 
   const barcodeError = touched && (!asset.name || !asset.number)
