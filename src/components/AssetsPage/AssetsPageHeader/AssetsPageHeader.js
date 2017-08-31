@@ -21,8 +21,10 @@ const AssetsPageHeader = () => <PageHeader>
     </NavLink>
 
     <XlsUploadInput styleName="middle-button">
-      <Icon svg={ importAssetsSvg }/>
-      Import Assets
+      <Button raised>
+        <Icon svg={ importAssetsSvg }/> Import Assets
+      </Button>
+
     </XlsUploadInput>
 
     <Button raised onClick={ () => alert('define export report action') }>

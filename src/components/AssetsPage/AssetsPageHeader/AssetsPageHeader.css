@@ -8,4 +8,5 @@
 
 .middle-button {
   margin: 0 16px;
+  display: inline-block;
 }

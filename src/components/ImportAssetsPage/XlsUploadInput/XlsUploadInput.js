@@ -1,6 +1,7 @@
+import React from 'react'
 import { compose, withProps } from 'recompose'
 import { assets, notifications, routing } from 'mobx-stores'
-import { FileInputButton } from './FileInputButton'
+import { FileInputButton } from 'common'
 
 const MEGABYTE = 1024 * 1024
 const MAX_FILE_SIZE = 5 * MEGABYTE
@@ -39,4 +40,6 @@ export default compose(
       reader.readAsBinaryString(file)
     }
   }))
-)(FileInputButton)
+)(props => {
+  return <FileInputButton { ...props }/>
+})

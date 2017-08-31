@@ -1,6 +1,5 @@
 import React from 'react'
 import { compose, setPropTypes, withHandlers, withState } from 'recompose'
-import { Button } from 'react-toolbox'
 import P from 'prop-types'
 
 export const FileInputButton = compose(
@@ -12,30 +11,31 @@ export const FileInputButton = compose(
     ]),
     className: P.string,
     onFileUploaded: P.func.isRequired,
+    disabled: P.bool,
     setMaxSizeError: P.func.isRequired
   }),
   withState('inputRef', 'setInputRef', null),
   withHandlers({
-    onClick: ({ inputRef }) => () => inputRef.click(),
+    onClick: ({ inputRef, disabled }) => () => !disabled && inputRef.click(),
     onChange: ({ setMaxSizeError, inputRef, maxSize, onFileUploaded }) => ({ target }) => {
       const file = target.files[0]
 
       if ( file.size > maxSize ) {
         setMaxSizeError(file)
-        inputRef.value = null
       } else {
         onFileUploaded(file)
       }
+      inputRef.value = null
     }
   })
 )(props => {
   const { onClick, className, setInputRef, accept, onChange, children } = props
-  return <Button raised { ...{ onClick, className } }>
+  return <div { ...{ onClick, className } }>
     <input
       ref={ setInputRef }
       { ...{ accept, onChange } }
       type="file"
       style={ { display: 'none' } }/>
     {children}
-  </Button>
+  </div>
 })

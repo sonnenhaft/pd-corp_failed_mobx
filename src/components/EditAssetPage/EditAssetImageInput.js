@@ -3,18 +3,21 @@ import cn from 'classnames'
 import { compose, withHandlers, withState } from 'recompose'
 import { FontIcon, IconButton } from 'react-toolbox'
 import './EditAssetImageInput.css'
-import { assets, mobxConnect } from 'mobx-stores'
+import { assets, mobxConnect, notifications } from 'mobx-stores'
+import { FileInputButton } from 'common'
+
+const MEGABYTE = 1024 * 1024
+const MAX_FILE_SIZE = 5 * MEGABYTE
 
 const EditAssetInputRef = props => {
-  const { proxyClick, onFilesSelected, setInputRef, isView, assets } = props
-  const setPreviewImage = t => assets.setPreviewImage(t)
-  const previewImage = assets.previewImage
-  return <div
+  const { isView, setMaxSizeError, setPreviewImage, previewImage, onFileUploaded } = props
+
+  return <FileInputButton
     styleName={ cn('input-wrapper', { isView }) }
-    onClick={ proxyClick }>
-    <input ref={ setInputRef } type="file"
-           accept="image/png,image/jpg,image/jpeg,image/bmp"
-           onChange={ onFilesSelected } style={ { display: 'none' } }/>
+    accept="image/png,image/jpg,image/jpeg,image/bmp"
+    maxSize={ MAX_FILE_SIZE }
+    disabled={ isView }
+    { ...{ setMaxSizeError, onFileUploaded } }>
     {!previewImage && <div>
       <div style={ { textAlign: 'center' } }>
         <div>Upload image</div>
@@ -33,31 +36,29 @@ const EditAssetInputRef = props => {
         } }/>
       </div>
     </div>}
-  </div>
-}
-
-const setPreviewImageFromFile = (file, setPreviewImage) => {
-  const fileReader = new FileReader()
-  fileReader.onload = e => setPreviewImage(e.target.result)
-  fileReader.readAsDataURL(file)
+  </FileInputButton>
 }
 
 export default compose(
-  mobxConnect(() => {
-    return ({
-      assets,
-      active: assets.active,
-      previewImage: assets.previewImage
-    })
-  }),
-  withState('inputRef', 'setInputRef', null),
+  mobxConnect(() => ({
+    assets,
+    active: assets.active,
+    previewImage: assets.previewImage
+  })),
+  withState('error', 'setError', null),
   withHandlers({
-    proxyClick: ({ inputRef, isView }) => () => !isView && inputRef.click(),
-    onFilesSelected: () => ({ target }) => {
-      setPreviewImageFromFile(target.files[0], item => {
-        assets.setPreviewImage(item)
-      })
-      target.value = null
+    setPreviewImage: ({ assets }) => file => assets.setPreviewImage(file),
+    setMaxSizeError: () => file => {
+      const megabytes = Math.round(file.size / MEGABYTE * 10) / 10
+      notifications.error(`The file upload has failed.
+        The file size exceeds the allowable limit of 5 MB. (now is ${ megabytes }mb)`, 5000)
+    }
+  }),
+  withHandlers({
+    onFileUploaded: ({ setPreviewImage }) => file => {
+      const fileReader = new FileReader()
+      fileReader.onload = e => setPreviewImage(e.target.result)
+      fileReader.readAsDataURL(file)
     }
   })
 )(EditAssetInputRef)

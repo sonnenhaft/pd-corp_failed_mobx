@@ -9,6 +9,7 @@ export { Tooltip } from './Tooltip'
 export { IconButton, Icon }  from './Icon'
 export { StringDatePicker }  from './StringDatePicker'
 export { DeleteAssetsDialog }  from './DeleteAssetsDialog'
+export { FileInputButton }  from './FileInputButton'
 
 export const toFormData = (data = {}) => {
   return Object.keys(data).reduce((formData, key) => {
