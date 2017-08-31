@@ -32,7 +32,7 @@ const EditAssetPage = ({ Text, asset = {}, isView, assets, save, touched, hasErr
       <div styleName="edit-asset-page-content">
         <div>
           <EditAssetImageInput { ...{ isView, setTouched } }/>
-          {touched && !isView && (!asset.image && !assets.previewImage) && <span styleName="image-error">
+          {touched && asset.id && !isView && (!asset.image && !assets.previewImage) && <span styleName="image-error">
             &quot;Image&quot; is required
           </span>}
         </div>
@@ -132,7 +132,7 @@ export default compose(
       isView,
       hasError: assets.labels.some(({ key, required }) => {
         return required && !assets.active[key]
-      }) || (!assets.active.image && !assets.previewImage) || !!errors
+      }) || (assets.active.id && !assets.active.image && !assets.previewImage) || !!errors
     }
   }),
   withState('touched', 'setTouched', false),

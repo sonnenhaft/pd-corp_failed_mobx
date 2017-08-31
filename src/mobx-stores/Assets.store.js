@@ -142,7 +142,12 @@ export default class AssetsStore {
   }
 
   async add() {
-    const assetData = { ...this.active, image: { data_uri: this._previewImage } }
+    let image
+    if (this._previewImage){
+      image = { data_uri: this._previewImage }
+    }
+
+    const assetData = { ...this.active, image: image }
 
     this.labels.filter(label => {
       return label.hideOnCreate
