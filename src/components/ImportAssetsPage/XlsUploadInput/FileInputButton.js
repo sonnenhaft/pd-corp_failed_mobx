@@ -6,7 +6,10 @@ import P from 'prop-types'
 export const FileInputButton = compose(
   setPropTypes({
     accept: P.string.isRequired,
-    children: P.element,
+    children: P.oneOfType([
+      P.element,
+      P.array
+    ]),
     className: P.string,
     onFileUploaded: P.func.isRequired,
     setMaxSizeError: P.func.isRequired

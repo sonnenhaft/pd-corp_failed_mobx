@@ -1,7 +1,6 @@
 import { compose, withProps } from 'recompose'
 import { assets, notifications, routing } from 'mobx-stores'
 import { FileInputButton } from './FileInputButton'
-import './FileReader.readAsBinaryString.polyfill'
 
 const MEGABYTE = 1024 * 1024
 const MAX_FILE_SIZE = 5 * MEGABYTE
@@ -16,21 +15,27 @@ export default compose(
         The file size exceeds the allowable limit of 5 MB. (now is ${ megabytes }mb)`, 5000)
     },
     onFileUploaded: file => {
-      const reader = new FileReader()
-      reader.onload = e => {
+      async function onReadAsBinaryString(e) {
         let data = e.target.result
         if ( file.name.endsWith('.csv') && data.split(';').length > data.split(',').length ) {
           console.warn('Converting semicolon separated CSV to comma separated csv.')
           data = data.replace(/;/g, ',')
         }
 
-        import(/* webpackChunkName: "xlsx" */ 'xlsx').then(XLSX => {
-          const workbook = XLSX.read(data, { type: 'binary' })
-          const sheetData = workbook.Sheets[workbook.SheetNames[0]]
-          assets.setSheetToImport(XLSX.utils.sheet_to_json(sheetData))
-          routing.push('/assets/import')
-        })
+        const [XLSX] = await  Promise.all([
+          import(/* webpackChunkName: "xlsx" */ 'xlsx'),
+          import(/* webpackChunkName: "FileReader.readAsBinaryString.polyfill" */ './FileReader.readAsBinaryString.polyfill')
+        ])
+
+        const workbook = XLSX.read(data, { type: 'binary' })
+        const sheetData = workbook.Sheets[workbook.SheetNames[0]]
+
+        assets.setSheetToImport(XLSX.utils.sheet_to_json(sheetData))
+        routing.push('/assets/import')
       }
+
+      const reader = new FileReader()
+      reader.onload = onReadAsBinaryString
       reader.readAsBinaryString(file)
     }
   }))
