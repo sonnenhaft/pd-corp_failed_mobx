@@ -26,6 +26,15 @@ hydrate()('userStore', user).then(() => {
 })
 hydrate()('assetsStore', assets)
 
+const loggedIn = () => {
+  const isAssetsPage = history.location.pathname === '/assets'
+  if ( user.loggedIn && isAssetsPage && !assets.initiallyLoaded ) {
+    assets.initiallyLoaded = true
+    console.log('loading list automatically')
+    assets.loadList()
+  }
+}
+
 const userObservables = {
   stub: () => {
     assets.stub = user.stub
@@ -37,15 +46,10 @@ const userObservables = {
     axios.setHeaders({ authorization: user.token })
     user.loggedIn = !!user.token
   },
-  loggedIn: () => {
-    const isAssetsPage = ['', '/assets', '/', '/#/'].includes(history.location.pathname)
-    if ( user.loggedIn && isAssetsPage && !assets.initiallyLoaded ) {
-      assets.initiallyLoaded = true
-      console.log('loading list automatically')
-      assets.loadList()
-    }
-  }
+  loggedIn
 }
+
+observe(routing, loggedIn)
 
 Object.keys(userObservables).forEach(key => {
   observe(user, key, userObservables[key])
