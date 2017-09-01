@@ -83,7 +83,7 @@ const DragAndDropBoard = props => {
               &nbsp;
               <Button raised primary onClick={ handleTouched } disabled={ error }>
                 <FontIcon value="save"/>
-                Save Assets
+                Save
               </Button>
               &nbsp;
               &nbsp;
