@@ -79,7 +79,7 @@
   width: 100px
 }
 
-.image-error {
+.custom-error {
   display: block;
   margin-top: 8px;
   color: rgb(222, 50, 38);

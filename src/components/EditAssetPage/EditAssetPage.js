@@ -30,12 +30,7 @@ const EditAssetPage = ({ Text, asset = {}, isView, assets, save, touched, hasErr
         <Route path="/assets/create" component={ () => <span>Create Asset</span> }/>
       </div>
       <div styleName="edit-asset-page-content">
-        <div>
-          <EditAssetImageInput { ...{ isView, setTouched } }/>
-          {touched && asset.id && !isView && (!asset.image && !assets.previewImage) && <span styleName="image-error">
-            &quot;Image&quot; is required
-          </span>}
-        </div>
+        <EditAssetImageInput { ...{ isView, setTouched } }/>
 
         <div style={ { paddingLeft: '32px' } }>
           {isView && <div styleName="asset-number-header">
@@ -73,7 +68,7 @@ const EditAssetPage = ({ Text, asset = {}, isView, assets, save, touched, hasErr
 
           {!isView && <div>
             <br/>
-            {errors && errors.unknownError && <div styleName="image-error">
+            {errors && errors.unknownError && <div styleName="custom-error">
               {errors.unknownError}
             </div>}
             <div styleName="bottom-buttons">
@@ -132,7 +127,7 @@ export default compose(
       isView,
       hasError: assets.labels.some(({ key, required }) => {
         return required && !assets.active[key]
-      }) || (assets.active.id && !assets.active.image && !assets.previewImage) || !!errors
+      }) || !!errors
     }
   }),
   withState('touched', 'setTouched', false),

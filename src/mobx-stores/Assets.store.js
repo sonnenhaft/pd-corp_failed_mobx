@@ -118,7 +118,7 @@ export default class AssetsStore {
         activeItem = this.list.find(({ id: _id }) => _id === id) || {}
       } else {
         try {
-          const {data}  = await axios.get(`/api/v1/hospital/assets/${ id }`)
+          const { data }  = await axios.get(`/api/v1/hospital/assets/${ id }`)
           activeItem = data
         } catch(e) {
           this.notifications.error('Asset not found', 6000)
