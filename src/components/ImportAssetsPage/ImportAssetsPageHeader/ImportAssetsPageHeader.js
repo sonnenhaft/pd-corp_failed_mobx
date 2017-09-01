@@ -12,7 +12,7 @@ const AssetsPageHeader = () => <PageHeader styleName="header">
         <FontIcon value="chevron_left"/>
       </Button>
     </NavLink>
-    <span styleName="header-text">IMPORT ASSET</span>
+    <span styleName="header-text">IMPORT ASSETS</span>
   </div>
 </PageHeader>
 
