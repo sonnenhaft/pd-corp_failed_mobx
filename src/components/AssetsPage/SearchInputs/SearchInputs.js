@@ -120,6 +120,9 @@ export default compose(
         value = undefined
       }
       assets.searchParams = { ...assets.searchParams, [key]: value }
+      if (key !== 'search') {
+        assets.search()
+      }
     }
   })
 )(SearchInputs)

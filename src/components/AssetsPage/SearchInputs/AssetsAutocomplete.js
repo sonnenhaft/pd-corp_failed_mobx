@@ -2,55 +2,60 @@ import React from 'react'
 
 import './AssetsAutocomplete.css'
 import { ProgressBar } from 'react-toolbox'
-import { compose, withHandlers, withState } from 'recompose'
+import { compose, withPropsOnChange, withState } from 'recompose'
 import { assets } from 'mobx-stores'
 import Autocomplete from 'react-toolbox/lib/autocomplete'
 import { debounce } from 'lodash'
 import cn from 'classnames'
 
-const AssetsAutocomplete = ({ source, onFocus, value, onQueryChange, loading, label, onChange }) => {
+const AssetsAutocomplete = ({ source, onFocus, localValue: value, onQueryChange, loading, label, onValueChange: onChange }) => {
   return <div styleName={ cn('autocomplete-wrapper', { loading }) }>
     <Autocomplete
+      { ...{ label, source, onFocus, onChange, onQueryChange, value } }
       direction="down"
       selectedPosition="above"
-      label={ label }
-      multiple={ false }
       suggestionMatch="anywhere"
-      allowCreate={ true }
-      source={ source }
-      onFocus={ onFocus }
-      onQueryChange={ onQueryChange }
-      onChange={ onChange }
-      value={ value }
-    />
+      multiple={ false }
+      allowCreate={ true }/>
     {loading && <ProgressBar type="linear" mode="indeterminate" styleName="progress"/>}
   </div>
 }
 
-const update = debounce(action => action(), 300)
+const update = debounce(action => action(), 500)
 
 export default compose(
   withState('source', 'setSource', []),
   withState('loading', 'setLoading', false),
-  withHandlers({
-    loadValues: ({ setSource, setLoading, field }) => query => {
+  withState('localValue', 'setLocalValue', ({ value }) => value),
+  withPropsOnChange([], ({ setSource, setLoading, field }) => ({
+    loadValues(query) {
       setLoading(true)
       assets.loadAutocompleteValues(field, query).then(source => {
         setLoading(false)
         setSource(source)
       })
     }
-  }),
-  withHandlers({
-    onQueryChange: ({ loadValues, onChange }) => value => {
+  })),
+  withPropsOnChange([], ({ onChange, setLocalValue, loadValues }) => ({
+    onValueChange(value) {
+      setLocalValue(value)
       onChange(value)
-      update(() => loadValues(value))
+      console.log('here amigo', value)
     },
-    onFocus: ({ source, loadValues }) => () => {
+    onQueryChange(value){
+      setLocalValue(value)
+      update(() => {
+        onChange(value)
+        loadValues(value)
+      })
+    }
+  })),
+  withPropsOnChange(['source'], ({ source, loadValues }) => ({
+    onFocus() {
       if ( !source.length ) {
         loadValues()
       }
     }
-  })
+  }))
 )(AssetsAutocomplete)
 
