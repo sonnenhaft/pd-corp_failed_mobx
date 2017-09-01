@@ -4,9 +4,7 @@ import { compose, onlyUpdateForKeys, withState } from 'recompose'
 import cn from 'classnames'
 import { inject, observer } from 'mobx-react'
 import Checkbox from 'react-toolbox/lib/checkbox'
-import { Icon, IconButton, Tooltip } from 'common'
-
-import DeleteDialog from '../DeleteDialog'
+import { DeleteAssetsDialog, Icon, IconButton, Tooltip } from 'common'
 import { assets, routing } from 'mobx-stores'
 
 import arrowAsc from './arrow-asc.svg'
@@ -108,16 +106,14 @@ const Table = ({ setSelectedIndexes, sort, setSort, selectedIndexes, location, h
                 </Tooltip>
               </NavLink>
 
-              <DeleteDialog action={ () => assets.remove(row.id) }
-                            text="Are you sure you want to delete this asset?"
-                            title="Delete Asset">
+              <DeleteAssetsDialog action={ () => assets.remove(row.id) }>
 
                 <Tooltip text="Delete">
                   <div>
                     <IconButton tooltip="Delete Asset" svg={ bulkDeleteIcon }/>
                   </div>
                 </Tooltip>
-              </DeleteDialog>
+              </DeleteAssetsDialog>
             </div>
           </div>
         })}

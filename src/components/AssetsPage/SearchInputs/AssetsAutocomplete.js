@@ -40,7 +40,6 @@ export default compose(
     onValueChange(value) {
       setLocalValue(value)
       onChange(value)
-      console.log('here amigo', value)
     },
     onQueryChange(value){
       setLocalValue(value)

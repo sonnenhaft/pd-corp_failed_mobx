@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="20px" height="20px" viewBox="0 0 20 20" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 46.2 (44496) - http://www.bohemiancoding.com/sketch -->
+    <title>ic/d&amp;d/3</title>
+    <desc>Created with Sketch.</desc>
+    <defs></defs>
+    <g id="Symbols" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="ic/d&amp;d/3">
+            <g id="ic_open_with">
+                <g id="Icon-24px">
+                    <polygon id="Shape" points="0 0 20 0 20 20 0 20"></polygon>
+                </g>
+            </g>
+            <circle id="Oval-2" fill="#6C717B" cx="6.5" cy="5.5" r="1.5"></circle>
+            <polygon id="Path-2" stroke="#6C717B" stroke-width="2" points="2 2 2 9.89463904 11.0706785 17.9957805 18.0935309 11.0056802 9.07394199 2"></polygon>
+        </g>
+    </g>
+</svg>

@@ -1,12 +1,11 @@
 import React from 'react'
-import cn from 'classnames'
 import P from 'prop-types'
-import { DragSource } from 'react-dnd'
+import cn from 'classnames'
 import { FontIcon } from 'react-toolbox'
 import { compose, setPropTypes, withState } from 'recompose'
+import { DragSource } from 'react-dnd'
 import { Icon } from 'common'
-import toLinesIcon from './to-lines.icon.svg'
-
+import dndIcon from './d&d.icon.svg'
 import './DraggableItem.css'
 
 const DraggableItem = props => {
@@ -19,7 +18,7 @@ const DraggableItem = props => {
         hoverDragging: dragging && !isDragging
       }) }
       className={ className }>
-      <Icon svg={ toLinesIcon }/>
+      <Icon svg={ dndIcon }/>
       &nbsp;
       &nbsp;
       <span styleName="text">{ name }</span>

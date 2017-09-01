@@ -1,5 +1,5 @@
 import React from 'react'
-import { compose, withHandlers, withProps, withState } from 'recompose'
+import { compose, withHandlers, withProps, withPropsOnChange, withState } from 'recompose'
 import { NavLink, Route } from 'react-router-dom'
 import { Button, Card, FontIcon } from 'react-toolbox'
 import AssetsPageHeader from './EditAssetPageHeader'
@@ -128,19 +128,17 @@ export default compose(
       isView,
       hasError: assets.labels.some(({ key, required, pairRequired }) => {
         const pairValue = pairRequired ? assets.active[pairRequired] : true
-        console.log(pairValue)
         return required && !assets.active[key] && !pairValue
       }) || !!errors
     }
   }),
   withState('touched', 'setTouched', false),
-
-  withHandlers({
-    change: ({ assets, setErrors }) => (key, val) => {
+  withPropsOnChange([], ({ assets, setErrors }) => ({
+    change(key, val) {
       setErrors(null)
       assets.change(key, val)
     }
-  }),
+  })),
   withHandlers({
     // eslint-disable-next-line react/display-name
     Text: ({ asset, isView, touched, change, errors }) => ({ value, multiline }) => {

@@ -3,9 +3,7 @@ import { compose, withProps, withState } from 'recompose'
 import { NavLink, Route, withRouter } from 'react-router-dom'
 import { Button, FontIcon } from 'react-toolbox'
 import { inject, observer } from 'mobx-react'
-
-import DeleteDialog from '../../AssetsPage/PaginatableTable/DeleteDialog'
-import { PageHeader } from 'common'
+import { DeleteAssetsDialog, PageHeader } from 'common'
 import './EditAssetPageHeader.css'
 
 const BackBtn = ({ children, to = '/assets', ...props }) => <NavLink to={ to }>
@@ -48,17 +46,14 @@ const EditAssetsPageHeader = props => {
 
       <Route path="/assets/view/:assetId" component={ () => (
 
-        <DeleteDialog
-          action={ () => assets.remove(assets.active.id).then(() => {
-            routing.push(`${ location.pathname }/view/${ assetId }`)
-          }) }
-          text="Are you sure you want to delete this asset?"
-          title="Delete Asset">
+        <DeleteAssetsDialog action={ () => assets.remove(assets.active.id).then(() => {
+          routing.push(`${ location.pathname }/view/${ assetId }`)
+        }) }>
 
           <Button raised>
             <FontIcon value="delete"/>Delete Asset
           </Button>
-        </DeleteDialog>
+        </DeleteAssetsDialog>
       ) }/>
 
     </div>

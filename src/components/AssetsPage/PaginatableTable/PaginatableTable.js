@@ -3,9 +3,8 @@ import { compose, withHandlers, withState } from 'recompose'
 import ReactPaginate from 'react-paginate'
 import { Button, Card, FontIcon } from 'react-toolbox'
 
-import { Icon } from 'common'
+import { DeleteAssetsDialog, Icon } from 'common'
 import Table from './Table'
-import DeleteDialog from './DeleteDialog'
 import FilterColumnsButton from './FilterColumnsButton'
 import styles from './PaginatableTable.css'
 import bulkDeleteIcon from './bulk-delete-icon.svg'
@@ -16,6 +15,7 @@ const PaginatableTable = props => {
   const { changeColumnStage, selectedIndexes, setSelectedIndexes, sort, setSort, assets } = props
 
   const { labels, list, totalPages } = assets
+  const oneSelected = selectedIndexes.length === 1
   return <Card styleName="paginatable-table">
     {!totalPages && <div styleName="filter-button">
       <div styleName="header">NO ASSETS FOUND</div>
@@ -26,20 +26,18 @@ const PaginatableTable = props => {
         <div styleName="header">ASSETS FOUND ({assets.totalElements})</div>
         <div styleName="flex-buttons">
           <div styleName="some-right-wrapper">
-            {!!selectedIndexes.length && <DeleteDialog
-            action={ () => {
-              assets.remove(selectedIndexes.map(idx => list[idx].id)).then(() => {
-                setSelectedIndexes([])
-              })
-            } }
-            text="Are you sure you want to delete these assets?"
-            title="Delete Assets">
+            {!!selectedIndexes.length && <DeleteAssetsDialog
+              single={ oneSelected }
+              action={ () => {
+                const selectedIds = selectedIndexes.map(idx => list[idx].id)
+                assets.remove(selectedIds).then(() => setSelectedIndexes([]))
+              } }>
               <Button raised primary>
                 Delete
                 &nbsp;&nbsp;
                 <Icon svg={ bulkDeleteIcon }/>
               </Button>
-            </DeleteDialog>}
+            </DeleteAssetsDialog>}
           </div>
 
           <FilterColumnsButton { ...{ labels, changeColumnStage, activeColumns: assets.activeColumns } } />
