@@ -17,7 +17,7 @@ const keyLocation = 'keyLocation'
 
 const importOrder = [number, barcode, name, model, image, manufacture, type, description, department, serial, note]
 const viewOrder = [number, barcode, type, searchTerms, department, rfidAssigned, keyLocation, serial, model, rfid, manufacture, lastUsedDate, description, note]
-const editOrder = [number, barcode, name, manufacture, type, description, department, serial, rfid, model, lastUsedDate, note]
+const editOrder = [number, barcode, name, manufacture, type, description, department, serial, keyLocation, rfid, model, lastUsedDate, note]
 const searchOrder = [keyLocation, department, type, manufacture, rfidAssigned, lastUsedDate, model]
 
 export default [
@@ -26,7 +26,7 @@ export default [
   { label: 'Asset Number', key: number, required: true, alwaysInTable: true,  pairRequired: barcode },
   { label: 'Asset Type', key: type, required: true },
   { label: 'Owner/Department', key: department},
-  { label: 'Location', key: keyLocation},
+  { label: 'Location', key: keyLocation, hideOnCreate: true},
   { label: 'Model', key: model},
   { label: 'Manufacturer', key: manufacture },
   { label: 'Description', key: description },
