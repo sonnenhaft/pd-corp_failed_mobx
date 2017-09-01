@@ -99,7 +99,7 @@ const Table = ({ setSelectedIndexes, sort, setSort, selectedIndexes, location, h
             <Icon svg={ verticalDotsIcon }/>
             <div styleName="action-menu">
               <NavLink to={ `${ location.pathname }/edit/${ row.id }` }>
-                <Tooltip text="Edit">
+                <Tooltip text="Update">
                   <div>
                     <IconButton tooltip="Edit" svg={ updateIcon }/>
                   </div>
