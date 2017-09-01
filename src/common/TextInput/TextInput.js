@@ -8,6 +8,7 @@ import './TextInput.css'
 export const TextInput = ({ errorText, onEnterPressed, ...props }) => {
   const onKeyPress = onEnterPressed && (e => e.key === 'Enter' && onEnterPressed())
   const { multiline, disabled } = props
+  console.log(props.required = false)
   if ( multiline && disabled ) {
     return <DisabledTextArea { ...props } onKeyPress={ onKeyPress }/>
   } else {

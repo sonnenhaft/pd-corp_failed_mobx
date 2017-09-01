@@ -18,7 +18,7 @@ const EditAssetPage = ({ Text, asset = {}, isView, assets, save, touched, hasErr
     Save
   </Button>
 
-  const barcodeError = touched && (!asset.barcode || !asset.number)
+  const barcodeError = touched && (!asset.barcode && !asset.number)
   return <div>
     <AssetsPageHeader/>
     <Card styleName="page-wrapper">
@@ -100,12 +100,13 @@ const Text = ({ asset, isView, value, multiline, touched, change, errors }) => {
   label = isView ? `${ label }:` : `${ label }`
 
   const apiError = errors && errors[value]
+  const pairValue = label.pairRequired ? asset[label.pairRequired] : true
   const requiredError = (required && !asset[value]) && `"${ label }" is required`
-  const errorMsg = (touched && !isView) && (apiError || requiredError)
+  const errorMsg = (touched && !isView && !pairValue) && (apiError || requiredError)
   return <TextInput
     disabled={ isView }
     value={ asset[value] || '' }
-    { ...{ label, required, multiline } }
+    { ...{ label, required: required && !label.pairRequired, multiline } }
     onChange={ val => change(value, val) }
     error={ errorMsg }/>
 }
@@ -125,8 +126,10 @@ export default compose(
     return {
       asset: isView ? assets.activeItem : assets.active,
       isView,
-      hasError: assets.labels.some(({ key, required }) => {
-        return required && !assets.active[key]
+      hasError: assets.labels.some(({ key, required, pairRequired }) => {
+        const pairValue = pairRequired ? assets.active[pairRequired] : true
+        console.log(pairValue)
+        return required && !assets.active[key] && !pairValue
       }) || !!errors
     }
   }),
