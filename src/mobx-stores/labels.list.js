@@ -16,29 +16,36 @@
  private ImageDto image;
  */
 
+const hideOnEdit = true
+const alwaysInTable = true
+const hideOnView = true
+const required = true
 export default [
   { label: 'id', key: 'id', hidden: true },
-  { label: 'Asset Name', key: 'name', required: true, hideOnView: true, alwaysInTable: true },
-  { label: 'Asset Number', key: 'number', required: true, alwaysInTable: true, hideOnEdit: true, pairRequired: 'barcode' },
-  { label: 'Asset Type', key: 'type', required: true, searchOrder: 1 },
-  { label: 'Owner/Department', key: 'department', searchOrder: 5 },
-  { label: 'Location', key: 'keyLocation', searchOrder: 4, hideOnCreate: true },
-  { label: 'Model', key: 'model', searchOrder: 7 },
-  { label: 'Manufacturer', key: 'manufacture', searchOrder: 2 },
-  { label: 'Description', key: 'description' },
-  { label: 'Search Terms', key: 'searchTerms' },
-  { label: 'RFID Assigned', key: 'rfidAssigned', searchOrder: 3 },
-  { label: 'Serial Number', key: 'serial' },
-  { label: 'Barcode Number', key: 'barcode', hideOnEdit: true, required: true, pairRequired: 'number' },
-  { label: 'RFID Number', key: 'rfid' },
+  { label: 'Asset Name', key: 'name', required, hideOnView, alwaysInTable, viewOrder: 1 },
+  { label: 'Asset Number', key: 'number', required, alwaysInTable, hideOnEdit, pairRequired: 'barcode', viewOrder: -1 },
+  { label: 'Asset Type', key: 'type', required, searchOrder: 1, viewOrder: 3 },
+  { label: 'Owner/Department', key: 'department', searchOrder: 5, viewOrder: 5 },
+  { label: 'Location', key: 'keyLocation', searchOrder: 4, hideOnCreate: true, viewOrder: 7 },
+  { label: 'Model', key: 'model', searchOrder: 7, viewOrder: 9 },
+  { label: 'Manufacturer', key: 'manufacture', searchOrder: 2, viewOrder: 2 },
+  { label: 'Description', key: 'description', viewOrder: 4 },
+  { label: 'Search Terms', key: 'searchTerms', hideOnEdit },
+  { label: 'RFID Assigned', key: 'rfidAssigned', searchOrder: 3, hideOnEdit },
+  { label: 'Serial Number', key: 'serial', viewOrder: 6 },
+  { label: 'Barcode Number', key: 'barcode', hideOnEdit, required, pairRequired: 'number', viewOrder: 0 },
+  { label: 'RFID Number', key: 'rfid', viewOrder: 8, hideOnCreate: true },
   {
-    label: 'Update Location Date', key: 'lastUsedDate', hideOnEdit: true, searchOrder: 6,
-    hideOnCreate: true,
+    label: 'Update Location Date',
+    key: 'lastUsedDate',
+    searchOrder: 6,
+    viewOrder: 10,
+    hideOnEdit,
     dateFilterKeys: [
-    { key: 'fromUpdateLocationDate', label: 'Last Update Date from' },
-    { key: 'toUpdateLocationDate', label: 'Last Update Date to' }
-  ]
+      { key: 'fromUpdateLocationDate', label: 'Last Update Date from' },
+      { key: 'toUpdateLocationDate', label: 'Last Update Date to' }
+    ]
   },
   { label: 'Image', key: 'image', hidden: true },
-  { label: 'Notes', key: 'note', multiline: true }
+  { label: 'Notes', key: 'note', multiline: true, viewOrder: 11 }
 ]

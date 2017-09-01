@@ -24,6 +24,9 @@
     flex-wrap: wrap;
     & > section {
       width: 48%;
+      &.multiline {
+        width: 100%
+      }
     }
   }
 }

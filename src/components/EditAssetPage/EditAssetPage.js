@@ -8,7 +8,6 @@ import EditAssetImageInput from './EditAssetImageInput'
 import { inject, observer } from 'mobx-react'
 import { assets, routing } from 'mobx-stores'
 import cn from 'classnames'
-
 import './EditAssetPage.css'
 
 const EditAssetPage = ({ Text, asset = {}, isView, assets, save, touched, hasError, errors, setTouched }) => {
@@ -50,21 +49,18 @@ const EditAssetPage = ({ Text, asset = {}, isView, assets, save, touched, hasErr
             </div>
           </div>}
           <div styleName="asset-fields">
-            {assets.labels.filter(({ hidden, hideOnView, hideOnEdit, multiline }) => {
-              return !hidden && (!isView || !hideOnView) && (isView || !hideOnEdit) && !multiline
+            {assets.labels.filter(({ hidden, hideOnView, hideOnEdit }) => {
+              return !hidden && (!isView || !hideOnView) && (isView || !hideOnEdit)
             }).filter(label => {
               return asset.id || !label.hideOnCreate
-            }).map(({ key }) => {
-              return <Text value={ key } key={ key }/>
+            }).sort((a, b) => {
+              return a.viewOrder > b.viewOrder ? 1 : -1
+            }).map(({ key, multiline }) => {
+              return <Text value={ key } key={ key } multiline={ multiline }
+                           styleName={ cn({ multiline }) }/>
             })}
           </div>
           {isView && <hr/>}
-
-          {assets.labels.filter(({ hidden, hideOnView, hideOnEdit, multiline }) => {
-            return !hidden && (!isView || !hideOnView) && (isView || !hideOnEdit) && multiline
-          }).map(({ key }) => {
-            return <Text value={ key } key={ key } multiline/>
-          })}
 
           {!isView && <div>
             <br/>
@@ -95,7 +91,7 @@ const EditAssetPage = ({ Text, asset = {}, isView, assets, save, touched, hasErr
 }
 
 const labels = assets.getLabelsMap()
-const Text = ({ asset, isView, value, multiline, touched, change, errors }) => {
+const Text = ({ asset, isView, value, multiline, touched, change, errors, className }) => {
   let { required, label } = labels[value] || {}
   label = isView ? `${ label }:` : `${ label }`
 
@@ -104,6 +100,7 @@ const Text = ({ asset, isView, value, multiline, touched, change, errors }) => {
   const requiredError = (required && !asset[value]) && `"${ label }" is required`
   const errorMsg = (touched && !isView && !pairValue) && (apiError || requiredError)
   return <TextInput
+    className={ className }
     disabled={ isView }
     value={ asset[value] || '' }
     { ...{ label, required: required && !label.pairRequired, multiline } }
@@ -141,8 +138,8 @@ export default compose(
   })),
   withHandlers({
     // eslint-disable-next-line react/display-name
-    Text: ({ asset, isView, touched, change, errors }) => ({ value, multiline }) => {
-      return <Text { ...{ asset, isView, value, multiline, touched, change, errors } }/>
+    Text: ({ asset, isView, touched, change, errors }) => ({ value, multiline, className }) => {
+      return <Text { ...{ asset, isView, value, multiline, touched, change, errors, className } }/>
     },
     save: ({ asset, assets, setTouched, routing, hasError, setErrors }) => () => {
       setTouched(true)

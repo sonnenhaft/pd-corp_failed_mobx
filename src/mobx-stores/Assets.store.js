@@ -130,7 +130,6 @@ export default class AssetsStore {
 
       this.active = { ...activeItem }
 
-      console.log('setting image', this.active.image && this.active.image.id)
       if ( this.active.id && this.active.image ) {
         this._previewImage = `/api/v1/hospital/images/${ this.active.image.id }`
       }
