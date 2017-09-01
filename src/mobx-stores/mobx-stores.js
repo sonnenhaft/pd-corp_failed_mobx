@@ -17,7 +17,7 @@ export const routing = new RouterStore()
 export const history = syncHistoryWithStore(createHashHistory(), routing)
 
 hydrate()('userStore', user).then(() => {
-  const STORES_VERSION = '5'
+  const STORES_VERSION = '7'
   if ( localStorage.getItem('STORES_VERSION') !== STORES_VERSION ) {
     localStorage.clear()
     localStorage.setItem('STORES_VERSION', STORES_VERSION)

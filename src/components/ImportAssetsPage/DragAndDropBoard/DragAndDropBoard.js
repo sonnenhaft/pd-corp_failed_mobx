@@ -98,13 +98,14 @@ const DragAndDropBoard = props => {
 }
 
 const getInitialBoard = () => ({
-  dbFields: assets.labels.filter(item  => item.hasOwnProperty('importOrder')).sort((a, b) => {
+  dbFields: assets.labels.filter(item  => item.importOrder).sort((a, b) => {
     return a.importOrder > b.importOrder ? 1 : -1
   }).map(({ label, key, required }) => {
     const multiple = key === 'notes'
     const subText = multiple && 'Please drag and drop all other imported data fields to this field.'
     return { droppedItems: [], label, fieldKey: key, required, multiple, subText }
   }),
+
   droppedBoxNames: []
 })
 
