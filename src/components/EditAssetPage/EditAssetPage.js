@@ -41,7 +41,7 @@ const EditAssetPage = ({ Text, asset = {}, isView, assets, save, touched, hasErr
               Either
               <b> Barcode Number </b>
               or <b> Asset Number </b>
-              required field. You can enter two of them.*
+              is a required field. You can enter both of them.*
             </div>
             <div styleName="paired-fields">
               <Text value="number"/>
