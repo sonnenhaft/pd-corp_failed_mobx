@@ -54,7 +54,11 @@ const EditAssetPage = ({ Text, asset = {}, isView, assets, save, touched, hasErr
             }).filter(label => {
               return asset.id || !label.hideOnCreate
             }).sort((a, b) => {
-              return a.viewOrder > b.viewOrder ? 1 : -1
+              if (isView) {
+                return a.viewOrder > b.viewOrder ? 1 : -1
+              } else {
+                return a.editOrder > b.editOrder ? 1 : -1
+              }
             }).map(({ key, multiline }) => {
               return <Text value={ key } key={ key } multiline={ multiline }
                            styleName={ cn({ multiline }) }/>
