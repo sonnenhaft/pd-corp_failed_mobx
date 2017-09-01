@@ -49,10 +49,12 @@ const EditAssetPage = ({ Text, asset = {}, isView, assets, save, touched, hasErr
             </div>
           </div>}
           <div styleName="asset-fields">
-            {assets.labels.filter(({ hidden, hideOnView, hideOnEdit }) => {
-              return !hidden && (!isView || !hideOnView) && (isView || !hideOnEdit)
-            }).filter(label => {
-              return asset.id || !label.hideOnCreate
+            {assets.labels.filter(label => {
+              if (isView) {
+                return label.viewOrder
+              } else {
+                return label.editOrder && !label.pairRequired && (asset.id || !asset.hideOnCreate)
+              }
             }).sort((a, b) => {
               if (isView) {
                 return a.viewOrder > b.viewOrder ? 1 : -1

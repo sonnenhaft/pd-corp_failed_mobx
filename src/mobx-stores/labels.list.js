@@ -17,29 +17,27 @@ const keyLocation = 'keyLocation'
 
 const importOrder = [number, barcode, name, model, image, manufacture, type, description, department, serial, note]
 const viewOrder = [number, barcode, type, searchTerms, department, rfidAssigned, keyLocation, serial, model, rfid, manufacture, lastUsedDate, description, note]
-const editOrder = [number, barcode, name, manufacture, type, description, department, serial, keyLocation, rfid, model, lastUsedDate, note]
+const editOrder = [number, barcode, name, manufacture, type, description, department, serial, rfid, model, lastUsedDate, note]
 const searchOrder = [keyLocation, department, type, manufacture, rfidAssigned, lastUsedDate, model]
 
 export default [
   { label: 'id', key: 'id', hidden: true },
-  { label: 'Asset Name', key: name, required: true, hideOnView: true, alwaysInTable: true },
-  { label: 'Asset Number', key: number, required: true, alwaysInTable: true, hideOnEdit: true, pairRequired: barcode },
-  { label: 'Asset Type', key: type, required: true, searchOrder: 1 },
-  { label: 'Owner/Department', key: department, searchOrder: 5 },
-  { label: 'Location', key: keyLocation, searchOrder: 4 },
-  { label: 'Model', key: model, searchOrder: 7 },
-  { label: 'Manufacturer', key: manufacture, searchOrder: 2 },
+  { label: 'Asset Name', key: name, required: true,  alwaysInTable: true },
+  { label: 'Asset Number', key: number, required: true, alwaysInTable: true,  pairRequired: barcode },
+  { label: 'Asset Type', key: type, required: true },
+  { label: 'Owner/Department', key: department},
+  { label: 'Location', key: keyLocation},
+  { label: 'Model', key: model},
+  { label: 'Manufacturer', key: manufacture },
   { label: 'Description', key: description },
-  { label: 'Search Terms', key: searchTerms, hideOnEdit: true },
-  { label: 'RFID Assigned', key: rfidAssigned, searchOrder: 3, hideOnEdit: true },
+  { label: 'Search Terms', key: searchTerms },
+  { label: 'RFID Assigned', key: rfidAssigned },
   { label: 'Serial Number', key: serial },
-  { label: 'Barcode Number', key: barcode, hideOnEdit: true, required: true, pairRequired: number },
+  { label: 'Barcode Number', key: barcode, required: true, pairRequired: number },
   { label: 'RFID Number', key: rfid, hideOnCreate: true },
   {
     label: 'Update Location Date',
     key: lastUsedDate,
-    searchOrder: 6,
-    hideOnEdit: true,
     dateFilterKeys: [
       { key: 'fromUpdateLocationDate', label: 'Update Location Date From' },
       { key: 'toUpdateLocationDate', label: 'Update Location Date To' }
