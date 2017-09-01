@@ -18,7 +18,7 @@ const keyLocation = 'keyLocation'
 const importOrder = [number, barcode, name, model, image, manufacture, type, description, department, serial, note]
 const viewOrder = [number, barcode, type, searchTerms, department, rfidAssigned, keyLocation, serial, model, rfid, manufacture, lastUsedDate, description, note]
 const editOrder = [number, barcode, name, manufacture, type, description, department, serial, keyLocation, rfid, model, lastUsedDate, note]
-const searchOrder = [keyLocation, department, type, manufacture, rfidAssigned, lastUsedDate, model]
+const searchOrder = [type, manufacture, rfidAssigned, keyLocation, department, lastUsedDate, model]
 
 export default [
   { label: 'id', key: 'id', hidden: true },
