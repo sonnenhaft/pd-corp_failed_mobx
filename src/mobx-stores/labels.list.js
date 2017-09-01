@@ -42,8 +42,8 @@ export default [
     viewOrder: 10,
     hideOnEdit,
     dateFilterKeys: [
-      { key: 'fromUpdateLocationDate', label: 'Last Update Date from' },
-      { key: 'toUpdateLocationDate', label: 'Last Update Date to' }
+      { key: 'fromUpdateLocationDate', label: 'Update Location Date From' },
+      { key: 'toUpdateLocationDate', label: 'Update Location Date To' }
     ]
   },
   { label: 'Image', key: 'image', hidden: true },
