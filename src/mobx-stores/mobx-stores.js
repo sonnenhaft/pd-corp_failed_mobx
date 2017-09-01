@@ -38,7 +38,7 @@ const userObservables = {
     user.loggedIn = !!user.token
   },
   loggedIn: () => {
-    const isAssetsPage = history.location.pathname === '/assets'
+    const isAssetsPage = ['', '/assets', '/', '/#/'].includes(history.location.pathname)
     if ( user.loggedIn && isAssetsPage && !assets.initiallyLoaded ) {
       assets.initiallyLoaded = true
       console.log('loading list automatically')
