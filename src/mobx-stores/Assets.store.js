@@ -41,7 +41,7 @@ export default class AssetsStore {
   @observable deletingItem = false
   @persist('object') @observable sort = { key: 'name', asc: true }
   @persist('object') @observable activeColumns = labels
-    .filter(({ defaultVisible, alwaysInTable }) => defaultVisible || alwaysInTable)
+    .filter(({ alwaysInTable }) => alwaysInTable)
     .map(({ key }) => key)
     .reduce((map, key) => (map[key] = true) && map, {})
 
