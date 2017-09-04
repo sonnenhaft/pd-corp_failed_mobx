@@ -2,7 +2,7 @@ const name = 'name'
 const number = 'number'
 const type = 'type'
 const department = 'department'
-const manufacture = 'manufacture'
+const manufacturer = 'manufacturer'
 const description = 'description'
 const searchTerms = 'searchTerms'
 const rfidAssigned = 'rfidAssigned'
@@ -15,10 +15,10 @@ const image = 'image'
 const model = 'model'
 const keyLocation = 'keyLocation'
 
-const importOrder = [number, barcode, name, model, image, manufacture, type, description, department, serial, note]
-const viewOrder = [number, barcode, type, searchTerms, department, rfidAssigned, keyLocation, serial, model, rfid, manufacture, lastUsedDate, description, note]
-const editOrder = [number, barcode, name, manufacture, type, description, department, serial, keyLocation, rfid, model, lastUsedDate, note]
-const searchOrder = [type, manufacture, rfidAssigned, keyLocation, department, lastUsedDate, model]
+const importOrder = [number, barcode, name, model, image, manufacturer, type, description, department, serial, note]
+const viewOrder = [number, barcode, type, searchTerms, department, rfidAssigned, keyLocation, serial, model, rfid, manufacturer, lastUsedDate, description, note]
+const editOrder = [number, barcode, name, manufacturer, type, description, department, serial, keyLocation, rfid, model, lastUsedDate, note]
+const searchOrder = [type, manufacturer, rfidAssigned, keyLocation, department, lastUsedDate, model]
 
 export default [
   { label: 'id', key: 'id', hidden: true },
@@ -28,7 +28,7 @@ export default [
   { label: 'Owner/Department', key: department },
   { label: 'Location', key: keyLocation, hideOnCreate: true },
   { label: 'Model', key: model },
-  { label: 'Manufacturer', key: manufacture },
+  { label: 'Manufacturer', key: manufacturer },
   { label: 'Description', key: description },
   { label: 'Search Terms', key: searchTerms },
   { label: 'RFID Assigned', key: rfidAssigned },
