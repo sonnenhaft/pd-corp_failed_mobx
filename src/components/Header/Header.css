@@ -78,8 +78,9 @@
 
 .username {
   margin-top: -5px;
-  font-weight: normal;
   color: var(--color-white) !important;
+  font-size: 13px;
+  font-weight: bold;
 }
 
 .logo {
