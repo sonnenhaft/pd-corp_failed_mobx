@@ -6,6 +6,16 @@
   padding-top: 24px;
 }
 
+@media only screen and (max-width: 600px) {
+  .page-header {
+    height: 80px;
+  }
+
+  .page-header-wrapper {
+    flex-direction:column;
+  }
+}
+
 .page-header-wrapper {
   display: flex;
   color: var(--color-white);
