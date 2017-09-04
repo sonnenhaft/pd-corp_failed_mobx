@@ -11,7 +11,7 @@
   & hr {
     padding: 0;
     margin: 0;
-    height: 3px;
+    height: 1px;
     background: var(--color-white);
     opacity: 0.05;
     border: none;
