@@ -19,7 +19,7 @@ const Table = ({ setSelectedIndexes, sort, setSort, selectedIndexes, location, h
 
   const someSelected = selectedIndexes.length > 0
   const visibleLabels = labels.filter(({ hidden }) => !hidden)
-  const menuHidden = selectedIndexes.length > 1
+  const menuHidden = selectedIndexes.length > 0
   return <div>
     <div styleName="custom-table-wrapper">
       <div styleName="actions-row-wrapper" onMouseLeave={ () => setHoveredIndex(-1) }>
@@ -34,7 +34,7 @@ const Table = ({ setSelectedIndexes, sort, setSort, selectedIndexes, location, h
           const hovered = hoveredIndex === index
 
           return <div
-            styleName={ cn('action-td-wrapper', { selected: hovered || selected }) }
+            styleName={ cn('action-td-wrapper', { selected:  selected }) }
             key={ index }
             onMouseEnter={ () => setHoveredIndex(index) }>
             <Checkbox checked={ selected } onChange={ () => {
