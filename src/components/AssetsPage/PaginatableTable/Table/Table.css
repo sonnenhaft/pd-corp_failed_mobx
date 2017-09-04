@@ -45,9 +45,11 @@
     padding-left: 16px;
     padding-right: 16px;
   }
-  & th {
+  & th, & td {
     cursor: pointer;
-    color: rgb(158, 158, 158);
+  }
+  & th, & td {
+    color: #52555B
   }
 }
 
