@@ -1,6 +1,7 @@
 @import "react-toolbox/lib/button/theme.css";
 
 .header-text {
+  letter-spacing: 1px;
   font-size: 20px;
   color: var(--palette-blue-grey-50);
   display: flex;

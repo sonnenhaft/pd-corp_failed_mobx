@@ -10,7 +10,7 @@
 }
 
 .filled ~ .label {
-  color: black
+  color: black;
 }
 
 .inputElement {

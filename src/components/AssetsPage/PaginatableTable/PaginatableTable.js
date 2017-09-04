@@ -17,8 +17,12 @@ const PaginatableTable = props => {
   const { labels, list, totalPages } = assets
   const oneSelected = selectedIndexes.length === 1
   return <Card styleName="paginatable-table">
-    {!totalPages && <div styleName="filter-button">
-      <div styleName="header">NO ASSETS FOUND</div>
+    {!totalPages && <div styleName="no-assets-wrapper">
+      <div styleName="no-assets-header">NO ASSETS FOUND</div>
+      <div>
+        Try to make your search query simpler, or remove some filters.
+      </div>
+
     </div>}
 
     {!!totalPages && <div>
