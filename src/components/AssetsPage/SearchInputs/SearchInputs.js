@@ -22,8 +22,8 @@ const SearchInputs = props => {
 
     <div styleName="input-with-button">
       <TextInputWithIcon
-        onFocus={()=> setFocused(true)}
-        onBlur={()=> setFocused(false)}
+        onFocus={ () => setFocused(true) }
+        onBlur={ () => setFocused(false) }
         icon={ searchIcon }
         label={ focused || search ? '' : 'Type here' }
         value={ search || '' }

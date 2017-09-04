@@ -34,7 +34,7 @@ const Table = ({ setSelectedIndexes, sort, setSort, selectedIndexes, location, h
           const hovered = hoveredIndex === index
 
           return <div
-            styleName={ cn('action-td-wrapper', { selected:  selected }) }
+            styleName={ cn('action-td-wrapper', { selected:  selected || hovered }) }
             key={ index }
             onMouseEnter={ () => setHoveredIndex(index) }>
             <Checkbox checked={ selected } onChange={ () => {

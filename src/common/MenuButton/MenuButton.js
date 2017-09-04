@@ -5,8 +5,8 @@ import { Button, Menu } from 'react-toolbox'
 
 import './MenuButton.css'
 
-const MenuButton = ({ active, setActive, children, icon, ...props }) => <div styleName="menu-button">
-  <Button onClick={ () => setActive(!active) } { ...props }>
+const MenuButton = ({ active, setActive, children, icon, className, ...props }) => <div styleName="menu-button">
+  <Button onClick={ () => setActive(!active) } { ...props } className={ className }>
     {icon(active)}
   </Button>
   <div styleName="menu-wrapper">
