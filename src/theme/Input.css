@@ -9,13 +9,9 @@
   color: var(--button-disabled-text-color);
 }
 
-.filled ~ .label {
-  color: black;
-}
-
 .inputElement {
   font-size: 14px;
-  color: var(--button-disabled-text-color);
+  color: black;
 }
 
 .input.disabled {
