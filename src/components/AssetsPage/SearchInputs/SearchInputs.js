@@ -11,7 +11,7 @@ import { assets } from 'mobx-stores'
 
 import AssetsAutocomplete from './AssetsAutocomplete'
 const SearchInputs = props => {
-  const { expanded, setExpanded, resetFilters, keyChanged } = props
+  const { expanded, setExpanded, resetFilters, keyChanged, focused, setFocused } = props
   const { assets } = props
   const searchParams = assets.searchParams
   const search = searchParams.search
@@ -22,8 +22,10 @@ const SearchInputs = props => {
 
     <div styleName="input-with-button">
       <TextInputWithIcon
+        onFocus={()=> setFocused(true)}
+        onBlur={()=> setFocused(false)}
         icon={ searchIcon }
-        label={ search ? '' : 'Type here' }
+        label={ focused || search ? '' : 'Type here' }
         value={ search || '' }
         onChange={ keyChanged('search') }
         onEnterPressed={ () => assets.search()  }/>
@@ -106,6 +108,7 @@ export default compose(
   })),
   observer,
   withState('expanded', 'setExpanded', false),
+  withState('focused', 'setFocused', false),
   withHandlers({
     resetFilters: () => () => {
       assets.searchParams = {}

@@ -23,7 +23,6 @@ const DisabledTextAreaDummy = props => {
   const { className, setExpanded, expanded, multiline, value = '', disabled, label } = props
   const collsapsible = multiline && value.length > MAX_LEN && disabled
 
-  console.log(className)
   return <section styleName="content" className={ className }>
     <label styleName="label">{label}</label>
     {collsapsible && <div>
