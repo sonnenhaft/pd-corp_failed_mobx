@@ -241,7 +241,7 @@ export default class AssetsStore {
       await delay()
       return []
     } else {
-      let term = { manufacture: 'manufacturer' }[key] || key.toLowerCase()
+      let term = key.toLowerCase()
       const params = query ? null : { q: query }
       const { data: { values } } = await axios.get(`/api/v1/hospital/assets/${ term }`, { params })
       return values
@@ -261,17 +261,12 @@ export default class AssetsStore {
         sort = `${ this.sort.key },${ this.sort.asc ? 'asc' : 'desc' }`
       }
       const params = { ...this.searchParams, ...this.paging, size: PAGE_SIZE, sort }
-
-      const { data: { content, totalPages, totalElements } } = await axios.get('/api/v1/hospital/assets', { params })
-      content.forEach(item => {
-        const keyLocation = item.keyLocation || {}
-        const searchTerms = keyLocation.searchTerms || []
-        item.keyLocationObject = keyLocation
-        item.keyLocation = keyLocation.name
-        item.keyLocationId = keyLocation.id
-        item.searchTerms = searchTerms.join(', ')
-      })
-      Object.assign(this, { list: content, totalPages, totalElements })
+      try {
+        const { data: { content, totalPages, totalElements } } = await axios.get('/api/v1/hospital/assets', { params })
+        Object.assign(this, { list: content, totalPages, totalElements })
+      } catch(e) {
+        this.notifications.error(e, 100000)
+      }
     }
 
     this.tableLoading = false

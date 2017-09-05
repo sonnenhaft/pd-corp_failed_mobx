@@ -2,7 +2,7 @@ import React from 'react'
 import { compose, withProps, withState } from 'recompose'
 import { NavLink, Route, withRouter } from 'react-router-dom'
 import { Button, FontIcon } from 'react-toolbox'
-import { inject, observer } from 'mobx-react'
+import { mobxConnect } from 'mobx-stores'
 import { DeleteAssetsDialog, PageHeader } from 'common'
 import './EditAssetPageHeader.css'
 
@@ -63,7 +63,6 @@ const EditAssetsPageHeader = props => {
 export default compose(
   withRouter,
   withState('hoveredIndex', 'setHoveredIndex', -1),
-  inject('assets', 'routing'),
-  observer,
+  mobxConnect('assets', 'routing'),
   withProps(({ assets }) => ({ activeItem: assets.active }))
 )(EditAssetsPageHeader)

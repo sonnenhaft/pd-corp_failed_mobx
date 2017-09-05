@@ -9,7 +9,7 @@ import FilterColumnsButton from './FilterColumnsButton'
 import styles from './PaginatableTable.css'
 import bulkDeleteIcon from './bulk-delete-icon.svg'
 import { assets } from 'mobx-stores'
-import { inject, observer } from 'mobx-react'
+import { mobxConnect } from 'mobx-stores'
 
 const PaginatableTable = props => {
   const { changeColumnStage, selectedIndexes, setSelectedIndexes, sort, setSort, assets } = props
@@ -17,8 +17,12 @@ const PaginatableTable = props => {
   const { labels, list, totalPages } = assets
   const oneSelected = selectedIndexes.length === 1
   return <Card styleName="paginatable-table">
-    {!totalPages && <div styleName="filter-button">
-      <div styleName="header">NO ASSETS FOUND</div>
+    {!totalPages && <div styleName="no-assets-wrapper">
+      <div styleName="no-assets-header">NO ASSETS FOUND</div>
+      <div>
+        Try to make your search query simpler, or remove some filters.
+      </div>
+
     </div>}
 
     {!!totalPages && <div>
@@ -79,6 +83,5 @@ export default compose(
     },
     changeColumnStage: () => (active, key) => assets.activateColumn(key, active)
   }),
-  inject('assets'),
-  observer
+  mobxConnect('assets')
 )(PaginatableTable)

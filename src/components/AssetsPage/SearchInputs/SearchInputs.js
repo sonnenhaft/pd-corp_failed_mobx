@@ -6,12 +6,11 @@ import searchIcon from './search-icon.svg'
 import { Button, Card, ProgressBar } from 'react-toolbox'
 import { compose, withHandlers, withState } from 'recompose'
 import FontIcon from 'react-toolbox/lib/font_icon'
-import { inject, observer } from 'mobx-react'
-import { assets } from 'mobx-stores'
+import { assets, mobxConnect } from 'mobx-stores'
 
 import AssetsAutocomplete from './AssetsAutocomplete'
 const SearchInputs = props => {
-  const { expanded, setExpanded, resetFilters, keyChanged } = props
+  const { expanded, setExpanded, resetFilters, keyChanged, focused, setFocused } = props
   const { assets } = props
   const searchParams = assets.searchParams
   const search = searchParams.search
@@ -22,8 +21,10 @@ const SearchInputs = props => {
 
     <div styleName="input-with-button">
       <TextInputWithIcon
+        onFocus={ () => setFocused(true) }
+        onBlur={ () => setFocused(false) }
         icon={ searchIcon }
-        label={ search ? '' : 'Type here' }
+        label={ focused || search ? '' : 'Type here' }
         value={ search || '' }
         onChange={ keyChanged('search') }
         onEnterPressed={ () => assets.search()  }/>
@@ -43,12 +44,7 @@ const SearchInputs = props => {
     </div>
 
     <div styleName="blue-text-buttons">
-      <RippleDiv onClick={ () => {
-        if (expanded) {
-          resetFilters()
-        }
-        setExpanded(!expanded)
-      } }>
+      <RippleDiv onClick={ () => setExpanded(!expanded) }>
         Filters
         <FontIcon value={ expanded ? 'keyboard_arrow_up' : 'keyboard_arrow_down' }
                   styleName="icon"/>
@@ -98,14 +94,14 @@ const SearchInputs = props => {
   </Card>
 }
 export default compose(
-  inject(() => ({
+  mobxConnect(() => ({
     assets,
     searchParams: assets.searchParams,
     tableLoading: assets.tableLoading,
     deletingItem: assets.deletingItem
   })),
-  observer,
   withState('expanded', 'setExpanded', false),
+  withState('focused', 'setFocused', false),
   withHandlers({
     resetFilters: () => () => {
       assets.searchParams = {}
@@ -120,7 +116,7 @@ export default compose(
         value = undefined
       }
       assets.searchParams = { ...assets.searchParams, [key]: value }
-      if (key !== 'search') {
+      if ( key !== 'search' ) {
         assets.search()
       }
     }

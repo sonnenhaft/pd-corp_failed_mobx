@@ -1,6 +1,5 @@
 import React from 'react'
-import { inject, observer } from 'mobx-react'
-import { compose } from 'recompose'
+import { mobxConnect } from 'mobx-stores'
 
 import AssetsPageHeader from './AssetsPageHeader'
 import SearchInputs from './SearchInputs'
@@ -16,7 +15,4 @@ const AssetsPage = ({ assets: { list: data, labels } }) => <div>
   </div>
 </div>
 
-export default compose(
-  inject('assets'),
-  observer
-)(AssetsPage)
+export default mobxConnect('assets')(AssetsPage)

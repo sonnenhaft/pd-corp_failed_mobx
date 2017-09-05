@@ -12,13 +12,12 @@ const Notifications = mobxConnect('notifications')(({ notifications }) => {
     transitionName="notification"
     transitionEnterTimeout={ 500 }
     transitionLeaveTimeout={ 500 }>
-    {list.map((notification, i) => (<div
+    {list.map(notification => (<div
       styleName="notification"
       className={ notification.type }
-      key={ i }>
+      key={ notification.index }>
       <div styleName="text-wrapper">
-        {notification.type === 'success' && <FontIcon value="check_circle"/>}
-        {notification.type === 'error' && <FontIcon value="error_outline"/>}
+        <FontIcon value={ notification.type === 'success' ? 'check_circle' : 'error_outline' }/>
         {notification.text}
       </div>
 

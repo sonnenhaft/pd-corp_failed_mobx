@@ -4,11 +4,9 @@
   display: flex;
   flex-wrap: wrap;
   align-content: flex-end;
+  justify-content: space-between;
   & > div {
-    width: 31%;
-    &:nth-of-type(3n -1) {
-      margin: 0 3.5%;
-    }
+    width: 32%;
   }
   & .date-inputs {
     display: flex;
@@ -45,6 +43,7 @@
   background: #faf9f9;
   padding: 16px;
   overflow: visible;
+  box-shadow: 0 0 0.3px rgba(0, 0, 0, 0.3);
 }
 
 .blue-text-buttons {
@@ -52,6 +51,7 @@
   justify-content: space-between;
   font-size: 14px;
   color: var(--color-primary);
+  box-shadow: 0 0 1px #004890!important;
   cursor: pointer;
   & > div {
     vertical-align: middle;

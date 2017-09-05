@@ -25,4 +25,19 @@
   }
 }
 
+.show-columns-button {
+  font-size: 14px;
+  color: #0077c8 !important;
+  & path {
+    fill: #0077c8 !important;
+  }
 
+  &:hover:not([disabled]),
+  &:focus {
+    color: white!important;
+    background: #0077c8!important;
+    & path {
+      fill: white !important;
+    }
+  }
+}
