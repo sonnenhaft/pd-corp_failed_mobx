@@ -7,7 +7,7 @@ import { assets } from 'mobx-stores'
 import Autocomplete from 'react-toolbox/lib/autocomplete'
 import { debounce } from 'lodash'
 import cn from 'classnames'
-import Mark from 'mark.js/dist/mark.es6'
+import Mark from 'mark.js/dist/mark'
 
 const AssetsAutocomplete = ({ source, onFocus, setRef, localValue: value, onQueryChange, loading, label, onValueChange: onChange }) => {
   return <div styleName={ cn('autocomplete-wrapper', { loading }) } ref={ setRef }>
