@@ -8,19 +8,25 @@ export default class NotificationsStore {
     // { text: 'Static test', type: 'error' }
   ]
 
-  info(text) {
-    this.add({ text, type: 'success' })
+  counter = 0
+
+  info(text, time) {
+    this.add({ text, type: 'success', time })
   }
 
-  error(text) {
-    this.add({ text, type: 'error' })
+  error(error, time) {
+    if ( typeof error !== 'string' ) {
+      const { message, path, msg } = error.response.data
+      error = `${ message || msg } ${ path || '' }`
+    }
+    this.add({ text: error, type: 'error', time })
   }
 
-  async add({ text, type = 'success' }) {
-    const notification = { text, type }
+  async add({ text, type = 'success', time }) {
+    const notification = { text, type, index: this.counter++ }
 
     this.list.push(notification)
-    await delay()
+    await delay(time)
     this.remove(notification)
   }
 

@@ -266,8 +266,7 @@ export default class AssetsStore {
         const { data: { content, totalPages, totalElements } } = await axios.get('/api/v1/hospital/assets', { params })
         Object.assign(this, { list: content, totalPages, totalElements })
       } catch(e) {
-        const { message, path } = e.response.data
-        this.notifications.error(`${ message } ${ path }`, 6000)
+        this.notifications.error(e, 100000)
       }
     }
 
