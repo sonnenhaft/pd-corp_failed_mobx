@@ -261,7 +261,6 @@ export default class AssetsStore {
         sort = `${ this.sort.key },${ this.sort.asc ? 'asc' : 'desc' }`
       }
       const params = { ...this.searchParams, ...this.paging, size: PAGE_SIZE, sort }
-
       try {
         const { data: { content, totalPages, totalElements } } = await axios.get('/api/v1/hospital/assets', { params })
         Object.assign(this, { list: content, totalPages, totalElements })

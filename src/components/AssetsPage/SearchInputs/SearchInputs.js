@@ -6,8 +6,7 @@ import searchIcon from './search-icon.svg'
 import { Button, Card, ProgressBar } from 'react-toolbox'
 import { compose, withHandlers, withState } from 'recompose'
 import FontIcon from 'react-toolbox/lib/font_icon'
-import { inject, observer } from 'mobx-react'
-import { assets } from 'mobx-stores'
+import { assets, mobxConnect } from 'mobx-stores'
 
 import AssetsAutocomplete from './AssetsAutocomplete'
 const SearchInputs = props => {
@@ -45,12 +44,7 @@ const SearchInputs = props => {
     </div>
 
     <div styleName="blue-text-buttons">
-      <RippleDiv onClick={ () => {
-        if (expanded) {
-          resetFilters()
-        }
-        setExpanded(!expanded)
-      } }>
+      <RippleDiv onClick={ () => setExpanded(!expanded) }>
         Filters
         <FontIcon value={ expanded ? 'keyboard_arrow_up' : 'keyboard_arrow_down' }
                   styleName="icon"/>
@@ -100,13 +94,12 @@ const SearchInputs = props => {
   </Card>
 }
 export default compose(
-  inject(() => ({
+  mobxConnect(() => ({
     assets,
     searchParams: assets.searchParams,
     tableLoading: assets.tableLoading,
     deletingItem: assets.deletingItem
   })),
-  observer,
   withState('expanded', 'setExpanded', false),
   withState('focused', 'setFocused', false),
   withHandlers({
@@ -123,7 +116,7 @@ export default compose(
         value = undefined
       }
       assets.searchParams = { ...assets.searchParams, [key]: value }
-      if (key !== 'search') {
+      if ( key !== 'search' ) {
         assets.search()
       }
     }

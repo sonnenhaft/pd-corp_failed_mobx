@@ -16,19 +16,9 @@ export const assets = new AssetsStore(notifications)
 export const routing = new RouterStore()
 export const history = syncHistoryWithStore(createHashHistory(), routing)
 
-hydrate()('userStore', user).then(() => {
-  const STORES_VERSION = '8'
-  if ( localStorage.getItem('STORES_VERSION') !== STORES_VERSION ) {
-    localStorage.clear()
-    localStorage.setItem('STORES_VERSION', STORES_VERSION)
-    location.reload()
-  }
-})
-hydrate()('assetsStore', assets)
-
 const loggedIn = () => {
   const isAssetsPage = history.location.pathname === '/assets'
-  if ( user.loggedIn && isAssetsPage && !assets.initiallyLoaded ) {
+  if ( user.loggedIn && isAssetsPage && !assets.initiallyLoaded && assets.hydrated ) {
     assets.initiallyLoaded = true
     console.log('loading list automatically')
     assets.loadList()
@@ -48,6 +38,21 @@ const userObservables = {
   },
   loggedIn
 }
+
+Promise.all([
+  hydrate()('userStore', user).then(() => {
+    const STORES_VERSION = '8'
+    if ( localStorage.getItem('STORES_VERSION') !== STORES_VERSION ) {
+      localStorage.clear()
+      localStorage.setItem('STORES_VERSION', STORES_VERSION)
+      location.reload()
+    }
+  }),
+  hydrate()('assetsStore', assets).then(() => {
+    assets.hydrated = true
+    loggedIn()
+  })
+])
 
 observe(routing, loggedIn)
 

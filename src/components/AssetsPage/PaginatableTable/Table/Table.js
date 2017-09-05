@@ -2,7 +2,7 @@ import React from 'react'
 import { NavLink, withRouter } from 'react-router-dom'
 import { compose, onlyUpdateForKeys, withState } from 'recompose'
 import cn from 'classnames'
-import { inject, observer } from 'mobx-react'
+import { mobxConnect } from 'mobx-stores'
 import Checkbox from 'react-toolbox/lib/checkbox'
 import { DeleteAssetsDialog, Icon, IconButton, Tooltip } from 'common'
 import { assets, routing } from 'mobx-stores'
@@ -123,8 +123,7 @@ const Table = ({ setSelectedIndexes, sort, setSort, selectedIndexes, location, h
 }
 
 export default compose(
-  inject(() => ({ list: assets.list, sort: assets.sort })),
-  observer,
+  mobxConnect(() => ({ list: assets.list, sort: assets.sort })),
   withRouter,
   withState('hoveredIndex', 'setHoveredIndex', -1),
   onlyUpdateForKeys(['list', 'selectedIndexes', 'hoveredIndex', 'labels'])

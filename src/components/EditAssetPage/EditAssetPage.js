@@ -5,7 +5,7 @@ import { Button, Card, FontIcon } from 'react-toolbox'
 import AssetsPageHeader from './EditAssetPageHeader'
 import { Dialog, TextInput } from 'common'
 import EditAssetImageInput from './EditAssetImageInput'
-import { inject, observer } from 'mobx-react'
+import { mobxConnect } from 'mobx-stores'
 import { assets, routing } from 'mobx-stores'
 import cn from 'classnames'
 import './EditAssetPage.css'
@@ -115,14 +115,13 @@ const Text = ({ asset, isView, value, multiline, touched, change, errors, classN
 }
 
 export default compose(
-  inject(() => ({
+  mobxConnect(() => ({
     assets,
     routing,
     active: assets.active,
     activeItem: assets.activeItem,
     previewImage: assets.previewImage
   })),
-  observer,
   withState('errors', 'setErrors', null),
   withProps(({ assets, routing, errors }) => {
     const isView = routing.location.pathname.includes('view')

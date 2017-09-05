@@ -9,7 +9,7 @@ import FilterColumnsButton from './FilterColumnsButton'
 import styles from './PaginatableTable.css'
 import bulkDeleteIcon from './bulk-delete-icon.svg'
 import { assets } from 'mobx-stores'
-import { inject, observer } from 'mobx-react'
+import { mobxConnect } from 'mobx-stores'
 
 const PaginatableTable = props => {
   const { changeColumnStage, selectedIndexes, setSelectedIndexes, sort, setSort, assets } = props
@@ -83,6 +83,5 @@ export default compose(
     },
     changeColumnStage: () => (active, key) => assets.activateColumn(key, active)
   }),
-  inject('assets'),
-  observer
+  mobxConnect('assets')
 )(PaginatableTable)
