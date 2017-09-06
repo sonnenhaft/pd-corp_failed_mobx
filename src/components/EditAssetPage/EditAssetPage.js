@@ -1,12 +1,11 @@
 import React from 'react'
-import { compose, withHandlers, withProps, withPropsOnChange, withState } from 'recompose'
+import { compose, withHandlers, withPropsOnChange, withState } from 'recompose'
 import { NavLink, Route } from 'react-router-dom'
 import { Button, Card, FontIcon } from 'react-toolbox'
 import AssetsPageHeader from './EditAssetPageHeader'
 import { Dialog, TextInput } from 'common'
 import EditAssetImageInput from './EditAssetImageInput'
-import { mobxConnect } from 'mobx-stores'
-import { assets, routing } from 'mobx-stores'
+import { assets, mobxConnect, routing } from 'mobx-stores'
 import cn from 'classnames'
 import './EditAssetPage.css'
 
@@ -50,13 +49,13 @@ const EditAssetPage = ({ Text, asset = {}, isView, assets, save, touched, hasErr
           </div>}
           <div styleName="asset-fields">
             {assets.labels.filter(label => {
-              if (isView) {
+              if ( isView ) {
                 return label.viewOrder
               } else {
                 return label.editOrder && !label.pairRequired && (asset.id || !asset.hideOnCreate)
               }
             }).sort((a, b) => {
-              if (isView) {
+              if ( isView ) {
                 return a.viewOrder > b.viewOrder ? 1 : -1
               } else {
                 return a.editOrder > b.editOrder ? 1 : -1
@@ -97,20 +96,25 @@ const EditAssetPage = ({ Text, asset = {}, isView, assets, save, touched, hasErr
 }
 
 const labels = assets.getLabelsMap()
-const Text = ({ asset, isView, value, multiline, touched, change, errors, className }) => {
-  let { required, label } = labels[value] || {}
-  label = isView ? `${ label }:` : `${ label }`
+const Text = ({ asset, isView, isUpdate, value, multiline, touched, change, errors, className }) => {
+  let { required, label, key, pairRequired, updateRequired } = labels[value] || {}
 
-  const apiError = errors && errors[value]
-  const pairValue = label.pairRequired ? asset[label.pairRequired] : true
-  const requiredError = (required && !asset[value]) && `"${ label }" is required`
-  const errorMsg = (touched && !isView && !pairValue) && (apiError || requiredError)
+  label = isView ? `${ label }:` : `${ label }`
+  required = (required || (updateRequired && isUpdate) ) && !pairRequired
+
+  let errorMsg = ''
+  if ( errors && errors[key] ) {
+    errorMsg = errors[key]
+  } else if ( touched && !isView && required && !asset[key] ) {
+    errorMsg = `"${ label }" is required`
+  }
+
   return <TextInput
     className={ className }
     disabled={ isView }
-    value={ asset[value] || '' }
-    { ...{ label, required: required && !label.pairRequired, multiline } }
-    onChange={ val => change(value, val) }
+    value={ asset[key] || '' }
+    { ...{ label, required, multiline } }
+    onChange={ value => change(key, value) }
     error={ errorMsg }/>
 }
 
@@ -123,14 +127,20 @@ export default compose(
     previewImage: assets.previewImage
   })),
   withState('errors', 'setErrors', null),
-  withProps(({ assets, routing, errors }) => {
+  withPropsOnChange(['assets', 'routing', 'errors', 'active'], ({ assets, routing, errors }) => {
     const isView = routing.location.pathname.includes('view')
+    const isUpdate = routing.location.pathname.includes('edit')
     return {
       asset: isView ? assets.activeItem : assets.active,
       isView,
-      hasError: assets.labels.some(({ key, required, pairRequired }) => {
-        const pairValue = pairRequired ? assets.active[pairRequired] : true
-        return required && !assets.active[key] && !pairValue
+      isUpdate,
+      hasError: assets.labels.some(({ key, required, pairRequired, updateRequired }) => {
+        let val = assets.active[key]
+        required = required || (updateRequired && isUpdate)
+        if ( pairRequired ) {
+          val = val || assets.active[pairRequired]
+        }
+        return required && !val
       }) || !!errors
     }
   }),
@@ -143,8 +153,8 @@ export default compose(
   })),
   withHandlers({
     // eslint-disable-next-line react/display-name
-    Text: ({ asset, isView, touched, change, errors }) => ({ value, multiline, className }) => {
-      return <Text { ...{ asset, isView, value, multiline, touched, change, errors, className } }/>
+    Text: ({ asset, isView, isUpdate, touched, change, errors }) => ({ value, multiline, className }) => {
+      return <Text { ...{ asset, isView, isUpdate, value, multiline, touched, change, errors, className } }/>
     },
     save: ({ asset, assets, setTouched, routing, hasError, setErrors }) => () => {
       setTouched(true)

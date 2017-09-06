@@ -22,7 +22,7 @@ const orders = {
     department, rfidAssigned, keyLocation, serial, model,
     rfid, manufacturer, lastUsedDate, description, note],
   editOrder: [number, barcode, name, manufacturer, type, description,
-    department, serial, keyLocation, rfid, model, lastUsedDate, note],
+    department, serial, keyLocation, rfid, model, note],
   searchOrder: [type, manufacturer, rfidAssigned,
     keyLocation, department, lastUsedDate, model]
 }
@@ -31,7 +31,7 @@ export default [
   { label: 'id', key: 'id', hidden: true },
   { label: 'Asset Name', key: name, required: true, alwaysInTable: true },
   { label: 'Asset Number', key: number, required: true, alwaysInTable: true, pairRequired: barcode },
-  { label: 'Asset Type', key: type, required: true },
+  { label: 'Asset Type', key: type, updateRequired: true },
   { label: 'Owner/Department', key: department },
   { label: 'Location', key: keyLocation, hideOnCreate: true },
   { label: 'Model', key: model },
