@@ -12,6 +12,7 @@ export default class AssetsStore {
 
   @persist('list') @observable list = []
   @persist @observable totalPages = 1
+  @persist @observable filtersExpanded = false
   @persist @observable totalElements = 1
 
   @persist @observable _previewImage = null

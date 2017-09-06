@@ -15,15 +15,22 @@ const image = 'image'
 const model = 'model'
 const keyLocation = 'keyLocation'
 
-const importOrder = [number, barcode, name, model, image, manufacturer, type, description, department, serial, note]
-const viewOrder = [number, barcode, type, searchTerms, department, rfidAssigned, keyLocation, serial, model, rfid, manufacturer, lastUsedDate, description, note]
-const editOrder = [number, barcode, name, manufacturer, type, description, department, serial, keyLocation, rfid, model, lastUsedDate, note]
-const searchOrder = [type, manufacturer, rfidAssigned, keyLocation, department, lastUsedDate, model]
+const orders = {
+  importOrder: [number, barcode, name, model, image,
+    manufacturer, type, description, department, serial, note],
+  viewOrder: [number, barcode, type, searchTerms,
+    department, rfidAssigned, keyLocation, serial, model,
+    rfid, manufacturer, lastUsedDate, description, note],
+  editOrder: [number, barcode, name, manufacturer, type, description,
+    department, serial, keyLocation, rfid, model, lastUsedDate, note],
+  searchOrder: [type, manufacturer, rfidAssigned,
+    keyLocation, department, lastUsedDate, model]
+}
 
 export default [
   { label: 'id', key: 'id', hidden: true },
-  { label: 'Asset Name', key: name, required: true,  alwaysInTable: true },
-  { label: 'Asset Number', key: number, required: true, alwaysInTable: true,  pairRequired: barcode },
+  { label: 'Asset Name', key: name, required: true, alwaysInTable: true },
+  { label: 'Asset Number', key: number, required: true, alwaysInTable: true, pairRequired: barcode },
   { label: 'Asset Type', key: type, required: true },
   { label: 'Owner/Department', key: department },
   { label: 'Location', key: keyLocation, hideOnCreate: true },
@@ -45,15 +52,7 @@ export default [
   },
   { label: 'Asset Image', key: image, hidden: true },
   { label: 'Notes', key: note, multiline: true }
-].map(obj => {
-  const _importOrder = importOrder.indexOf(obj.key) + 1 || undefined
-  const _viewOrder = viewOrder.indexOf(obj.key) + 1 || undefined
-  const _editOrder = editOrder.indexOf(obj.key) + 1 || undefined
-  const _searchOrder = searchOrder.indexOf(obj.key) + 1 || undefined
-  return Object.assign(obj, {
-    importOrder: _importOrder,
-    viewOrder: _viewOrder,
-    editOrder: _editOrder,
-    searchOrder: _searchOrder
-  })
-})
+].map(label => Object.keys(orders).reduce((label, key) => {
+  label[key] = orders[key].indexOf(label.key) + 1 || undefined
+  return label
+}, label))

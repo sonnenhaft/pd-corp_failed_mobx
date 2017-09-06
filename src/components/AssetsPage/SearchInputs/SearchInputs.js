@@ -10,7 +10,7 @@ import { assets, mobxConnect } from 'mobx-stores'
 
 import AssetsAutocomplete from './AssetsAutocomplete'
 const SearchInputs = props => {
-  const { expanded, setExpanded, resetFilters, keyChanged, focused, setFocused } = props
+  const { filtersExpanded:expanded, setExpanded, resetFilters, keyChanged, focused, setFocused } = props
   const { assets } = props
   const searchParams = assets.searchParams
   const search = searchParams.search
@@ -97,12 +97,15 @@ export default compose(
   mobxConnect(() => ({
     assets,
     searchParams: assets.searchParams,
+    filtersExpanded: assets.filtersExpanded,
     tableLoading: assets.tableLoading,
     deletingItem: assets.deletingItem
   })),
-  withState('expanded', 'setExpanded', false),
   withState('focused', 'setFocused', false),
   withHandlers({
+    setExpanded: () => () => {
+      assets.filtersExpanded = !assets.filtersExpanded
+    },
     resetFilters: () => () => {
       assets.searchParams = {}
       assets.search()
