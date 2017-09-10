@@ -135,7 +135,7 @@ export default class AssetsStore {
    */
   changeAndCutActiveAssetField(fieldName, newValue) {
     if ( typeof newValue === 'string' ) {
-      if ( ['description', 'notes'].includes(fieldName) ) {
+      if ( ['description', 'note'].includes(fieldName) ) {
         if ( newValue.length > 1000 ) {
           newValue = newValue.slice(0, 1000)
         }
