@@ -1,6 +1,6 @@
 import React from 'react'
 import cn from 'classnames'
-import { compose, withHandlers, withState } from 'recompose'
+import { compose, withProps, withState } from 'recompose'
 import { FontIcon, IconButton } from 'react-toolbox'
 import './EditAssetImageInput.css'
 import { assets, mobxConnect, notifications } from 'mobx-stores'
@@ -40,25 +40,25 @@ const EditAssetInputRef = props => {
 }
 
 export default compose(
-  mobxConnect(() => ({
-    assets,
-    active: assets.active,
-    previewImage: assets.previewImage
-  })),
   withState('error', 'setError', null),
-  withHandlers({
-    setPreviewImage: ({ assets }) => file => assets.setPreviewImage(file),
-    setMaxSizeError: () => file => {
+  withProps({
+    setPreviewImage(file){ assets.setPreviewImage(file) },
+    setMaxSizeError(file) {
       const megabytes = Math.round(file.size / MEGABYTE * 10) / 10
       notifications.error(`The file upload has failed.
         The file size exceeds the allowable limit of 5 MB. (now is ${ megabytes }mb)`, 5000)
     }
   }),
-  withHandlers({
-    onFileUploaded: ({ setPreviewImage }) => file => {
+  withProps(({ setPreviewImage }) => ({
+    onFileUploaded(file) {
       const fileReader = new FileReader()
       fileReader.onload = e => setPreviewImage(e.target.result)
       fileReader.readAsDataURL(file)
     }
-  })
+  })),
+  mobxConnect(() => ({
+    assets,
+    active: assets.active,
+    previewImage: assets.previewImage
+  }))
 )(EditAssetInputRef)
