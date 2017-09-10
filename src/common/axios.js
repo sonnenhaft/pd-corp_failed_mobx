@@ -2,7 +2,7 @@ import * as _axios from 'axios'
 
 let headers = {}
 
-const axios = _axios.create({})
+export const axios = _axios.create({})
 
 axios.setHeaders = _headers => headers = _headers
 
@@ -17,10 +17,8 @@ axios.interceptors.response.use(
   response => response,
   error => {
     if ( error.response.status === 401 ) {
-      console.warn('//TODO: logout user on 401')
+      console.warn('//TODO: logout user on HTTP status 401')
     }
     return Promise.reject(error)
   }
 )
-
-export  default axios

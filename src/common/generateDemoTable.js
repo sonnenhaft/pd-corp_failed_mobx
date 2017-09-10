@@ -11,11 +11,11 @@ const keyFunctions = {
   model_name: () => chance.name()
 }
 
-export const generateLine = labels => () => labels.reduce((obj, { key }) => {
+export const generateLine = labels => labels.reduce((obj, { key }) => {
   obj[key] = (keyFunctions[key] || chance.name.bind(chance))()
   return obj
 }, {})
 
-export default (labels, size) => {
-  return chance.n(generateLine(labels), chance.integer({ min: Math.min(2, size), max: size }))
+export const generateDemoTable = (labels, size) => {
+  return chance.n(() => generateLine(labels), chance.integer({ min: Math.min(2, size), max: size }))
 }

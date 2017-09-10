@@ -4,6 +4,6 @@
  * import common from 'common/index' or from
  * import common from 'common/common' we just DO instead
  * import common from 'common' or
- * import { SomeSpecificFunc } from 'common'
+ * import { SomeSpecificFunc } from 'common'.
  */
 export * from './common'

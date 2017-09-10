@@ -3,16 +3,16 @@ import React from 'react'
 import './SearchInputs.css'
 import { RippleDiv, StringDatePicker, TextInputWithIcon } from 'common'
 import searchIcon from './search-icon.svg'
-import { Button, Card, ProgressBar } from 'react-toolbox'
-import { compose, withHandlers, withState } from 'recompose'
-import FontIcon from 'react-toolbox/lib/font_icon'
+import { Button, Card, ProgressBar, FontIcon } from 'react-toolbox'
+import { compose, withState, withProps } from 'recompose'
 import { assets, mobxConnect } from 'mobx-stores'
 
 import AssetsAutocomplete from './AssetsAutocomplete'
 const SearchInputs = props => {
-  const { filtersExpanded:expanded, setExpanded, resetFilters, keyChanged, focused, setFocused } = props
+  const { setExpanded, resetFilters, keyChanged, focused, setFocused } = props
   const { assets } = props
   const searchParams = assets.searchParams
+  const expanded = assets.filtersExpanded
   const search = searchParams.search
   const isNotEmpty = !!Object.values(searchParams).length
 
@@ -94,23 +94,16 @@ const SearchInputs = props => {
   </Card>
 }
 export default compose(
-  mobxConnect(() => ({
-    assets,
-    searchParams: assets.searchParams,
-    filtersExpanded: assets.filtersExpanded,
-    tableLoading: assets.tableLoading,
-    deletingItem: assets.deletingItem
-  })),
   withState('focused', 'setFocused', false),
-  withHandlers({
-    setExpanded: () => () => {
+  withProps({
+    setExpanded: () => {
       assets.filtersExpanded = !assets.filtersExpanded
     },
-    resetFilters: () => () => {
+    resetFilters: () => {
       assets.searchParams = {}
       assets.search()
     },
-    keyChanged: ({ assets }) => key => value => {
+    keyChanged: key => value => {
       if ( value ) {
         if ( key === 'search' && value.length > 500 ) {
           value = value.slice(0, 500)
@@ -123,5 +116,6 @@ export default compose(
         assets.search()
       }
     }
-  })
+  }),
+  mobxConnect('assets')
 )(SearchInputs)

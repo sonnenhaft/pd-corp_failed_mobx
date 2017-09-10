@@ -1,5 +1,5 @@
 import React from 'react'
-import { compose, withHandlers, withPropsOnChange, withState } from 'recompose'
+import { compose, withHandlers, withProps, withPropsOnChange, withState } from 'recompose'
 import { NavLink, Route } from 'react-router-dom'
 import { Button, Card, FontIcon } from 'react-toolbox'
 import AssetsPageHeader from './EditAssetPageHeader'
@@ -95,9 +95,9 @@ const EditAssetPage = ({ Text, asset = {}, isView, assets, save, touched, hasErr
   </div>
 }
 
-const labels = assets.getLabelsMap()
+const labelsMap = assets.labelsMap
 const Text = ({ asset, isView, isUpdate, value, multiline, touched, change, errors, className }) => {
-  let { required, label, key, pairRequired, updateRequired } = labels[value] || {}
+  let { required, label, key, pairRequired, updateRequired } = labelsMap[value] || {}
 
   label = isView ? `${ label }:` : `${ label }`
   required = (required || (updateRequired && isUpdate) ) && !pairRequired
@@ -123,7 +123,7 @@ export default compose(
     assets,
     routing,
     active: assets.active,
-    activeItem: assets.activeItem,
+    editableActiveAsset: assets.editableActiveAsset,
     previewImage: assets.previewImage
   })),
   withState('errors', 'setErrors', null),
@@ -131,7 +131,7 @@ export default compose(
     const isView = routing.location.pathname.includes('view')
     const isUpdate = routing.location.pathname.includes('edit')
     return {
-      asset: isView ? assets.activeItem : assets.active,
+      asset: isView ? assets.editableActiveAsset : assets.active,
       isView,
       isUpdate,
       hasError: assets.labels.some(({ key, required, pairRequired, updateRequired }) => {
@@ -145,10 +145,10 @@ export default compose(
     }
   }),
   withState('touched', 'setTouched', false),
-  withPropsOnChange([], ({ assets, setErrors }) => ({
-    change(key, val) {
+  withProps(({ assets, setErrors }) => ({
+    change(fieldName, value) {
       setErrors(null)
-      assets.change(key, val)
+      assets.changeAndCutActiveAssetField(fieldName, value)
     }
   })),
   withHandlers({
@@ -162,15 +162,14 @@ export default compose(
         (asset.id ? assets.update() : assets.add())
           .then(() => routing.push('/assets'))
           .catch(e => {
-            e = e.response.data
-            const key = {
+            const { data } = e.response
+            const fieldName = {
                 RFID_ALREADY_USED: 'rfid',
                 NUMBER_ALREADY_USED: 'name',
                 BARCODE_ALREADY_USED: 'barcode'
-              }[e.error] || e.field || 'unknownError'
-            const errors = { [key]: e.msg || JSON.stringify(e) }
-            console.error(errors)
-            setErrors(errors)
+              }[data.error] || data.field || 'unknownError'
+
+            setErrors({ [fieldName]: data.msg || JSON.stringify(data) })
           })
       }
     }

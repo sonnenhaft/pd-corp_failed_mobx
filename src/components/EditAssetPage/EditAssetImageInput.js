@@ -1,6 +1,6 @@
 import React from 'react'
 import cn from 'classnames'
-import { compose, withHandlers, withState } from 'recompose'
+import { compose, withProps, withState } from 'recompose'
 import { FontIcon, IconButton } from 'react-toolbox'
 import './EditAssetImageInput.css'
 import { assets, mobxConnect, notifications } from 'mobx-stores'
@@ -10,7 +10,7 @@ const MEGABYTE = 1024 * 1024
 const MAX_FILE_SIZE = 5 * MEGABYTE
 
 const EditAssetInputRef = props => {
-  const { isView, setMaxSizeError, setPreviewImage, previewImage, onFileUploaded } = props
+  const { isView, setMaxSizeError, previewImage, onFileUploaded } = props
 
   return <FileInputButton
     styleName={ cn('input-wrapper', { isView }) }
@@ -31,7 +31,7 @@ const EditAssetInputRef = props => {
         <div styleName="background"/>
         <IconButton icon="mode_edit" primary/>
         <IconButton icon="delete" accent onClick={ e => {
-          setPreviewImage(null)
+          assets.previewImage = null
           e.stopPropagation()
         } }/>
       </div>
@@ -40,25 +40,24 @@ const EditAssetInputRef = props => {
 }
 
 export default compose(
-  mobxConnect(() => ({
-    assets,
-    active: assets.active,
-    previewImage: assets.previewImage
-  })),
   withState('error', 'setError', null),
-  withHandlers({
-    setPreviewImage: ({ assets }) => file => assets.setPreviewImage(file),
-    setMaxSizeError: () => file => {
+  withProps({
+    setMaxSizeError(file) {
       const megabytes = Math.round(file.size / MEGABYTE * 10) / 10
       notifications.error(`The file upload has failed.
         The file size exceeds the allowable limit of 5 MB. (now is ${ megabytes }mb)`, 5000)
     }
   }),
-  withHandlers({
-    onFileUploaded: ({ setPreviewImage }) => file => {
+  withProps({
+    onFileUploaded(file) {
       const fileReader = new FileReader()
-      fileReader.onload = e => setPreviewImage(e.target.result)
+      fileReader.onload = e => assets.previewImage = e.target.result
       fileReader.readAsDataURL(file)
     }
-  })
+  }),
+  mobxConnect(() => ({
+    assets,
+    active: assets.active,
+    previewImage: assets.previewImage
+  }))
 )(EditAssetInputRef)

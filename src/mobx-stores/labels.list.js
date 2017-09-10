@@ -15,6 +15,11 @@ const image = 'image'
 const model = 'model'
 const keyLocation = 'keyLocation'
 
+/**
+ * @const { Object<string,<Array<string>> }  map with orders of fields on different pages,
+ * applied below to labels array. Not absolutely clear solution, but allows to keep consistency,
+ * and quickly and properly to update order of fields on different pages.
+ */
 const orders = {
   importOrder: [number, barcode, name, model, image,
     manufacturer, type, description, department, serial, note],
@@ -27,6 +32,13 @@ const orders = {
     keyLocation, department, lastUsedDate, model]
 }
 
+/**
+ * @export { <Array<Object<string, string|bool|number>> }  list that defined all possible
+ * assets labels.
+ * Commonly used through the application, very useful for consistency,
+ * allows to quickly resolve cases when label or labels "feature" (like
+ * its order on edit page, or its lengths) changed.
+ */
 export default [
   { label: 'id', key: 'id', hidden: true },
   { label: 'Asset Name', key: name, required: true, alwaysInTable: true },

@@ -1,5 +1,5 @@
 import React from 'react'
-import { compose, withHandlers, withState } from 'recompose'
+import { compose, withState, withProps } from 'recompose'
 import ReactPaginate from 'react-paginate'
 import { Button, Card, FontIcon } from 'react-toolbox'
 
@@ -8,8 +8,7 @@ import Table from './Table'
 import FilterColumnsButton from './FilterColumnsButton'
 import styles from './PaginatableTable.css'
 import bulkDeleteIcon from './bulk-delete-icon.svg'
-import { assets } from 'mobx-stores'
-import { mobxConnect } from 'mobx-stores'
+import { assets, mobxConnect } from 'mobx-stores'
 
 const PaginatableTable = props => {
   const { changeColumnStage, selectedIndexes, setSelectedIndexes, sort, setSort, assets } = props
@@ -48,7 +47,7 @@ const PaginatableTable = props => {
         </div>
       </div>
 
-      <Table { ...{ labels: assets.getVisibleLabels(), list, setSelectedIndexes, sort, setSort, selectedIndexes } }/>
+      <Table { ...{ labels: assets.visibleLabels, list, setSelectedIndexes, sort, setSort, selectedIndexes } }/>
       {totalPages > 1 && <div>
         <ReactPaginate
           nextLabel={ <FontIcon value="keyboard_arrow_right"/> }
@@ -65,7 +64,7 @@ const PaginatableTable = props => {
           disabledClassName={ styles['page-disabled'] }
           subContainerClassName={ 'pages pagination' }
           activeClassName={ styles['active-page-link'] }
-          forcePage={ assets.paging.page }/>
+          forcePage={ assets.currentPage }/>
       </div>}
     </div>}
   </Card>
@@ -73,15 +72,16 @@ const PaginatableTable = props => {
 
 export default compose(
   withState('selectedIndexes', 'setIndexes', []),
-  withHandlers({
-    setSort: () => key => assets.changeSort(key),
-    setSelectedIndexes: ({ setIndexes }) => indexes => {
+  withProps(({ setIndexes }) => ({
+    setSort(key) { assets.changeSort(key) },
+    changeColumnStage(active, key) { assets.activateColumn(key, active) },
+    setSelectedIndexes(indexes) {
       if ( indexes === 'all' ) {
-        indexes = assets.list.map((item, index) => index)
+        indexes = assets.list.map((ignored, index) => index)
+      } else {
+        setIndexes(indexes)
       }
-      setIndexes(indexes)
-    },
-    changeColumnStage: () => (active, key) => assets.activateColumn(key, active)
-  }),
+    }
+  })),
   mobxConnect('assets')
 )(PaginatableTable)
