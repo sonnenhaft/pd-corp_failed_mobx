@@ -7,42 +7,44 @@ import { FontIcon, MenuItem } from 'react-toolbox'
 import { MenuButton } from 'common'
 import { user } from 'mobx-stores'
 
-const stableLinks = [
-  { link: '/assets', value: 'assets' },
-  { link: '/users', value: 'users' },
-  { link: '/wands', value: 'wands' },
-  { link: '/key-locations', value: 'key locations' },
-  { link: '/stationary-readers', value: 'Stationary Readers' }
+const globalProjectLinks = [
+  { link: '/assets', label: 'assets' },
+  { link: '/users', label: 'users' },
+  { link: '/wands', label: 'wands' },
+  { link: '/key-locations', label: 'key locations' },
+  { link: '/stationary-readers', label: 'Stationary Readers' }
 ]
 
-const Header = () => {
-  const username = user.username
-  return <div
-    styleName="header-width-wrapper">
-    <hr/>
-    <div styleName="header-wrapper">
-      <div styleName="logo">
-        <img src={ logoIcon }/>
-      </div>
-      <div styleName="header">
-        {stableLinks.map(({ link, value }) => <NavLink
-          key={ value } title={ value } activeClassName={ styles['active'] }
-          to={ link }>{value}</NavLink>)}
-      </div>
-
-      <MenuButton label={ username } styleName="username" primary
-                  icon={ active => <FontIcon value={ active ? 'arrow_drop_up' : 'arrow_drop_down' }/> }>
-        {/*<MenuItem value='download' icon='get_app' caption={ username }/>*/}
-        {/*<MenuItem value='help' icon='favorite' caption='Favorite'/>*/}
-        {/*<MenuItem value='settings' icon='open_in_browser' caption='Open in app'/>*/}
-        {/*<MenuItem value='signout' icon='delete' caption='Delete' disabled/>*/}
-        <MenuItem value='Logout' caption='Logout' onClick={ () => user.logout() }/>
-      </MenuButton>
+/**
+ * Global header component. If is not sticky at this point.
+ * Stores info about global links and current username.
+ * Username is done in menu-style, right now contains one
+ * "logout" link.
+ */
+const Header = ({ user: username }) => <div styleName="header-width-wrapper">
+  <hr/>
+  <div styleName="header-wrapper">
+    <div styleName="logo">
+      <img src={ logoIcon }/>
     </div>
+    <div styleName="header">
+      {globalProjectLinks.map(({ link, label }) => <NavLink
+        key={ label } title={ label } activeClassName={ styles['active'] }
+        to={ link }>{label}</NavLink>)}
+    </div>
+
+    <MenuButton label={ username } styleName="username" primary
+                icon={ active => <FontIcon value={ active ? 'arrow_drop_up' : 'arrow_drop_down' }/> }>
+      {/*<MenuItem value='download' icon='get_app' caption={ username } disabled/>*/}
+      <MenuItem value='Logout' caption='Logout' onClick={ () => user.logout() }/>
+    </MenuButton>
   </div>
-}
+</div>
 
 export default compose(
+  // Injects react-router.
   withRouter,
+  // Means that will not rerender on anything except
+  // location router change.
   onlyUpdateForKeys(['location'])
 )(Header)

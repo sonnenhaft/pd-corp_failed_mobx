@@ -14,7 +14,8 @@ import packageJson from '../package.json'
 
 /**
  * Root "App" component, that should contain most of
- * routing logic, initial auth logic, it also contains info about themeing.
+ * routing logic (what to display when url changes),
+ * initial auth logic, it also contains info about themeing.
  */
 const App = mobxConnect('user')(({ user }) => {
   if ( user.loggedIn ) {
@@ -22,11 +23,12 @@ const App = mobxConnect('user')(({ user }) => {
       <div styleName="app">
         <Notifications/>
         <Header/>
+        {/* Note how switch is used to render particular page basing on current url
+         Please also not that order matters in here. */}
         <Switch>
-          {/* Please not that order matters in here */}
           <Route exact path="/assets/edit/:assetId" component={ EditAssetPage }/>
-          {/* we need function wrapper in here because of router not
-           triggers render on location param (:assetId) changed */}
+          {/* We need function wrapper in here because of router not
+           triggers render on location param (:assetId) changed. */}
           <Route exact path="/assets/view/:assetId" component={ () => <EditAssetPage/> }/>
           <Route exact path="/assets/create" component={ EditAssetPage }/>
           <Route exact path="/assets/import" component={ ImportAssetsPage }/>
@@ -41,8 +43,8 @@ const App = mobxConnect('user')(({ user }) => {
     // TODO(vlad): extract to login page
     return <div style={ { padding: '20px' } }>
       <Button primary raised onClick={ () => user.login() }>Login</Button>
-      {/* you see &nbsp; in here, and some where else because
-       of how react trims lines in JSX */}
+      {/* You see &nbsp; in here, and some where else because
+       of how react trims lines in JSX. */}
       &nbsp;
       <Button primary raised onClick={ () => user.stubLogin() }>Stub</Button>
       <br/>

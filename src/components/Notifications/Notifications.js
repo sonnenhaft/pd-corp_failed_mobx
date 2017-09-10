@@ -4,6 +4,15 @@ import ReactCSSTransitionGroup from 'react-addons-css-transition-group'
 import './Notifications.css'
 import { FontIcon, IconButton } from 'react-toolbox'
 
+/**
+ * Component that shows error and success notifications.
+ * It is basing on notifications MobX store
+ * @see mobx-stores/Notifications.store.js
+ * It should be single in this project because is using "fixed" styles.
+ *
+ * Please don't leave any logic in here except rendering one.
+ * All timeout and other logic should be kept in MobX store.
+ */
 const Notifications = mobxConnect('notifications')(({ notifications }) => {
   const list = notifications.list
   return <ReactCSSTransitionGroup
