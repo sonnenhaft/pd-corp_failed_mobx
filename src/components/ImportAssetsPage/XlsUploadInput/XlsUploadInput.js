@@ -31,7 +31,7 @@ export default compose(
         const workbook = XLSX.read(data, { type: 'binary' })
         const sheetData = workbook.Sheets[workbook.SheetNames[0]]
 
-        assets.setSheetToImport(XLSX.utils.sheet_to_json(sheetData))
+        assets.xlsTable = XLSX.utils.sheet_to_json(sheetData)
         routing.push('/assets/import')
       }
 

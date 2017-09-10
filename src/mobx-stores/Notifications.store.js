@@ -1,29 +1,43 @@
 import { observable } from 'mobx'
+import { delay } from 'common'
 
-const delay = (time = 3000) => new Promise(resolve => setTimeout(resolve, time))
-
+/** @type { NotificationsStore } */
 export default class NotificationsStore {
-  @observable list = [
-    // { text: 'Static test', type: 'success' },
-    // { text: 'Static test', type: 'error' }
-  ]
+  /**
+   * Container for notifications, like api errors, or when something
+   * important and good happened.
+   * @example [
+   *    { text: 'Static test', type: 'success' },
+   *    { text: 'Static test', type: 'error' }
+   * ]
+   * @field { Array<Object{text: string, type: string}> }
+   */
+  @observable list = []
 
-  counter = 0
+  /**
+   * @field { number } integer incremental unique indicator for message
+   * necessary because we may have 2 same messages, but in react
+   * to render array we need something unique, especially if we want to apply
+   * list animations properly
+   */
+  messagesCounter = 0
 
-  info(text, time) {
+  info(text, time = 3000) {
     this.add({ text, type: 'success', time })
   }
 
-  error(error, time) {
+  error(error, time = 6000) {
     if ( typeof error !== 'string' ) {
-      const { message, path, msg } = error.response.data
-      error = `${ message || msg } ${ path || '' }`
+      error = (Array.isArray(error) ? error : [error]).map(error => {
+        const { message, path, msg } = error.response.data
+        return `${ message || msg } ${ path || '' }`
+      }).join(' | ')
     }
     this.add({ text: error, type: 'error', time })
   }
 
   async add({ text, type = 'success', time }) {
-    const notification = { text, type, index: this.counter++ }
+    const notification = { text, type, index: this.messagesCounter++ }
 
     this.list.push(notification)
     await delay(time)

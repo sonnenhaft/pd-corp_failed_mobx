@@ -47,7 +47,7 @@ const PaginatableTable = props => {
         </div>
       </div>
 
-      <Table { ...{ labels: assets.getVisibleLabels(), list, setSelectedIndexes, sort, setSort, selectedIndexes } }/>
+      <Table { ...{ labels: assets.visibleLabels, list, setSelectedIndexes, sort, setSort, selectedIndexes } }/>
       {totalPages > 1 && <div>
         <ReactPaginate
           nextLabel={ <FontIcon value="keyboard_arrow_right"/> }
@@ -64,7 +64,7 @@ const PaginatableTable = props => {
           disabledClassName={ styles['page-disabled'] }
           subContainerClassName={ 'pages pagination' }
           activeClassName={ styles['active-page-link'] }
-          forcePage={ assets.paging.page }/>
+          forcePage={ assets.currentPage }/>
       </div>}
     </div>}
   </Card>

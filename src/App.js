@@ -42,9 +42,11 @@ const App = mobxConnect('user')(({ user }) => {
   } else {
     // TODO(vlad): extract to login page
     return <div style={ { padding: '20px' } }>
-      <Button primary raised onClick={ () => user.login() }>Login</Button>
+      <Button primary raised onClick={ () => user.loginNoAuth() }>No auth enter</Button>
       {/* You see &nbsp; in here, and some where else because
        of how react trims lines in JSX. */}
+      &nbsp;
+      <Button primary raised onClick={ () => user.login() }>Login</Button>
       &nbsp;
       <Button primary raised onClick={ () => user.stubLogin() }>Stub</Button>
       <br/>

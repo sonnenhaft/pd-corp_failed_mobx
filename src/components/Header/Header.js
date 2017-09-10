@@ -21,7 +21,7 @@ const globalProjectLinks = [
  * Username is done in menu-style, right now contains one
  * "logout" link.
  */
-const Header = ({ user: username }) => <div styleName="header-width-wrapper">
+const Header = () => <div styleName="header-width-wrapper">
   <hr/>
   <div styleName="header-wrapper">
     <div styleName="logo">
@@ -33,7 +33,7 @@ const Header = ({ user: username }) => <div styleName="header-width-wrapper">
         to={ link }>{label}</NavLink>)}
     </div>
 
-    <MenuButton label={ username } styleName="username" primary
+    <MenuButton label={ user.username } styleName="username" primary
                 icon={ active => <FontIcon value={ active ? 'arrow_drop_up' : 'arrow_drop_down' }/> }>
       {/*<MenuItem value='download' icon='get_app' caption={ username } disabled/>*/}
       <MenuItem value='Logout' caption='Logout' onClick={ () => user.logout() }/>

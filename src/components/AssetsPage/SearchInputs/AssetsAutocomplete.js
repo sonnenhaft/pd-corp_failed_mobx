@@ -33,7 +33,7 @@ export default compose(
   withPropsOnChange([], ({ setSource, setLoading, field }) => ({
     loadValues(query) {
       setLoading(true)
-      assets.loadAutocompleteValues(field, query).then(source => {
+      assets.fetchAutoCompleteValues(field, query).then(source => {
         setLoading(false)
         setSource(source)
       })

@@ -9,11 +9,15 @@ import { Tooltip } from 'common'
 import { NavLink } from 'react-router-dom'
 import './DragAndDropBoard.css'
 import { Button, FontIcon } from 'react-toolbox'
-import { mobxConnect, assets } from 'mobx-stores'
+import { assets, mobxConnect } from 'mobx-stores'
 
 const DragAndDropBoard = props => {
-  const { boardState: { dbFields }, isDropped, handleDrop, handleRemove, assets, handleTouched, error } = props
+  const { boardState: { dbFields }, isDropped, handleDrop, handleRemove, assets: { xlsTable }, handleTouched, error } = props
 
+  let fieldsFromXLS = []
+  if ( xlsTable.length && xlsTable[0] ) {
+    return Object.keys(xlsTable[0]).map(name => ({ name }))
+  }
   return (
     <div>
       <div styleName="links-header">
@@ -34,7 +38,7 @@ const DragAndDropBoard = props => {
             Please drag and drop each imported data field to the corresponding database profile field.
           </div>
           <div styleName="dragable-items">
-            {assets.getFieldsFromTable().filter(({ name }) => !isDropped(name)).map(({ name }, index) =>
+            {fieldsFromXLS.filter(({ name }) => !isDropped(name)).map(({ name }, index) =>
               <DraggableItem key={ index } name={ name }/>
             )}
           </div>
@@ -98,7 +102,7 @@ const DragAndDropBoard = props => {
 }
 
 const getInitialBoard = () => ({
-  dbFields: assets.labels.filter(item  => item.importOrder).sort((a, b) => {
+  dbFields: assets.labels.filter(item => item.importOrder).sort((a, b) => {
     return a.importOrder > b.importOrder ? 1 : -1
   }).map(({ label, key, required }) => {
     const multiple = key === 'notes'

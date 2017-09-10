@@ -16,7 +16,7 @@ const EditAssetsPageHeader = props => {
   const {
     hoveredIndex, setHoveredIndex, location,
     match: { params: { assetId } },
-    activeItem = {}
+    editableActiveAsset = {}
   } = props
 
   const { assets, routing } = props
@@ -29,11 +29,11 @@ const EditAssetsPageHeader = props => {
         <FontIcon value="chevron_left"/>
       </BackBtn>
       <Route path="/assets/edit/:assetId" component={ () => <span>UPDATE ASSET</span> }/>
-      <Route path="/assets/view/:assetId" component={ () => <span title={ activeItem.assetName }>{activeItem.assetName}</span> }/>
+      <Route path="/assets/view/:assetId" component={ () => <span title={ editableActiveAsset.assetName }>{editableActiveAsset.assetName}</span> }/>
       <Route path="/assets/create" component={ () => <span>CREATE ASSET</span> }/>
     </div>
     <div styleName="buttons-block">
-      {!isView && <Button onClick={ () => assets.setRandomForActive() } raised>
+      {!isView && <Button onClick={ () => assets.fillActiveAssetWithRandom() } raised>
         SET RANDOM DATA
       </Button>}
       <Route path="/assets/view/:assetId"
@@ -64,5 +64,5 @@ export default compose(
   withRouter,
   withState('hoveredIndex', 'setHoveredIndex', -1),
   mobxConnect('assets', 'routing'),
-  withProps(({ assets }) => ({ activeItem: assets.active }))
+  withProps(({ assets }) => ({ editableActiveAsset: assets.active }))
 )(EditAssetsPageHeader)

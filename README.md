@@ -58,24 +58,28 @@ export default compose(
 Note in the bottom "compose" and "withState". Yes, it works how you think. You can read more about recompose in its [official github](https://github.com/acdlite/recompose). Major benefit of doing this, except more rational state usage is ability quickly to wrap/extend/reuse component. Its usage is **strongly recommended** whenever possible.
 
 #### MobX (equivalent of Redux) store [![mobx](http://img.shields.io/badge/MobX-v3.2.2-brightgreen.svg)](https://mobx.js.org/intro/overview.html)
-Instead of a Redux as a global storage, we use MobX, wish decrease number of boilparitare code and adds some magic using JavaScript getters and setters. Please, if you don't understand mobx usage from sources, read official documentation. Only one thing we should mention, that is not covered by MobX docs. Here is code:
+Instead of a Redux as a global storage, we use MobX, wish decrease number of boilerplate code and adds some magic using JavaScript getters and setters. Please, if you don't understand MobX usage from sources, read official documentation. 
+
+There is one moment, that you may be confused with. Sometimes "observing" is not happening. Such cases are not described in MobX documentation, and you need to know them (or find new) by your own. In code of [EditAssetsPage](src/components/EditAssetPage/EditAssetPage.js) component you may find:
 ``` JavaScript
 export default compose(
   observe(() => ({
     assets,
     active: assets.active,
-    activeItem: assets.activeItem,
+    editableActiveAsset: assets.editableActiveAsset,
     previewImage: assets.previewImage
   })),
   ...
 ```
-If you try this code:
+And by docs you should write:
 ``` JavaScript
 export default compose(
   observe('assets'),
   ...
 ```
-it may not work (will not update component when nested object field was updated), because of how mobx works with nested maps. Would be great if one developer will realise how to use special MobX’s "extend" function for make 2nd sample working for all cases, at this point it is not working, so you need to write cases from 1st sample.
+It is not working like in docs, because we made a mistake, writing assets tore, and made "asset" being map with unknown fields, any experiments with MobX custom extend function did not helped (may be you will be able to fix it). 
+
+Also because of recompose specificity of methods like withProps, or withPropsOnChange, or possibly others, you will need to put MobX observer lower in compose arguments. See [PaginatableTable](src/components/AssetsPage/PaginatableTable/PaginatableTable.js) as example.
 
 #### JS and CSS Style guides ([ESlint](.eslintrc.yaml), [CSSlint](.stylelintrc.yaml))
 We do not have any specific style guide, but we have ESling config and CSSlint config, please run:
