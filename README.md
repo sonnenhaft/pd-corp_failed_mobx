@@ -1,8 +1,8 @@
-[![ReactJS][ReactJSbadge]][ReactJS] [![webpack][webpackBadge]][webpack] [![ReactToolbox][ReactToolboxBadge]][ReactToolbox] [![MobX][MobXbadge]][MobX] [![ReactRouterDom][ReactRouterDomBadge]][ReactRouterDom] [![node][nodeBadge]][node] [![npm][npmBadge]][npm] 
+[![react][reactBadge]][react] [![webpack][webpackBadge]][webpack] [![ReactToolbox][rtBadge]][ReactToolbox] [![MobX][MobXbadge]][MobX] [![reactRouter][routerBadge]][reactRouter] [![node][nodeBadge]][node] [![npm][npmBadge]][npm] 
 
 # PDC - FrontEnd (WEB)
 Hi! You are reading ReadMe file of PDC FrontEnd project. It is a  web UI for PDC project. PDC itself should help doctors not to lose/forget the instruments in hospitals. PDC FrontEnd is an admin panel for working with database, for exporting old databases from old excel files (if any) and so on (typical custom admin panel).
-Project is based on [![ReactJS][ReactJSbadge]][ReactJS], es6 (with babel and [![webpack][webpackBadge]][webpack]), is using [![ReactToolbox][ReactToolboxBadge]][ReactToolbox], [![MobX][MobXbadge]][MobX], and [![ReactRouterDom][ReactRouterDomBadge]][ReactRouterDom], and css modules.
+Project is based on [![react][reactBadge]][react], es6 (with babel and [![webpack][webpackBadge]][webpack]), is using [![ReactToolbox][rtBadge]][ReactToolbox], [![MobX][MobXbadge]][MobX], and [![reactRouter][routerBadge]][reactRouter], and css modules.
 
 #### Prerequisites
 * [![node][nodeBadge]][node] or higher - (probably, in OS Win10 you'll need to restart system after installing node)
@@ -124,16 +124,16 @@ You should avoid writing global styles anywhere, but in cases, when you have to,
 * You can update most of react-toolbox colors and other variables via updating "[postcss.config.js](postcss.config.js)".  Object in bottom of this file contains examples of how we override libraries colors.
 * if you need just to update styling in react-toolbox component, find existing overrides in [here](src/App.js) 
 
-[ReactJS]: <https://facebook.github.io/react/docs>
-[ReactJSbadge]: <http://img.shields.io/badge/ReactJS-v15.6.1-brightgreen.svg>
+[react]: <https://facebook.github.io/react/docs>
+[reactBadge]: <http://img.shields.io/badge/react-v15.6.1-brightgreen.svg>
 [webpack]: <https://webpack.js.org/configuration/>
 [webpackBadge]: <http://img.shields.io/badge/webpack-v3.5.5-brightgreen.svg>
 [ReactToolbox]: <http://react-toolbox.com/#/components>
-[ReactToolboxBadge]: <http://img.shields.io/badge/ReactToolbox-v2.0.0beta12-brightgreen.svg>
+[rtBadge]: <http://img.shields.io/badge/ReactToolbox-v2.0.0beta12-brightgreen.svg>
 [MobX]: <https://mobx.js.org/intro/overview.html>
-[MobXBadge]: <http://img.shields.io/badge/MobX-v3.2.2-brightgreen.svg>
-[ReactRouterDom]: <https://reacttraining.com/react-router/web/guides/philosophy>
-[ReactRouterDomBadge]: <http://img.shields.io/badge/ReactRouterDom-v4.2.2-brightgreen.svg>
+[mobxBadge]: <http://img.shields.io/badge/MobX-v3.2.2-brightgreen.svg>
+[reactRouter]: <https://reacttraining.com/react-router/web/guides/philosophy>
+[routerBadge]: <http://img.shields.io/badge/ReactRouterDom-v4.2.2-brightgreen.svg>
 [node]: <https://nodejs.org/en/download/>
 [nodeBadge]: <http://img.shields.io/badge/node-v6.10-brightgreen.svg>
 [npm]: <https://nodejs.org/en/download/>
