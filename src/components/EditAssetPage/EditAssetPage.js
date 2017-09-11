@@ -9,11 +9,11 @@ import { assets, mobxConnect, routing } from 'mobx-stores'
 import cn from 'classnames'
 import './EditAssetPage.css'
 
-const EditAssetPage = ({ Text, asset = {}, isView, assets, save, touched, hasError, errors, setTouched }) => {
+const EditAssetPage = ({ Text, asset = {}, isView, assets, save, touched, hasError, progress, errors, setTouched }) => {
 
-  let saveAssetButton = <Button raised primary disabled={ hasError && touched }>
+  let saveAssetButton = <Button raised primary disabled={ progress || (hasError && touched) }>
     <FontIcon value="save"/>
-    Save
+    { progress ? 'Saving' : 'Save' }
   </Button>
 
   const barcodeError = touched && (!asset.barcode && !asset.number)
@@ -145,6 +145,7 @@ export default compose(
     }
   }),
   withState('touched', 'setTouched', false),
+  withState('progress', 'setProgress', false),
   withProps(({ assets, setErrors }) => ({
     change(fieldName, value) {
       setErrors(null)
@@ -156,21 +157,25 @@ export default compose(
     Text: ({ asset, isView, isUpdate, touched, change, errors }) => ({ value, multiline, className }) => {
       return <Text { ...{ asset, isView, isUpdate, value, multiline, touched, change, errors, className } }/>
     },
-    save: ({ asset, assets, setTouched, routing, hasError, setErrors }) => () => {
+    save: ({ asset, assets, setTouched, routing, hasError, setErrors, setProgress }) => async () => {
       setTouched(true)
-      if ( !hasError ) {
-        (asset.id ? assets.update() : assets.add())
-          .then(() => routing.push('/assets'))
-          .catch(e => {
-            const { data } = e.response
-            const fieldName = {
-                RFID_ALREADY_USED: 'rfid',
-                NUMBER_ALREADY_USED: 'name',
-                BARCODE_ALREADY_USED: 'barcode'
-              }[data.error] || data.field || 'unknownError'
+      if ( hasError ) {
+        return
+      }
+      setProgress(true)
+      try {
+        await (asset.id ? assets.update() : assets.add())
+        routing.push('/assets')
+      } catch (e) {
+        setProgress(false)
+        const { data } = e.response
+        const fieldName = {
+            RFID_ALREADY_USED: 'rfid',
+            NUMBER_ALREADY_USED: 'name',
+            BARCODE_ALREADY_USED: 'barcode'
+          }[data.error] || data.field || 'unknownError'
 
-            setErrors({ [fieldName]: data.msg || JSON.stringify(data) })
-          })
+        setErrors({ [fieldName]: data.msg || JSON.stringify(data) })
       }
     }
   })
