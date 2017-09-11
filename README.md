@@ -1,16 +1,16 @@
-[![ReactJS](http://img.shields.io/badge/ReactJS-v15.6.1-brightgreen.svg)](https://facebook.github.io/react/docs) [![webpack](http://img.shields.io/badge/webpack-v3.5.5-brightgreen.svg)](https://webpack.js.org/configuration/) [![ReactToolbox](http://img.shields.io/badge/ReactToolbox-v2.0.0beta12-brightgreen.svg)](http://react-toolbox.com/#/components) [![mobx](http://img.shields.io/badge/MobX-v3.2.2-brightgreen.svg)](https://mobx.js.org/intro/overview.html) [![ReactRouterDom](http://img.shields.io/badge/ReactRouterDom-v4.2.2-brightgreen.svg)](https://reacttraining.com/react-router/web/guides/philosophy)  [![node](http://img.shields.io/badge/node-v6.10-brightgreen.svg)](https://nodejs.org/en/download/)  [![npm](http://img.shields.io/badge/npm-v3.10-brightgreen.svg)](https://nodejs.org/en/download/)
+[![ReactJS][ReactJSbadge]][ReactJS] [![webpack][webpackBadge]][webpack] [![ReactToolbox][ReactToolboxBadge]][ReactToolbox] [![MobX][MobXbadge]][MobX] [![ReactRouterDom][ReactRouterDomBadge]][ReactRouterDom] [![node][nodeBadge]][node] [![npm][npmBadge]][npm] 
 
 # PDC - FrontEnd (WEB)
 Hi! You are reading ReadMe file of PDC FrontEnd project. It is a  web UI for PDC project. PDC itself should help doctors not to lose/forget the instruments in hospitals. PDC FrontEnd is an admin panel for working with database, for exporting old databases from old excel files (if any) and so on (typical custom admin panel).
-Project is based on [![ReactJS](http://img.shields.io/badge/ReactJS-v15.6.1-brightgreen.svg)](https://facebook.github.io/react/docs) , es6 (with babel and [![webpack](http://img.shields.io/badge/webpack-v3.5.5-brightgreen.svg)](https://webpack.js.org/configuration/)), is using [![ReactToolbox](http://img.shields.io/badge/ReactToolbox-v2.0.0beta12-brightgreen.svg)](http://react-toolbox.com/#/components), mobx, and [![ReactRouterDom](http://img.shields.io/badge/ReactRouterDom-v4.2.2-brightgreen.svg)](https://reacttraining.com/react-router/web/guides/philosophy), and css mobules.
+Project is based on [![ReactJS][ReactJSbadge]][ReactJS], es6 (with babel and [![webpack][webpackBadge]][webpack]), is using [![ReactToolbox][ReactToolboxBadge]][ReactToolbox], [![MobX][MobXbadge]][MobX], and [![ReactRouterDom][ReactRouterDomBadge]][ReactRouterDom], and css modules.
 
 #### Prerequisites
-* [![node](http://img.shields.io/badge/node-v6.10-brightgreen.svg)](https://nodejs.org/en/download/)  or highter - (probaly, in OS Win10 you'll need to restart system after installing node)
-* [![npm](http://img.shields.io/badge/npm-v3.10-brightgreen.svg)](https://nodejs.org/en/download/) installed globally (done automatically with node everywhere except some linux distributives)
+* [![node][nodeBadge]][node] or higher - (probably, in OS Win10 you'll need to restart system after installing node)
+* [![npm][npmBadge]][npm] installed globally (done automatically with node everywhere except some linux distributives)
 * port 8089 available on your machine (only for development)
 
 #### Demo and versioning
-Demo is [here](https://demo-pdc-aws.isdev.info). There are also [developer's latest demo](https://dev7-pdc-aws.isdev.info) and [QA engineer’s demo](https://dev5-pdc-aws.isdev.info) that are used for development needs. 
+Demo is [here][demo]. There are also [developer's latest demo][dev7] and [QA engineer’s demo][dev5] that are used for development needs. 
 Each developer's commit app version bumps from (example) _0.0.11_ to _0.0.12_ (to one minor number) automatically.
 After each release QA, or anybody who will deploy build, should bump 2nd number (example) _0.1.39_ to _0.2.0_ push this to master and then create git TAG from this commit.
 
@@ -44,7 +44,7 @@ import { compose, setPropTypes, withState } from 'recompose'
 
 const MenuButton = ({ active, setActive, children, icon, className, ...props }) => <div>
   <button onClick={ () => setActive(!active) } { ...props } className={ className }>
-Epand
+Expand
   </Button>
   {active && <div>
     {children}
@@ -55,9 +55,9 @@ export default compose(
   withState('active', 'setActive', false)
 )(MenuButton)
 ```
-Note in the bottom "compose" and "withState". Yes, it works how you think. You can read more about recompose in its [official github](https://github.com/acdlite/recompose). Major benefit of doing this, except more rational state usage is ability quickly to wrap/extend/reuse component. Its usage is **strongly recommended** whenever possible.
+Note in the bottom "compose" and "withState". Yes, it works how you think. You can read more about recompose in its [official github][recompose]. Major benefit of doing this, except more rational state usage is ability quickly to wrap/extend/reuse component. Its usage is **strongly recommended** whenever possible.
 
-#### MobX (equivalent of Redux) store [![mobx](http://img.shields.io/badge/MobX-v3.2.2-brightgreen.svg)](https://mobx.js.org/intro/overview.html)
+#### MobX (equivalent of Redux) store [![MobX][MobXbadge]][MobX]
 Instead of a Redux as a global storage, we use MobX, wish decrease number of boilerplate code and adds some magic using JavaScript getters and setters. Please, if you don't understand MobX usage from sources, read official documentation. 
 
 There is one moment, that you may be confused with. Sometimes "observing" is not happening. Such cases are not described in MobX documentation, and you need to know them (or find new) by your own. In code of [EditAssetsPage](src/components/EditAssetPage/EditAssetPage.js) component you may find:
@@ -88,7 +88,7 @@ We do not have any specific style guide, but we have ESling config and CSSlint c
 $ npm run lint:fix
 ```
 **before** every **commit**. We are not adding this action to pre commit hooks like version bump, not to generate errors that may happen after automatic fixes (developer should do it manually). 
-Some errors will not get fixed automatically, so you need to fix them manually in code. Please do not commit until you fix all the code style errors. Style linter is running with same command automatically right after eslint. Please note that `npm run lint` does not exist in this package.json, so don't try to run it.
+Some errors will not get fixed automatically, so you need to fix them manually in code. Please do not commit until you fix all the code style errors. Style linter is running with same command automatically right after ESlint. Please note that `npm run lint` does not exist in this package.json, so don't try to run it.
 
 
 # Styling (css)
@@ -110,16 +110,38 @@ const Component = () => <div styleName="component-style">
 </div> 
 ```
 Please be careful, if style will not exist in css file, **app will get broken**. 
-For cases when you need branching, if statements or kind of (like in AngularJS), please use [classnames](https://www.npmjs.com/package/classnames) - it is a module-helper for working with strings.
+For cases when you need branching, if statements or kind of (like in AngularJS), please use [classnames][classnames] - it is a module-helper for working with strings.
 
 #### CSS next
-We don't use css preprocessors like SCSS/SASS or Stylus, but instead we use preprocessor for "CSS next" next standard of CSS. If you worked only with SCSS (or whatever else) you would enjoy this [article](https://tylergaw.com/articles/sass-to-postcss), where you will find samples of variables, pseudo mixins, nesting and else.
+We don't use css preprocessors like SCSS/SASS or Stylus, but instead we use preprocessor for "CSS next" next standard of CSS. If you worked only with SCSS (or whatever else) you would enjoy this [article][sass-to-postcss-article], where you will find samples of variables, pseudo mixins, nesting and else.
 
 #### Global styles
 You should avoid writing global styles anywhere, but in cases, when you have to, for example because 3rd party library is not supporting css-modules, then use `:global`.
 
 #### CSS, styles, Material Design, react-toolbox, overriding colors and styling
 * We use react-toolbox as base components library for our react project, it is one of 2 open source react libraries that implement Material Design components.
-* if not only styling is required to get overriden, we create a wrapper component and put it to [common](src/common/) folder
+* if not only styling is required to get overridden, we create a wrapper component and put it to [common](src/common/) folder
 * You can update most of react-toolbox colors and other variables via updating "[postcss.config.js](postcss.config.js)".  Object in bottom of this file contains examples of how we override libraries colors.
 * if you need just to update styling in react-toolbox component, find existing overrides in [here](src/App.js) 
+
+[ReactJS]: <https://facebook.github.io/react/docs>
+[ReactJSbadge]: <http://img.shields.io/badge/ReactJS-v15.6.1-brightgreen.svg>
+[webpack]: <https://webpack.js.org/configuration/>
+[webpackBadge]: <http://img.shields.io/badge/webpack-v3.5.5-brightgreen.svg>
+[ReactToolbox]: <http://react-toolbox.com/#/components>
+[ReactToolboxBadge]: <http://img.shields.io/badge/ReactToolbox-v2.0.0beta12-brightgreen.svg>
+[MobX]: <https://mobx.js.org/intro/overview.html>
+[MobXBadge]: <http://img.shields.io/badge/MobX-v3.2.2-brightgreen.svg>
+[ReactRouterDom]: <https://reacttraining.com/react-router/web/guides/philosophy>
+[ReactRouterDomBadge]: <http://img.shields.io/badge/ReactRouterDom-v4.2.2-brightgreen.svg>
+[node]: <https://nodejs.org/en/download/>
+[nodeBadge]: <http://img.shields.io/badge/node-v6.10-brightgreen.svg>
+[npm]: <https://nodejs.org/en/download/>
+[npmBadge]: <http://img.shields.io/badge/npm-v3.10-brightgreen.svg>
+
+[demo]: <https://demo-pdc-aws.isdev.info>
+[dev5]: <https://dev5-pdc-aws.isdev.info>
+[dev7]: <https://dev7-pdc-aws.isdev.info>
+[recompose]: <https://github.com/acdlite/recompose>
+[classnames]: <https://www.npmjs.com/package/classnames>
+[sass-to-postcss-article]: <https://tylergaw.com/articles/sass-to-postcss>

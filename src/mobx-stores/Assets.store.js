@@ -11,7 +11,7 @@ const DEFAULT_ASSETS_PAGE_SIZE = 10
  * File is pretty long, but be sure it is pretty simple. There is possibility
  * to move most flag variables or maps like sort to another store.
  */
-// TODO: split gods object to something else
+// TODO: split gods store object to smaller stores
 export default class AssetsStore {
   /** @field { bool } flag that enables "no api" mode */
   @persist @observable stub = false
