@@ -193,7 +193,7 @@ export default class AssetsStore {
 
   /** fills "active" asset with random values */
   fillActiveAssetWithRandom() {
-    const editableLabels = this.labels.filter(label => !label.editOrder)
+    const editableLabels = this.labels.filter(label => label.editOrder && !label.hideOnCreate)
     // note that object spread will not work in here because of MobX
     this.active = Object.assign({}, this.active, generateLine(editableLabels))
   }
@@ -274,8 +274,9 @@ export default class AssetsStore {
     const assetData = { ...this.active, image: image }
 
     this.labels
-      .filter(label => label.hideOnCreate || !label.editOrder || !label.saveIncluded)
+      .filter(label => label.hideOnCreate || (!label.editOrder && !label.saveIncluded))
       .forEach(({ key }) => delete assetData[key])
+    console.log(assetData)
 
     let newItem
 
