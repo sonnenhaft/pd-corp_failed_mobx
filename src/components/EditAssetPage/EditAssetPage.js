@@ -52,7 +52,7 @@ const EditAssetPage = ({ Text, asset = {}, isView, assets, save, touched, hasErr
               if ( isView ) {
                 return label.viewOrder
               } else {
-                return label.editOrder && !label.pairRequired && (asset.id || !asset.hideOnCreate)
+                return label.editOrder && !label.pairRequired && (asset.id || !label.hideOnCreate)
               }
             }).sort((a, b) => {
               if ( isView ) {
@@ -157,7 +157,7 @@ export default compose(
     Text: ({ asset, isView, isUpdate, touched, change, errors }) => ({ value, multiline, className }) => {
       return <Text { ...{ asset, isView, isUpdate, value, multiline, touched, change, errors, className } }/>
     },
-    save: ({ asset, assets, setTouched, routing, hasError, setErrors, setProgress }) => async () => {
+    save: ({ asset, assets, setTouched, routing, hasError, setErrors, setProgress }) => async() => {
       setTouched(true)
       if ( hasError ) {
         return

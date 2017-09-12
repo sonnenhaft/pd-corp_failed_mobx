@@ -89,6 +89,7 @@ export default class AssetsStore {
 
   /** @field { asset } editable analog of "active" field, for edit and create pages */
   @persist('object') @observable editableActiveAsset = {}
+
   /**
    * Basing on input id, it fills active and editableActiveAsset fields with current asset objects.
    * @param { string } activeAssetId of asset to make active
@@ -272,11 +273,9 @@ export default class AssetsStore {
 
     const assetData = { ...this.active, image: image }
 
-    this.labels.filter(label => {
-      return label.hideOnCreate || !label.editOrder
-    }).forEach(({ key }) => {
-      delete assetData[key]
-    })
+    this.labels
+      .filter(label => label.hideOnCreate || !label.editOrder)
+      .forEach(({ key }) => delete assetData[key])
 
     let newItem
 
@@ -311,9 +310,10 @@ export default class AssetsStore {
         image = { data_uri: this._previewImage }
       }
       const assetData = { ...this.editableActiveAsset, ...this.active, image }
-      delete assetData.keyLocation
-      delete assetData.lastUsedDate
-      // delete assetData.id
+      this.labels
+        .filter(label => !label.editOrder && label.key !== 'id')
+        .forEach(({ key }) => delete assetData[key])
+
       let updatedItem
       if ( this.stub ) {
         await delay()
