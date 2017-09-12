@@ -1,3 +1,4 @@
+const id = 'id'
 const name = 'name'
 const number = 'number'
 const type = 'type'
@@ -29,8 +30,10 @@ const orders = {
   editOrder: [number, barcode, name, manufacturer, type, description,
     department, serial, keyLocation, rfid, model, note],
   searchOrder: [type, manufacturer, rfidAssigned,
-    keyLocation, department, lastUsedDate, model]
+    keyLocation, department, lastUsedDate, model],
+  saveIncluded: [id, image]
 }
+
 
 /**
  * @export { <Array<Object<string, string|bool|number>> }  list that defined all possible
@@ -40,7 +43,7 @@ const orders = {
  * its order on edit page, or its lengths) changed.
  */
 export default [
-  { label: 'id', key: 'id', hidden: true },
+  { label: 'id', key: id, hidden: true },
   { label: 'Asset Name', key: name, required: true, alwaysInTable: true },
   { label: 'Asset Number', key: number, required: true, alwaysInTable: true, pairRequired: barcode },
   { label: 'Asset Type', key: type, updateRequired: true },
