@@ -273,7 +273,7 @@ export default class AssetsStore {
     const assetData = { ...this.active, image: image }
 
     this.labels.filter(label => {
-      return label.hideOnCreate
+      return label.hideOnCreate || !label.editOrder
     }).forEach(({ key }) => {
       delete assetData[key]
     })
