@@ -46,7 +46,7 @@ export default [
   { label: 'id', key: id, hidden: true },
   { label: 'Asset Name', key: name, required: true, alwaysInTable: true },
   { label: 'Asset Number', key: number, required: true, alwaysInTable: true, pairRequired: barcode },
-  { label: 'Asset Type', key: type, updateRequired: true },
+  { label: 'Asset Type', key: type, required: true },
   { label: 'Owner/Department', key: department },
   { label: 'Location', key: keyLocation, hideOnCreate: true },
   { label: 'Model', key: model },

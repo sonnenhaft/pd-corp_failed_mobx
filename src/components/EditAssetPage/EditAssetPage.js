@@ -96,11 +96,11 @@ const EditAssetPage = ({ Text, asset = {}, isView, assets, save, touched, hasErr
 }
 
 const labelsMap = assets.labelsMap
-const Text = ({ asset, isView, isUpdate, value, multiline, touched, change, errors, className }) => {
-  let { required, label, key, pairRequired, updateRequired } = labelsMap[value] || {}
+const Text = ({ asset, isView, value, multiline, touched, change, errors, className }) => {
+  let { required, label, key, pairRequired } = labelsMap[value] || {}
 
   label = isView ? `${ label }:` : `${ label }`
-  required = (required || (updateRequired && isUpdate) ) && !pairRequired
+  required = required && !pairRequired
 
   let errorMsg = ''
   if ( errors && errors[key] ) {
@@ -129,14 +129,11 @@ export default compose(
   withState('errors', 'setErrors', null),
   withPropsOnChange(['assets', 'routing', 'errors', 'active'], ({ assets, routing, errors }) => {
     const isView = routing.location.pathname.includes('view')
-    const isUpdate = routing.location.pathname.includes('edit')
     return {
       asset: isView ? assets.editableActiveAsset : assets.active,
       isView,
-      isUpdate,
-      hasError: assets.labels.some(({ key, required, pairRequired, updateRequired }) => {
+      hasError: assets.labels.some(({ key, required, pairRequired }) => {
         let val = assets.active[key]
-        required = required || (updateRequired && isUpdate)
         if ( pairRequired ) {
           val = val || assets.active[pairRequired]
         }
@@ -154,8 +151,8 @@ export default compose(
   })),
   withHandlers({
     // eslint-disable-next-line react/display-name
-    Text: ({ asset, isView, isUpdate, touched, change, errors }) => ({ value, multiline, className }) => {
-      return <Text { ...{ asset, isView, isUpdate, value, multiline, touched, change, errors, className } }/>
+    Text: ({ asset, isView, touched, change, errors }) => ({ value, multiline, className }) => {
+      return <Text { ...{ asset, isView, value, multiline, touched, change, errors, className } }/>
     },
     save: ({ asset, assets, setTouched, routing, hasError, setErrors, setProgress }) => async() => {
       setTouched(true)
