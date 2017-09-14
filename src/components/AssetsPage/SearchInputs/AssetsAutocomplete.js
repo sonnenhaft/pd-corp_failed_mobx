@@ -30,6 +30,11 @@ export default compose(
   withState('reference', 'setRef', null),
   withState('loading', 'setLoading', false),
   withState('localValue', 'setLocalValue', ({ value }) => value),
+  withPropsOnChange(['value'], ({ value, localValue, setLocalValue }) => {
+    if (value !== localValue) {
+      setLocalValue(value)
+    }
+  }),
   withPropsOnChange([], ({ setSource, setLoading, field }) => ({
     loadValues(query) {
       setLoading(true)

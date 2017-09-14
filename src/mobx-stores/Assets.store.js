@@ -45,7 +45,8 @@ export default class AssetsStore {
   @persist @observable _previewImage = null
 
   /** @return { string } */
-  @computed get previewImage() {
+  @computed
+  get previewImage() {
     return this._previewImage
   }
 
@@ -77,7 +78,8 @@ export default class AssetsStore {
     .reduce((map, { key }) => (map[key] = true) && map, {})
 
   /** @return { Array<label> } visible for table labels array */
-  @computed get visibleLabels() {
+  @computed
+  get visibleLabels() {
     return this.labels.filter(({ key }) => this.activeColumns[key])
   }
 
@@ -184,7 +186,8 @@ export default class AssetsStore {
   }
 
   /** @return { Object<key, label> } labels object as map where key is label key */
-  @computed get labelsMap() {
+  @computed
+  get labelsMap() {
     return this.labels.reduce(((labelsMap, label) => {
       labelsMap[label.key] = label
       return labelsMap
@@ -248,7 +251,12 @@ export default class AssetsStore {
       if ( this.sort.key ) {
         sort = `${ this.sort.key },${ this.sort.asc ? 'asc' : 'desc' }`
       }
-      const params = { ...this.searchParams, page: this.currentPage, size: DEFAULT_ASSETS_PAGE_SIZE, sort }
+      let location
+      // TODO: remove when filtering api will work with keyLocation
+      if ( this.searchParams.keyLocation ) {
+        location = this.searchParams.keyLocation
+      }
+      const params = { ...this.searchParams, location, page: this.currentPage, size: DEFAULT_ASSETS_PAGE_SIZE, sort }
       try {
         const { data: { content, totalPages, totalElements } } = await axios.get('/api/v1/hospital/assets', { params })
         Object.assign(this, { list: content, totalPages, totalElements })
@@ -276,7 +284,6 @@ export default class AssetsStore {
     this.labels
       .filter(label => label.hideOnCreate || (!label.editOrder && !label.saveIncluded))
       .forEach(({ key }) => delete assetData[key])
-    console.log(assetData)
 
     let newItem
 

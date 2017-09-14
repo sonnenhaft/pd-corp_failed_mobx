@@ -23,7 +23,7 @@ const loadAssetsFirstTimeOnceAndIgnoreOtherCalls = () => {
     // may be later would be good to change it to
     // something more clear
     assets.initiallyLoaded = true
-    console.log('loading list of assets automatically')
+    console.info('loading list of assets automatically')
     assets.loadList()
   }
 }

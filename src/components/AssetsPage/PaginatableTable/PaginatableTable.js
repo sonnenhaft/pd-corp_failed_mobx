@@ -1,5 +1,5 @@
 import React from 'react'
-import { compose, withState, withProps } from 'recompose'
+import { compose, withProps, withState } from 'recompose'
 import ReactPaginate from 'react-paginate'
 import { Button, Card, FontIcon } from 'react-toolbox'
 
@@ -78,9 +78,8 @@ export default compose(
     setSelectedIndexes(indexes) {
       if ( indexes === 'all' ) {
         indexes = assets.list.map((ignored, index) => index)
-      } else {
-        setIndexes(indexes)
       }
+      setIndexes(indexes)
     }
   })),
   mobxConnect('assets')

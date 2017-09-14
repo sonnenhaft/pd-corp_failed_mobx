@@ -39,6 +39,7 @@
       color: #52555b;
       min-height: inherit;
       box-shadow: 2px 2px 0 #dedede;
+      word-break: break-all;
     }
 
     & .rc-tooltip-arrow {

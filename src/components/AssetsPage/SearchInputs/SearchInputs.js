@@ -3,17 +3,18 @@ import React from 'react'
 import './SearchInputs.css'
 import { RippleDiv, StringDatePicker, TextInputWithIcon } from 'common'
 import searchIcon from './search-icon.svg'
-import { Button, Card, ProgressBar, FontIcon } from 'react-toolbox'
-import { compose, withState, withProps } from 'recompose'
-import { assets, mobxConnect } from 'mobx-stores'
+import { Button, Card, FontIcon, ProgressBar } from 'react-toolbox'
+import { compose, withProps, withState } from 'recompose'
+import { assets, extendObservable, mobxConnect } from 'mobx-stores'
 
 import AssetsAutocomplete from './AssetsAutocomplete'
+
 const SearchInputs = props => {
   const { setExpanded, resetFilters, keyChanged, focused, setFocused } = props
   const { assets } = props
-  const searchParams = assets.searchParams
   const expanded = assets.filtersExpanded
-  const search = searchParams.search
+  const { search, ...searchParams } = assets.searchParams
+
   const isNotEmpty = !!Object.values(searchParams).length
 
   return <Card styleName="search-inputs-card">
@@ -27,7 +28,7 @@ const SearchInputs = props => {
         label={ focused || search ? '' : 'Type here' }
         value={ search || '' }
         onChange={ keyChanged('search') }
-        onEnterPressed={ () => assets.search()  }/>
+        onEnterPressed={ () => assets.search() }/>
       <div styleName="search-button-wrapper">
         <Button raised primary onClick={ () => assets.search() }
                 styleName="blue-button">
@@ -100,7 +101,8 @@ export default compose(
       assets.filtersExpanded = !assets.filtersExpanded
     },
     resetFilters: () => {
-      assets.searchParams = {}
+      const search = assets.searchParams.search
+      assets.searchParams = extendObservable({ search })
       assets.search()
     },
     keyChanged: key => value => {
