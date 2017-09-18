@@ -3,8 +3,7 @@ import './StringDatePicker.css'
 
 import DatePicker from 'react-toolbox/lib/date_picker'
 import FontIcon from 'react-toolbox/lib/font_icon'
-
-const addLeadingZero = number => number < 10 ? `0${  number }` : number
+import { formatDate } from '../formatDate'
 
 export const StringDatePicker = ({ value, onChange: _onChange, ...props }) => {
   const onChange = value => _onChange(value && value.toISOString())
@@ -13,7 +12,7 @@ export const StringDatePicker = ({ value, onChange: _onChange, ...props }) => {
       { ...props }
       icon="event"
       onChange={ onChange }
-      inputFormat={ value => `${ addLeadingZero(value.getMonth() + 1) }/${ addLeadingZero(value.getDate()) }/${ value.getFullYear() }` }
+      inputFormat={ formatDate }
       value={ value ? new Date(value) : value }/>
     {value && <div styleName="remove-icon" onClick={ () => onChange(null) }>
       <FontIcon value="add_circle"/>

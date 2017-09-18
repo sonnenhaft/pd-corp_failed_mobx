@@ -20,4 +20,7 @@ export { RippleDiv } from './RippleDiv'
 export { StringDatePicker } from './StringDatePicker'
 export { TextInput, TextInputWithIcon } from './TextInput'
 export { Tooltip } from './Tooltip'
+export { formatDate } from './formatDate'
 export searchIcon from './search-icon.svg'
+
+

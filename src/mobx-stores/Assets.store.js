@@ -1,11 +1,27 @@
-import { action, computed, observable } from 'mobx'
+import { action, computed, extendObservable, observable } from 'mobx'
 import { persist } from 'mobx-persist'
 import { range } from 'lodash'
 
-import { axios, delay, generateDemoTable, generateLine } from 'common'
-import labels from './labels.list'
+import { axios, delay, formatDate, generateDemoTable, generateLine } from 'common'
+import labels, { lastUsedDate } from './labels.list'
 
 const DEFAULT_ASSETS_PAGE_SIZE = 10
+
+function wrapDate(asset) {
+  const val = asset[lastUsedDate]
+  if ( val ) {
+    asset[`_${ lastUsedDate }`] = val
+    asset[lastUsedDate] = formatDate(val)
+  }
+}
+
+function unwrapDate(asset) {
+  const val = asset[`_${ lastUsedDate }`]
+  if ( val ) {
+    delete asset[`_${ lastUsedDate }`]
+    asset[lastUsedDate] = val
+  }
+}
 
 /**
  * Its a major MobX store, which contains all state of  assets crud.
@@ -276,6 +292,7 @@ export default class AssetsStore {
       const params = { ...this.searchParams, location, page: this.currentPage, size: DEFAULT_ASSETS_PAGE_SIZE, sort }
       try {
         const { data: { content, totalPages, totalElements } } = await axios.get('/api/v1/hospital/assets', { params })
+        content.forEach(item => wrapDate(item))
         Object.assign(this, { list: content, totalPages, totalElements })
       } catch (e) {
         this.notifications.error(e)
@@ -314,6 +331,7 @@ export default class AssetsStore {
       }
       this.notifications.info('Asset saved')
       this.list.push(newItem)
+      wrapDate(newItem)
       this.active = newItem
       this.editableActiveAsset = newItem
       return newItem
@@ -364,12 +382,12 @@ export default class AssetsStore {
         await delay()
         updatedItem = assetData
       } else {
-        const { data } = await axios.put(`/api/v1/hospital/assets/${ assetData.id }`, assetData)
+        const { data } = await axios.put(`/api/v1/hospital/assets/${ assetData.id }`, unwrapDate(assetData))
         updatedItem = data
       }
       this.notifications.info('Asset updated')
-      Object.assign(this.active, updatedItem)
-      Object.assign(this.editableActiveAsset, this.active)
+      extendObservable(this.active, wrapDate(updatedItem))
+      extendObservable(this.editableActiveAsset, this.active)
       return this.active
     } catch (e) {
       this.notifications.error('Asset was not updated')
