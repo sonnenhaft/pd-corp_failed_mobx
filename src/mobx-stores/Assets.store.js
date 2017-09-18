@@ -13,6 +13,7 @@ function wrapDate(asset) {
     asset[`_${ lastUsedDate }`] = val
     asset[lastUsedDate] = formatDate(val)
   }
+  return asset
 }
 
 function unwrapDate(asset) {
@@ -21,6 +22,7 @@ function unwrapDate(asset) {
     delete asset[`_${ lastUsedDate }`]
     asset[lastUsedDate] = val
   }
+  return asset
 }
 
 /**
