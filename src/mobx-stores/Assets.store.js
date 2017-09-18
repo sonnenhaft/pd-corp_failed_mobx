@@ -1,8 +1,9 @@
-import { computed, observable } from 'mobx'
-import { axios, delay, generateDemoTable, generateLine } from 'common'
+import { action, computed, observable } from 'mobx'
 import { persist } from 'mobx-persist'
-import labels from './labels.list'
 import { range } from 'lodash'
+
+import { axios, delay, generateDemoTable, generateLine } from 'common'
+import labels from './labels.list'
 
 const DEFAULT_ASSETS_PAGE_SIZE = 10
 
@@ -35,6 +36,11 @@ export default class AssetsStore {
 
   /** @field { bool } flag that remembers if  filters section on SearchInputs is expanded */
   @persist @observable filtersExpanded = false
+
+  @action('toggle filters')
+  toggleFilters() {
+    this.filtersExpanded = !this.filtersExpanded
+  }
 
   /** @field { number } integer total count of elements from API with current search params */
   @persist @observable totalElements = 0
@@ -239,11 +245,13 @@ export default class AssetsStore {
   }
 
   /** CRUD "list" assets action */
+  @action('loading-list')
   async loadList() {
     this.tableLoading = true
 
     if ( this.stub ) {
       const content = generateDemoTable(this.labels, DEFAULT_ASSETS_PAGE_SIZE)
+
       await delay()
       Object.assign(this, { list: content, totalPages: 1, totalElements: content.length })
     } else {
@@ -313,11 +321,11 @@ export default class AssetsStore {
    */
   async update() {
     try {
-      let image
+      const assetData = { ...this.editableActiveAsset, ...this.active }
       if ( this._previewImage && !this._previewImage.includes('/api/v1/hospital/images') ) {
-        image = { data_uri: this._previewImage }
+        assetData.image = { data_uri: this._previewImage }
       }
-      const assetData = { ...this.editableActiveAsset, ...this.active, image }
+
       this.labels
         .filter(label => !label.editOrder && !label.saveIncluded)
         .forEach(({ key }) => delete assetData[key])

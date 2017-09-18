@@ -22,7 +22,6 @@ const render = Component => ReactDom.render(
     <Provider { ...{ routing, assets, user, notifications } }>
       <Component />
     </Provider>
-
   </AppContainer>,
   document.getElementById('root')
 )

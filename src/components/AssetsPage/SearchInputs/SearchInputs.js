@@ -98,7 +98,7 @@ export default compose(
   withState('focused', 'setFocused', false),
   withProps({
     setExpanded: () => {
-      assets.filtersExpanded = !assets.filtersExpanded
+      assets.toggleFilters()
     },
     resetFilters: () => {
       const search = assets.searchParams.search

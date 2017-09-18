@@ -11,6 +11,7 @@ import Notifications from './components/Notifications'
 import { history, mobxConnect } from 'mobx-stores'
 import { Button } from 'react-toolbox'
 import packageJson from '../package.json'
+// import DevTools from 'mobx-react-devtools'
 
 /**
  * Root "App" component, that should contain most of
@@ -71,7 +72,10 @@ const theme = {
 
 // eslint-disable-next-line react/display-name
 export default () => (
-  <ThemeProvider { ...{ theme } }>
-    <App/>
-  </ThemeProvider>
+  <div>
+    <ThemeProvider { ...{ theme } }>
+      <App/>
+    </ThemeProvider>
+    {/*<DevTools/>*/}
+  </div>
 )
