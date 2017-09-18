@@ -160,7 +160,10 @@ export default class AssetsStore {
     this.notifications = notifications
   }
 
-  /** @example "search button" action - resets paging to 0, and loads assets */
+  /**
+   * @example "search button" action - resets paging to 0, and loads assets
+   * @return { Promise }
+   */
   search() {
     this.currentPage = 0
     return this.loadList()
@@ -207,7 +210,10 @@ export default class AssetsStore {
     this.active = Object.assign({}, this.active, generateLine(editableLabels))
   }
 
-  /** @param { string } key - asset field name from labels array */
+  /**
+   * @param { string } key - asset field name from labels array
+   * @return { Promise }
+   */
   changeSort(key) {
     if ( this.sort.key === key && this.sort.asc === false ) {
       this.sort = { key: 'name', asc: true }
@@ -244,7 +250,10 @@ export default class AssetsStore {
     }
   }
 
-  /** CRUD "list" assets action */
+  /**
+   * CRUD "list" assets action
+   * @return { Promise }
+   */
   @action('loading-list')
   async loadList() {
     this.tableLoading = true
@@ -311,6 +320,26 @@ export default class AssetsStore {
     } catch (e) {
       this.notifications.error('Asset not saved')
       return Promise.reject(e)
+    }
+  }
+
+  /**
+   * Action to change filtering parameter
+   *
+   * @return { Promise }
+   */
+  async onSearchParamsChange(searchField, value) {
+    if ( value ) {
+      if ( searchField === 'search' && value.length > 500 ) {
+        value = value.slice(0, 500)
+      }
+      this.searchParams = { ...this.searchParams, [searchField]: value }
+    } else {
+      delete this.searchParams[searchField]
+    }
+
+    if ( searchField !== 'search' ) {
+      await this.search()
     }
   }
 

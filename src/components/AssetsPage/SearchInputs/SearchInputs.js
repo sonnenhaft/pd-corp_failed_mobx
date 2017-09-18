@@ -1,8 +1,7 @@
 import React from 'react'
 
 import './SearchInputs.css'
-import { RippleDiv, StringDatePicker, TextInputWithIcon } from 'common'
-import searchIcon from './search-icon.svg'
+import { RippleDiv, searchIcon, StringDatePicker, TextInputWithIcon } from 'common'
 import { Button, Card, FontIcon, ProgressBar } from 'react-toolbox'
 import { compose, withProps, withState } from 'recompose'
 import { assets, extendObservable, mobxConnect } from 'mobx-stores'
@@ -94,29 +93,18 @@ const SearchInputs = props => {
     </div>
   </Card>
 }
+
 export default compose(
   withState('focused', 'setFocused', false),
   withProps({
-    setExpanded: () => {
-      assets.toggleFilters()
-    },
+    setExpanded: () => assets.toggleFilters(),
     resetFilters: () => {
       const search = assets.searchParams.search
       assets.searchParams = extendObservable({ search })
       assets.search()
     },
-    keyChanged: key => value => {
-      if ( value ) {
-        if ( key === 'search' && value.length > 500 ) {
-          value = value.slice(0, 500)
-        }
-      } else {
-        value = undefined
-      }
-      assets.searchParams = { ...assets.searchParams, [key]: value }
-      if ( key !== 'search' ) {
-        assets.search()
-      }
+    keyChanged: searchField => value => {
+      assets.onSearchParamsChange(searchField, value)
     }
   }),
   mobxConnect('assets')
