@@ -1,4 +1,4 @@
-import { action, computed, extendObservable, observable } from 'mobx'
+import { action, computed, observable } from 'mobx'
 import { persist } from 'mobx-persist'
 import { range } from 'lodash'
 
@@ -388,8 +388,8 @@ export default class AssetsStore {
         updatedItem = data
       }
       this.notifications.info('Asset updated')
-      extendObservable(this.active, wrapDate(updatedItem))
-      extendObservable(this.editableActiveAsset, this.active)
+      Object.assign(this.active, wrapDate(updatedItem))
+      Object.assign(this.editableActiveAsset, this.active)
       return this.active
     } catch (e) {
       this.notifications.error('Asset was not updated')
