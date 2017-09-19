@@ -2,17 +2,23 @@ import React from 'react'
 import P from 'prop-types'
 import { compose, setPropTypes, withState } from 'recompose'
 import Input from 'react-toolbox/lib/input'
+import cn from 'classnames'
 
 import './TextInput.css'
 
 export const TextInput = ({ errorText, onEnterPressed, className, ...props }) => {
   const onKeyPress = onEnterPressed && (e => e.key === 'Enter' && onEnterPressed())
-  const { multiline, disabled } = props
+  let { multiline, disabled, value, ...leftProps } = props
   if ( multiline && disabled ) {
-    return <DisabledTextArea { ...props } onKeyPress={ onKeyPress } className={ className }/>
+    return <DisabledTextArea { ...{ ...leftProps, onKeyPress, value } } className={ className }/>
   } else {
-    return <section className={ className }>
-      <Input type="text" { ...props } onKeyPress={ onKeyPress }/>
+    if ( disabled && !props.value ) {
+      value = ' '
+    }
+    return <section className={ className }
+                    styleName={ cn(className, { disabledInput: disabled }) }>
+      <Input type="text" { ...{ ...leftProps, onKeyPress, value } }/>
+      {disabled && <span styleName="wrappable-value greyed-input">{value}</span>}
       {errorText && <div><br/><br/></div>}
     </section>
   }
@@ -25,13 +31,13 @@ const DisabledTextAreaDummy = props => {
 
   return <section styleName="content" className={ className }>
     <label styleName="label">{label}</label>
-    {collsapsible && <div>
+    {collsapsible && <div styleName="wrappable-value">
       {expanded ? value : `${ value.slice(0, MAX_LEN) }...`}
       <a onClick={ () => setExpanded(!expanded) } styleName="expandable-button">
         {expanded ? 'Collapse' : 'Expand'}
       </a>
     </div>}
-    {!collsapsible && <div>{value}</div>}
+    {!collsapsible && <div styleName="wrappable-value">{value}</div>}
   </section>
 }
 
