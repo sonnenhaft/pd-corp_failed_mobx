@@ -1,6 +1,6 @@
 import { action, computed, observable } from 'mobx'
 import { persist } from 'mobx-persist'
-import { range } from 'lodash'
+import { pickBy, range } from 'lodash'
 
 import { axios, delay, formatDate, generateDemoTable, generateLine } from 'common'
 import labels, { lastUsedDate } from './labels.list'
@@ -291,7 +291,9 @@ export default class AssetsStore {
       if ( this.searchParams.keyLocation ) {
         location = this.searchParams.keyLocation
       }
-      const params = { ...this.searchParams, location, page: this.currentPage, size: DEFAULT_ASSETS_PAGE_SIZE, sort }
+
+      const searchParams = pickBy(this.searchParams, value => value)
+      const params = { ...searchParams, location, page: this.currentPage, size: DEFAULT_ASSETS_PAGE_SIZE, sort }
       try {
         const { data: { content, totalPages, totalElements } } = await axios.get('/api/v1/hospital/assets', { params })
         content.forEach(item => wrapDate(item))
@@ -355,7 +357,7 @@ export default class AssetsStore {
       }
       this.searchParams = { ...this.searchParams, [searchField]: value }
     } else {
-      delete this.searchParams[searchField]
+      this.searchParams[searchField] = ''
     }
 
     if ( searchField !== 'search' ) {
