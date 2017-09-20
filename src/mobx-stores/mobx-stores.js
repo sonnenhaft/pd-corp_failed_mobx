@@ -47,7 +47,7 @@ Promise.all([
     // when you update something in our stores, and know that this value conflicts with
     // existing logic, then you need to commit new value (increment it) of STORES_VERSION,
     // so in customers browser we will clear localStorage and will update the browser
-    const STORES_VERSION = '8'
+    const STORES_VERSION = '9'
 
     const localStorageValue = localStorage.getItem('STORES_VERSION')
     if ( localStorageValue && localStorageValue !== STORES_VERSION ) {

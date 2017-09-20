@@ -25,3 +25,19 @@
   color: var(--button-disabled-text-color);
   font-weight: bold;
 }
+
+.wrappable-value {
+  word-break: break-all;
+}
+
+
+.greyed-input {
+  color: #6c717b;
+  margin-top: -10px;
+  margin-bottom: 14px;
+  display: inline-block;
+}
+
+.disabledInput > div > input {
+    display: none;
+}

@@ -100,7 +100,7 @@ const Text = ({ asset, isView, value, multiline, touched, change, errors, classN
   let { required, label, key, pairRequired } = labelsMap[value] || {}
 
   label = isView ? `${ label }:` : `${ label }`
-  required = required && !pairRequired
+  required = !isView && required && !pairRequired
 
   let errorMsg = ''
   if ( errors && errors[key] ) {
