@@ -154,9 +154,9 @@ export default compose(
     Text: ({ asset, isView, touched, change, errors }) => ({ value, multiline, className }) => {
       return <Text { ...{ asset, isView, value, multiline, touched, change, errors, className } }/>
     },
-    save: ({ asset, assets, setTouched, routing, hasError, setErrors, setProgress }) => async() => {
+    save: ({ asset, assets, setTouched, routing, hasError, setErrors, setProgress, progress }) => async() => {
       setTouched(true)
-      if ( hasError ) {
+      if ( hasError || progress) {
         return
       }
       setProgress(true)
