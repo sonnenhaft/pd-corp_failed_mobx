@@ -46,9 +46,9 @@ export const DateRangePicker = compose(
       onChange={ onInputChange(key) }
       value={ valuesObject[key] }/>)}
     {error && <div styleName="date-range-error">
-      <span>&quot;{labelFrom.label}&quot;</span>
-      &nbsp;should be greater or equal to&nbsp;
       <span>&quot;{labelTo.label}&quot;</span>
+      &nbsp;should be greater or equal to&nbsp;
+      <span>&quot;{labelFrom.label}&quot;.</span>
     </div>}
   </div>
 })
