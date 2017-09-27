@@ -23,8 +23,14 @@ export const DatePicker = compose(
   withState('dateString', 'setDateString', (({ value }) => value ? formatDate(value) : '')),
   withProps(({ onChange, setDateString }) => ({
     onDateChanged(value) {
-      onChange(value && value.toISOString())
-      setDateString(value ? formatDate(value) : '')
+      if ( value ) {
+        value = value > Date.now() ? new Date() : value
+        onChange(value)
+        setDateString(formatDate(value))
+      } else {
+        onChange(value)
+        setDateString('')
+      }
     }
   })),
   withPropsOnChange(['dateString', 'value'], ({ dateString, value, onDateChanged, setDateString }) => ({

@@ -1,7 +1,7 @@
 import React from 'react'
 
 import './SearchInputs.css'
-import { RippleDiv, searchIcon, DatePicker, TextInputWithIcon } from 'common'
+import { DatePicker, RippleDiv, searchIcon, TextInputWithIcon } from 'common'
 import { Button, Card, FontIcon, ProgressBar } from 'react-toolbox'
 import { compose, withProps, withState } from 'recompose'
 import { assets, extendObservable, mobxConnect } from 'mobx-stores'
@@ -64,17 +64,19 @@ const SearchInputs = props => {
           return a.searchOrder > b.searchOrder ? 1 : -1
         }).map(({ key, label, dateFilterKeys }) => {
           if ( dateFilterKeys ) {
-            const [l1, l2] = dateFilterKeys
+            const [labelFrom, labelTo] = dateFilterKeys
+            const valFrom = searchParams[labelFrom.key]
+            const valTo = searchParams[labelTo.key]
             return <div styleName="date-inputs" key={ key }>
               {dateFilterKeys.map(({ key, label }) => <DatePicker
                 label={ label }
                 key={ key }
                 onChange={ keyChanged(key) }
                 value={ searchParams[key] }/>)}
-              {searchParams[l1.key] > searchParams[l2.key] && <div styleName="date-error">
-                <span>&quot;{l1.label}&quot;</span>
+              {(valFrom && valTo && valFrom > valTo) && <div styleName="date-error">
+                <span>&quot;{labelFrom.label}&quot;</span>
                 &nbsp;should be greater or equal to&nbsp;
-                <span>&quot;{l2.label}&quot;</span>
+                <span>&quot;{labelTo.label}&quot;</span>
               </div>}
             </div>
           } else {
