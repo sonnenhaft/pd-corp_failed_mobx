@@ -1,7 +1,7 @@
 import React from 'react'
 
 import './SearchInputs.css'
-import { RippleDiv, searchIcon, StringDatePicker, TextInputWithIcon } from 'common'
+import { RippleDiv, searchIcon, DatePicker, TextInputWithIcon } from 'common'
 import { Button, Card, FontIcon, ProgressBar } from 'react-toolbox'
 import { compose, withProps, withState } from 'recompose'
 import { assets, extendObservable, mobxConnect } from 'mobx-stores'
@@ -66,7 +66,7 @@ const SearchInputs = props => {
           if ( dateFilterKeys ) {
             const [l1, l2] = dateFilterKeys
             return <div styleName="date-inputs" key={ key }>
-              {dateFilterKeys.map(({ key, label }) => <StringDatePicker
+              {dateFilterKeys.map(({ key, label }) => <DatePicker
                 label={ label }
                 key={ key }
                 onChange={ keyChanged(key) }
