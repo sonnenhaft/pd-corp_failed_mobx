@@ -16,7 +16,10 @@ const leaveDigitsOnly = string => string.replace(/[^0-9]+/g, '')
 
 export const DatePicker = compose(
   setPropTypes({
-    value: P.string,
+    value: P.oneOfType([
+      P.string,
+      P.instanceOf(Date)
+    ]),
     label: P.string.isRequired,
     onChange: P.func.isRequired
   }),

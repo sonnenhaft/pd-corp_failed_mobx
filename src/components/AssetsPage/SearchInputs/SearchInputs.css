@@ -9,22 +9,6 @@
   & > div {
     width: 32%;
   }
-
-  & .date-inputs {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: space-between;
-    position: relative;
-
-    & label {
-      white-space: nowrap;
-    }
-
-    & > div {
-      width: 47%;
-      overflow: hidden;
-    }
-  }
 }
 
 .search-button-wrapper {
@@ -95,20 +79,6 @@
   font-weight: bold;
 }
 
-.date-inputs {
-  display: flex;
-  flex-wrap: wrap;
-  width: 31%;
-  justify-content: space-between;
-  align-items: center;
-  margin-top: 0;
-
-  & > * {
-    width: 45%;
-    overflow: hidden;
-  }
-}
-
 .greyed-helper-text {
   font-size: 12px;
   font-style: italic;
@@ -123,20 +93,4 @@
   left: 0;
   right: 0;
   bottom: -1px;
-}
-
-.date-error {
-  width: 100%!important;
-  color: red;
-  text-align: center;
-  margin-top: -13px;
-  font-size: 12px;
-  position: absolute;
-  bottom: 0;
-  left: 0;
-  right: 0;
-
-  & span {
-    white-space: nowrap;
-  }
 }

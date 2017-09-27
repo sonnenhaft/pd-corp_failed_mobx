@@ -1,0 +1,35 @@
+.date-range-picker {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  position: relative;
+
+  width: 31%;
+  align-items: center;
+  margin-top: 0;
+
+  & label {
+    white-space: nowrap;
+  }
+
+  & > * {
+    width: 45%;
+    overflow: hidden;
+  }
+}
+
+.date-range-error {
+  width: 100%!important;
+  color: red;
+  text-align: center;
+  margin-top: -13px;
+  font-size: 12px;
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+
+  & span {
+    white-space: nowrap;
+  }
+}
