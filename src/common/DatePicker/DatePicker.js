@@ -21,7 +21,11 @@ export const DatePicker = compose(
     onChange: P.func.isRequired
   }),
   withState('dateString', 'setDateString', (({ value }) => value ? formatDate(value) : '')),
-  withProps(({ onChange, setDateString }) => ({
+  withState('focused', 'setFocused', false),
+  withProps(({ onChange, setDateString, setFocused }) => ({
+    onFocus() {
+      setFocused(true)
+    },
     onDateChanged(value) {
       if ( value ) {
         value = value > Date.now() ? new Date() : value
@@ -33,7 +37,7 @@ export const DatePicker = compose(
       }
     }
   })),
-  withPropsOnChange(['dateString', 'value'], ({ dateString, value, onDateChanged, setDateString }) => ({
+  withPropsOnChange(['dateString', 'value'], ({ dateString, value, onDateChanged, setDateString, setFocused }) => ({
     onMaskedValueChanged({ target: { value: maskedValue } }) {
       const digitsCount = leaveDigitsOnly(maskedValue).length
       if ( digitsCount === 0 ) {
@@ -54,11 +58,12 @@ export const DatePicker = compose(
       if ( leaveDigitsOnly(dateString).length < 8 ) {
         value ? onDateChanged(new Date(value)) : setDateString('')
       }
+      setFocused(false)
     }
   }))
-)(({ value, dateString, label, onDateChanged, onMaskedValueChanged, onBlur }) => {
+)(({ value, dateString, label, onDateChanged, onMaskedValueChanged, onBlur, focused, onFocus }) => {
   const iconVisible = leaveDigitsOnly(dateString)
-  return <div styleName="date-picker">
+  return <div styleName={ cn('date-picker', { focused }) }>
     <label styleName="label" title={ label }>{label}</label>
     <div styleName="picker-inside-wrapper">
 
@@ -73,7 +78,7 @@ export const DatePicker = compose(
 
       <div styleName="input-mask-wrapper">
         <InputMask styleName="input" placeholder="mm/dd/yyyy" mask="99/99/9999" value={ dateString }
-                   onChange={ onMaskedValueChanged } onBlur={ onBlur }/>
+                   onChange={ onMaskedValueChanged } { ...{ onBlur, onFocus } }/>
       </div>
 
       {iconVisible && <div styleName="remove-icon" onClick={ () => onDateChanged(null) }>

@@ -1,5 +1,9 @@
 .date-picker {
-  margin-top: -13px
+  margin-top: -13px;
+
+  &.focused .label {
+    color: #0078c8;
+  }
 }
 
 .picker-inside-wrapper {
