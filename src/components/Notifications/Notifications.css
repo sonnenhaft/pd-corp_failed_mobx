@@ -17,32 +17,37 @@
 }
 
 .notification-wrapper {
+  max-width: 600px;
+  min-width: 300px;
   position: fixed;
   right: 20px;
   top: 40px;
-  min-width: 300px;
-  max-width: 600px;
   z-index: 2;
+
   & .text-wrapper {
-    display: flex;
     align-items: center;
+    display: flex;
+
     & span {
       margin-right: 6px;
     }
   }
+
   & .notification {
+    align-items: center;
     border-radius: 4px;
+    color: white;
+    display: flex;
+    font-size: 14px;
+    justify-content: space-between;
     margin-bottom: 8px;
     padding: 16px 8px;
-    color: white;
-    font-size: 14px;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
+
     &:global {
       &.success {
         background-color: #78be20;
       }
+
       &.error {
         background-color: #fc6061;
       }

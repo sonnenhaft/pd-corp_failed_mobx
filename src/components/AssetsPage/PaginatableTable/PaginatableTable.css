@@ -1,16 +1,19 @@
 @import "react-toolbox/lib/variables";
 
 .filter-button {
+  align-items: center;
   display: flex;
   justify-content: space-between;
-  align-items: center;
   margin-bottom: 16px;
+
   & .header {
     color: var(--appbar-color);
     font-size: 16px;
   }
+
   & .flex-buttons {
     display: flex;
+
     & .some-right-wrapper {
       margin-right: 16px;
     }
@@ -18,31 +21,34 @@
 }
 
 .paginatable-table {
-  padding: 16px;
   overflow: visible;
+  padding: 16px;
 }
 
 .pagination {
   display: flex;
   list-style-type: none;
   user-select: none;
-  & .prev, & .next {
+
+  & .prev,
+  & .next {
     height: 22px;
     padding: 0;
+
     & a {
-      margin-top: -1px;
       display: block;
+      margin-top: -1px;
       width: 22px;
     }
   }
 
   & li {
-    cursor: pointer;
-    padding: 3px 4px;
-    margin: 0 1px;
-    height: 22px;
     border-radius: 3px;
+    cursor: pointer;
     font-family: var(--preferred-font);
+    height: 22px;
+    margin: 0 1px;
+    padding: 3px 4px;
 
     &.active-page-link,
     &:hover:not(.break-me):not(.page-disabled) {
@@ -74,11 +80,11 @@
 .no-assets-wrapper {
   display: flex;
   flex-direction: column;
-  text-align: center;
   font-size: 16px;
-  min-height: 270px;
-  justify-content: center;
   font-weight: 300;
-  max-width:600px;
+  justify-content: center;
   margin: auto;
+  max-width: 600px;
+  min-height: 270px;
+  text-align: center;
 }

@@ -1,14 +1,15 @@
 @import "react-toolbox/lib/variables";
 
 .expandable-button {
+  color: #1b87c7;
   display: inline-block;
-  margin-left: 8px;
   font-size: 12px;
   font-weight: bold;
-  color: #1b87c7;
+  margin-left: 8px;
+
   &:hover {
-    text-decoration: underline;
     cursor: pointer;
+    text-decoration: underline;
   }
 }
 
@@ -17,27 +18,26 @@
 }
 
 .label {
-  white-space: nowrap;
+  color: var(--button-disabled-text-color);
+  font-size: 13px;
+  font-weight: bold;
   max-width: 100%;
   overflow: hidden;
   text-overflow: ellipsis;
-  font-size: 13px;
-  color: var(--button-disabled-text-color);
-  font-weight: bold;
+  white-space: nowrap;
 }
 
 .wrappable-value {
   word-break: break-all;
 }
 
-
 .greyed-input {
   color: #6c717b;
-  margin-top: -10px;
-  margin-bottom: 14px;
   display: inline-block;
+  margin-bottom: 14px;
+  margin-top: -10px;
 }
 
 .disabledInput > div > input {
-    display: none;
+  display: none;
 }

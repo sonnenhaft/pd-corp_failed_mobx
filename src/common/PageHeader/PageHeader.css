@@ -12,19 +12,19 @@
   }
 
   .page-header-wrapper {
-    flex-direction:column;
+    flex-direction: column;
   }
 }
 
 .page-header-wrapper {
-  display: flex;
-  color: var(--color-white);
-  margin: auto;
-  text-decoration: none;
-  height: 50px;
   align-items: center;
+  color: var(--color-white);
+  display: flex;
+  height: 50px;
   justify-content: space-between;
+  margin: auto;
   max-width: 1001px;
   padding-left: 35px;
   padding-right: 17px;
+  text-decoration: none;
 }

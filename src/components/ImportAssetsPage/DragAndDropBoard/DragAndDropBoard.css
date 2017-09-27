@@ -1,37 +1,40 @@
 .headerText {
-  font-size: 16px;
-  color: #014990;
-  text-align: left;
-  border-bottom: 1px solid #c5cfda;
-  padding-bottom: 16px;
-  margin-bottom: 16px;
-  display: flex;
-  justify-content: space-between;
   align-items: center;
+  border-bottom: 1px solid #c5cfda;
+  color: #014990;
+  display: flex;
+  font-size: 16px;
+  justify-content: space-between;
+  margin-bottom: 16px;
+  padding-bottom: 16px;
+  text-align: left;
   text-transform: uppercase;
 }
 
 .dragable-items {
-  overflow: hidden;
   clear: both;
   display: flex;
   flex-direction: column;
   height: 100%;
+  overflow: hidden;
   overflow-y: auto;
-  padding-top: 4px;
   padding-right: 1px;
+  padding-top: 4px;
 }
 
 .droppable-wrapper {
   display: flex;
   flex-wrap: wrap;
   padding-left: 1px;
+
   & > div {
     width: 50%;
+
     &:nth-of-type(2n - 1) {
       padding-left: 8px;
       width: calc(50% - 8px);
     }
+
     &.multiple {
       padding-left: 0;
       width: 100%;
@@ -47,23 +50,25 @@
   display: flex;
   position: relative;
   z-index: 1;
+
   & > div {
+    display: flex;
+    flex-direction: column;
+    max-height: calc(100vh - 164px - 32px - 24px - 32px);
+    min-width: 300px;
+    padding: 8px;
+    padding-top: 32px;
+
     &:last-of-type {
       background: white;
     }
-    padding: 8px;
-    padding-top: 32px;
-    max-height: calc(100vh - 164px - 32px - 24px - 32px);
-    min-width: 300px;
-    display: flex;
-    flex-direction: column;
   }
 }
 
 .under-header-text {
+  color: rgba(108, 113, 123, 1);
   font-size: 12px;
   font-style: italic;
-  color: rgba(108, 113, 123, 1);
   line-height: 16px;
   margin-bottom: 16px;
 }
@@ -74,30 +79,34 @@
 
 .links-header {
   background-color: #faf9f9;
-  padding: 10px;
-  font-size: 12px;
   color: #4a4a4a;
+  font-size: 12px;
+  padding: 10px;
+
   & a {
     color: var(--color-primary);
+
     &:hover {
-      color: #014990
+      color: #014990;
     }
   }
+
   & .dot {
-    height: 3px;
-    width: 3px;
     background-color: #4a4a4a;
     border-radius: 3px;
     display: inline-block;
+    height: 3px;
     margin: 5px 8px;
+    width: 3px;
   }
 }
 
 .flexy {
+  align-items: baseline;
   display: flex;
   justify-content: space-between;
-  align-items: baseline;
+
   &.vertical {
-    flex-direction:column;
+    flex-direction: column;
   }
 }

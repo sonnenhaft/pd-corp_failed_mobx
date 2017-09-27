@@ -3,11 +3,11 @@
 .dialog {
   & .title {
     background: #004890;
-    text-transform: uppercase;
     color: white;
-    padding: 16px;
     margin: -24px;
     margin-bottom: 15px;
+    padding: 16px;
+    text-transform: uppercase;
   }
 
   & button {

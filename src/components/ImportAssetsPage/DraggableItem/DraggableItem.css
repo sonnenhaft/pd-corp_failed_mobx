@@ -1,43 +1,44 @@
 @import "react-toolbox/lib/variables";
 
 .draggable-item {
-  cursor: move;
-  margin-bottom: 16px;
-  width: 248px;
-  margin-right: 30px;
-  margin-left: 3px;
+  align-items: center;
   background-color: #f7f7f7;
   border-radius: 4px;
+  box-shadow: var(--shadow-2p);
+  cursor: move;
   display: flex;
-  justify-content: space-between;
-  align-items: center;
   font-size: 14px;
-  text-align: left;
   height: 50px;
+  justify-content: space-between;
+  margin-bottom: 16px;
+  margin-left: 3px;
+  margin-right: 30px;
   min-height: 50px;
   padding: 0 16px;
-  box-shadow: var(--shadow-2p);
+  text-align: left;
+  width: 248px;
 
   &.isDragging {
-    opacity: 0
+    opacity: 0;
   }
 
   &:hover {
     box-shadow: var(--shadow-6p);
   }
+
   &.hoverDragging {
-    border: 1px solid black
+    border: 1px solid black;
   }
 }
 
 .icon {
-  vertical-align: middle;
-  margin-right: 8px;
   margin-left: -8px;
+  margin-right: 8px;
+  vertical-align: middle;
 }
 
 .text {
-  width: 100%;
   overflow: hidden;
   text-overflow: ellipsis;
+  width: 100%;
 }

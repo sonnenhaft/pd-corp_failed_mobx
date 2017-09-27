@@ -1,51 +1,63 @@
 @import "react-toolbox/lib/variables";
 
 .input-with-icon {
-  width: 100%;
   position: relative;
-  & input, & label {
-    padding-left: 36px
+  width: 100%;
+
+  & input,
+  & label {
+    padding-left: 36px;
   }
+
   & label {
     font-size: 14px;
   }
+
   & input:not(:focus) + span + label {
     font-style: italic;
   }
+
   & input {
-    font-size: 18px;
-    padding-right: 36px;
     background: var(--color-white);
     border: 1px solid #c5cfda;
     border-radius: 4px;
+    font-size: 18px;
     height: 40px;
+    padding-right: 36px;
   }
+
   & input:focus ~ label {
-    padding-left: 0
+    padding-left: 0;
   }
+
   & .input-wrapper {
     width: 100%;
   }
+
   & .icon {
-    left: 12px;
     bottom: 31px;
+    left: 12px;
     position: absolute;
     z-index: 1;
+
     &.back-icon {
-      left: auto;
-      right: 0;
-      display: inline-block;
-      width: 24px;
-      transform: rotate(45deg) scale(0.7) translate(3px, 3px);
       cursor: pointer;
+      display: inline-block;
+      left: auto;
       opacity: 0.7;
+      right: 0;
+      transform: rotate(45deg) scale(0.7) translate(3px, 3px);
+      width: 24px;
+
       & span:first-of-type {
         display: none;
       }
+
       &:hover {
         & span:first-of-type {
           display: block;
         }
+
         & span:last-of-type {
           display: none;
         }

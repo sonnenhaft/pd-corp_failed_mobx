@@ -26,37 +26,37 @@
     background: none;
 
     & .rc-tooltip-content {
-      transform: translate(0, -11px);
       max-width: 300px;
+      transform: translate(0, -11px);
     }
 
     & .rc-tooltip-inner {
-      padding: 4px 8px;
-      border-radius: 4px;
-      font-family: var(--preferred-font);
       border: none;
-      font-size: 13px;
-      color: #52555b;
-      min-height: inherit;
+      border-radius: 4px;
       box-shadow: 2px 2px 0 #dedede;
+      color: #52555b;
+      font-family: var(--preferred-font);
+      font-size: 13px;
+      min-height: inherit;
+      padding: 4px 8px;
       word-break: break-all;
     }
 
     & .rc-tooltip-arrow {
+      border-top-color: #dedede;
+      border-width: 10px 10px 0;
       bottom: -10px;
       margin-left: -10px;
-      border-width: 10px 10px 0;
-      border-top-color: #dedede;
 
       &::after {
-        display: block;
+        border: 9px solid transparent;
+        border-top-color: var(--color-white);
         content: ' ';
+        display: block;
+        height: 0;
         margin-left: -9px;
         margin-top: -11px;
         width: 0;
-        height: 0;
-        border: 9px solid transparent;
-        border-top-color: var(--color-white);
       }
     }
   }

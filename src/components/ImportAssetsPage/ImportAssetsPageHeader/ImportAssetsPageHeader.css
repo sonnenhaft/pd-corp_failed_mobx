@@ -1,23 +1,23 @@
 @import "react-toolbox/lib/variables";
 
 .header-text {
-  letter-spacing: 1px;
-  font-size: 20px;
   color: var(--palette-blue-grey-50);
+  font-size: 20px;
+  letter-spacing: 1px;
 }
 
 .middle-button {
   margin: 0 16px;
 }
 
-.header{
+.header {
   position: relative;
   z-index: 2;
 }
 
 .back-link {
-  min-width: 34px;
   margin-right: 26px;
+  min-width: 34px;
   padding: 0;
   vertical-align: middle;
 }

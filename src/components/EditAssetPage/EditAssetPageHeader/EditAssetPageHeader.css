@@ -1,16 +1,17 @@
 @import "react-toolbox/lib/button/theme.css";
 
 .header-text {
-  letter-spacing: 1px;
-  font-size: 20px;
   color: var(--palette-blue-grey-50);
   display: flex;
+  font-size: 20px;
+  letter-spacing: 1px;
   overflow: hidden;
+
   & span {
-    white-space: nowrap;
     max-width: 100%;
     overflow: hidden;
     text-overflow: ellipsis;
+    white-space: nowrap;
   }
 }
 
@@ -20,19 +21,20 @@
 
 .icon {
   display: inline-block;
-  vertical-align: middle;
   margin-right: 4px;
+  vertical-align: middle;
 }
 
 .back-link {
-  min-width: 34px;
   margin-right: 26px;
+  min-width: 34px;
   padding: 0;
   vertical-align: middle;
 }
 
 .buttons-block {
   display: flex;
+
   & button:last-of-type {
     margin-left: 16px;
   }

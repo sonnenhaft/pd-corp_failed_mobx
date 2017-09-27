@@ -1,6 +1,6 @@
 {
   "name": "pd-corp-frontend",
-  "version": "0.4.73",
+  "version": "0.4.74",
   "author": "Vladimir Shein <vladimir.sonnenhaft@gmail.com>",
   "license": "MIT",
   "repository": "https://gitlab.isdev.info/PDCorp/frontend",
@@ -11,7 +11,7 @@
     "dev": "cross-env NODE_ENV=development webpack-dev-server --open",
     "dev:dashboard": "webpack-dashboard --port 9001 --minimal -- npm run dev",
     "build": "cross-env NODE_ENV=production cross-env webpack --progress --display-error-details  --bail",
-    "lint:fix": "eslint --fix src && stylelint src/**/*.css --fix",
+    "lint:fix": "eslint --fix src && stylelint src/*.css src/**/*.css src/**/**/*.css src/**/**/**/*.css src/**/**/**/**/*.css src/**/**/**/**/**/*.css src/**/**/**/**/**/**/*.css src/**/**/**/**/**/**/**/*.css --fix",
     "bump": "npm version patch --no-git-tag-version && git add package.json"
   },
   "dependencies": {
@@ -80,6 +80,7 @@
     "style-loader": "0.18.2",
     "stylelint": "8.1.0",
     "stylelint-config-standard": "17.0.0",
+    "stylelint-order": "^0.7.0",
     "stylint": "1.5.9",
     "url-loader": "0.5.9",
     "webpack": "3.5.5",

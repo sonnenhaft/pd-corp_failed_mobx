@@ -9,68 +9,76 @@
   }
 
   & hr {
-    padding: 0;
-    margin: 0;
-    height: 1px;
     background: var(--color-white);
-    opacity: 0.05;
     border: none;
-    position: absolute;
+    bottom: 0;
+    height: 1px;
     left: 0;
+    margin: 0;
+    opacity: 0.05;
+    padding: 0;
+    position: absolute;
     right: 0;
-    bottom: 0
   }
 
   & .header-wrapper {
-    position: relative;
-    display: flex;
-    color: var(--color-white);
-    max-width: 1024px;
-    margin: auto;
-    text-decoration: none;
-    height: 54px;
     align-items: center;
+    color: var(--color-white);
+    display: flex;
+    height: 54px;
+    margin: auto;
+    max-width: 1024px;
+    position: relative;
+    text-decoration: none;
   }
 
   & .header {
-    width: 100%;
     display: flex;
     padding: 0 20px;
+    width: 100%;
+
     @media only screen and (max-width: 900px) {
       padding: 0 8px;
     }
   }
+
   & a {
-    opacity: 0.7;
+    border-bottom: 3px solid transparent;
+    color: var(--palette-blue-grey-50);
+    display: inline-block;
+    font-size: 13px;
     margin: 0 20px;
+    opacity: 0.7;
+    padding: 18px 0;
+    text-decoration: inherit;
+    text-transform: uppercase;
+
     @media only screen and (max-width: 900px) {
       margin: 0 8px;
     }
-    text-decoration: inherit;
-    display: inline-block;
-    padding: 18px 0;
-    text-transform: uppercase;
-    border-bottom: 3px solid transparent;
-    font-size: 13px;
-    color: var(--palette-blue-grey-50);
-    &.active, &:hover {
-      opacity: 1;
+
+    &.active,
+    &:hover {
       font-weight: bold;
+      opacity: 1;
     }
+
     &.active {
       border-bottom-color: var(--color-white);
       cursor: default;
     }
+
     &::after {
-      display: block;
+      color: transparent;
       content: attr(title);
+      display: block;
       font-weight: bold;
       height: 1px;
-      color: transparent;
+      margin-bottom: -1px;
       overflow: hidden;
       visibility: hidden;
-      margin-bottom: -1px;
     }
+
     &:hover {
       cursor: pointer;
     }
@@ -78,18 +86,18 @@
 }
 
 .username {
-  margin-top: -5px;
   color: var(--color-white) !important;
   font-size: 13px;
   font-weight: bold;
+  margin-top: -5px;
 }
 
 .logo {
-  width: 112px;
+  background: var(--color-white);
   padding: 10px 26px;
   padding-left: 24px;
   padding-right: 8px;
-  background: var(--color-white);
+  width: 112px;
 
   & img {
     display: block;

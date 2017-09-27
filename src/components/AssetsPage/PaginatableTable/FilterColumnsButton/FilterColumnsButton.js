@@ -1,7 +1,8 @@
 import React from 'react'
-import cn from 'classnames'
-import { Icon, MenuButton } from 'common'
+
 import Checkbox from 'react-toolbox/lib/checkbox'
+import { Icon, MenuButton } from 'common'
+
 import './FilterColumnsButton.css'
 import configGearIcon from './config-gear-icon.svg'
 
@@ -18,7 +19,7 @@ const FilterColumnsButton = ({ labels, changeColumnStage, activeColumns }) => <d
           return <Checkbox
             key={ key }
             { ...{ label, checked } }
-            styleName={ cn('checkbox', { checked }) }
+            styleName="checkbox"
             onChange={ active => changeColumnStage(active, key) }/>
         })}
     </div>

@@ -1,13 +1,15 @@
 @import "react-toolbox/lib/button/theme.css";
 
 .page-wrapper {
-  max-width: 1024px;
   margin: auto;
   margin-top: 16px;
+  max-width: 1024px;
+
   & hr {
     border: none;
     border-bottom: 0.5px solid rgba(74, 74, 74, 0.12);
   }
+
   @media only screen and (max-width: 1024px) {
     margin: 16px;
     max-width: calc(100% - 16px - 16px);
@@ -20,12 +22,14 @@
 
   & .asset-fields {
     display: flex;
-    justify-content: space-between;
     flex-wrap: wrap;
+    justify-content: space-between;
+
     & > section {
       width: 48%;
+
       &.multiline {
-        width: 100%
+        width: 100%;
       }
     }
   }
@@ -33,45 +37,50 @@
 
 .header {
   background-color: #faf9f9;
-  padding: 10px;
-  font-size: 12px;
   color: #4a4a4a;
+  font-size: 12px;
+  padding: 10px;
+
   & a {
     color: var(--color-primary);
+
     &:hover {
-      color: #014990
+      color: #014990;
     }
   }
+
   & .dot {
-    height: 3px;
-    width: 3px;
     background-color: #4a4a4a;
     border-radius: 3px;
     display: inline-block;
+    height: 3px;
     margin: 5px 8px;
+    width: 3px;
   }
 }
 
 .asset-number-header {
-  font-size: 16px;
   color: #014990;
+  font-size: 16px;
   line-height: 25px;
   text-transform: uppercase;
 }
 
 .greyed {
+  color: var(--button-disabled-text-color);
   font-size: 12px;
   font-style: italic;
-  color: var(--button-disabled-text-color);
 }
 
 .bottom-buttons {
-  width: 100%;
-  display: flex;
   align-items: center;
+  display: flex;
+  width: 100%;
+
   &.left {
     justify-content: flex-end;
   }
+
   & a {
     margin-right: 16px;
   }
@@ -79,37 +88,42 @@
 
 .cancel-button {
   border: 1px solid #0077c8;
-  width: 100px
+  width: 100px;
 }
 
 .custom-error {
-  display: block;
-  margin-top: 8px;
   color: rgb(222, 50, 38);
+  display: block;
   font-size: 12px;
+  margin-top: 8px;
 }
 
 .paired-unique {
-  margin: 8px -8px;
-  padding: 16px 8px 0;
   background-color: #faf9f9;
   border: 1px solid #dcdcdc;
+  margin: 8px -8px;
+  padding: 16px 8px 0;
+
   & .header {
     font-size: 14px;
-    padding: 0;
-    margin: 0;
     font-weight: normal;
+    margin: 0;
+    padding: 0;
   }
+
   &.barcodeError {
+    border-color: red;
+
     & .header {
       color: red;
     }
-    border-color: red;
   }
+
   & .paired-fields {
     display: flex;
-    justify-content: space-between;
     flex-wrap: wrap;
+    justify-content: space-between;
+
     & > section {
       width: 48%;
     }

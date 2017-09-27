@@ -1,14 +1,16 @@
 .autocomplete-wrapper {
   position: relative;
+
   & .progress {
-    position: absolute;
     bottom: 30px;
     height: 2px;
+    position: absolute;
     z-index: 100;
   }
+
   &.loading {
     & input + span {
-      display: none
+      display: none;
     }
   }
 }

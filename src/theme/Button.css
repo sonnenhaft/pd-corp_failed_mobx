@@ -1,10 +1,10 @@
 @import "react-toolbox/lib/variables";
 
 .button {
-  cursor: pointer;
-  text-transform: none;
   border-radius: 4px;
+  cursor: pointer;
   font-size: 13px;
+  text-transform: none;
 
   & path {
     transition: fill 0.2s var(--animation-curve-default);
@@ -19,8 +19,8 @@
 
     &:hover:not([disabled]),
     &:focus {
-      color: var(--color-white);
       background: var(--color-primary);
+      color: var(--color-white);
 
       & path {
         fill: var(--color-white);
@@ -29,9 +29,9 @@
   }
 
   &.bold {
-    height: 40px;
     font-size: 14px;
     font-weight: bold;
+    height: 40px;
   }
 
   &.primary {

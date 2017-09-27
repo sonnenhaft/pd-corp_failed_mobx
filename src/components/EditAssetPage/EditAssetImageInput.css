@@ -1,36 +1,41 @@
 .input-wrapper {
-  height: 365px;
-  width: 283px;
-  min-width: 283px;
+  align-items: center;
   background-color: #faf9f9;
   border: 1px solid #eaeaea;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  overflow: hidden;
-  font-size: 14px;
   color: #4a4a4a;
+  display: flex;
+  font-size: 14px;
   font-weight: bold;
+  height: 365px;
+  justify-content: center;
+  min-width: 283px;
+  overflow: hidden;
   position: relative;
+  width: 283px;
+
   & i {
-    font-weight: normal;
-    font-style: italic;
-    text-align: center;
-    font-size: 12px;
     display: block;
+    font-size: 12px;
+    font-style: italic;
+    font-weight: normal;
     margin-bottom: 20px;
     margin-top: 6px;
+    text-align: center;
   }
+
   & span {
     font-size: 45px;
   }
+
   & img {
-    max-width: 100%;
     max-height: 100%;
+    max-width: 100%;
   }
+
   &:hover:not(.isView) {
     background-color: #eeeded;
     cursor: pointer;
+
     & .buttons {
       visibility: visible;
     }
@@ -38,28 +43,28 @@
 }
 
 .buttons {
-  visibility: hidden;
-  position: absolute;
+  align-items: flex-end;
   bottom: 0;
-  left: 0;
-  right: 0;
-  top: 0;
   display: flex;
   justify-content: space-between;
-  align-items: flex-end;
+  left: 0;
   padding: 16px;
+  position: absolute;
+  right: 0;
+  top: 0;
+  visibility: hidden;
 
   & .background {
-    position: absolute;
+    background: linear-gradient(-180deg, #fff 0%, #014990 100%);
     bottom: 0;
     left: 0;
+    opacity: 0.6;
+    position: absolute;
     right: 0;
     top: 0;
-    opacity: 0.6;
-    background: linear-gradient(-180deg, #fff 0%, #014990 100%);
   }
 
   & button {
-    color: white!important;
+    color: white !important;
   }
 }

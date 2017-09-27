@@ -40,10 +40,10 @@ export const DateRangePicker = compose(
   const [labelFrom, labelTo] = keyLabels
   return <div styleName="date-range-picker">
     {keyLabels.map(({ key, label }) => <DatePicker
-      label={label}
-      key={key}
-      onChange={onInputChange(key)}
-      value={valuesObject[key]}/>)}
+      label={ label }
+      key={ key }
+      onChange={ onInputChange(key) }
+      value={ valuesObject[key] }/>)}
     {error && <div styleName="date-range-error">
       <span>&quot;{labelFrom.label}&quot;</span>
       &nbsp;should be greater or equal to&nbsp;

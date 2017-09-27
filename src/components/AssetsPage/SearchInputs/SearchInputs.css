@@ -1,9 +1,9 @@
 @import "react-toolbox/lib/variables";
 
 .search-input-buttons {
+  align-content: flex-end;
   display: flex;
   flex-wrap: wrap;
-  align-content: flex-end;
   justify-content: space-between;
 
   & > div {
@@ -18,31 +18,31 @@
   padding-top: 2px;
 
   & button {
-    width: 50%;
     max-width: 300px;
+    width: 50%;
   }
 }
 
 .header {
-  font-size: 16px;
   color: var(--appbar-color);
+  font-size: 16px;
 }
 
 .search-inputs-card {
-  position: relative;
   background: #faf9f9;
-  padding: 16px;
-  overflow: visible;
   box-shadow: 0 0 0.3px rgba(0, 0, 0, 0.3);
+  overflow: visible;
+  padding: 16px;
+  position: relative;
 }
 
 .blue-text-buttons {
-  display: flex;
-  justify-content: space-between;
-  font-size: 14px;
+  box-shadow: 0 0 1px #004890 !important;
   color: var(--color-primary);
-  box-shadow: 0 0 1px #004890!important;
   cursor: pointer;
+  display: flex;
+  font-size: 14px;
+  justify-content: space-between;
 
   & > div {
     vertical-align: middle;
@@ -53,9 +53,9 @@
   }
 
   & .icon {
-    margin-left: 4px;
-    font-size: 19px;
     display: inline-block;
+    font-size: 19px;
+    margin-left: 4px;
     vertical-align: middle;
   }
 }
@@ -68,29 +68,29 @@
     margin-left: 32px;
 
     & button {
-      width: 200px
+      width: 200px;
     }
   }
 }
 
 .blue-button {
-  height: 40px;
   font-size: 14px;
   font-weight: bold;
+  height: 40px;
 }
 
 .greyed-helper-text {
+  color: var(--button-disabled-text-color);
   font-size: 12px;
   font-style: italic;
-  color: var(--button-disabled-text-color);
-  margin-top: -12px;
+  margin-bottom: 16px;
   margin-left: 2px;
-  margin-bottom: 16px
+  margin-top: -12px;
 }
 
 .absolute-loader {
-  position: absolute;
-  left: 0;
-  right: 0;
   bottom: -1px;
+  left: 0;
+  position: absolute;
+  right: 0;
 }

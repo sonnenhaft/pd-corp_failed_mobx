@@ -1,17 +1,17 @@
 @import "react-toolbox/lib/variables";
 
 .label {
-  white-space: nowrap;
+  color: var(--button-disabled-text-color);
+  font-size: 13px;
   max-width: 100%;
   overflow: hidden;
   text-overflow: ellipsis;
-  font-size: 13px;
-  color: var(--button-disabled-text-color);
+  white-space: nowrap;
 }
 
 .inputElement {
-  font-size: 14px;
   color: black;
+  font-size: 14px;
 }
 
 .input.disabled {
@@ -30,8 +30,8 @@
   margin-left: 28px;
 
   & input + span {
-    position: absolute;
     color: var(--button-disabled-text-color);
     left: -43px;
+    position: absolute;
   }
 }

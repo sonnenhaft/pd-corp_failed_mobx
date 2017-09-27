@@ -1,15 +1,15 @@
 @import "react-toolbox/lib/variables";
 
 .app {
-  font-family: var(--preferred-font)
+  font-family: var(--preferred-font);
 }
 
 .app-version {
-  position: fixed;
   bottom: 3px;
-  right: 5px;
+  color: var(--palette-blue-grey-50);
   font-size: 12px;
   font-weight: bold;
-  color: var(--palette-blue-grey-50);
+  position: fixed;
+  right: 5px;
   text-shadow: 1px 1px 1px white, 0 0 1em black;
 }
