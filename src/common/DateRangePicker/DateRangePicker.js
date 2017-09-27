@@ -3,6 +3,7 @@ import P from 'prop-types'
 import { compose, setPropTypes, withPropsOnChange, withState } from 'recompose'
 import './DateRangePicker.css'
 import { DatePicker } from '../DatePicker'
+import { formatDate } from '../formatDate'
 
 export const DateRangePicker = compose(
   setPropTypes({
@@ -29,7 +30,7 @@ export const DateRangePicker = compose(
       const inputValTo = newInputValues[labelTo.key]
 
       setInputValues(newInputValues)
-      const error = inputValFrom && inputValTo && new Date(inputValFrom) > new Date(inputValTo)
+      const error = inputValFrom && inputValTo && new Date(inputValFrom) > new Date(inputValTo) && formatDate(inputValFrom) !== formatDate(inputValTo)
       setError(error)
       if ( !error ) {
         onKeyChanged(key)(value)
