@@ -5,6 +5,19 @@ import './DateRangePicker.css'
 import { DatePicker } from '../DatePicker'
 import { formatDate } from '../formatDate'
 
+const setTime = (dateString, hh, mm, ss, ms) => {
+  if (dateString) {
+    const date = new Date(dateString)
+    date.setHours(hh)
+    date.setMinutes(mm)
+    date.setSeconds(ss)
+    date.setMilliseconds(ms)
+    return date.toISOString();
+  } else {
+    return dateString
+  }
+}
+
 export const DateRangePicker = compose(
   setPropTypes({
     keyLabels: P.arrayOf(P.shape({
@@ -24,13 +37,19 @@ export const DateRangePicker = compose(
   withPropsOnChange(['inputValues'], ({ inputValues, setError, setInputValues, onKeyChanged, keyLabels }) => ({
     onInputChange: key => value => {
       const [labelFrom, labelTo] = keyLabels
+      if (value && key === labelTo.key) {
+        value = setTime(value, 23, 59, 59, 999)
+      } else {
+        value = setTime(value, 0, 0, 0, 0)
+      }
       const newInputValues = { ...inputValues, [key]: value }
 
       const inputValFrom = newInputValues[labelFrom.key]
       const inputValTo = newInputValues[labelTo.key]
 
       setInputValues(newInputValues)
-      const error = inputValFrom && inputValTo && new Date(inputValFrom) > new Date(inputValTo) && formatDate(inputValFrom) !== formatDate(inputValTo)
+      const error = inputValFrom && inputValTo && new Date(inputValFrom) > new Date(inputValTo);
+
       setError(error)
       if ( !error ) {
         onKeyChanged(key)(value)
