@@ -29,27 +29,27 @@
     }
 
     &.active {
-      background-color: #c6ddf2;
-      border: 1px dashed #0077c8;
+      background-color: #C6DDF2;
+      border: 1px dashed #0077C8;
 
       & .empty-space {
-        background-color: #0091e9;
-        border: 1px dashed #0077c8;
+        background-color: #0091E9;
+        border: 1px dashed #0077C8;
       }
     }
   }
 
   &.active:not(.multiple):not(.filled) {
-    background-color: #0091e9;
-    border: 1px dashed #0077c8;
+    background-color: #0091E9;
+    border: 1px dashed #0077C8;
   }
 
   &.can-drop {
-    background-color: #c6ddf2;
-    border: 1px dashed #0077c8;
+    background-color: #C6DDF2;
+    border: 1px dashed #0077C8;
 
     &.multiple .empty-space {
-      border: 1px dashed #0077c8;
+      border: 1px dashed #0077C8;
     }
   }
 
@@ -76,7 +76,7 @@
 }
 
 .sub-text {
-  color: #6c717b;
+  color: #6C717B;
   font-size: 12px;
   font-style: italic;
   margin-bottom: 8px;
@@ -85,10 +85,10 @@
 .error {
   & .field-name,
   & .sub-text {
-    color: #fc6061;
+    color: #FC6061;
   }
 
   & .droppable-container {
-    border: 1px dashed #fc6061;
+    border: 1px dashed #FC6061;
   }
 }

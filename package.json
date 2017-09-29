@@ -1,6 +1,6 @@
 {
   "name": "pd-corp-frontend",
-  "version": "0.4.84",
+  "version": "0.4.87",
   "author": "Vladimir Shein <vladimir.sonnenhaft@gmail.com>",
   "license": "MIT",
   "repository": "https://gitlab.isdev.info/PDCorp/frontend",
@@ -80,6 +80,7 @@
     "style-loader": "0.18.2",
     "stylelint": "8.1.1",
     "stylelint-config-standard": "17.0.0",
+    "stylelint-declaration-block-no-ignored-properties": "1.0.1",
     "stylelint-order": "0.7.0",
     "stylint": "1.5.9",
     "url-loader": "0.5.9",

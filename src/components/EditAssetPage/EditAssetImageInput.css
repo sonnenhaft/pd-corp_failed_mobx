@@ -1,8 +1,8 @@
 .input-wrapper {
   align-items: center;
-  background-color: #faf9f9;
-  border: 1px solid #eaeaea;
-  color: #4a4a4a;
+  background-color: #FAF9F9;
+  border: 1px solid #EAEAEA;
+  color: #4A4A4A;
   display: flex;
   font-size: 14px;
   font-weight: bold;
@@ -33,7 +33,7 @@
   }
 
   &:hover:not(.isView) {
-    background-color: #eeeded;
+    background-color: #EEEDED;
     cursor: pointer;
 
     & .buttons {
@@ -55,10 +55,10 @@
   visibility: hidden;
 
   & .background {
-    background: linear-gradient(-180deg, #fff 0%, #014990 100%);
+    background: linear-gradient(-180deg, #FFF 0%, #014990 100%);
     bottom: 0;
     left: 0;
-    opacity: 0.6;
+    opacity: .6;
     position: absolute;
     right: 0;
     top: 0;

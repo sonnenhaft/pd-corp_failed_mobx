@@ -1,13 +1,23 @@
 extends: stylelint-config-standard
 plugins:
   - stylelint-order
+  - stylelint-declaration-block-no-ignored-properties
 rules:
+  shorthand-property-no-redundant-values:
+    - true
+  declaration-block-no-redundant-longhand-properties:
+    - true
+  declaration-block-no-shorthand-property-overrides:
+    - true
+  number-leading-zero:
+    - never
   selector-pseudo-class-no-unknown:
     - true
-    - ignorePseudoClasses:
-      - global
+    - ignorePseudoClasses: global
   order/order:
     - custom-properties
     - declarations
-  order/properties-alphabetical-order:
-    - true
+  color-hex-case: upper
+  color-hex-length: short
+  order/properties-alphabetical-order: true
+  plugin/declaration-block-no-ignored-properties: true

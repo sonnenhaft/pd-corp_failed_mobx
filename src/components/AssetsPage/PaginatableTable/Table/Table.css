@@ -1,7 +1,7 @@
 @import "react-toolbox/lib/variables";
 
 .current-th {
-  color: #0a427b;
+  color: #0A427B;
   cursor: pointer;
   user-select: none;
 }
@@ -30,7 +30,7 @@
 
   & th,
   & tr {
-    border: 1px solid #d6d6d6;
+    border: 1px solid #D6D6D6;
     border-left: none;
   }
 
@@ -59,7 +59,7 @@
 
   & th,
   & td {
-    color: #52555b;
+    color: #52555B;
   }
 }
 
@@ -74,17 +74,17 @@
     width: calc(100% - 32px);
 
     &:last-of-type {
-      border-left: 4px solid #d4d4d4;
+      border-left: 4px solid #D4D4D4;
     }
   }
 
   & .actions-row-wrapper {
     background-color: rgb(250, 249, 249);
-    border-top: 1px solid #d6d6d6;
+    border-top: 1px solid #D6D6D6;
     width: 36px;
 
     &:last-of-type {
-      box-shadow: -1px 0 8px rgba(0, 0, 0, 0.2);
+      box-shadow: -1px 0 8px rgba(0, 0, 0, .2);
       z-index: 1;
 
       & .action-td-wrapper {
@@ -93,7 +93,7 @@
     }
 
     &:first-of-type {
-      box-shadow: 1px 0 8px rgba(0, 0, 0, 0.2);
+      box-shadow: 1px 0 8px rgba(0, 0, 0, .2);
       z-index: 1;
 
       & .action-td-wrapper {
@@ -110,7 +110,7 @@
 
     & .action-td-wrapper {
       align-items: center;
-      border: 1px solid #d6d6d6;
+      border: 1px solid #D6D6D6;
       border-top: none;
       display: flex;
       height: 50px;
@@ -154,7 +154,7 @@
   visibility: hidden;
 
   & svg path {
-    fill: #858c92;
+    fill: #858C92;
   }
 
   & > a,

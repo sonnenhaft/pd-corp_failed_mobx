@@ -1,6 +1,6 @@
 .headerText {
   align-items: center;
-  border-bottom: 1px solid #c5cfda;
+  border-bottom: 1px solid #C5CFDA;
   color: #014990;
   display: flex;
   font-size: 16px;
@@ -74,12 +74,12 @@
 }
 
 .error {
-  color: #fc6061;
+  color: #FC6061;
 }
 
 .links-header {
-  background-color: #faf9f9;
-  color: #4a4a4a;
+  background-color: #FAF9F9;
+  color: #4A4A4A;
   font-size: 12px;
   padding: 10px;
 
@@ -92,7 +92,7 @@
   }
 
   & .dot {
-    background-color: #4a4a4a;
+    background-color: #4A4A4A;
     border-radius: 3px;
     display: inline-block;
     height: 3px;

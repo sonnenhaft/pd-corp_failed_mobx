@@ -1,5 +1,5 @@
 :global .notification-enter {
-  opacity: 0.01;
+  opacity: .01;
 }
 
 :global .notification-enter.notification-enter-active {
@@ -12,7 +12,7 @@
 }
 
 :global .notification-leave.notification-leave-active {
-  opacity: 0.01;
+  opacity: .01;
   transition: opacity 300ms ease-in;
 }
 
@@ -45,11 +45,11 @@
 
     &:global {
       &.success {
-        background-color: #78be20;
+        background-color: #78BE20;
       }
 
       &.error {
-        background-color: #fc6061;
+        background-color: #FC6061;
       }
     }
   }

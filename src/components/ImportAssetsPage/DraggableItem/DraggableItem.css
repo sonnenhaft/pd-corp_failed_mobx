@@ -2,7 +2,7 @@
 
 .draggable-item {
   align-items: center;
-  background-color: #f7f7f7;
+  background-color: #F7F7F7;
   border-radius: 4px;
   box-shadow: var(--shadow-2p);
   cursor: move;

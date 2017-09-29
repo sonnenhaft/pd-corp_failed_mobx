@@ -7,7 +7,7 @@
 
   & hr {
     border: none;
-    border-bottom: 0.5px solid rgba(74, 74, 74, 0.12);
+    border-bottom: .5px solid rgba(74, 74, 74, .12);
   }
 
   @media only screen and (max-width: 1024px) {
@@ -36,8 +36,8 @@
 }
 
 .header {
-  background-color: #faf9f9;
-  color: #4a4a4a;
+  background-color: #FAF9F9;
+  color: #4A4A4A;
   font-size: 12px;
   padding: 10px;
 
@@ -50,7 +50,7 @@
   }
 
   & .dot {
-    background-color: #4a4a4a;
+    background-color: #4A4A4A;
     border-radius: 3px;
     display: inline-block;
     height: 3px;
@@ -87,7 +87,7 @@
 }
 
 .cancel-button {
-  border: 1px solid #0077c8;
+  border: 1px solid #0077C8;
   width: 100px;
 }
 
@@ -99,8 +99,8 @@
 }
 
 .paired-unique {
-  background-color: #faf9f9;
-  border: 1px solid #dcdcdc;
+  background-color: #FAF9F9;
+  border: 1px solid #DCDCDC;
   margin: 8px -8px;
   padding: 16px 8px 0;
 

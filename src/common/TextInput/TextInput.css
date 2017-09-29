@@ -1,7 +1,7 @@
 @import "react-toolbox/lib/variables";
 
 .expandable-button {
-  color: #1b87c7;
+  color: #1B87C7;
   display: inline-block;
   font-size: 12px;
   font-weight: bold;
@@ -32,7 +32,7 @@
 }
 
 .greyed-input {
-  color: #6c717b;
+  color: #6C717B;
   display: inline-block;
   margin-bottom: 14px;
   margin-top: -10px;
