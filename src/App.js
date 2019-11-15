@@ -41,6 +41,11 @@ const App = mobxConnect('user')(({ user }) => {
       </div>
     </Router>
   } else {
+    if (location.href.includes('stub')) {
+      setTimeout(() => {
+        user.stubLogin()
+      }, 0)
+    }
     // TODO(vlad): extract to login page
     return <div style={ { padding: '20px' } }>
       <Button primary raised onClick={ () => user.loginNoAuth() }>No auth enter</Button>

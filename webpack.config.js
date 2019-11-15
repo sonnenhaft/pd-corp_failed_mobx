@@ -64,8 +64,7 @@ const common = {
           {
             loader: 'postcss-loader',
             options: {
-              sourceMap: true,
-              config: { path: './postcss.config.js' }
+              sourceMap: true
             }
           }
         ]),
@@ -76,6 +75,10 @@ const common = {
   plugins: [
     new HtmlWebpackPlugin({ template: paths.html }),
     require('copy-webpack-plugin')([
+      {
+        from: 'src/json',
+        to: 'json/'
+      },
       {
         from: 'node_modules/material-design-icons-iconfont/dist/fonts',
         to: 'fonts/',
@@ -135,8 +138,7 @@ const production = {
           return false
         }
       }
-    }),
-    new webpack.optimize.UglifyJsPlugin({ compress: { warnings: false } })
+    })
   ]
 }
 
