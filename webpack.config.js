@@ -76,10 +76,6 @@ const common = {
     new HtmlWebpackPlugin({ template: paths.html }),
     require('copy-webpack-plugin')([
       {
-        from: 'src/json',
-        to: 'json/'
-      },
-      {
         from: 'node_modules/material-design-icons-iconfont/dist/fonts',
         to: 'fonts/',
         ignore: ['*.js', '*.md', 'codepoints', '*.ijmap']
